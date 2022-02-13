@@ -15,35 +15,36 @@ import Box from '@mui/material/Box';
 // connection.addEventListener('change', updateConnectionStatus);
 
 
-export default () => {
-  let [form, setForm] = useState({
-    err: '',
-    err2: '',
-  });
+const Index = () => {
+  // let [form, setForm] = useState({
+  //   err: '',
+  //   err2: '',
+  // });
 
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const res = await fetch('https://ipinfo.io/json');
-        const json = await res.json()
-        alert(JSON.stringify(json))
-        form.err2 = JSON.stringify(json)
-      } catch(e) {
-        alert(e)
-        form.err2 = 'ng'
-        form.err = JSON.stringify(e)
-      }
-      setForm({...form});
-    }
-    getUser()
-  }, [])
+  // useEffect(() => {
+  //   const getItem = async () => {
+  //     try {
+  //       const res = await fetch('https://ipinfo.io/json');
+  //       const json = await res.json()
+  //       alert(JSON.stringify(json))
+  //       form.err2 = JSON.stringify(json)
+  //     } catch(e) {
+  //       alert(e)
+  //       form.err2 = 'ng'
+  //       form.err = JSON.stringify(e)
+  //     }
+  //     setForm({...form});
+  //   }
+  //   getItem()
+  // }, [])
 
   return (
     <Layout>
       <Box sx={{ p: 1 }} >
         <span>Date</span>
-      {JSON.stringify(form)}
       </Box>
     </Layout>
   )
 }
+
+export default Index

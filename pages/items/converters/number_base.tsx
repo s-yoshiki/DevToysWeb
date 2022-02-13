@@ -3,7 +3,7 @@ import Layout from '../../../components/Layout'
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 
-export default () => {
+const Index = () => {
   let [form, setForm] = useState({
     decimal: '0',
     hexdeciaml: '0',
@@ -72,3 +72,5 @@ export default () => {
     </Layout>
   )
 }
+
+export default Index

@@ -1,9 +1,11 @@
 import Layout from '../components/Layout'
 
-export default () => {
+const Index = () => {
   return (
     <Layout>
       <></>
     </Layout>
   )
 }
+
+export default Index

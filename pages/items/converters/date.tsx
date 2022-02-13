@@ -29,7 +29,7 @@ const generateDates = (d: Date) => {
   }
 }
 
-export default () => {
+const Index = () => {
   let [form, setForm] = useState(generateDates(new Date()));
 
   const onChangeHandler = (e: any) => {
@@ -90,3 +90,5 @@ export default () => {
     </Layout>
   )
 }
+
+export default Index

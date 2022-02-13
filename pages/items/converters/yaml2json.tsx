@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 const yaml2json = require('js-yaml');
 const json2yaml = require('json2yaml');
 
-export default () => {
+const Index = () => {
   let [form, setForm] = useState({
     JSON: '',
     YAML: '',
@@ -52,3 +52,5 @@ export default () => {
     </Layout>
   )
 }
+
+export default Index

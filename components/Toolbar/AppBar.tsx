@@ -33,7 +33,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-export default ({ open, toggleDrawer }: {open: any, toggleDrawer: any}) => {
+const Index = ({ open, toggleDrawer }: {open: any, toggleDrawer: any}) => {
   return (
     <AppBar position="absolute" open={open}>
       <Toolbar
@@ -73,3 +73,5 @@ export default ({ open, toggleDrawer }: {open: any, toggleDrawer: any}) => {
     </AppBar>
   )
 }
+
+export default Index
