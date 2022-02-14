@@ -28,7 +28,7 @@ type Props = {
   title?: string
 }
 
-const Layout = ({ children, title }: Props) => {
+const Layout = ({ children, title = '' }: Props) => {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
