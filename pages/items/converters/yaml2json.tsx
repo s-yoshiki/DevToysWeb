@@ -6,10 +6,25 @@ import Box from '@mui/material/Box';
 const yaml2json = require('js-yaml');
 const json2yaml = require('json2yaml');
 
+const sampleJson = [
+  {
+    "id": "1",
+    "name": "Taro"
+  },
+  {
+    "id": "2",
+    "name": "Tom"
+  },
+  {
+    "id": "3",
+    "name": "Eddy"
+  }
+]
+
 const Index = () => {
   let [form, setForm] = useState({
-    JSON: '',
-    YAML: '',
+    JSON: JSON.stringify(sampleJson,null,"    "),
+    YAML: json2yaml.stringify(sampleJson),
   });
   const onChangeHandler = (e: any) => {
     const target = e.target;
@@ -40,7 +55,7 @@ const Index = () => {
   }
 
   return (
-    <Layout>
+    <Layout title="YAML <> JSON converter">
       <Box sx={{ p: 1 }} >
         <span>JSON</span>
         <TextField label="" multiline rows={10} name="JSON" variant="outlined" size="small" fullWidth onChange={onChangeHandler} value={form.JSON} />

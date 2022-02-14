@@ -52,7 +52,7 @@ const Index = () => {
   }
 
   return (
-    <Layout>
+    <Layout title="Number Base Converter">
       <Box sx={{ p: 1 }} >
         <span>Decimal</span>
         <TextField label="" name="Decimal" variant="outlined" size="small" fullWidth onChange={onChangeHandler} value={form.decimal} />

@@ -16,6 +16,11 @@ const theme = createTheme({
   palette: {
     mode: 'dark'
   },
+  typography: {
+    button: {
+      textTransform: "none"
+    }
+  }
 });
 
 type Props = {
@@ -23,25 +28,16 @@ type Props = {
   title?: string
 }
 
-const Layout = ({ children }: Props) => {
+const Layout = ({ children, title }: Props) => {
   const [open, setOpen] = React.useState(true);
-
   const toggleDrawer = () => {
     setOpen(!open);
   }
-
-  useEffect(() => {
-    // add a listener to 'message' channel
-    // global.ipcRenderer.addListener('message', (_event, args) => {
-    //   alert(JSON.stringify(args))
-    // })
-  }, [])
-
   return (
     <ThemeProvider theme={theme}>
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar open toggleDrawer></AppBar>
+      <AppBar open toggleDrawer title={title}></AppBar>
       <SideBar toggleDrawer={toggleDrawer} open={open} ></SideBar>
       {/* <Box
         component="main"

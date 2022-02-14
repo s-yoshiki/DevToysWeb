@@ -55,7 +55,7 @@ const Index = () => {
   }
 
   return (
-    <Layout>
+    <Layout title="Date Converter">
       <Box sx={{ p: 1 }} >
         <span>Date</span>
         <TextField

@@ -33,7 +33,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const Index = ({ open, toggleDrawer }: {open: any, toggleDrawer: any}) => {
+const Index = ({ open, toggleDrawer, title }: {open: any, toggleDrawer: any, title: string}) => {
   return (
     <AppBar position="absolute" open={open}>
       <Toolbar
@@ -61,8 +61,9 @@ const Index = ({ open, toggleDrawer }: {open: any, toggleDrawer: any}) => {
           sx={{ flexGrow: 1 }}
         >
           <Link href="/">
-          DevToys for Web
+          DevToys for Web 
           </Link>
+          {typeof title === 'string' ? ` - ${title}` : '' }
         </Typography>
         <IconButton color="inherit">
           <Badge badgeContent={4} color="secondary">
