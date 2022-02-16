@@ -5,6 +5,7 @@ import {
   Code,
   Home,
   NetworkCheck,
+  TextDecrease,
 } from '@mui/icons-material';
 
 interface ServiceElement {
@@ -36,6 +37,10 @@ const items: Array<ServiceElement> = [
       {
         path: "/items/converters/date",
         name: "Date",
+      },
+      {
+        path: "/items/converters/angle",
+        name: "Angle",
       },
     ],
   },
@@ -77,6 +82,34 @@ const items: Array<ServiceElement> = [
         path: "/items/formatters/sql",
         name: "SQL",
       }
+    ],
+  },
+  {
+    name: "Generater",
+    icon: <Code />,
+    child: [
+      {
+        path: "/items/generater/hash",
+        name: "Hash",
+      },
+      {
+        path: "/items/generater/uuid",
+        name: "UUID",
+      },
+      {
+        path: "/items/generater/password",
+        name: "Password",
+      }
+    ],
+  },
+  {
+    name: "Text",
+    icon: <TextDecrease />,
+    child: [
+      {
+        path: "/items/text/regex",
+        name: "Regex",
+      },
     ],
   },
   // {
