@@ -62,7 +62,6 @@ const Index = () => {
     setSrc(value)
     setForm(getAllHash(value));
   }
-
   return (
     <Layout title="Hash generater">
       <Box sx={{ p: 1 }} >
