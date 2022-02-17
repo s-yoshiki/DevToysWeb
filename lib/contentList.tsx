@@ -8,12 +8,21 @@ import {
   TextDecrease,
 } from '@mui/icons-material';
 
+interface ServiceChildElement {
+  path: string;
+  name: string;
+  desc?: string;
+  icon?: any,
+}
+
 interface ServiceElement {
   path?: string;
   name?: string;
-  child?: Array<ServiceElement>;
+  child: Array<ServiceChildElement>;
   icon?: any,
 }
+
+
 
 const items: Array<ServiceElement> = [
   {
@@ -29,14 +38,17 @@ const items: Array<ServiceElement> = [
       {
         path: "/items/converters/yaml2json",
         name: "YAML <> JSON",
+        desc: 'Convert JSON data to YAML',
       },
       {
         path: "/items/converters/number_base",
         name: "Number Base",
+        desc: 'Convert numbers from one base to another',
       },
       {
         path: "/items/converters/date",
         name: "Date",
+        desc: 'Convert date to other format',
       },
       {
         path: "/items/converters/angle",
@@ -123,5 +135,20 @@ const items: Array<ServiceElement> = [
   //   ],
   // },
 ];
+
+export const getChilds = (): Array<any> => {
+  let result = []
+  for (let i = 0; i < items.length; i++) {
+    let category = items[i].name
+    for (let j = 0; j < items[i].child.length; j++) {
+      let tmp: any = {
+        ...items[i].child[j],
+        category,
+      }
+      result.push(tmp)
+    }
+  }
+  return result
+}
 
 export default items;
