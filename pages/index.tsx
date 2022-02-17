@@ -15,13 +15,14 @@ const Index = () => {
       <Box sx={{'paddingTop': '20px'}}>
       </Box>
       <Grid container spacing={2}>
-        {getChilds().map(e => {
+        {getChilds().map((e,i) => {
           return (
             <Card 
               title={e.name} 
               category={e.category} 
               path={e.path}
               desc={e.desc}
+              key={i}
             ></Card>
           )
         })}
