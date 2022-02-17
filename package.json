@@ -15,6 +15,7 @@
     "@mui/lab": "^5.0.0-alpha.68",
     "@mui/material": "^5.4.0",
     "@types/crypto-js": "^4.1.0",
+    "@types/sql-formatter": "^4.0.1",
     "@types/uuid": "^8.3.4",
     "crypto-js": "^4.1.1",
     "js-yaml": "^4.1.0",
@@ -22,6 +23,7 @@
     "next": "12.0.10",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "sql-formatter": "^4.0.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
