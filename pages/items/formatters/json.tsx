@@ -21,7 +21,7 @@ const sampleJson = [
 const Index = () => {
   let [form, setForm] = useState({
     src: JSON.stringify(sampleJson,null,''),
-    dst: JSON.stringify(sampleJson,null,'   '),
+    dst: JSON.stringify(sampleJson,null,'    '),
   });
   const onChangeHandler = (e: any) => {
     const target = e.target;
