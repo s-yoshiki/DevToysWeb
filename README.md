@@ -12,7 +12,12 @@
 
 ## Description
 
-[https://www.dev-box.app/](DevBox) と [DevUtils](https://devutils.app/) と [DevToys](https://github.com/veler/DevToys) にインスピレーションを受けて、Web版のクローンを作成しました。
+- [DevToys](https://github.com/veler/DevToys) 
+- [DevToysMac](https://github.com/ObuchiYuki/DevToysMac)
+- [DevBox](https://www.dev-box.app/)
+- [DevUtils](https://devutils.app/)
+
+にインスピレーションを受けて、Web版のクローンを作成しました。
 
 本家の機能に追従しつつも、独自のツールも追加しています。(パスワード生成等)
 
