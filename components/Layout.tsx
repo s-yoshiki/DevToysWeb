@@ -57,8 +57,8 @@ const Layout = ({ children, title = '' }: Props) => {
       </Box> */}
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            {children}
-          </Container>
+          {children}
+        </Container>
       </Box>
     </Box>
     </ThemeProvider>

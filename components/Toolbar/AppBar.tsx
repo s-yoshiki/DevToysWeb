@@ -61,9 +61,9 @@ const Index = ({ open, toggleDrawer, title }: {open: any, toggleDrawer: any, tit
           sx={{ flexGrow: 1 }}
         >
           <Link href="/">
-          DevToys for Web 
+            DevToys for Web 
           </Link>
-          {typeof title === 'string' ? ` - ${title}` : '' }
+          {title.length > 0 ? ` - ${title}` : '' }
         </Typography>
         <IconButton color="inherit">
           <Badge badgeContent={4} color="secondary">
