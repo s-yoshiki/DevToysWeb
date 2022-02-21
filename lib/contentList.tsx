@@ -6,6 +6,7 @@ import {
   Home,
   NetworkCheck,
   TextDecrease,
+  AutoFixHigh,
 } from '@mui/icons-material';
 
 interface ServiceChildElement {
@@ -84,16 +85,20 @@ const items: Array<ServiceElement> = [
   },
   {
     name: "Formatters",
-    icon: <Code />,
+    icon: <AutoFixHigh />,
     child: [
       {
         path: "/items/formatters/json",
         name: "JSON",
       },
       {
+        path: "/items/formatters/xml",
+        name: "XML",
+      },
+      {
         path: "/items/formatters/sql",
         name: "SQL",
-      }
+      },
     ],
   },
   {
