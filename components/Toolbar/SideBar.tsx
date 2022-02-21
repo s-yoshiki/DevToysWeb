@@ -91,16 +91,14 @@ const MenuRow = ({ item }: { item: any }) => {
 
           <List component="div" disablePadding dense>
             {item.child.map((e: any, i: number) => (
-              <>
-                <Link href={e.path} passHref key={i}>
-                  <ListItemButton >
-                    <ListItemIcon>
-                      {/* <StarBorder /> */}
-                    </ListItemIcon>
-                    <ListItemText secondary={e.name} />
-                  </ListItemButton>
-                </Link>
-              </>
+              <Link href={e.path} key={i}>
+                <ListItemButton >
+                  <ListItemIcon>
+                    {/* <StarBorder /> */}
+                  </ListItemIcon>
+                  <ListItemText secondary={e.name} />
+                </ListItemButton>
+              </Link>
             ))}
           </List>
         </Collapse>

@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import Link from 'next/link'
 
 interface AppBarProps extends MuiAppBarProps {
@@ -61,14 +61,16 @@ const Index = ({ open, toggleDrawer, title }: {open: any, toggleDrawer: any, tit
           sx={{ flexGrow: 1 }}
         >
           <Link href="/">
-            DevToysWeb 
+            <span>DevToysWeb</span> 
           </Link>
           {title.length > 0 ? ` - ${title}` : '' }
         </Typography>
         <IconButton color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <NotificationsIcon />
-          </Badge>
+          <a href="https://github.com/s-yoshiki/DevToysWeb" target="_blank" rel="noopener noreferrer">
+            <Badge color="secondary">
+              <GitHubIcon />
+            </Badge>
+          </a>
         </IconButton>
       </Toolbar>
     </AppBar>
