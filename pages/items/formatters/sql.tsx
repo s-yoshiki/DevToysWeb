@@ -8,7 +8,7 @@ const SAMPLE_CODE = `
 SELECT * FROM USER_TABLE WHERE ID = '1' ORDER BY DESC
 `.trim()
 
-const pretty = (src: string) :string => {
+const pretty = (src: string): string => {
   return format(src, {
     language: "sql",
     indent: '    ',

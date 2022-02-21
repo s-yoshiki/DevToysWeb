@@ -20,8 +20,8 @@ const sampleJson = [
 
 const Index = () => {
   let [form, setForm] = useState({
-    src: JSON.stringify(sampleJson,null,''),
-    dst: JSON.stringify(sampleJson,null,'    '),
+    src: JSON.stringify(sampleJson, null, ''),
+    dst: JSON.stringify(sampleJson, null, '    '),
   });
   const onChangeHandler = (e: any) => {
     const target = e.target;
@@ -33,7 +33,7 @@ const Index = () => {
     switch (target.name) {
       case 'src':
         try {
-          tmp.dst = JSON.stringify(JSON.parse(value),null,'    ')
+          tmp.dst = JSON.stringify(JSON.parse(value), null, '    ')
         } catch (e) {
           tmp.dst = form.dst
         }
