@@ -56,7 +56,8 @@ Node.js runtime (24) until the Node.js 26 managed runtime becomes available.
 # One-time bootstrap for the target account/region
 AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra cdk bootstrap
 
-# One-time creation of the GitHub Actions deployment role
+# One-time creation of the GitHub Actions deployment roles
+AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra deploy:github:dev
 AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra deploy:github:prd
 
 # Build the static site and deploy dev or prd from your machine
@@ -69,6 +70,8 @@ AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra deploy:prd
 The environment stacks are named `DevDevToysStack` and `PrdDevToysStack`.
 The environment-specific GitHub deployment roles are managed by
 `DevDevToysGitHubActionsStack` and `PrdDevToysGitHubActionsStack`.
+Both environments are deployed to AWS account `654248427729` with the
+`AWS_PROFILE=ex-knowledge` profile for local operations.
 
 `GET /api/health` returns the API health status through the CloudFront domain.
 

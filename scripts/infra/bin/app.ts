@@ -12,7 +12,7 @@ if (environment !== 'dev' && environment !== 'prd') {
 const deployEnvironment = environment as 'dev' | 'prd'
 
 const accounts = {
-  dev: '790131586983',
+  dev: '654248427729',
   prd: '654248427729',
 } as const
 const awsEnvironment = {
@@ -28,10 +28,7 @@ new GitHubActionsStack(app, `${stackPrefix}DevToysGitHubActionsStack`, {
     deployEnvironment === 'dev'
       ? 'DevToysWebGitHubActionsDeployRole'
       : 'DevToysWebGitHubActionsPrdDeployRole',
-  existingProviderArn:
-    deployEnvironment === 'prd'
-      ? `arn:aws:iam::${accounts.prd}:oidc-provider/token.actions.githubusercontent.com`
-      : undefined,
+  existingProviderArn: `arn:aws:iam::${accounts[deployEnvironment]}:oidc-provider/token.actions.githubusercontent.com`,
   tags: { Environment: deployEnvironment, Project: 'DevToysWeb' },
 })
 
