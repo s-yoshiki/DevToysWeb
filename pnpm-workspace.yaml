@@ -1,0 +1,10 @@
+packages:
+  - apps/*
+
+confirmModulesPurge: false
+
+allowBuilds:
+  sharp: true
+
+onlyBuiltDependencies:
+  - sharp
