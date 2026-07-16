@@ -28,6 +28,7 @@ jobs:
     environment: ${{ github.event_name == 'push' && 'prd' || inputs.environment }}
     env:
       DEPLOY_ENV: ${{ github.event_name == 'push' && 'prd' || inputs.environment }}
+      AWS_DEPLOY_ROLE_ARN: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
     steps:
       - uses: actions/checkout@v4
 
@@ -43,9 +44,16 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
 
+      - name: Validate AWS deployment configuration
+        run: |
+          if [ -z "${AWS_DEPLOY_ROLE_ARN}" ]; then
+            echo "::error::AWS_DEPLOY_ROLE_ARN is not configured for the ${DEPLOY_ENV} GitHub Environment."
+            exit 1
+          fi
+
       - uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          role-to-assume: ${{ env.AWS_DEPLOY_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION || 'ap-northeast-1' }}
 
       - run: pnpm --filter @devtoys/infra deploy --context environment="${DEPLOY_ENV}"
