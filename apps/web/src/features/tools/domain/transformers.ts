@@ -19,7 +19,8 @@ const utf8ToBase64 = (value: string) => btoa(unescape(encodeURIComponent(value))
 const base64ToUtf8 = (value: string) => decodeURIComponent(escape(atob(value)))
 
 const escapeCsvCell = (value: unknown) => {
-  const text = value == null ? '' : typeof value === 'object' ? JSON.stringify(value) : String(value)
+  const text =
+    value == null ? '' : typeof value === 'object' ? JSON.stringify(value) : String(value)
   return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text
 }
 
