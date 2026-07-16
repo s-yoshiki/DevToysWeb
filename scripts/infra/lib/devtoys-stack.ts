@@ -66,5 +66,13 @@ export class DevToysStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'WebsiteUrl', {
       value: `https://${distribution.distributionDomainName}`,
     })
+
+    new cdk.CfnOutput(this, 'SiteBucketName', {
+      value: siteBucket.bucketName,
+    })
+
+    new cdk.CfnOutput(this, 'DistributionId', {
+      value: distribution.distributionId,
+    })
   }
 }

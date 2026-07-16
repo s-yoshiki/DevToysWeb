@@ -1,0 +1,71 @@
+name: Deploy website content
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to deploy
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - prd
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: ${{ inputs.environment }}-content-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    env:
+      STACK_NAME: ${{ inputs.environment == 'dev' && 'DevDevToysStack' || 'PrdDevToysStack' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @devtoys/web build
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION || 'ap-northeast-1' }}
+
+      - name: Read deployment targets from CloudFormation
+        id: targets
+        run: |
+          bucket_name=$(aws cloudformation describe-stacks \
+            --stack-name "${STACK_NAME}" \
+            --query "Stacks[0].Outputs[?OutputKey=='SiteBucketName'].OutputValue" \
+            --output text)
+          distribution_id=$(aws cloudformation describe-stacks \
+            --stack-name "${STACK_NAME}" \
+            --query "Stacks[0].Outputs[?OutputKey=='DistributionId'].OutputValue" \
+            --output text)
+          test -n "${bucket_name}" && test -n "${distribution_id}"
+          echo "bucket_name=${bucket_name}" >> "${GITHUB_OUTPUT}"
+          echo "distribution_id=${distribution_id}" >> "${GITHUB_OUTPUT}"
+
+      - name: Upload website to S3
+        run: aws s3 sync apps/web/out "s3://${{ steps.targets.outputs.bucket_name }}" --delete
+
+      - name: Invalidate CloudFront cache
+        run: >-
+          aws cloudfront create-invalidation
+          --distribution-id "${{ steps.targets.outputs.distribution_id }}"
+          --paths "/*"

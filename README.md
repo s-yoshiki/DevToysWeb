@@ -73,6 +73,13 @@ either `dev` or `prd`. Configure both GitHub environments with the variables
 OIDC provider for this repository and have permission to deploy the CDK stack. No
 long-lived AWS access keys are required.
 
+The `Deploy website content` workflow can update only the static S3 content for a
+selected environment without running CDK. It reads the bucket name and CloudFront
+distribution ID from the environment stack, synchronizes `apps/web/out`, and
+invalidates the CloudFront cache. Run the CDK deployment once after adding these
+stack outputs. The deployment role also needs S3 object write/delete permissions,
+`cloudformation:DescribeStacks`, and `cloudfront:CreateInvalidation`.
+
 ## Tools
 
 Many tools are available.
