@@ -51,7 +51,6 @@ export const AppSidebar = () => {
                   .map((tool) => {
                     const href = getToolPath(locale, tool)
                     const active = pathname === href
-                    const Icon = tool.icon
                     return (
                       <Link
                         key={tool.slug}
@@ -64,7 +63,9 @@ export const AppSidebar = () => {
                             : 'text-muted-foreground hover:bg-accent/70 hover:text-accent-foreground',
                         )}
                       >
-                        <Icon className={cn('size-4', active && 'text-primary')} />
+                        <span className="w-5 text-center text-base" aria-hidden="true">
+                          {tool.emoji}
+                        </span>
                         <span className="truncate">{tool.title[locale]}</span>
                         {active && <span className="ml-auto size-1.5 rounded-full bg-primary" />}
                       </Link>
