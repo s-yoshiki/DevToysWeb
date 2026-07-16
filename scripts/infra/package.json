@@ -1,0 +1,25 @@
+{
+  "name": "@devtoys/infra",
+  "private": true,
+  "engines": {
+    "node": ">=26.0.0"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "cdk": "cdk",
+    "synth": "cdk synth",
+    "deploy": "cdk deploy --require-approval never"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.207.0",
+    "constructs": "^10.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "aws-cdk": "^2.1024.0",
+    "esbuild": "^0.25.8",
+    "tsx": "^4.20.3",
+    "typescript": "^6.0.3"
+  }
+}

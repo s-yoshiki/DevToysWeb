@@ -43,11 +43,31 @@ $ pnpm check
 $ pnpm format
 ```
 
-## Hosting
+## AWS deployment
 
-Hosting on vercel
+The production architecture is a private S3 bucket behind CloudFront, with `/api/*`
+routed to a Lambda Function URL. The CDK application lives in `scripts/infra`, and
+server-side API handlers live in `apps/api`.
 
-https://dev-toys-web.vercel.app/
+Development and CI use Node.js 26. The Lambda currently uses AWS's latest managed
+Node.js runtime (24) until the Node.js 26 managed runtime becomes available.
+
+```sh
+# One-time bootstrap for the target account/region
+AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra cdk bootstrap
+
+# Build the static site and deploy from your machine
+pnpm install
+pnpm build
+AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra deploy
+```
+
+`GET /api/health` returns the API health status through the CloudFront domain.
+
+GitHub Actions deploys pushes to `main`. Configure the `production` environment
+variables `AWS_DEPLOY_ROLE_ARN` and (optionally) `AWS_REGION`. The role must trust
+GitHub's OIDC provider for this repository and have permission to deploy the CDK
+stack. No long-lived AWS access keys are required.
 
 ## Tools
 
