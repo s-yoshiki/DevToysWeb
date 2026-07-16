@@ -11,13 +11,27 @@ import { useLocale } from '@/features/i18n/components/locale-provider'
 import type { ToolDefinition } from '../domain/catalog'
 import { CopyButton, SpecializedShell } from './specialized-workspaces'
 
-const apiBase = process.env.NEXT_PUBLIC_DIAGNOSTICS_API_URL?.replace(/\/$/, '') ?? ''
+const configuredApiBase = process.env.NEXT_PUBLIC_DIAGNOSTICS_API_URL?.replace(/\/$/, '')
+const apiBase = configuredApiBase
+  ? configuredApiBase.endsWith('/api')
+    ? configuredApiBase
+    : `${configuredApiBase}/api`
+  : '/api'
+
+const sha256 = async (value: string) => {
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value))
+  return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, '0')).join('')
+}
 
 const callApi = async (path: string, body: unknown) => {
+  const payload = JSON.stringify(body)
   const response = await fetch(`${apiBase}${path}`, {
     method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify(body),
+    headers: {
+      'content-type': 'application/json',
+      'x-amz-content-sha256': await sha256(payload),
+    },
+    body: payload,
   })
   const result = await response.json().catch(() => ({ error: `HTTP ${response.status}` }))
   if (!response.ok) throw new Error(result.error ?? `HTTP ${response.status}`)

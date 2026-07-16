@@ -5,25 +5,37 @@ import { GitHubActionsStack } from '../lib/github-actions-stack.js'
 
 const app = new cdk.App()
 const environment = app.node.tryGetContext('environment')
-const awsEnvironment = {
-  account: process.env.CDK_DEFAULT_ACCOUNT,
-  region: process.env.CDK_DEFAULT_REGION ?? 'ap-northeast-1',
-}
 
-new GitHubActionsStack(app, 'DevToysGitHubActionsStack', {
-  env: awsEnvironment,
-  tags: { Project: 'DevToysWeb' },
-})
-
-if (environment !== undefined && environment !== 'dev' && environment !== 'prd') {
+if (environment !== 'dev' && environment !== 'prd') {
   throw new Error('CDK context "environment" must be either "dev" or "prd"')
 }
+const deployEnvironment = environment as 'dev' | 'prd'
 
-if (environment === 'dev' || environment === 'prd') {
-  const stackPrefix = environment === 'dev' ? 'Dev' : 'Prd'
-
-  new DevToysStack(app, `${stackPrefix}DevToysStack`, {
-    env: awsEnvironment,
-    tags: { Environment: environment },
-  })
+const accounts = {
+  dev: '790131586983',
+  prd: '654248427729',
+} as const
+const awsEnvironment = {
+  account: accounts[deployEnvironment],
+  region: process.env.CDK_DEFAULT_REGION ?? 'ap-northeast-1',
 }
+const stackPrefix = deployEnvironment === 'dev' ? 'Dev' : 'Prd'
+
+new GitHubActionsStack(app, `${stackPrefix}DevToysGitHubActionsStack`, {
+  env: awsEnvironment,
+  githubEnvironment: deployEnvironment,
+  roleName:
+    deployEnvironment === 'dev'
+      ? 'DevToysWebGitHubActionsDeployRole'
+      : 'DevToysWebGitHubActionsPrdDeployRole',
+  existingProviderArn:
+    deployEnvironment === 'prd'
+      ? `arn:aws:iam::${accounts.prd}:oidc-provider/token.actions.githubusercontent.com`
+      : undefined,
+  tags: { Environment: deployEnvironment, Project: 'DevToysWeb' },
+})
+
+new DevToysStack(app, `${stackPrefix}DevToysStack`, {
+  env: awsEnvironment,
+  tags: { Environment: deployEnvironment },
+})

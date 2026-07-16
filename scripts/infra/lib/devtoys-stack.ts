@@ -2,6 +2,7 @@ import * as path from 'node:path'
 import * as cdk from 'aws-cdk-lib'
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront'
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins'
+import * as iam from 'aws-cdk-lib/aws-iam'
 import * as lambda from 'aws-cdk-lib/aws-lambda'
 import * as lambdaNodejs from 'aws-cdk-lib/aws-lambda-nodejs'
 import * as s3 from 'aws-cdk-lib/aws-s3'
@@ -66,6 +67,15 @@ export class DevToysStack extends cdk.Stack {
         },
       },
       errorResponses: [{ httpStatus: 403, responseHttpStatus: 404, responsePagePath: '/404.html' }],
+    })
+
+    // IAM-authenticated Function URLs require both InvokeFunctionUrl and InvokeFunction.
+    // FunctionUrlOrigin grants the former; grant the latter to this distribution explicitly.
+    api.addPermission('AllowCloudFrontInvokeFunction', {
+      principal: new iam.ServicePrincipal('cloudfront.amazonaws.com'),
+      action: 'lambda:InvokeFunction',
+      sourceArn: `arn:${cdk.Aws.PARTITION}:cloudfront::${cdk.Aws.ACCOUNT_ID}:distribution/${distribution.distributionId}`,
+      invokedViaFunctionUrl: true,
     })
 
     new s3deploy.BucketDeployment(this, 'DeployWebsite', {

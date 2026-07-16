@@ -94,12 +94,17 @@ const requestOnce = async (url: URL): Promise<SafeResponse> => {
   const started = performance.now()
   return await new Promise((resolve, reject) => {
     const request = (url.protocol === 'https:' ? httpsRequest : httpRequest)(
-      url,
       {
+        protocol: url.protocol,
+        hostname: pinned.address,
+        port: url.port || undefined,
+        path: `${url.pathname}${url.search}`,
         method: 'GET',
-        headers: { accept: 'text/html,application/xhtml+xml,*/*;q=0.8', 'user-agent': USER_AGENT },
-        lookup: (_hostname, _options, callback) =>
-          callback(null, pinned.address, pinned.family as 4 | 6),
+        headers: {
+          accept: 'text/html,application/xhtml+xml,*/*;q=0.8',
+          host: url.host,
+          'user-agent': USER_AGENT,
+        },
         servername: url.hostname,
         timeout: 7_000,
       },
