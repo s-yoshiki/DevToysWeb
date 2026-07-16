@@ -14,6 +14,7 @@
     "check": "biome check .",
     "check:fix": "biome check --write .",
     "start": "turbo run start",
+    "test": "turbo run test",
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {

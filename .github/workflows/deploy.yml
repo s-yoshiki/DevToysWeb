@@ -56,4 +56,4 @@ jobs:
           role-to-assume: ${{ env.AWS_DEPLOY_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION || 'ap-northeast-1' }}
 
-      - run: pnpm --filter @devtoys/infra deploy --context environment="${DEPLOY_ENV}"
+      - run: pnpm --filter @devtoys/infra run "deploy:${DEPLOY_ENV}"
