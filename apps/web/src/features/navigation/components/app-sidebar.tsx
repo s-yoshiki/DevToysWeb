@@ -8,7 +8,16 @@ import { type ToolCategory, tools } from '@/features/tools/domain/catalog'
 import { getToolPath } from '@/features/tools/domain/tool-path'
 import { cn } from '@/lib/utils'
 
-const categories: ToolCategory[] = ['converters', 'encoders', 'formatters', 'generators', 'network']
+const categories: ToolCategory[] = [
+  'converters',
+  'encoders',
+  'formatters',
+  'generators',
+  'testers',
+  'text',
+  'images',
+  'network',
+]
 
 export const AppSidebar = () => {
   const pathname = usePathname()

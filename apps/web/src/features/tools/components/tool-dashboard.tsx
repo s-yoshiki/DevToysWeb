@@ -7,7 +7,16 @@ import { useLocale } from '@/features/i18n/components/locale-provider'
 import { type ToolCategory, tools } from '../domain/catalog'
 import { ToolCard } from './tool-card'
 
-const categories: ToolCategory[] = ['converters', 'encoders', 'formatters', 'generators', 'network']
+const categories: ToolCategory[] = [
+  'converters',
+  'encoders',
+  'formatters',
+  'generators',
+  'testers',
+  'text',
+  'images',
+  'network',
+]
 
 export const ToolDashboard = () => {
   const { locale, dictionary } = useLocale()

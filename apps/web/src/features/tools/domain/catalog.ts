@@ -1,21 +1,39 @@
 import {
   Braces,
   CalendarClock,
+  CaseSensitive,
   Code2,
+  FileImage,
+  FileText,
   Fingerprint,
+  GitCompareArrows,
   Hash,
   KeyRound,
   Link2,
   LockKeyhole,
   type LucideIcon,
   Network,
+  QrCode,
+  Regex,
+  Route,
+  TableProperties,
+  Terminal,
   Sigma,
   Sparkles,
   TextQuote,
+  Timer,
 } from 'lucide-react'
 import type { Locale } from '@/features/i18n/domain/dictionaries'
 
-export type ToolCategory = 'converters' | 'encoders' | 'formatters' | 'generators' | 'network'
+export type ToolCategory =
+  | 'converters'
+  | 'encoders'
+  | 'formatters'
+  | 'generators'
+  | 'testers'
+  | 'text'
+  | 'images'
+  | 'network'
 export type ToolDefinition = {
   slug: string
   pathSlug: string
@@ -24,9 +42,44 @@ export type ToolDefinition = {
   title: Record<Locale, string>
   description: Record<Locale, string>
   mode: 'convert' | 'generate' | 'inspect'
+  workspace?:
+    | 'default'
+    | 'regex'
+    | 'url-parser'
+    | 'text-analyzer'
+    | 'markdown'
+    | 'cron'
+    | 'subnet'
+    | 'json-query'
+    | 'qr-code'
+    | 'base64-image'
+    | 'curl'
+    | 'jwt'
+    | 'hmac'
+    | 'basic-auth'
+    | 'text-diff'
 }
 
 export const tools: ToolDefinition[] = [
+  {
+    slug: 'curl',
+    pathSlug: 'curl-code-converter',
+    category: 'converters',
+    icon: Terminal,
+    title: { ja: 'cURL・コード変換', en: 'cURL to code' },
+    description: { ja: 'cURLを各言語のHTTPコードへ変換', en: 'Convert cURL to HTTP client code' },
+    mode: 'convert',
+    workspace: 'curl',
+  },
+  {
+    slug: 'json-csv',
+    pathSlug: 'json-csv-converter',
+    category: 'converters',
+    icon: TableProperties,
+    title: { ja: 'JSON ↔ CSV', en: 'JSON ↔ CSV' },
+    description: { ja: 'JSON配列とCSVを相互変換', en: 'Convert between JSON arrays and CSV' },
+    mode: 'convert',
+  },
   {
     slug: 'yaml-json',
     pathSlug: 'yaml-to-json',
@@ -89,6 +142,27 @@ export const tools: ToolDefinition[] = [
     title: { ja: 'JWT解析', en: 'JWT decoder' },
     description: { ja: 'JWTのheaderとpayloadを確認', en: 'Inspect JWT headers and payloads' },
     mode: 'inspect',
+    workspace: 'jwt',
+  },
+  {
+    slug: 'hmac',
+    pathSlug: 'hmac-generator',
+    category: 'encoders',
+    icon: Hash,
+    title: { ja: 'HMAC生成', en: 'HMAC generator' },
+    description: { ja: 'Secret付きメッセージ署名を生成', en: 'Sign messages with a shared secret' },
+    mode: 'generate',
+    workspace: 'hmac',
+  },
+  {
+    slug: 'basic-auth',
+    pathSlug: 'basic-auth-generator',
+    category: 'encoders',
+    icon: LockKeyhole,
+    title: { ja: 'Basic認証', en: 'Basic authentication' },
+    description: { ja: 'Basic認証ヘッダーを生成・解析', en: 'Generate and inspect Basic auth headers' },
+    mode: 'convert',
+    workspace: 'basic-auth',
   },
   {
     slug: 'json-format',
@@ -143,6 +217,106 @@ export const tools: ToolDefinition[] = [
     title: { ja: 'ハッシュ', en: 'Hash' },
     description: { ja: 'SHAハッシュを計算', en: 'Calculate SHA hashes' },
     mode: 'generate',
+  },
+  {
+    slug: 'regex',
+    pathSlug: 'regular-expression-tester',
+    category: 'testers',
+    icon: Regex,
+    title: { ja: '正規表現テスター', en: 'Regular expression tester' },
+    description: { ja: '正規表現の一致箇所とグループを確認', en: 'Inspect matches and capture groups' },
+    mode: 'inspect',
+    workspace: 'regex',
+  },
+  {
+    slug: 'json-query',
+    pathSlug: 'jsonpath-schema-validator',
+    category: 'testers',
+    icon: Route,
+    title: { ja: 'JSONPath・Schema検証', en: 'JSONPath & Schema' },
+    description: { ja: 'JSONの抽出とSchema検証', en: 'Query and validate JSON data' },
+    mode: 'inspect',
+    workspace: 'json-query',
+  },
+  {
+    slug: 'text-analyzer',
+    pathSlug: 'text-analyzer-case-converter',
+    category: 'text',
+    icon: CaseSensitive,
+    title: { ja: 'テキスト解析・ケース変換', en: 'Text analyzer & case converter' },
+    description: { ja: '文字数を解析してケースを変換', en: 'Analyze text and convert its case' },
+    mode: 'inspect',
+    workspace: 'text-analyzer',
+  },
+  {
+    slug: 'text-diff',
+    pathSlug: 'text-diff',
+    category: 'text',
+    icon: GitCompareArrows,
+    title: { ja: 'テキストDiff', en: 'Text diff' },
+    description: { ja: '2つのテキストの差分を比較', en: 'Compare differences between two texts' },
+    mode: 'inspect',
+    workspace: 'text-diff',
+  },
+  {
+    slug: 'markdown',
+    pathSlug: 'markdown-preview',
+    category: 'text',
+    icon: FileText,
+    title: { ja: 'Markdownプレビュー', en: 'Markdown preview' },
+    description: { ja: 'Markdownを安全にプレビュー', en: 'Safely preview Markdown' },
+    mode: 'inspect',
+    workspace: 'markdown',
+  },
+  {
+    slug: 'cron',
+    pathSlug: 'cron-parser',
+    category: 'converters',
+    icon: Timer,
+    title: { ja: 'Cron式パーサー', en: 'Cron parser' },
+    description: { ja: 'Cron式と次回実行日時を確認', en: 'Inspect cron schedules and next runs' },
+    mode: 'inspect',
+    workspace: 'cron',
+  },
+  {
+    slug: 'qr-code',
+    pathSlug: 'qr-code-generator',
+    category: 'generators',
+    icon: QrCode,
+    title: { ja: 'QRコード生成', en: 'QR code generator' },
+    description: { ja: 'テキストからQRコードを生成', en: 'Generate a QR code from text' },
+    mode: 'generate',
+    workspace: 'qr-code',
+  },
+  {
+    slug: 'base64-image',
+    pathSlug: 'base64-image-converter',
+    category: 'images',
+    icon: FileImage,
+    title: { ja: 'Base64画像変換', en: 'Base64 image converter' },
+    description: { ja: '画像とData URLを相互変換', en: 'Convert images and Data URLs' },
+    mode: 'convert',
+    workspace: 'base64-image',
+  },
+  {
+    slug: 'subnet',
+    pathSlug: 'ipv4-subnet-calculator',
+    category: 'network',
+    icon: Network,
+    title: { ja: 'IPv4サブネット計算', en: 'IPv4 subnet calculator' },
+    description: { ja: 'IPv4/CIDRのネットワーク範囲を計算', en: 'Calculate IPv4 network ranges' },
+    mode: 'inspect',
+    workspace: 'subnet',
+  },
+  {
+    slug: 'url-parser',
+    pathSlug: 'url-parser',
+    category: 'network',
+    icon: Link2,
+    title: { ja: 'URL解析', en: 'URL parser' },
+    description: { ja: 'URLの構成要素とクエリを解析', en: 'Inspect URL components and query parameters' },
+    mode: 'inspect',
+    workspace: 'url-parser',
   },
   {
     slug: 'network-info',
