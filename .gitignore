@@ -41,3 +41,5 @@ yarn-error.log*
 .pnpm-store
 .turbo
 node_modules
+out
+cdk.out

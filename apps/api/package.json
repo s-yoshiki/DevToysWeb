@@ -1,0 +1,19 @@
+{
+  "name": "@devtoys/api",
+  "private": true,
+  "engines": {
+    "node": ">=26.0.0"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "hono": "^4.12.30"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.152",
+    "@types/node": "^26.1.1",
+    "typescript": "^6.0.3"
+  }
+}

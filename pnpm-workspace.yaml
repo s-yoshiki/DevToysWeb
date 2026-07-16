@@ -1,9 +1,11 @@
 packages:
   - apps/*
+  - scripts/*
 
 confirmModulesPurge: false
 
 allowBuilds:
+  esbuild: true
   sharp: true
 
 onlyBuiltDependencies:
