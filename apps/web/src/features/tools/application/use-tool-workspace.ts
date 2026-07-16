@@ -23,7 +23,8 @@ enabled: true`,
   'json-format': '{"name":"DevToys","version":1,"features":["format","convert"]}',
   'sql-format':
     'SELECT users.id, users.name FROM users WHERE users.active = true ORDER BY users.name;',
-  'xml-format': '<project><name>DevToys</name><features><feature>format</feature><feature>convert</feature></features></project>',
+  'xml-format':
+    '<project><name>DevToys</name><features><feature>format</feature><feature>convert</feature></features></project>',
   hash: 'Hello, DevToys!',
 }
 

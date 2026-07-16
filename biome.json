@@ -1,7 +1,15 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.5.3/schema.json",
   "files": {
-    "includes": ["**", "!!**/.next", "!!**/.turbo", "!!**/node_modules", "!!**/next-env.d.ts"]
+    "includes": [
+      "**",
+      "!!**/.next",
+      "!!**/.turbo",
+      "!!**/node_modules",
+      "!!**/next-env.d.ts",
+      "!!**/out",
+      "!!**/cdk.out"
+    ]
   },
   "formatter": {
     "enabled": true,

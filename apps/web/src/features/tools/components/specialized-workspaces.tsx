@@ -145,7 +145,9 @@ export const RegexWorkspace = ({ tool }: { tool: ToolDefinition }) => {
             <div className="flex flex-col bg-muted/15">
               <div className="flex h-11 items-center justify-between border-b px-5">
                 <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                  {locale === 'ja' ? `一致結果 (${result.matches.length})` : `Matches (${result.matches.length})`}
+                  {locale === 'ja'
+                    ? `一致結果 (${result.matches.length})`
+                    : `Matches (${result.matches.length})`}
                 </span>
                 <CopyButton value={output} />
               </div>
@@ -199,7 +201,9 @@ export const UrlParserWorkspace = ({ tool }: { tool: ToolDefinition }) => {
     <SpecializedShell tool={tool} onClear={() => setInput('')}>
       <Card className="overflow-hidden border-border/70 shadow-xl shadow-foreground/[0.03]">
         <CardHeader className="border-b bg-muted/30 py-4">
-          <CardTitle className="text-sm font-medium">{locale === 'ja' ? 'URLを解析' : 'Parse URL'}</CardTitle>
+          <CardTitle className="text-sm font-medium">
+            {locale === 'ja' ? 'URLを解析' : 'Parse URL'}
+          </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
           <div className="border-b bg-muted/20 p-5">

@@ -59,6 +59,7 @@ export type ToolDefinition = {
     | 'hmac'
     | 'basic-auth'
     | 'text-diff'
+    | 'site-diagnostics'
 }
 
 export const tools: ToolDefinition[] = [
@@ -149,8 +150,11 @@ export const tools: ToolDefinition[] = [
     pathSlug: 'jwt-decoder',
     category: 'encoders',
     icon: KeyRound,
-    title: { ja: 'JWT解析', en: 'JWT decoder' },
-    description: { ja: 'JWTのheaderとpayloadを確認', en: 'Inspect JWT headers and payloads' },
+    title: { ja: 'JWT署名検証', en: 'JWT verifier' },
+    description: {
+      ja: 'JWTの署名と標準claimを検証',
+      en: 'Verify JWT signatures and standard claims',
+    },
     mode: 'inspect',
     workspace: 'jwt',
   },
@@ -354,6 +358,20 @@ export const tools: ToolDefinition[] = [
     },
     mode: 'inspect',
     workspace: 'url-parser',
+  },
+  {
+    slug: 'site-diagnostics',
+    emoji: '🩺',
+    pathSlug: 'dns-tls-http-ogp-diagnostics',
+    category: 'network',
+    icon: Network,
+    title: { ja: 'DNS・TLS・HTTP・OGP診断', en: 'DNS, TLS, HTTP & OGP diagnostics' },
+    description: {
+      ja: 'ドメインとWebページをまとめて診断',
+      en: 'Inspect a domain and web page in one request',
+    },
+    mode: 'inspect',
+    workspace: 'site-diagnostics',
   },
   {
     slug: 'network-info',
