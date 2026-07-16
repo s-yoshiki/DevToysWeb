@@ -18,6 +18,7 @@ import type { Locale } from '@/features/i18n/domain/dictionaries'
 export type ToolCategory = 'converters' | 'encoders' | 'formatters' | 'generators' | 'network'
 export type ToolDefinition = {
   slug: string
+  pathSlug: string
   category: ToolCategory
   icon: LucideIcon
   title: Record<Locale, string>
@@ -28,6 +29,7 @@ export type ToolDefinition = {
 export const tools: ToolDefinition[] = [
   {
     slug: 'yaml-json',
+    pathSlug: 'yaml-to-json',
     category: 'converters',
     icon: Braces,
     title: { ja: 'YAML ↔ JSON', en: 'YAML ↔ JSON' },
@@ -36,6 +38,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'number-base',
+    pathSlug: 'number-base-converter',
     category: 'converters',
     icon: Sigma,
     title: { ja: '基数変換', en: 'Number base' },
@@ -44,6 +47,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'date-time',
+    pathSlug: 'unix-time-converter',
     category: 'converters',
     icon: CalendarClock,
     title: { ja: '日時変換', en: 'Date & time' },
@@ -52,6 +56,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'base64',
+    pathSlug: 'base64-encoder-decoder',
     category: 'encoders',
     icon: LockKeyhole,
     title: { ja: 'Base64', en: 'Base64' },
@@ -60,6 +65,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'url',
+    pathSlug: 'url-encoder-decoder',
     category: 'encoders',
     icon: Link2,
     title: { ja: 'URL', en: 'URL' },
@@ -68,6 +74,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'html',
+    pathSlug: 'html-escape',
     category: 'encoders',
     icon: TextQuote,
     title: { ja: 'HTMLエスケープ', en: 'HTML escape' },
@@ -76,6 +83,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'jwt',
+    pathSlug: 'jwt-decoder',
     category: 'encoders',
     icon: KeyRound,
     title: { ja: 'JWT解析', en: 'JWT decoder' },
@@ -84,6 +92,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'json-format',
+    pathSlug: 'json-formatter',
     category: 'formatters',
     icon: Braces,
     title: { ja: 'JSON整形', en: 'JSON formatter' },
@@ -92,6 +101,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'sql-format',
+    pathSlug: 'sql-formatter',
     category: 'formatters',
     icon: Code2,
     title: { ja: 'SQL整形', en: 'SQL formatter' },
@@ -100,6 +110,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'xml-format',
+    pathSlug: 'xml-formatter',
     category: 'formatters',
     icon: Code2,
     title: { ja: 'XML整形', en: 'XML formatter' },
@@ -108,6 +119,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'uuid',
+    pathSlug: 'uuid-generator',
     category: 'generators',
     icon: Fingerprint,
     title: { ja: 'UUID生成', en: 'UUID generator' },
@@ -116,6 +128,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'password',
+    pathSlug: 'password-generator',
     category: 'generators',
     icon: Sparkles,
     title: { ja: 'パスワード生成', en: 'Password generator' },
@@ -124,6 +137,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'hash',
+    pathSlug: 'hash-generator',
     category: 'generators',
     icon: Hash,
     title: { ja: 'ハッシュ', en: 'Hash' },
@@ -132,6 +146,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'network-info',
+    pathSlug: 'connection-info',
     category: 'network',
     icon: Network,
     title: { ja: 'ネットワーク情報', en: 'Network info' },
@@ -141,5 +156,7 @@ export const tools: ToolDefinition[] = [
 ]
 
 export const findTool = (slug: string) => tools.find((tool) => tool.slug === slug)
+export const findToolByPath = (category: string, pathSlug: string) =>
+  tools.find((tool) => tool.category === category && tool.pathSlug === pathSlug)
 export const toolsByCategory = (category: ToolCategory) =>
   tools.filter((tool) => tool.category === category)

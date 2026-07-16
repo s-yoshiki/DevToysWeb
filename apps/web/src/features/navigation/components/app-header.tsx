@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { useLocale } from '@/features/i18n/components/locale-provider'
 import { ThemeToggle } from '@/features/theme/components/theme-toggle'
 import { tools } from '@/features/tools/domain/catalog'
+import { getToolPath } from '@/features/tools/domain/tool-path'
 
 export const AppHeader = () => {
   const { locale, dictionary } = useLocale()
@@ -22,7 +23,7 @@ export const AppHeader = () => {
         return (
           <Link
             key={tool.slug}
-            href={`/${locale}/tools/${tool.slug}`}
+            href={getToolPath(locale, tool)}
             className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground"
           >
             <Icon className="size-4" />

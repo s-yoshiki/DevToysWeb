@@ -3,11 +3,12 @@ import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import type { Locale } from '@/features/i18n/domain/dictionaries'
 import type { ToolDefinition } from '../domain/catalog'
+import { getToolPath } from '../domain/tool-path'
 
 export const ToolCard = ({ tool, locale }: { tool: ToolDefinition; locale: Locale }) => {
   const Icon = tool.icon
   return (
-    <Link href={`/${locale}/tools/${tool.slug}`} className="group block h-full">
+    <Link href={getToolPath(locale, tool)} className="group block h-full">
       <Card className="h-full border-border/70 bg-card/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
         <CardContent className="flex h-full gap-4 p-5">
           <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">

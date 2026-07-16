@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useLocale } from '@/features/i18n/components/locale-provider'
 import { type ToolCategory, tools } from '@/features/tools/domain/catalog'
+import { getToolPath } from '@/features/tools/domain/tool-path'
 import { cn } from '@/lib/utils'
 
 const categories: ToolCategory[] = ['converters', 'encoders', 'formatters', 'generators', 'network']
@@ -39,7 +40,7 @@ export const AppSidebar = () => {
                 {tools
                   .filter((tool) => tool.category === category)
                   .map((tool) => {
-                    const href = `/${locale}/tools/${tool.slug}`
+                    const href = getToolPath(locale, tool)
                     const active = pathname === href
                     const Icon = tool.icon
                     return (
