@@ -16,10 +16,10 @@ import {
   QrCode,
   Regex,
   Route,
-  TableProperties,
-  Terminal,
   Sigma,
   Sparkles,
+  TableProperties,
+  Terminal,
   TextQuote,
   Timer,
 } from 'lucide-react'
@@ -37,6 +37,7 @@ export type ToolCategory =
 export type ToolDefinition = {
   slug: string
   pathSlug: string
+  emoji: string
   category: ToolCategory
   icon: LucideIcon
   title: Record<Locale, string>
@@ -63,6 +64,7 @@ export type ToolDefinition = {
 export const tools: ToolDefinition[] = [
   {
     slug: 'curl',
+    emoji: '🌐',
     pathSlug: 'curl-code-converter',
     category: 'converters',
     icon: Terminal,
@@ -73,6 +75,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'json-csv',
+    emoji: '📊',
     pathSlug: 'json-csv-converter',
     category: 'converters',
     icon: TableProperties,
@@ -82,6 +85,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'yaml-json',
+    emoji: '🔄',
     pathSlug: 'yaml-to-json',
     category: 'converters',
     icon: Braces,
@@ -91,6 +95,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'number-base',
+    emoji: '🔢',
     pathSlug: 'number-base-converter',
     category: 'converters',
     icon: Sigma,
@@ -100,6 +105,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'date-time',
+    emoji: '🕐',
     pathSlug: 'unix-time-converter',
     category: 'converters',
     icon: CalendarClock,
@@ -109,6 +115,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'base64',
+    emoji: '🧬',
     pathSlug: 'base64-encoder-decoder',
     category: 'encoders',
     icon: LockKeyhole,
@@ -118,6 +125,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'url',
+    emoji: '🔗',
     pathSlug: 'url-encoder-decoder',
     category: 'encoders',
     icon: Link2,
@@ -127,6 +135,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'html',
+    emoji: '🏷️',
     pathSlug: 'html-escape',
     category: 'encoders',
     icon: TextQuote,
@@ -136,6 +145,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'jwt',
+    emoji: '🎫',
     pathSlug: 'jwt-decoder',
     category: 'encoders',
     icon: KeyRound,
@@ -146,6 +156,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'hmac',
+    emoji: '✍️',
     pathSlug: 'hmac-generator',
     category: 'encoders',
     icon: Hash,
@@ -156,16 +167,21 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'basic-auth',
+    emoji: '🔐',
     pathSlug: 'basic-auth-generator',
     category: 'encoders',
     icon: LockKeyhole,
     title: { ja: 'Basic認証', en: 'Basic authentication' },
-    description: { ja: 'Basic認証ヘッダーを生成・解析', en: 'Generate and inspect Basic auth headers' },
+    description: {
+      ja: 'Basic認証ヘッダーを生成・解析',
+      en: 'Generate and inspect Basic auth headers',
+    },
     mode: 'convert',
     workspace: 'basic-auth',
   },
   {
     slug: 'json-format',
+    emoji: '📘',
     pathSlug: 'json-formatter',
     category: 'formatters',
     icon: Braces,
@@ -175,6 +191,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'sql-format',
+    emoji: '🗃️',
     pathSlug: 'sql-formatter',
     category: 'formatters',
     icon: Code2,
@@ -184,6 +201,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'xml-format',
+    emoji: '🧹',
     pathSlug: 'xml-formatter',
     category: 'formatters',
     icon: Code2,
@@ -193,6 +211,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'uuid',
+    emoji: '🆔',
     pathSlug: 'uuid-generator',
     category: 'generators',
     icon: Fingerprint,
@@ -202,6 +221,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'password',
+    emoji: '🔑',
     pathSlug: 'password-generator',
     category: 'generators',
     icon: Sparkles,
@@ -211,6 +231,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'hash',
+    emoji: '#️⃣',
     pathSlug: 'hash-generator',
     category: 'generators',
     icon: Hash,
@@ -220,16 +241,21 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'regex',
+    emoji: '🧪',
     pathSlug: 'regular-expression-tester',
     category: 'testers',
     icon: Regex,
     title: { ja: '正規表現テスター', en: 'Regular expression tester' },
-    description: { ja: '正規表現の一致箇所とグループを確認', en: 'Inspect matches and capture groups' },
+    description: {
+      ja: '正規表現の一致箇所とグループを確認',
+      en: 'Inspect matches and capture groups',
+    },
     mode: 'inspect',
     workspace: 'regex',
   },
   {
     slug: 'json-query',
+    emoji: '🔍',
     pathSlug: 'jsonpath-schema-validator',
     category: 'testers',
     icon: Route,
@@ -240,6 +266,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'text-analyzer',
+    emoji: '🔠',
     pathSlug: 'text-analyzer-case-converter',
     category: 'text',
     icon: CaseSensitive,
@@ -250,6 +277,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'text-diff',
+    emoji: '🆚',
     pathSlug: 'text-diff',
     category: 'text',
     icon: GitCompareArrows,
@@ -260,6 +288,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'markdown',
+    emoji: '📝',
     pathSlug: 'markdown-preview',
     category: 'text',
     icon: FileText,
@@ -270,6 +299,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'cron',
+    emoji: '⏱️',
     pathSlug: 'cron-parser',
     category: 'converters',
     icon: Timer,
@@ -280,6 +310,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'qr-code',
+    emoji: '📱',
     pathSlug: 'qr-code-generator',
     category: 'generators',
     icon: QrCode,
@@ -290,6 +321,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'base64-image',
+    emoji: '🖼️',
     pathSlug: 'base64-image-converter',
     category: 'images',
     icon: FileImage,
@@ -300,6 +332,7 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'subnet',
+    emoji: '🕸️',
     pathSlug: 'ipv4-subnet-calculator',
     category: 'network',
     icon: Network,
@@ -310,16 +343,21 @@ export const tools: ToolDefinition[] = [
   },
   {
     slug: 'url-parser',
+    emoji: '🧭',
     pathSlug: 'url-parser',
     category: 'network',
     icon: Link2,
     title: { ja: 'URL解析', en: 'URL parser' },
-    description: { ja: 'URLの構成要素とクエリを解析', en: 'Inspect URL components and query parameters' },
+    description: {
+      ja: 'URLの構成要素とクエリを解析',
+      en: 'Inspect URL components and query parameters',
+    },
     mode: 'inspect',
     workspace: 'url-parser',
   },
   {
     slug: 'network-info',
+    emoji: '📡',
     pathSlug: 'connection-info',
     category: 'network',
     icon: Network,

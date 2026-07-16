@@ -19,14 +19,15 @@ export const AppHeader = () => {
   const nav = (
     <nav className="space-y-1">
       {tools.map((tool) => {
-        const Icon = tool.icon
         return (
           <Link
             key={tool.slug}
             href={getToolPath(locale, tool)}
             className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground"
           >
-            <Icon className="size-4" />
+            <span className="w-5 text-center text-base" aria-hidden="true">
+              {tool.emoji}
+            </span>
             {tool.title[locale]}
           </Link>
         )
