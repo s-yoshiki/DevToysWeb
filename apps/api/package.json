@@ -7,6 +7,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc --noEmit",
+    "test": "node --import tsx --test src/*.test.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -15,6 +16,7 @@
   "devDependencies": {
     "@types/aws-lambda": "^8.10.152",
     "@types/node": "^26.1.1",
+    "tsx": "^4.20.3",
     "typescript": "^6.0.3"
   }
 }

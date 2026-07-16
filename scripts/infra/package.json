@@ -8,11 +8,13 @@
     "build": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "cdk": "cdk",
+    "synth:github": "cdk synth DevToysGitHubActionsStack",
     "synth:dev": "cdk synth --context environment=dev",
     "synth:prd": "cdk synth --context environment=prd",
     "deploy": "cdk deploy --require-approval never",
-    "deploy:dev": "cdk deploy --context environment=dev --require-approval never",
-    "deploy:prd": "cdk deploy --context environment=prd --require-approval never"
+    "deploy:github": "cdk deploy DevToysGitHubActionsStack --require-approval never",
+    "deploy:dev": "cdk deploy DevDevToysStack --context environment=dev --require-approval never",
+    "deploy:prd": "cdk deploy PrdDevToysStack --context environment=prd --require-approval never"
   },
   "dependencies": {
     "aws-cdk-lib": "^2.207.0",
