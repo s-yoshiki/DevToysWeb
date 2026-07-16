@@ -36,12 +36,25 @@ export class DevToysStack extends cdk.Stack {
       authType: lambda.FunctionUrlAuthType.AWS_IAM,
     })
 
+    const indexDocumentRewrite = new cloudfront.Function(this, 'IndexDocumentRewrite', {
+      code: cloudfront.FunctionCode.fromFile({
+        filePath: path.join(repositoryRoot, 'scripts/infra/functions/index-document-rewrite.js'),
+      }),
+      runtime: cloudfront.FunctionRuntime.JS_2_0,
+    })
+
     const distribution = new cloudfront.Distribution(this, 'Distribution', {
       defaultRootObject: 'index.html',
       defaultBehavior: {
         origin: origins.S3BucketOrigin.withOriginAccessControl(siteBucket),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         compress: true,
+        functionAssociations: [
+          {
+            function: indexDocumentRewrite,
+            eventType: cloudfront.FunctionEventType.VIEWER_REQUEST,
+          },
+        ],
       },
       additionalBehaviors: {
         'api/*': {

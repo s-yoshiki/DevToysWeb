@@ -26,6 +26,7 @@ jobs:
     environment: ${{ inputs.environment }}
     env:
       STACK_NAME: ${{ inputs.environment == 'dev' && 'DevDevToysStack' || 'PrdDevToysStack' }}
+      AWS_DEPLOY_ROLE_ARN: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
     steps:
       - uses: actions/checkout@v4
 
@@ -41,9 +42,16 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @devtoys/web build
 
+      - name: Validate AWS deployment configuration
+        run: |
+          if [ -z "${AWS_DEPLOY_ROLE_ARN}" ]; then
+            echo "::error::AWS_DEPLOY_ROLE_ARN is not configured for the ${{ inputs.environment }} GitHub Environment."
+            exit 1
+          fi
+
       - uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          role-to-assume: ${{ env.AWS_DEPLOY_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION || 'ap-northeast-1' }}
 
       - name: Read deployment targets from CloudFormation
