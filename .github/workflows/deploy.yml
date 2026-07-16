@@ -4,19 +4,30 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to deploy
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - prd
 
 permissions:
   contents: read
   id-token: write
 
 concurrency:
-  group: production-deploy
+  group: ${{ github.event_name == 'push' && 'prd' || inputs.environment }}-deploy
   cancel-in-progress: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: production
+    environment: ${{ github.event_name == 'push' && 'prd' || inputs.environment }}
+    env:
+      DEPLOY_ENV: ${{ github.event_name == 'push' && 'prd' || inputs.environment }}
     steps:
       - uses: actions/checkout@v4
 
@@ -37,4 +48,4 @@ jobs:
           role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION || 'ap-northeast-1' }}
 
-      - run: pnpm --filter @devtoys/infra deploy
+      - run: pnpm --filter @devtoys/infra deploy --context environment="${DEPLOY_ENV}"

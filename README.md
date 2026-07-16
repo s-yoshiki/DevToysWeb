@@ -56,18 +56,22 @@ Node.js runtime (24) until the Node.js 26 managed runtime becomes available.
 # One-time bootstrap for the target account/region
 AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra cdk bootstrap
 
-# Build the static site and deploy from your machine
+# Build the static site and deploy dev or prd from your machine
 pnpm install
 pnpm build
-AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra deploy
+AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra deploy:dev
+AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra deploy:prd
 ```
+
+The environment stacks are named `DevDevToysStack` and `PrdDevToysStack`.
 
 `GET /api/health` returns the API health status through the CloudFront domain.
 
-GitHub Actions deploys pushes to `main`. Configure the `production` environment
-variables `AWS_DEPLOY_ROLE_ARN` and (optionally) `AWS_REGION`. The role must trust
-GitHub's OIDC provider for this repository and have permission to deploy the CDK
-stack. No long-lived AWS access keys are required.
+GitHub Actions deploys pushes to `main` to `prd`. A manual workflow run can deploy
+either `dev` or `prd`. Configure both GitHub environments with the variables
+`AWS_DEPLOY_ROLE_ARN` and (optionally) `AWS_REGION`. The role must trust GitHub's
+OIDC provider for this repository and have permission to deploy the CDK stack. No
+long-lived AWS access keys are required.
 
 ## Tools
 

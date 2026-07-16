@@ -8,8 +8,11 @@
     "build": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "cdk": "cdk",
-    "synth": "cdk synth",
-    "deploy": "cdk deploy --require-approval never"
+    "synth:dev": "cdk synth --context environment=dev",
+    "synth:prd": "cdk synth --context environment=prd",
+    "deploy": "cdk deploy --require-approval never",
+    "deploy:dev": "cdk deploy --context environment=dev --require-approval never",
+    "deploy:prd": "cdk deploy --context environment=prd --require-approval never"
   },
   "dependencies": {
     "aws-cdk-lib": "^2.207.0",
