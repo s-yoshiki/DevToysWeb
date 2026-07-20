@@ -37,15 +37,31 @@ export class GitHubActionsStack extends cdk.Stack {
       maxSessionDuration: cdk.Duration.hours(1),
     })
 
+    // The certificate stack lives in us-east-1 while the site stack lives in the
+    // stack's own region, so the bootstrap roles of every region this account is
+    // bootstrapped in must be assumable — not just `cdk.Aws.REGION`.
     deployRole.addToPolicy(
       new iam.PolicyStatement({
         sid: 'AssumeCdkBootstrapRoles',
         actions: ['sts:AssumeRole'],
         resources: [
-          `arn:${cdk.Aws.PARTITION}:iam::${cdk.Aws.ACCOUNT_ID}:role/cdk-hnb659fds-deploy-role-${cdk.Aws.ACCOUNT_ID}-${cdk.Aws.REGION}`,
-          `arn:${cdk.Aws.PARTITION}:iam::${cdk.Aws.ACCOUNT_ID}:role/cdk-hnb659fds-file-publishing-role-${cdk.Aws.ACCOUNT_ID}-${cdk.Aws.REGION}`,
-          `arn:${cdk.Aws.PARTITION}:iam::${cdk.Aws.ACCOUNT_ID}:role/cdk-hnb659fds-image-publishing-role-${cdk.Aws.ACCOUNT_ID}-${cdk.Aws.REGION}`,
-          `arn:${cdk.Aws.PARTITION}:iam::${cdk.Aws.ACCOUNT_ID}:role/cdk-hnb659fds-lookup-role-${cdk.Aws.ACCOUNT_ID}-${cdk.Aws.REGION}`,
+          `arn:${cdk.Aws.PARTITION}:iam::${cdk.Aws.ACCOUNT_ID}:role/cdk-hnb659fds-deploy-role-${cdk.Aws.ACCOUNT_ID}-*`,
+          `arn:${cdk.Aws.PARTITION}:iam::${cdk.Aws.ACCOUNT_ID}:role/cdk-hnb659fds-file-publishing-role-${cdk.Aws.ACCOUNT_ID}-*`,
+          `arn:${cdk.Aws.PARTITION}:iam::${cdk.Aws.ACCOUNT_ID}:role/cdk-hnb659fds-image-publishing-role-${cdk.Aws.ACCOUNT_ID}-*`,
+          `arn:${cdk.Aws.PARTITION}:iam::${cdk.Aws.ACCOUNT_ID}:role/cdk-hnb659fds-lookup-role-${cdk.Aws.ACCOUNT_ID}-*`,
+        ],
+      }),
+    )
+
+    // The CLI reads the bootstrap version with the caller's own credentials
+    // before it assumes any bootstrap role, so this grant is needed in addition
+    // to the `sts:AssumeRole` one above.
+    deployRole.addToPolicy(
+      new iam.PolicyStatement({
+        sid: 'ReadCdkBootstrapVersion',
+        actions: ['ssm:GetParameter'],
+        resources: [
+          `arn:${cdk.Aws.PARTITION}:ssm:*:${cdk.Aws.ACCOUNT_ID}:parameter/cdk-bootstrap/*/version`,
         ],
       }),
     )
