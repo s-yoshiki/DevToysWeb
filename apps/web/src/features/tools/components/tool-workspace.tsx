@@ -37,8 +37,10 @@ import {
   HmacWorkspace,
   TextDiffWorkspace,
 } from './api-workspaces'
+import { GithubSearchWorkspace } from './github-search-workspace'
+import { GmailSearchWorkspace } from './gmail-search-workspace'
+import { GoogleSearchWorkspace } from './google-search-workspace'
 import { ExifWorkspace, ImageConvertWorkspace, SvgWorkspace } from './image-workspaces'
-import { GmailSearchWorkspace, GoogleSearchWorkspace, XSearchWorkspace } from './search-workspaces'
 import { JwtVerifyWorkspace, SiteDiagnosticsWorkspace } from './server-workspaces'
 import { RegexWorkspace, UrlParserWorkspace } from './specialized-workspaces'
 import { GlobWorkspace, SelectorWorkspace } from './tester-workspaces'
@@ -48,6 +50,7 @@ import {
   LoremWorkspace,
   StringEscapeWorkspace,
 } from './utility-workspaces'
+import { XSearchWorkspace } from './x-search-workspace'
 
 const formatNames: Record<string, [string, string]> = {
   'yaml-json': ['YAML', 'JSON'],
@@ -99,6 +102,7 @@ export const ToolWorkspace = ({ slug }: { slug: string }) => {
   if (tool.workspace === 'x-search') return <XSearchWorkspace tool={tool} />
   if (tool.workspace === 'google-search') return <GoogleSearchWorkspace tool={tool} />
   if (tool.workspace === 'gmail-search') return <GmailSearchWorkspace tool={tool} />
+  if (tool.workspace === 'github-search') return <GithubSearchWorkspace tool={tool} />
   return <WorkspaceView tool={tool} />
 }
 

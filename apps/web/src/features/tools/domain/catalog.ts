@@ -13,6 +13,7 @@ import {
   FileType,
   Fingerprint,
   GitCompareArrows,
+  GitPullRequest,
   Globe,
   Hash,
   KeyRound,
@@ -48,6 +49,7 @@ export type ToolCategory =
   | 'formatters'
   | 'generators'
   | 'testers'
+  | 'search'
   | 'text'
   | 'images'
   | 'network'
@@ -89,6 +91,7 @@ export type ToolDefinition = {
     | 'x-search'
     | 'google-search'
     | 'gmail-search'
+    | 'github-search'
 }
 
 export const tools: ToolDefinition[] = [
@@ -368,7 +371,7 @@ export const tools: ToolDefinition[] = [
     slug: 'x-search',
     emoji: '🔎',
     pathSlug: 'x-advanced-search',
-    category: 'generators',
+    category: 'search',
     icon: Search,
     title: { ja: 'X高度な検索', en: 'X advanced search' },
     description: {
@@ -382,7 +385,7 @@ export const tools: ToolDefinition[] = [
     slug: 'google-search',
     emoji: '🌎',
     pathSlug: 'google-advanced-search',
-    category: 'generators',
+    category: 'search',
     icon: Globe,
     title: { ja: 'Google高度な検索', en: 'Google advanced search' },
     description: {
@@ -396,7 +399,7 @@ export const tools: ToolDefinition[] = [
     slug: 'gmail-search',
     emoji: '📮',
     pathSlug: 'gmail-search-builder',
-    category: 'generators',
+    category: 'search',
     icon: Mail,
     title: { ja: 'Gmail検索ビルダー', en: 'Gmail search builder' },
     description: {
@@ -405,6 +408,20 @@ export const tools: ToolDefinition[] = [
     },
     mode: 'generate',
     workspace: 'gmail-search',
+  },
+  {
+    slug: 'github-search',
+    emoji: '🐙',
+    pathSlug: 'github-advanced-search',
+    category: 'search',
+    icon: GitPullRequest,
+    title: { ja: 'GitHub高度な検索', en: 'GitHub advanced search' },
+    description: {
+      ja: 'リポジトリやIssueの検索条件を組み立て',
+      en: 'Build repository, code and issue search queries',
+    },
+    mode: 'generate',
+    workspace: 'github-search',
   },
   {
     slug: 'regex',

@@ -30,6 +30,7 @@ const dictionaries = {
     share: '共有リンク',
     shared: 'リンクをコピーしました',
     categories: {
+      search: 'カスタム検索',
       converters: '変換',
       encoders: 'エンコード',
       formatters: '整形',
@@ -68,6 +69,7 @@ const dictionaries = {
     share: 'Share link',
     shared: 'Link copied',
     categories: {
+      search: 'Custom Search',
       converters: 'Converters',
       encoders: 'Encode & decode',
       formatters: 'Formatters',
