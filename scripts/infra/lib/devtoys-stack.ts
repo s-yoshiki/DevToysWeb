@@ -1,18 +1,28 @@
 import * as path from 'node:path'
 import * as cdk from 'aws-cdk-lib'
+import type * as acm from 'aws-cdk-lib/aws-certificatemanager'
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront'
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins'
 import * as iam from 'aws-cdk-lib/aws-iam'
 import * as lambda from 'aws-cdk-lib/aws-lambda'
 import * as lambdaNodejs from 'aws-cdk-lib/aws-lambda-nodejs'
+import * as route53 from 'aws-cdk-lib/aws-route53'
+import * as route53targets from 'aws-cdk-lib/aws-route53-targets'
 import * as s3 from 'aws-cdk-lib/aws-s3'
 import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment'
 import type { Construct } from 'constructs'
 
 const repositoryRoot = path.resolve(process.cwd(), '../..')
 
+type DevToysStackProps = cdk.StackProps & {
+  domainName: string
+  hostedZoneId: string
+  hostedZoneName: string
+  certificate: acm.ICertificate
+}
+
 export class DevToysStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props: DevToysStackProps) {
     super(scope, id, props)
 
     const siteBucket = new s3.Bucket(this, 'SiteBucket', {
@@ -45,6 +55,8 @@ export class DevToysStack extends cdk.Stack {
     })
 
     const distribution = new cloudfront.Distribution(this, 'Distribution', {
+      domainNames: [props.domainName],
+      certificate: props.certificate,
       defaultRootObject: 'index.html',
       defaultBehavior: {
         origin: origins.S3BucketOrigin.withOriginAccessControl(siteBucket),
@@ -86,8 +98,33 @@ export class DevToysStack extends cdk.Stack {
       prune: true,
     })
 
+    const hostedZone = route53.HostedZone.fromHostedZoneAttributes(this, 'HostedZone', {
+      hostedZoneId: props.hostedZoneId,
+      zoneName: props.hostedZoneName,
+    })
+
+    const aliasTarget = route53.RecordTarget.fromAlias(
+      new route53targets.CloudFrontTarget(distribution),
+    )
+
+    new route53.ARecord(this, 'SiteAliasRecord', {
+      zone: hostedZone,
+      recordName: props.domainName,
+      target: aliasTarget,
+    })
+
+    new route53.AaaaRecord(this, 'SiteAliasRecordIpv6', {
+      zone: hostedZone,
+      recordName: props.domainName,
+      target: aliasTarget,
+    })
+
     new cdk.CfnOutput(this, 'WebsiteUrl', {
-      value: `https://${distribution.distributionDomainName}`,
+      value: `https://${props.domainName}`,
+    })
+
+    new cdk.CfnOutput(this, 'DistributionDomainName', {
+      value: distribution.distributionDomainName,
     })
 
     new cdk.CfnOutput(this, 'SiteBucketName', {

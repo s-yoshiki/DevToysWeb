@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import * as cdk from 'aws-cdk-lib'
+import { CertificateStack } from '../lib/certificate-stack.js'
 import { DevToysStack } from '../lib/devtoys-stack.js'
 import { GitHubActionsStack } from '../lib/github-actions-stack.js'
 import { GitHubOidcProviderStack } from '../lib/github-oidc-provider-stack.js'
@@ -26,12 +27,12 @@ const stackPrefix = deployEnvironment === 'dev' ? 'Dev' : 'Prd'
 
 // The OIDC provider is account-wide, so it is created once and imported by ARN
 // from both environment role stacks.
-new GitHubOidcProviderStack(app, 'DevToysGitHubOidcStack', {
+const oidcProviderStack = new GitHubOidcProviderStack(app, 'DevToysGitHubOidcStack', {
   env: awsEnvironment,
   tags: { Project: 'DevToysWeb' },
 })
 
-new GitHubActionsStack(app, `${stackPrefix}DevToysGitHubActionsStack`, {
+const githubActionsStack = new GitHubActionsStack(app, `${stackPrefix}DevToysGitHubActionsStack`, {
   env: awsEnvironment,
   githubEnvironment: deployEnvironment,
   roleName:
@@ -42,7 +43,33 @@ new GitHubActionsStack(app, `${stackPrefix}DevToysGitHubActionsStack`, {
   tags: { Environment: deployEnvironment, Project: 'DevToysWeb' },
 })
 
+// The provider is imported by a constructed ARN rather than a CloudFormation
+// export, so declare the ordering explicitly for `cdk deploy --all`.
+githubActionsStack.addDependency(oidcProviderStack)
+
+// `devtoys.ex-foundry.com` is delegated from the `ex-foundry.com` parent zone,
+// so both the apex (prd) and the dev subdomain are served from this zone.
+const hostedZoneId = 'Z0619515E2LNT3K1FO5D'
+const hostedZoneName = 'devtoys.ex-foundry.com'
+const domainName = deployEnvironment === 'prd' ? hostedZoneName : `dev.${hostedZoneName}`
+
+// CloudFront reads certificates from us-east-1 only, so the certificate is
+// pinned there and handed to the site stack across regions.
+const certificateStack = new CertificateStack(app, `${stackPrefix}DevToysCertificateStack`, {
+  env: { account, region: 'us-east-1' },
+  crossRegionReferences: true,
+  domainName,
+  hostedZoneId,
+  hostedZoneName,
+  tags: { Environment: deployEnvironment, Project: 'DevToysWeb' },
+})
+
 new DevToysStack(app, `${stackPrefix}DevToysStack`, {
   env: awsEnvironment,
+  crossRegionReferences: true,
+  certificate: certificateStack.certificate,
+  domainName,
+  hostedZoneId,
+  hostedZoneName,
   tags: { Environment: deployEnvironment },
 })
