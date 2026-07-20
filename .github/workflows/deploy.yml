@@ -29,6 +29,9 @@ jobs:
     env:
       DEPLOY_ENV: ${{ github.event_name == 'push' && 'prd' || inputs.environment }}
       AWS_DEPLOY_ROLE_ARN: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+      EXPECTED_AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID || '822013579886' }}
+      # Keeps the CDK target region identical to the credentials region below.
+      CDK_DEPLOY_REGION: ${{ vars.AWS_REGION || 'ap-northeast-1' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -55,5 +58,13 @@ jobs:
         with:
           role-to-assume: ${{ env.AWS_DEPLOY_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION || 'ap-northeast-1' }}
+
+      - name: Verify the assumed role belongs to the expected account
+        run: |
+          actual_account=$(aws sts get-caller-identity --query Account --output text)
+          if [ "${actual_account}" != "${EXPECTED_AWS_ACCOUNT_ID}" ]; then
+            echo "::error::Assumed role is in account ${actual_account}, expected ${EXPECTED_AWS_ACCOUNT_ID}. Check AWS_DEPLOY_ROLE_ARN for the ${DEPLOY_ENV} environment."
+            exit 1
+          fi
 
       - run: pnpm --filter @devtoys/infra run "deploy:${DEPLOY_ENV}"
