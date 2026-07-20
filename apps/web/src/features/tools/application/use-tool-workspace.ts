@@ -14,6 +14,17 @@ enabled: true`,
   { "name": "Alice", "role": "Developer", "active": true },
   { "name": "Bob", "role": "Designer", "active": false }
 ]`,
+  'json-toml': `{
+  "package": { "name": "devtoys", "version": "1.0.0" },
+  "features": ["convert", "format"]
+}`,
+  'json-xml': `{
+  "project": {
+    "@id": "devtoys",
+    "name": "DevToys",
+    "features": { "feature": ["convert", "format"] }
+  }
+}`,
   'number-base': '255',
   'date-time': '2026-07-16T12:00:00+09:00',
   base64: 'Hello, DevToys! こんにちは',
@@ -26,6 +37,11 @@ enabled: true`,
   'xml-format':
     '<project><name>DevToys</name><features><feature>format</feature><feature>convert</feature></features></project>',
   hash: 'Hello, DevToys!',
+  'yaml-format': 'name:   DevToys\nfeatures: [format, convert]\nnested: {enabled: true}',
+  'css-format':
+    '.hero{color:#fff;background:#111}.hero h1{font-size:2rem;margin:0 0 1rem}@media (width>=48rem){.hero{padding:4rem}}',
+  'html-format':
+    '<section class="hero"><h1>DevToys</h1><p>Web tools</p><img src="a.png" alt=""><ul><li>one</li><li>two</li></ul></section>',
 }
 
 export const useToolWorkspace = (tool: ToolDefinition) => {

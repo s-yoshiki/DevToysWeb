@@ -1,19 +1,32 @@
 'use client'
 
-import { Braces, ExternalLink, Languages, Menu } from 'lucide-react'
+import { Braces, ExternalLink, Languages, Menu, Search } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { useLocale } from '@/features/i18n/components/locale-provider'
 import { ThemeToggle } from '@/features/theme/components/theme-toggle'
 import { tools } from '@/features/tools/domain/catalog'
 import { getToolPath } from '@/features/tools/domain/tool-path'
+import { CommandPalette, useCommandPalette } from './command-palette'
+
+/** Rendered after mount so the static export never ships a platform-specific hint. */
+const useShortcutHint = () => {
+  const [hint, setHint] = useState('')
+  useEffect(() => {
+    setHint(/mac|iphone|ipad/i.test(navigator.userAgent) ? '⌘K' : 'Ctrl K')
+  }, [])
+  return hint
+}
 
 export const AppHeader = () => {
   const { locale, dictionary } = useLocale()
   const pathname = usePathname()
   const router = useRouter()
+  const palette = useCommandPalette()
+  const shortcutHint = useShortcutHint()
   const toggleLocale = () =>
     router.push(pathname.replace(`/${locale}`, locale === 'ja' ? '/en' : '/ja'))
   const nav = (
@@ -55,6 +68,20 @@ export const AppHeader = () => {
           </span>
           {dictionary.appName}
         </Link>
+        <button
+          type="button"
+          onClick={() => palette.setOpen(true)}
+          className="ml-4 flex h-9 max-w-xs flex-1 items-center gap-2 rounded-xl border bg-muted/40 px-3 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+        >
+          <Search className="size-4 shrink-0" />
+          <span className="truncate">{dictionary.search}</span>
+          {shortcutHint && (
+            <kbd className="ml-auto hidden shrink-0 rounded border bg-background px-1.5 py-0.5 font-mono text-[10px] sm:block">
+              {shortcutHint}
+            </kbd>
+          )}
+        </button>
+        <CommandPalette open={palette.open} onOpenChange={palette.setOpen} />
         <div className="ml-auto flex items-center gap-1">
           <Button variant="ghost" size="sm" onClick={toggleLocale}>
             <Languages className="size-4" />
