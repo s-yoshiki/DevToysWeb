@@ -53,18 +53,17 @@ jobs:
             echo "::error::AWS_DEPLOY_ROLE_ARN is not configured for the ${DEPLOY_ENV} GitHub Environment."
             exit 1
           fi
+          # Checked before assuming the role: a stale ARN otherwise surfaces as
+          # an opaque "Not authorized to perform sts:AssumeRoleWithWebIdentity".
+          role_account=$(echo "${AWS_DEPLOY_ROLE_ARN}" | cut -d: -f5)
+          if [ "${role_account}" != "${EXPECTED_AWS_ACCOUNT_ID}" ]; then
+            echo "::error::AWS_DEPLOY_ROLE_ARN for the ${DEPLOY_ENV} environment points at account ${role_account}, expected ${EXPECTED_AWS_ACCOUNT_ID}. Update the environment variable to the role in ${EXPECTED_AWS_ACCOUNT_ID}."
+            exit 1
+          fi
 
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ env.AWS_DEPLOY_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION || 'ap-northeast-1' }}
-
-      - name: Verify the assumed role belongs to the expected account
-        run: |
-          actual_account=$(aws sts get-caller-identity --query Account --output text)
-          if [ "${actual_account}" != "${EXPECTED_AWS_ACCOUNT_ID}" ]; then
-            echo "::error::Assumed role is in account ${actual_account}, expected ${EXPECTED_AWS_ACCOUNT_ID}. Check AWS_DEPLOY_ROLE_ARN for the ${DEPLOY_ENV} environment."
-            exit 1
-          fi
 
       - run: pnpm --filter @devtoys/infra run "deploy:${DEPLOY_ENV}"
