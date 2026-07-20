@@ -17,8 +17,8 @@
     "deploy:github:oidc": "cdk deploy DevToysGitHubOidcStack --context environment=dev --require-approval never",
     "deploy:github:dev": "cdk deploy DevDevToysGitHubActionsStack --context environment=dev --require-approval never",
     "deploy:github:prd": "cdk deploy PrdDevToysGitHubActionsStack --context environment=prd --require-approval never",
-    "deploy:dev": "cdk deploy DevDevToysStack --context environment=dev --require-approval never",
-    "deploy:prd": "cdk deploy PrdDevToysStack --context environment=prd --require-approval never"
+    "deploy:dev": "cdk deploy DevDevToysCertificateStack DevDevToysStack --context environment=dev --require-approval never --concurrency 2",
+    "deploy:prd": "cdk deploy PrdDevToysCertificateStack PrdDevToysStack --context environment=prd --require-approval never --concurrency 2"
   },
   "dependencies": {
     "aws-cdk-lib": "^2.207.0",

@@ -52,31 +52,43 @@ server-side API handlers live in `apps/api`.
 Development and CI use Node.js 26. The Lambda currently uses AWS's latest managed
 Node.js runtime (24) until the Node.js 26 managed runtime becomes available.
 
+The site is served from `https://devtoys.ex-foundry.com` (prd) and
+`https://dev.devtoys.ex-foundry.com` (dev). Both names live in the delegated
+`devtoys.ex-foundry.com` hosted zone. CloudFront only accepts certificates from
+`us-east-1`, so the ACM certificate is created by a separate stack pinned to that
+region and passed to the site stack as a cross-region reference — which is why
+`us-east-1` must be bootstrapped as well.
+
 ```sh
-# One-time bootstrap for the target account/region
-AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra cdk bootstrap aws://822013579886/ap-northeast-1
+# One-time bootstrap for the target account/region. The CDK app is evaluated even
+# for bootstrap, so the environment context is required.
+AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra cdk bootstrap aws://822013579886/ap-northeast-1 --context environment=prd
+# us-east-1 hosts the CloudFront certificate stack
+AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra cdk bootstrap aws://822013579886/us-east-1 --context environment=prd
 
 # One-time creation of the account-wide GitHub OIDC provider
 # (skip if the account already has a token.actions.githubusercontent.com provider)
-AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra deploy:github:oidc
+AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra deploy:github:oidc
 
 # One-time creation of the GitHub Actions deployment roles
-AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra deploy:github:dev
-AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra deploy:github:prd
+AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra deploy:github:dev
+AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra deploy:github:prd
 
-# Build the static site and deploy dev or prd from your machine
+# Build the static site and deploy dev or prd from your machine.
+# These deploy the certificate stack and the site stack together.
 pnpm install
 pnpm build
-AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra deploy:dev
-AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra deploy:prd
+AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra deploy:dev
+AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra deploy:prd
 ```
 
-The environment stacks are named `DevDevToysStack` and `PrdDevToysStack`.
+The environment stacks are named `DevDevToysStack` and `PrdDevToysStack`, with
+their certificates in `DevDevToysCertificateStack` and `PrdDevToysCertificateStack`.
 The environment-specific GitHub deployment roles are managed by
 `DevDevToysGitHubActionsStack` and `PrdDevToysGitHubActionsStack`, and the shared
 GitHub OIDC provider by `DevToysGitHubOidcStack`.
 Both environments are deployed to AWS account `822013579886` in `ap-northeast-1`,
-using the `AWS_PROFILE=ex-knowledge` profile for local operations. Point that
+using the `AWS_PROFILE=ex-foundry` profile for local operations. Point that
 profile at `822013579886` before running any of the commands above. To target a
 different account or region temporarily, pass `-c account=<id>` / `-c region=<region>`
 to the CDK commands, or set `CDK_DEPLOY_REGION`. An ambient `AWS_REGION` is
