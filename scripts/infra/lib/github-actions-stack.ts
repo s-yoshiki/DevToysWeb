@@ -58,17 +58,22 @@ export class GitHubActionsStack extends cdk.Stack {
       }),
     )
 
+    // Bucket-level and object-level actions need different ARN shapes: an
+    // `arn:aws:s3:::*` grant does not cover `s3:PutObject`, so `aws s3 sync`
+    // in the content workflow would fail with AccessDenied.
+    deployRole.addToPolicy(
+      new iam.PolicyStatement({
+        sid: 'ListWebsiteBuckets',
+        actions: ['s3:GetBucketLocation', 's3:ListBucket'],
+        resources: [`arn:${cdk.Aws.PARTITION}:s3:::*`],
+      }),
+    )
+
     deployRole.addToPolicy(
       new iam.PolicyStatement({
         sid: 'DeployWebsiteContent',
-        actions: [
-          's3:DeleteObject',
-          's3:GetBucketLocation',
-          's3:GetObject',
-          's3:ListBucket',
-          's3:PutObject',
-        ],
-        resources: ['arn:aws:s3:::*'],
+        actions: ['s3:DeleteObject', 's3:GetObject', 's3:PutObject'],
+        resources: [`arn:${cdk.Aws.PARTITION}:s3:::*/*`],
       }),
     )
 

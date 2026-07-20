@@ -11,6 +11,9 @@ importers:
       '@biomejs/biome':
         specifier: ^2.5.3
         version: 2.5.3
+      esbuild:
+        specifier: ^0.25.12
+        version: 0.25.12
       turbo:
         specifier: ^2.10.5
         version: 2.10.5
