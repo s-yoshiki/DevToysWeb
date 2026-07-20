@@ -54,10 +54,15 @@ Node.js runtime (24) until the Node.js 26 managed runtime becomes available.
 
 ```sh
 # One-time bootstrap for the target account/region
-AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra cdk bootstrap
+AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra cdk bootstrap aws://822013579886/ap-northeast-1
 
-# One-time creation of the GitHub OIDC provider and deployment role
-AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra deploy:github
+# One-time creation of the account-wide GitHub OIDC provider
+# (skip if the account already has a token.actions.githubusercontent.com provider)
+AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra deploy:github:oidc
+
+# One-time creation of the GitHub Actions deployment roles
+AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra deploy:github:dev
+AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra deploy:github:prd
 
 # Build the static site and deploy dev or prd from your machine
 pnpm install
@@ -67,13 +72,24 @@ AWS_PROFILE=ex-knowledge pnpm --filter @devtoys/infra deploy:prd
 ```
 
 The environment stacks are named `DevDevToysStack` and `PrdDevToysStack`.
-The GitHub OIDC provider and deployment role are managed by `DevToysGitHubActionsStack`.
+The environment-specific GitHub deployment roles are managed by
+`DevDevToysGitHubActionsStack` and `PrdDevToysGitHubActionsStack`, and the shared
+GitHub OIDC provider by `DevToysGitHubOidcStack`.
+Both environments are deployed to AWS account `822013579886` in `ap-northeast-1`,
+using the `AWS_PROFILE=ex-knowledge` profile for local operations. Point that
+profile at `822013579886` before running any of the commands above. To target a
+different account or region temporarily, pass `-c account=<id>` / `-c region=<region>`
+to the CDK commands, or set `CDK_DEPLOY_REGION`. An ambient `AWS_REGION` is
+deliberately ignored so a shell setting cannot retarget the stacks.
 
 `GET /api/health` returns the API health status through the CloudFront domain.
 
 GitHub Actions deploys pushes to `main` to `prd`. A manual workflow run can deploy
 either `dev` or `prd`. Configure both GitHub environments with the variables
-`AWS_DEPLOY_ROLE_ARN` and (optionally) `AWS_REGION`. The role must trust GitHub's
+`AWS_DEPLOY_ROLE_ARN` and (optionally) `AWS_REGION` and `AWS_ACCOUNT_ID`. Both
+workflows assert that the assumed role lives in `AWS_ACCOUNT_ID` (defaulting to
+`822013579886`) before deploying, so a stale role ARN fails fast rather than
+deploying to the wrong account. The role must trust GitHub's
 OIDC provider for this repository and have permission to deploy the CDK stack. No
 long-lived AWS access keys are required.
 

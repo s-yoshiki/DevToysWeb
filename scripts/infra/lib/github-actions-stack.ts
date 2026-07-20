@@ -2,27 +2,36 @@ import * as cdk from 'aws-cdk-lib'
 import * as iam from 'aws-cdk-lib/aws-iam'
 import type { Construct } from 'constructs'
 
+type GitHubActionsStackProps = cdk.StackProps & {
+  githubEnvironment: 'dev' | 'prd'
+  roleName: string
+  existingProviderArn?: string
+}
+
 export class GitHubActionsStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props: GitHubActionsStackProps) {
     super(scope, id, props)
 
-    const provider = new iam.OpenIdConnectProvider(this, 'GitHubProvider', {
-      url: 'https://token.actions.githubusercontent.com',
-      clientIds: ['sts.amazonaws.com'],
-    })
+    const provider = props.existingProviderArn
+      ? iam.OpenIdConnectProvider.fromOpenIdConnectProviderArn(
+          this,
+          'GitHubProvider',
+          props.existingProviderArn,
+        )
+      : new iam.OpenIdConnectProvider(this, 'GitHubProvider', {
+          url: 'https://token.actions.githubusercontent.com',
+          clientIds: ['sts.amazonaws.com'],
+        })
 
     const deployRole = new iam.Role(this, 'DeployRole', {
-      roleName: 'DevToysWebGitHubActionsDeployRole',
-      description: 'Deploys DevToysWeb from the repository GitHub Actions environments',
+      roleName: props.roleName,
+      description: `Deploys DevToysWeb from the GitHub Actions ${props.githubEnvironment} environment`,
       assumedBy: new iam.WebIdentityPrincipal(provider.openIdConnectProviderArn, {
         StringEquals: {
           'token.actions.githubusercontent.com:aud': 'sts.amazonaws.com',
         },
         StringLike: {
-          'token.actions.githubusercontent.com:sub': [
-            'repo:s-yoshiki/DevToysWeb:environment:dev',
-            'repo:s-yoshiki/DevToysWeb:environment:prd',
-          ],
+          'token.actions.githubusercontent.com:sub': `repo:s-yoshiki/DevToysWeb:environment:${props.githubEnvironment}`,
         },
       }),
       maxSessionDuration: cdk.Duration.hours(1),
@@ -73,7 +82,7 @@ export class GitHubActionsStack extends cdk.Stack {
 
     new cdk.CfnOutput(this, 'DeployRoleArn', {
       value: deployRole.roleArn,
-      description: 'Set this as AWS_DEPLOY_ROLE_ARN in the dev and prd GitHub environments',
+      description: `Set this as AWS_DEPLOY_ROLE_ARN in the ${props.githubEnvironment} GitHub environment`,
     })
   }
 }
