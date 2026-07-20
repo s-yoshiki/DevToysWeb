@@ -13,6 +13,7 @@ import {
   FileType,
   Fingerprint,
   GitCompareArrows,
+  Globe,
   Hash,
   KeyRound,
   Layers,
@@ -85,6 +86,7 @@ export type ToolDefinition = {
     | 'image-convert'
     | 'exif'
     | 'x-search'
+    | 'google-search'
 }
 
 export const tools: ToolDefinition[] = [
@@ -373,6 +375,20 @@ export const tools: ToolDefinition[] = [
     },
     mode: 'generate',
     workspace: 'x-search',
+  },
+  {
+    slug: 'google-search',
+    emoji: '🌎',
+    pathSlug: 'google-advanced-search',
+    category: 'generators',
+    icon: Globe,
+    title: { ja: 'Google高度な検索', en: 'Google advanced search' },
+    description: {
+      ja: '検索演算子を組み立ててGoogleで検索',
+      en: 'Compose search operators and jump to Google',
+    },
+    mode: 'generate',
+    workspace: 'google-search',
   },
   {
     slug: 'regex',

@@ -38,7 +38,7 @@ import {
   TextDiffWorkspace,
 } from './api-workspaces'
 import { ExifWorkspace, ImageConvertWorkspace, SvgWorkspace } from './image-workspaces'
-import { XSearchWorkspace } from './search-workspaces'
+import { GoogleSearchWorkspace, XSearchWorkspace } from './search-workspaces'
 import { JwtVerifyWorkspace, SiteDiagnosticsWorkspace } from './server-workspaces'
 import { RegexWorkspace, UrlParserWorkspace } from './specialized-workspaces'
 import { GlobWorkspace, SelectorWorkspace } from './tester-workspaces'
@@ -97,6 +97,7 @@ export const ToolWorkspace = ({ slug }: { slug: string }) => {
   if (tool.workspace === 'image-convert') return <ImageConvertWorkspace tool={tool} />
   if (tool.workspace === 'exif') return <ExifWorkspace tool={tool} />
   if (tool.workspace === 'x-search') return <XSearchWorkspace tool={tool} />
+  if (tool.workspace === 'google-search') return <GoogleSearchWorkspace tool={tool} />
   return <WorkspaceView tool={tool} />
 }
 
