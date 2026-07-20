@@ -1,11 +1,12 @@
 'use client'
 
-import { ArrowRight, LayoutGrid, Search, Sparkles, TrendingUp } from 'lucide-react'
+import { ArrowRight, History, LayoutGrid, Search, Sparkles, TrendingUp } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useLocale } from '@/features/i18n/components/locale-provider'
 import { cn } from '@/lib/utils'
+import { useRecentTools } from '../application/use-recent-tools'
 import { type ToolCategory, tools } from '../domain/catalog'
 import { ToolCard } from './tool-card'
 
@@ -22,6 +23,7 @@ const categories: ToolCategory[] = [
 
 export const ToolDashboard = () => {
   const { locale, dictionary } = useLocale()
+  const recent = useRecentTools()
   const [query, setQuery] = useState('')
   const [activeCategory, setActiveCategory] = useState<ToolCategory | 'all'>('all')
   const visible = useMemo(
@@ -70,6 +72,20 @@ export const ToolDashboard = () => {
           </div>
         </div>
       </section>
+
+      {!query && activeCategory === 'all' && recent.length > 0 && (
+        <section className="mt-10">
+          <div className="mb-5 flex items-center gap-2">
+            <History className="size-5 text-primary" />
+            <h2 className="text-lg font-semibold">{dictionary.recentTools}</h2>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            {recent.slice(0, 4).map((tool) => (
+              <ToolCard key={tool.slug} tool={tool} locale={locale} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {!query && activeCategory === 'all' && (
         <section className="mt-10">

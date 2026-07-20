@@ -1,23 +1,37 @@
 import {
+  Aperture,
+  Asterisk,
+  Blend,
   Braces,
   CalendarClock,
   CaseSensitive,
   Code2,
+  Crop,
+  FileCode2,
   FileImage,
   FileText,
+  FileType,
   Fingerprint,
   GitCompareArrows,
   Hash,
   KeyRound,
+  Layers,
   Link2,
+  ListOrdered,
+  ListTree,
   LockKeyhole,
   type LucideIcon,
   Network,
+  Paintbrush,
+  Palette,
+  Pilcrow,
   QrCode,
+  Quote,
   Regex,
   Route,
   Sigma,
   Sparkles,
+  SquareCode,
   TableProperties,
   Terminal,
   TextQuote,
@@ -60,6 +74,15 @@ export type ToolDefinition = {
     | 'basic-auth'
     | 'text-diff'
     | 'site-diagnostics'
+    | 'color'
+    | 'lorem'
+    | 'string-escape'
+    | 'list-utils'
+    | 'selector'
+    | 'glob'
+    | 'svg'
+    | 'image-convert'
+    | 'exif'
 }
 
 export const tools: ToolDefinition[] = [
@@ -93,6 +116,40 @@ export const tools: ToolDefinition[] = [
     title: { ja: 'YAML ↔ JSON', en: 'YAML ↔ JSON' },
     description: { ja: 'YAMLとJSONを相互変換', en: 'Convert between YAML and JSON' },
     mode: 'convert',
+  },
+  {
+    slug: 'json-toml',
+    emoji: '🧾',
+    pathSlug: 'json-toml-converter',
+    category: 'converters',
+    icon: FileCode2,
+    title: { ja: 'JSON ↔ TOML', en: 'JSON ↔ TOML' },
+    description: { ja: 'TOML設定とJSONを相互変換', en: 'Convert between TOML config and JSON' },
+    mode: 'convert',
+  },
+  {
+    slug: 'json-xml',
+    emoji: '🧷',
+    pathSlug: 'json-xml-converter',
+    category: 'converters',
+    icon: SquareCode,
+    title: { ja: 'JSON ↔ XML', en: 'JSON ↔ XML' },
+    description: { ja: 'XML文書とJSONを相互変換', en: 'Convert between XML documents and JSON' },
+    mode: 'convert',
+  },
+  {
+    slug: 'color',
+    emoji: '🎨',
+    pathSlug: 'color-converter',
+    category: 'converters',
+    icon: Palette,
+    title: { ja: 'カラー変換・コントラスト', en: 'Color converter & contrast' },
+    description: {
+      ja: 'HEX/RGB/HSLを変換しWCAG比を確認',
+      en: 'Convert HEX/RGB/HSL and check WCAG ratios',
+    },
+    mode: 'convert',
+    workspace: 'color',
   },
   {
     slug: 'number-base',
@@ -184,6 +241,20 @@ export const tools: ToolDefinition[] = [
     workspace: 'basic-auth',
   },
   {
+    slug: 'string-escape',
+    emoji: '🔤',
+    pathSlug: 'string-escape-unescape',
+    category: 'encoders',
+    icon: Quote,
+    title: { ja: '文字列エスケープ', en: 'String escape' },
+    description: {
+      ja: 'JSON/JS/SQL/正規表現向けにエスケープ',
+      en: 'Escape strings for JSON, JS, SQL and regex',
+    },
+    mode: 'convert',
+    workspace: 'string-escape',
+  },
+  {
     slug: 'json-format',
     emoji: '📘',
     pathSlug: 'json-formatter',
@@ -214,6 +285,36 @@ export const tools: ToolDefinition[] = [
     mode: 'convert',
   },
   {
+    slug: 'yaml-format',
+    emoji: '🧵',
+    pathSlug: 'yaml-formatter',
+    category: 'formatters',
+    icon: Layers,
+    title: { ja: 'YAML整形', en: 'YAML formatter' },
+    description: { ja: 'YAMLを正規化して整形', en: 'Normalise and re-indent YAML' },
+    mode: 'convert',
+  },
+  {
+    slug: 'css-format',
+    emoji: '💅',
+    pathSlug: 'css-formatter',
+    category: 'formatters',
+    icon: Paintbrush,
+    title: { ja: 'CSS整形', en: 'CSS formatter' },
+    description: { ja: 'CSSのブロックを読みやすく整形', en: 'Re-indent CSS blocks for reading' },
+    mode: 'convert',
+  },
+  {
+    slug: 'html-format',
+    emoji: '📰',
+    pathSlug: 'html-formatter',
+    category: 'formatters',
+    icon: FileType,
+    title: { ja: 'HTML整形', en: 'HTML formatter' },
+    description: { ja: 'HTMLをインデントして整形', en: 'Indent HTML markup' },
+    mode: 'convert',
+  },
+  {
     slug: 'uuid',
     emoji: '🆔',
     pathSlug: 'uuid-generator',
@@ -232,6 +333,20 @@ export const tools: ToolDefinition[] = [
     title: { ja: 'パスワード生成', en: 'Password generator' },
     description: { ja: '安全なパスワードを生成', en: 'Generate secure passwords' },
     mode: 'generate',
+  },
+  {
+    slug: 'lorem',
+    emoji: '📄',
+    pathSlug: 'lorem-ipsum-generator',
+    category: 'generators',
+    icon: Pilcrow,
+    title: { ja: 'ダミーテキスト生成', en: 'Lorem Ipsum generator' },
+    description: {
+      ja: 'Lorem Ipsumと日本語ダミー文を生成',
+      en: 'Generate Lorem Ipsum and Japanese filler text',
+    },
+    mode: 'generate',
+    workspace: 'lorem',
   },
   {
     slug: 'hash',
@@ -269,6 +384,34 @@ export const tools: ToolDefinition[] = [
     workspace: 'json-query',
   },
   {
+    slug: 'selector-tester',
+    emoji: '🎯',
+    pathSlug: 'css-selector-xpath-tester',
+    category: 'testers',
+    icon: ListTree,
+    title: { ja: 'セレクタ・XPathテスター', en: 'Selector & XPath tester' },
+    description: {
+      ja: 'HTMLにCSSセレクタとXPathを試す',
+      en: 'Run CSS selectors and XPath against HTML',
+    },
+    mode: 'inspect',
+    workspace: 'selector',
+  },
+  {
+    slug: 'glob-tester',
+    emoji: '✳️',
+    pathSlug: 'glob-pattern-tester',
+    category: 'testers',
+    icon: Asterisk,
+    title: { ja: 'globパターンテスター', en: 'Glob pattern tester' },
+    description: {
+      ja: 'パスがglobに一致するか確認',
+      en: 'Check which paths a glob pattern matches',
+    },
+    mode: 'inspect',
+    workspace: 'glob',
+  },
+  {
     slug: 'text-analyzer',
     emoji: '🔠',
     pathSlug: 'text-analyzer-case-converter',
@@ -289,6 +432,20 @@ export const tools: ToolDefinition[] = [
     description: { ja: '2つのテキストの差分を比較', en: 'Compare differences between two texts' },
     mode: 'inspect',
     workspace: 'text-diff',
+  },
+  {
+    slug: 'list-utils',
+    emoji: '📋',
+    pathSlug: 'list-formatter',
+    category: 'text',
+    icon: ListOrdered,
+    title: { ja: 'リスト整形', en: 'List formatter' },
+    description: {
+      ja: '並べ替え・重複除去・前後付与をまとめて',
+      en: 'Sort, deduplicate and wrap lines in one pass',
+    },
+    mode: 'convert',
+    workspace: 'list-utils',
   },
   {
     slug: 'markdown',
@@ -333,6 +490,48 @@ export const tools: ToolDefinition[] = [
     description: { ja: '画像とData URLを相互変換', en: 'Convert images and Data URLs' },
     mode: 'convert',
     workspace: 'base64-image',
+  },
+  {
+    slug: 'svg-tools',
+    emoji: '🖌️',
+    pathSlug: 'svg-optimizer',
+    category: 'images',
+    icon: Blend,
+    title: { ja: 'SVG最適化・プレビュー', en: 'SVG optimizer & preview' },
+    description: {
+      ja: '不要な情報を削りData URIも生成',
+      en: 'Strip cruft and emit a CSS-ready data URI',
+    },
+    mode: 'convert',
+    workspace: 'svg',
+  },
+  {
+    slug: 'image-convert',
+    emoji: '🗜️',
+    pathSlug: 'image-converter',
+    category: 'images',
+    icon: Crop,
+    title: { ja: '画像リサイズ・圧縮', en: 'Image resize & compress' },
+    description: {
+      ja: 'WebP/AVIF等へ変換しサイズを削減',
+      en: 'Convert to WebP/AVIF and shrink the file',
+    },
+    mode: 'convert',
+    workspace: 'image-convert',
+  },
+  {
+    slug: 'exif',
+    emoji: '📸',
+    pathSlug: 'exif-viewer',
+    category: 'images',
+    icon: Aperture,
+    title: { ja: 'EXIF確認・削除', en: 'EXIF viewer & remover' },
+    description: {
+      ja: '撮影情報と位置情報を確認して削除',
+      en: 'Inspect capture and location data, then strip it',
+    },
+    mode: 'inspect',
+    workspace: 'exif',
   },
   {
     slug: 'subnet',

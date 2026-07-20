@@ -5,7 +5,8 @@ const dictionaries = {
   ja: {
     appName: 'DevToys',
     tagline: '毎日の開発を、もっと軽やかに。',
-    heroDescription: '29の小さな道具を、ひとつの静かで高速なワークスペースにまとめました。',
+    heroDescription:
+      'ブラウザだけで完結する小さな道具を、ひとつの静かで高速なワークスペースにまとめました。',
     allTools: 'すべてのツール',
     popularTools: 'よく使うツール',
     browseByCategory: 'カテゴリから探す',
@@ -22,6 +23,12 @@ const dictionaries = {
     run: '実行',
     theme: 'テーマ',
     language: '言語',
+    commandPalette: 'コマンドパレット',
+    commandPalettePlaceholder: 'ツール名やキーワードで検索…',
+    recentTools: '最近使ったツール',
+    sample: 'サンプル',
+    share: '共有リンク',
+    shared: 'リンクをコピーしました',
     categories: {
       converters: '変換',
       encoders: 'エンコード',
@@ -36,7 +43,8 @@ const dictionaries = {
   en: {
     appName: 'DevToys',
     tagline: 'A focused toolkit for everyday development.',
-    heroDescription: 'Twenty-nine focused utilities, collected in one calm and fast workspace.',
+    heroDescription:
+      'A collection of focused, browser-only utilities gathered in one calm and fast workspace.',
     allTools: 'All tools',
     popularTools: 'Popular tools',
     browseByCategory: 'Browse by category',
@@ -53,6 +61,12 @@ const dictionaries = {
     run: 'Run',
     theme: 'Theme',
     language: 'Language',
+    commandPalette: 'Command palette',
+    commandPalettePlaceholder: 'Search tools by name or keyword…',
+    recentTools: 'Recently used',
+    sample: 'Sample',
+    share: 'Share link',
+    shared: 'Link copied',
     categories: {
       converters: 'Converters',
       encoders: 'Encode & decode',

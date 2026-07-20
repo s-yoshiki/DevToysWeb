@@ -1,7 +1,10 @@
 import CryptoJS from 'crypto-js'
+import { XMLBuilder, XMLParser } from 'fast-xml-parser'
 import { dump, load } from 'js-yaml'
+import { parse as parseToml, stringify as stringifyToml } from 'smol-toml'
 import { format as formatSql } from 'sql-formatter'
 import xmlFormatter from 'xml-formatter'
+import { formatCss, formatHtml } from './source-formatters'
 
 const escapeHtml = (value: string) =>
   value.replace(
@@ -88,6 +91,32 @@ export const csvToJson = (value: string) => {
   )
 }
 
+/** Shared by both XML directions so a round trip keeps attributes and text nodes stable. */
+const xmlOptions = {
+  ignoreAttributes: false,
+  attributeNamePrefix: '@',
+  textNodeName: '#text',
+}
+
+const jsonToXml = (value: string) =>
+  new XMLBuilder({ ...xmlOptions, format: true, indentBy: '  ' }).build(JSON.parse(value)).trim()
+
+const xmlToJson = (value: string) => {
+  const parser = new XMLParser(xmlOptions)
+  return JSON.stringify(parser.parse(value), null, 2)
+}
+
+/**
+ * TOML has no top-level array or scalar form, so reject those before `stringify`
+ * throws something less actionable.
+ */
+const jsonToToml = (value: string) => {
+  const parsed: unknown = JSON.parse(value)
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed))
+    throw new Error('TOML output requires a JSON object at the top level')
+  return stringifyToml(parsed as Record<string, unknown>)
+}
+
 export const transform = (
   slug: string,
   value: string,
@@ -100,6 +129,10 @@ export const transform = (
       return reverse ? dump(JSON.parse(value)) : JSON.stringify(load(value), null, 2)
     case 'json-csv':
       return reverse ? csvToJson(value) : jsonToCsv(value)
+    case 'json-toml':
+      return reverse ? JSON.stringify(parseToml(value), null, 2) : jsonToToml(value)
+    case 'json-xml':
+      return reverse ? xmlToJson(value) : jsonToXml(value)
     case 'number-base':
       return Number.parseInt(value, options.from ?? 10)
         .toString(options.to ?? 16)
@@ -128,6 +161,12 @@ export const transform = (
       return formatSql(value, { language: 'sql', tabWidth: 2 })
     case 'xml-format':
       return xmlFormatter(value, { indentation: '  ', collapseContent: true })
+    case 'yaml-format':
+      return dump(load(value), { indent: 2, lineWidth: 100, sortKeys: false })
+    case 'css-format':
+      return formatCss(value)
+    case 'html-format':
+      return formatHtml(value)
     case 'hash':
       return CryptoJS.SHA256(value).toString()
     default:

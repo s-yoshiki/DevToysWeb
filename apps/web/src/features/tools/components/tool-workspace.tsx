@@ -11,7 +11,7 @@ import {
   Play,
   RotateCcw,
 } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -19,6 +19,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useLocale } from '@/features/i18n/components/locale-provider'
+import { recordToolVisit } from '../application/use-recent-tools'
 import { useToolWorkspace } from '../application/use-tool-workspace'
 import { findTool, type ToolDefinition } from '../domain/catalog'
 import {
@@ -36,12 +37,22 @@ import {
   HmacWorkspace,
   TextDiffWorkspace,
 } from './api-workspaces'
+import { ExifWorkspace, ImageConvertWorkspace, SvgWorkspace } from './image-workspaces'
 import { JwtVerifyWorkspace, SiteDiagnosticsWorkspace } from './server-workspaces'
 import { RegexWorkspace, UrlParserWorkspace } from './specialized-workspaces'
+import { GlobWorkspace, SelectorWorkspace } from './tester-workspaces'
+import {
+  ColorWorkspace,
+  ListUtilsWorkspace,
+  LoremWorkspace,
+  StringEscapeWorkspace,
+} from './utility-workspaces'
 
 const formatNames: Record<string, [string, string]> = {
   'yaml-json': ['YAML', 'JSON'],
   'json-csv': ['JSON', 'CSV'],
+  'json-toml': ['JSON', 'TOML'],
+  'json-xml': ['JSON', 'XML'],
   'date-time': ['ISO 8601', 'Unix time'],
   base64: ['Text', 'Base64'],
   url: ['Text', 'URL encoded'],
@@ -49,10 +60,15 @@ const formatNames: Record<string, [string, string]> = {
   'json-format': ['JSON', 'Formatted JSON'],
   'sql-format': ['SQL', 'Formatted SQL'],
   'xml-format': ['XML', 'Formatted XML'],
+  'yaml-format': ['YAML', 'Formatted YAML'],
+  'css-format': ['CSS', 'Formatted CSS'],
+  'html-format': ['HTML', 'Formatted HTML'],
   hash: ['Text', 'SHA-256'],
 }
 
 export const ToolWorkspace = ({ slug }: { slug: string }) => {
+  useEffect(() => recordToolVisit(slug), [slug])
+
   const tool = findTool(slug)
   if (!tool) return null
   if (tool.workspace === 'regex') return <RegexWorkspace tool={tool} />
@@ -70,6 +86,15 @@ export const ToolWorkspace = ({ slug }: { slug: string }) => {
   if (tool.workspace === 'hmac') return <HmacWorkspace tool={tool} />
   if (tool.workspace === 'basic-auth') return <BasicAuthWorkspace tool={tool} />
   if (tool.workspace === 'text-diff') return <TextDiffWorkspace tool={tool} />
+  if (tool.workspace === 'color') return <ColorWorkspace tool={tool} />
+  if (tool.workspace === 'lorem') return <LoremWorkspace tool={tool} />
+  if (tool.workspace === 'string-escape') return <StringEscapeWorkspace tool={tool} />
+  if (tool.workspace === 'list-utils') return <ListUtilsWorkspace tool={tool} />
+  if (tool.workspace === 'selector') return <SelectorWorkspace tool={tool} />
+  if (tool.workspace === 'glob') return <GlobWorkspace tool={tool} />
+  if (tool.workspace === 'svg') return <SvgWorkspace tool={tool} />
+  if (tool.workspace === 'image-convert') return <ImageConvertWorkspace tool={tool} />
+  if (tool.workspace === 'exif') return <ExifWorkspace tool={tool} />
   return <WorkspaceView tool={tool} />
 }
 
@@ -86,7 +111,16 @@ const WorkspaceView = ({ tool }: { tool: ToolDefinition }) => {
   const isGenerator = tool.mode === 'generate' && tool.slug !== 'hash'
   const supportsReverse =
     !isGenerator &&
-    ['yaml-json', 'json-csv', 'date-time', 'base64', 'url', 'html'].includes(tool.slug)
+    [
+      'yaml-json',
+      'json-csv',
+      'json-toml',
+      'json-xml',
+      'date-time',
+      'base64',
+      'url',
+      'html',
+    ].includes(tool.slug)
   const formats =
     tool.slug === 'number-base'
       ? [`Base ${workspace.options.from}`, `Base ${workspace.options.to}`]
