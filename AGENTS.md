@@ -35,6 +35,9 @@ manager version is pinned in the root `package.json`.
 - Shared UI primitives: `apps/web/src/components/ui/`
 - Japanese and English shared copy:
   `apps/web/src/features/i18n/domain/dictionaries.ts`
+- Canonical URLs, `hreflang`, Open Graph, and JSON-LD:
+  `apps/web/src/features/seo/`; the sitemap and robots routes live in
+  `apps/web/src/app/sitemap.ts` and `apps/web/src/app/robots.ts`
 - Server endpoints: `apps/api/src/`; keep the `/api` prefix because CloudFront routes it
 - AWS resources and routing: `scripts/infra/lib/devtoys-stack.ts`
 - GitHub Actions OIDC and deployment role: `scripts/infra/lib/github-actions-stack.ts`
