@@ -22,6 +22,7 @@ import {
   ListTree,
   LockKeyhole,
   type LucideIcon,
+  Mail,
   Network,
   Paintbrush,
   Palette,
@@ -87,6 +88,7 @@ export type ToolDefinition = {
     | 'exif'
     | 'x-search'
     | 'google-search'
+    | 'gmail-search'
 }
 
 export const tools: ToolDefinition[] = [
@@ -389,6 +391,20 @@ export const tools: ToolDefinition[] = [
     },
     mode: 'generate',
     workspace: 'google-search',
+  },
+  {
+    slug: 'gmail-search',
+    emoji: '📮',
+    pathSlug: 'gmail-search-builder',
+    category: 'generators',
+    icon: Mail,
+    title: { ja: 'Gmail検索ビルダー', en: 'Gmail search builder' },
+    description: {
+      ja: '差出人や添付条件からGmailの検索式を作成',
+      en: 'Build Gmail search queries from senders and filters',
+    },
+    mode: 'generate',
+    workspace: 'gmail-search',
   },
   {
     slug: 'regex',
