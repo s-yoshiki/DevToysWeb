@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useEffect } from 'react'
 import type { Dictionary, Locale } from '../domain/dictionaries'
 
 const LocaleContext = createContext<{ locale: Locale; dictionary: Dictionary } | null>(null)
@@ -14,6 +14,13 @@ export const LocaleProvider = ({
   locale: Locale
   dictionary: Dictionary
 }) => {
+  // The `<html>` element lives in the root layout, which has no locale segment,
+  // so the served markup always says `ja`. Correct it for assistive technology
+  // and browser translation once the locale subtree mounts.
+  useEffect(() => {
+    document.documentElement.lang = locale
+  }, [locale])
+
   return <LocaleContext.Provider value={{ locale, dictionary }}>{children}</LocaleContext.Provider>
 }
 
