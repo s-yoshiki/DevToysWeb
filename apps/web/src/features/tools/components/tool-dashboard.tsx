@@ -16,6 +16,7 @@ const categories: ToolCategory[] = [
   'formatters',
   'generators',
   'testers',
+  'search',
   'text',
   'images',
   'network',

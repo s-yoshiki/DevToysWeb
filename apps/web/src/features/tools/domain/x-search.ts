@@ -1,3 +1,12 @@
+import {
+  isoDate,
+  naturalNumber,
+  negate,
+  orGroup,
+  quotePhrase,
+  splitTerms,
+} from './search-operators'
+
 /** Three-state toggle used by X search filters such as replies and links. */
 export type XSearchFilterMode = 'any' | 'only' | 'exclude'
 
@@ -42,16 +51,6 @@ export const emptyXSearchCondition: XSearchCondition = {
   until: '',
 }
 
-/** Splits a free-form field on whitespace and commas, the delimiters X's own form accepts. */
-const splitTerms = (value: string) =>
-  value
-    .split(/[\s,]+/)
-    .map((term) => term.trim())
-    .filter(Boolean)
-
-const orGroup = (terms: string[]) =>
-  terms.length > 1 ? `(${terms.join(' OR ')})` : (terms[0] ?? '')
-
 const withPrefix = (prefix: string, term: string) =>
   term.startsWith(prefix) ? term : `${prefix}${term}`
 
@@ -63,13 +62,6 @@ const filterOperator = (mode: XSearchFilterMode, name: string) => {
   return ''
 }
 
-const naturalNumber = (value: string) => {
-  const digits = value.trim()
-  return /^[1-9]\d*$/.test(digits) ? digits : ''
-}
-
-const isoDate = (value: string) => (/^\d{4}-\d{2}-\d{2}$/.test(value.trim()) ? value.trim() : '')
-
 /**
  * Assembles the operator string X's advanced search form produces, in the same
  * order the form emits: words, accounts, filters, engagement, then dates.
@@ -78,10 +70,9 @@ export const buildXSearchQuery = (condition: XSearchCondition) => {
   const parts: string[] = []
 
   parts.push(...splitTerms(condition.allWords))
-  const phrase = condition.exactPhrase.trim()
-  if (phrase) parts.push(`"${phrase.replace(/"/g, '')}"`)
+  parts.push(quotePhrase(condition.exactPhrase))
   parts.push(orGroup(splitTerms(condition.anyWords)))
-  parts.push(...splitTerms(condition.noneWords).map((term) => `-${term.replace(/^-/, '')}`))
+  parts.push(...splitTerms(condition.noneWords).map(negate))
   parts.push(orGroup(splitTerms(condition.hashtags).map((term) => withPrefix('#', term))))
   if (condition.language.trim()) parts.push(`lang:${condition.language.trim()}`)
 

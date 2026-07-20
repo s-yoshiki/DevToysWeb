@@ -13,6 +13,8 @@ import {
   FileType,
   Fingerprint,
   GitCompareArrows,
+  GitPullRequest,
+  Globe,
   Hash,
   KeyRound,
   Layers,
@@ -21,6 +23,7 @@ import {
   ListTree,
   LockKeyhole,
   type LucideIcon,
+  Mail,
   Network,
   Paintbrush,
   Palette,
@@ -46,6 +49,7 @@ export type ToolCategory =
   | 'formatters'
   | 'generators'
   | 'testers'
+  | 'search'
   | 'text'
   | 'images'
   | 'network'
@@ -85,6 +89,9 @@ export type ToolDefinition = {
     | 'image-convert'
     | 'exif'
     | 'x-search'
+    | 'google-search'
+    | 'gmail-search'
+    | 'github-search'
 }
 
 export const tools: ToolDefinition[] = [
@@ -364,7 +371,7 @@ export const tools: ToolDefinition[] = [
     slug: 'x-search',
     emoji: '🔎',
     pathSlug: 'x-advanced-search',
-    category: 'generators',
+    category: 'search',
     icon: Search,
     title: { ja: 'X高度な検索', en: 'X advanced search' },
     description: {
@@ -373,6 +380,48 @@ export const tools: ToolDefinition[] = [
     },
     mode: 'generate',
     workspace: 'x-search',
+  },
+  {
+    slug: 'google-search',
+    emoji: '🌎',
+    pathSlug: 'google-advanced-search',
+    category: 'search',
+    icon: Globe,
+    title: { ja: 'Google高度な検索', en: 'Google advanced search' },
+    description: {
+      ja: '検索演算子を組み立ててGoogleで検索',
+      en: 'Compose search operators and jump to Google',
+    },
+    mode: 'generate',
+    workspace: 'google-search',
+  },
+  {
+    slug: 'gmail-search',
+    emoji: '📮',
+    pathSlug: 'gmail-search-builder',
+    category: 'search',
+    icon: Mail,
+    title: { ja: 'Gmail検索ビルダー', en: 'Gmail search builder' },
+    description: {
+      ja: '差出人や添付条件からGmailの検索式を作成',
+      en: 'Build Gmail search queries from senders and filters',
+    },
+    mode: 'generate',
+    workspace: 'gmail-search',
+  },
+  {
+    slug: 'github-search',
+    emoji: '🐙',
+    pathSlug: 'github-advanced-search',
+    category: 'search',
+    icon: GitPullRequest,
+    title: { ja: 'GitHub高度な検索', en: 'GitHub advanced search' },
+    description: {
+      ja: 'リポジトリやIssueの検索条件を組み立て',
+      en: 'Build repository, code and issue search queries',
+    },
+    mode: 'generate',
+    workspace: 'github-search',
   },
   {
     slug: 'regex',
