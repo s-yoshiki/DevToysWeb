@@ -29,6 +29,7 @@ import {
   Quote,
   Regex,
   Route,
+  Search,
   Sigma,
   Sparkles,
   SquareCode,
@@ -83,6 +84,7 @@ export type ToolDefinition = {
     | 'svg'
     | 'image-convert'
     | 'exif'
+    | 'x-search'
 }
 
 export const tools: ToolDefinition[] = [
@@ -357,6 +359,20 @@ export const tools: ToolDefinition[] = [
     title: { ja: 'ハッシュ', en: 'Hash' },
     description: { ja: 'SHAハッシュを計算', en: 'Calculate SHA hashes' },
     mode: 'generate',
+  },
+  {
+    slug: 'x-search',
+    emoji: '🔎',
+    pathSlug: 'x-advanced-search',
+    category: 'generators',
+    icon: Search,
+    title: { ja: 'X高度な検索', en: 'X advanced search' },
+    description: {
+      ja: '条件からXの検索クエリとURLを組み立て',
+      en: 'Build X search queries and jump to the results',
+    },
+    mode: 'generate',
+    workspace: 'x-search',
   },
   {
     slug: 'regex',
