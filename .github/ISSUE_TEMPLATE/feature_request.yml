@@ -1,0 +1,60 @@
+name: Feature request / 機能提案
+description: Suggest a new tool or improvement / 新しいツールや改善を提案する
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve DevToysWeb.
+        DevToysWeb への提案ありがとうございます。
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Preflight checks / 事前確認
+      options:
+        - label: I searched existing issues and could not find a duplicate. / 既存の Issue に同じ提案がないことを確認しました。
+          required: true
+
+  - type: dropdown
+    id: request-type
+    attributes:
+      label: Request type / 提案の種類
+      options:
+        - New developer tool / 新しい開発ツール
+        - Improvement to an existing tool / 既存ツールの改善
+        - User interface or accessibility / UI・アクセシビリティ
+        - Documentation / ドキュメント
+        - Other / その他
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case / 課題・ユースケース
+      description: What problem would this solve, and who would benefit? / 解決したい課題と想定利用者を記載してください。
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution / 提案内容
+      description: Describe the desired behavior, inputs, and outputs. / 期待する動作、入力、出力を記載してください。
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered / 検討した代替案
+      description: Describe any existing tools or workarounds you considered. / 既存ツールや回避策があれば記載してください。
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context / 補足
+      description: Add examples, mockups, or reference links. / 例、モックアップ、参考リンクなどがあれば記載してください。

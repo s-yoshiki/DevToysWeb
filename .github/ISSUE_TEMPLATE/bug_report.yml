@@ -1,0 +1,73 @@
+name: Bug report / バグ報告
+description: Report a reproducible problem / 再現可能な不具合を報告する
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a problem.
+        不具合の報告ありがとうございます。分かる範囲でご記入ください。
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Preflight checks / 事前確認
+      options:
+        - label: I searched existing issues and could not find a duplicate. / 既存の Issue に同じ報告がないことを確認しました。
+          required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Problem description / 不具合の内容
+      description: Describe what happened and what you expected instead. / 実際の動作と期待する動作を記載してください。
+      placeholder: Tell us what went wrong. / 問題の内容を記載してください。
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce / 再現手順
+      description: Include the tool page, input, and actions needed to reproduce the problem. / 対象ツール、入力内容、操作手順を記載してください。
+      placeholder: |
+        1. Open ... / ...を開く
+        2. Enter ... / ...を入力する
+        3. Click ... / ...をクリックする
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Affected URL / 対象 URL
+      placeholder: https://devtoys.ex-foundry.com/en/...
+
+  - type: dropdown
+    id: locale
+    attributes:
+      label: Locale / 表示言語
+      options:
+        - Japanese / 日本語
+        - English / 英語
+        - Both / 両方
+        - Not applicable / 該当なし
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment / 実行環境
+      description: Browser, browser version, and OS. / ブラウザ名・バージョン、OS を記載してください。
+      placeholder: Chrome 140, macOS 26
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context / 補足
+      description: Add screenshots, logs, or other useful context. Remove secrets and personal information. / スクリーンショットやログなどがあれば添付してください。秘密情報や個人情報は除いてください。
