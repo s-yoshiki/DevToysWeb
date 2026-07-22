@@ -3,7 +3,7 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { useTranslate } from '@/features/i18n/hooks/use-translate'
+import { useTranslate } from '@/hooks/use-translate'
 import { CopyButton } from '../../components/copy-button'
 import { SegmentedControl } from '../../components/segmented-control'
 import { WorkspaceShell } from '../../components/workspace-shell'

@@ -1,6 +1,6 @@
 'use client'
 
-import { useTranslate } from '@/features/i18n/hooks/use-translate'
+import { useTranslate } from '@/hooks/use-translate'
 import type { ExifEntry } from '../../domain/exif'
 
 export const ExifTable = ({ entries }: { entries: ExifEntry[] | null }) => {

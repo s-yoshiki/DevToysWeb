@@ -41,8 +41,10 @@ manager version is pinned in the root `package.json`.
 - Hooks shared by several workspaces: `apps/web/src/features/tools/hooks/`
 - Browser-side clients for `apps/api`: `apps/web/src/features/tools/api/`
 - Shared UI primitives: `apps/web/src/components/ui/`
-- Japanese and English shared copy:
-  `apps/web/src/features/i18n/domain/dictionaries.ts`
+- Cross-cutting components and hooks used by more than one feature
+  (locale/theme providers, `useTranslate`): `apps/web/src/components/` and
+  `apps/web/src/hooks/`
+- Japanese and English shared copy: `apps/web/src/i18n/dictionaries.ts`
 - Canonical URLs, `hreflang`, Open Graph, and JSON-LD:
   `apps/web/src/features/seo/`; the sitemap and robots routes live in
   `apps/web/src/app/sitemap.ts` and `apps/web/src/app/robots.ts`

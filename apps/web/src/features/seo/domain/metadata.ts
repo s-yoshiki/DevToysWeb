@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import { getDictionary, type Locale } from '@/features/i18n/domain/dictionaries'
 import type { ToolDefinition } from '@/features/tools/domain/catalog'
+import { getDictionary, type Locale } from '@/i18n/dictionaries'
 import { alternatesFor, ogImage, ogLocales, siteName } from './site'
 
 const baseKeywords: Record<Locale, string[]> = {

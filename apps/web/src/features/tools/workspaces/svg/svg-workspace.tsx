@@ -1,9 +1,9 @@
 'use client'
 
+import { useLocale } from '@/components/locale-provider'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useLocale } from '@/features/i18n/components/locale-provider'
-import { useTranslate } from '@/features/i18n/hooks/use-translate'
+import { useTranslate } from '@/hooks/use-translate'
 import { CopyButton } from '../../components/copy-button'
 import { CodeArea, Pane, PaneHeader } from '../../components/workspace-panes'
 import { WorkspaceShell } from '../../components/workspace-shell'

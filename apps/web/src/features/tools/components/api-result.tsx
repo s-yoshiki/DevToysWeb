@@ -2,7 +2,7 @@
 
 import { CircleAlert } from 'lucide-react'
 import { Textarea } from '@/components/ui/textarea'
-import { useTranslate } from '@/features/i18n/hooks/use-translate'
+import { useTranslate } from '@/hooks/use-translate'
 import { CopyButton } from './copy-button'
 
 /** Response body plus failure notice for the workspaces backed by the API. */

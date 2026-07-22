@@ -1,8 +1,8 @@
 'use client'
 
 import { Check, Clipboard } from 'lucide-react'
+import { useLocale } from '@/components/locale-provider'
 import { Button } from '@/components/ui/button'
-import { useLocale } from '@/features/i18n/components/locale-provider'
 import { useCopy } from '../hooks/use-copy'
 
 export const CopyButton = ({ value }: { value: string }) => {

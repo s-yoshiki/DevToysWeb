@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useTranslate } from '@/features/i18n/hooks/use-translate'
+import { useTranslate } from '@/hooks/use-translate'
 import { type ExifEntry, hasLocationData, readExif } from '../../domain/exif'
 import { maxImageFileSize, stripMetadata } from '../../domain/image'
 

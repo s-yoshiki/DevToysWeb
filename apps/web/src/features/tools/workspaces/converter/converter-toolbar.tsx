@@ -1,10 +1,10 @@
 'use client'
 
 import { ArrowRight, Play } from 'lucide-react'
+import { useLocale } from '@/components/locale-provider'
 import { Button } from '@/components/ui/button'
 import { CardHeader, CardTitle } from '@/components/ui/card'
-import { useLocale } from '@/features/i18n/components/locale-provider'
-import { useTranslate } from '@/features/i18n/hooks/use-translate'
+import { useTranslate } from '@/hooks/use-translate'
 import type { Converter } from './use-converter'
 
 const DirectionSwitch = ({ converter }: { converter: Converter }) => {

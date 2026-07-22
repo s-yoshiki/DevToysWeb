@@ -1,7 +1,7 @@
 import { ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
-import type { Locale } from '@/features/i18n/domain/dictionaries'
+import type { Locale } from '@/i18n/dictionaries'
 import type { ToolDefinition } from '../domain/catalog'
 import { getToolPath } from '../domain/tool-path'
 

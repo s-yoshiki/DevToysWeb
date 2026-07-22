@@ -2,9 +2,9 @@
 
 import { ArrowRight, History, LayoutGrid, Search, Sparkles, TrendingUp } from 'lucide-react'
 import { useMemo, useState } from 'react'
+import { useLocale } from '@/components/locale-provider'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { useLocale } from '@/features/i18n/components/locale-provider'
 import { cn } from '@/lib/utils'
 import { type ToolCategory, tools } from '../domain/catalog'
 import { useRecentTools } from '../hooks/use-recent-tools'

@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect } from 'react'
-import type { Dictionary, Locale } from '../domain/dictionaries'
+import type { Dictionary, Locale } from '@/i18n/dictionaries'
 
 const LocaleContext = createContext<{ locale: Locale; dictionary: Dictionary } | null>(null)
 
