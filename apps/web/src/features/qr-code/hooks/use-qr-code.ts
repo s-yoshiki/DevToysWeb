@@ -5,7 +5,7 @@ import { generateQrCode } from '../functions/generate-qr-code'
 import type { CorrectionLevel } from '../types/qr-code'
 
 export const useQrCode = () => {
-  const [input, setInput] = useState('https://devtoys.app/')
+  const [input, setInput] = useState(`${location.href}`)
   const [size, setSize] = useState(320)
   const [level, setLevel] = useState<CorrectionLevel>('M')
   const [dataUrl, setDataUrl] = useState('')
