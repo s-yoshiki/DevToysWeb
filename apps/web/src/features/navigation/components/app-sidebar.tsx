@@ -5,9 +5,9 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useLocale } from '@/features/i18n/components/locale-provider'
-import { useRecentTools } from '@/features/tools/application/use-recent-tools'
 import { type ToolCategory, type ToolDefinition, tools } from '@/features/tools/domain/catalog'
 import { getToolPath } from '@/features/tools/domain/tool-path'
+import { useRecentTools } from '@/features/tools/hooks/use-recent-tools'
 import { cn } from '@/lib/utils'
 
 const categories: ToolCategory[] = [
