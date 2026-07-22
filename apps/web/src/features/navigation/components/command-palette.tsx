@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { useLocale } from '@/features/i18n/components/locale-provider'
-import { useRecentTools } from '@/features/tools/application/use-recent-tools'
 import { type ToolDefinition, tools } from '@/features/tools/domain/catalog'
 import { getToolPath } from '@/features/tools/domain/tool-path'
+import { useRecentTools } from '@/features/tools/hooks/use-recent-tools'
 import { cn } from '@/lib/utils'
 
 /** Every string a tool can reasonably be searched by, in both locales. */

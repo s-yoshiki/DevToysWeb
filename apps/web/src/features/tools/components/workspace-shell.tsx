@@ -1,0 +1,51 @@
+'use client'
+
+import { RotateCcw } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { useLocale } from '@/features/i18n/components/locale-provider'
+import type { ToolDefinition } from '../domain/catalog'
+
+/**
+ * Page frame shared by every workspace: category badge, tool identity and the
+ * single reset affordance. Workspaces own what "clear" means for their state.
+ */
+export const WorkspaceShell = ({
+  tool,
+  onClear,
+  children,
+}: {
+  tool: ToolDefinition
+  onClear: () => void
+  children: React.ReactNode
+}) => {
+  const { locale, dictionary } = useLocale()
+  const Icon = tool.icon
+  return (
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <header className="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+        <div>
+          <Badge variant="secondary" className="mb-3 capitalize">
+            {dictionary.categories[tool.category]}
+          </Badge>
+          <div className="flex items-center gap-3">
+            <div className="flex size-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
+              <Icon className="size-6" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+                {tool.title[locale]}
+              </h1>
+              <p className="mt-1 text-sm text-muted-foreground">{tool.description[locale]}</p>
+            </div>
+          </div>
+        </div>
+        <Button variant="outline" onClick={onClear}>
+          <RotateCcw className="size-4" />
+          {dictionary.clear}
+        </Button>
+      </header>
+      {children}
+    </div>
+  )
+}

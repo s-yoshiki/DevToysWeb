@@ -28,10 +28,18 @@ manager version is pinned in the root `package.json`.
   `apps/web/src/features/tools/domain/catalog.ts`
 - Pure text conversions and generators:
   `apps/web/src/features/tools/domain/transformers.ts`
-- Tool state and orchestration:
-  `apps/web/src/features/tools/application/`
-- Tool-specific interfaces:
+- Other framework-free logic (parsers, formatters, encoders):
+  `apps/web/src/features/tools/domain/`
+- One flat folder per tool interface, colocating its component(s), hook, and any
+  constants (files named `*-workspace.tsx` / `use-*.ts`, not split into subfolders):
+  `apps/web/src/features/tools/workspaces/<workspace>/`; the `workspace` value on a
+  catalog entry is mapped to its component in
+  `apps/web/src/features/tools/workspaces/registry.ts`, and tools without one fall back
+  to `workspaces/converter/`
+- UI shared by several workspaces (shell, panes, copy button, search fields):
   `apps/web/src/features/tools/components/`
+- Hooks shared by several workspaces: `apps/web/src/features/tools/hooks/`
+- Browser-side clients for `apps/api`: `apps/web/src/features/tools/api/`
 - Shared UI primitives: `apps/web/src/components/ui/`
 - Japanese and English shared copy:
   `apps/web/src/features/i18n/domain/dictionaries.ts`
@@ -43,7 +51,11 @@ manager version is pinned in the root `package.json`.
 - GitHub Actions OIDC and deployment role: `scripts/infra/lib/github-actions-stack.ts`
 
 When adding a tool, update the catalog and both locales together. Reuse an existing
-workspace when possible; otherwise extend the `workspace` union and add the matching UI.
+workspace when possible; otherwise extend the `workspace` union, add a flat
+`workspaces/<workspace>/` folder (`<workspace>-workspace.tsx` plus `use-<workspace>.ts`),
+and register the component in `workspaces/registry.ts`. Keep state and derivation in the
+workspace's hook so its component stays declarative, and push framework-free logic down
+into `domain/`.
 Keep browser-only transformations in the web app. Put operations requiring network access,
 secret material, or server-side trust boundaries in the API.
 

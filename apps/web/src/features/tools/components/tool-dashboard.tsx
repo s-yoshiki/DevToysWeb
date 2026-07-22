@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useLocale } from '@/features/i18n/components/locale-provider'
 import { cn } from '@/lib/utils'
-import { useRecentTools } from '../application/use-recent-tools'
 import { type ToolCategory, tools } from '../domain/catalog'
+import { useRecentTools } from '../hooks/use-recent-tools'
 import { ToolCard } from './tool-card'
 
 const categories: ToolCategory[] = [

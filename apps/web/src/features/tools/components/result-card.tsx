@@ -1,0 +1,35 @@
+'use client'
+
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Textarea } from '@/components/ui/textarea'
+import { cn } from '@/lib/utils'
+import { CopyButton } from './copy-button'
+
+/** Read-only result panel with a copy action, used by the single-output tools. */
+export const ResultCard = ({
+  title,
+  value,
+  error = false,
+}: {
+  title: string
+  value: string
+  error?: boolean
+}) => (
+  <Card className="overflow-hidden border-border/70">
+    <CardHeader className="flex flex-row items-center justify-between border-b bg-muted/30 py-3">
+      <CardTitle className="text-sm">{title}</CardTitle>
+      <CopyButton value={value} />
+    </CardHeader>
+    <CardContent className="p-0">
+      <Textarea
+        readOnly
+        aria-label={title}
+        value={value}
+        className={cn(
+          'min-h-60 resize-none rounded-none border-0 p-5 font-mono shadow-none focus-visible:ring-0',
+          error && 'text-destructive',
+        )}
+      />
+    </CardContent>
+  </Card>
+)
