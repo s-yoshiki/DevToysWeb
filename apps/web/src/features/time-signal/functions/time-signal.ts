@@ -21,6 +21,28 @@ export const nextSlotAt = (date: Date, intervalMinutes: number) => {
   return next
 }
 
+/** The next 10-second boundary used by the Japanese 117-style signal. */
+export const nextTelephoneSignalAt = (date: Date, minimumLeadMs = 0) => {
+  const earliest = date.getTime() + minimumLeadMs
+  return new Date(Math.ceil((earliest + 1) / 10_000) * 10_000)
+}
+
+/** Speech text for the upcoming tone, localized to the active page language. */
+export const formatTimeAnnouncement = (date: Date, locale: 'ja' | 'en') => {
+  const hours = date.getHours()
+  const hour = hours % 12
+  const minutes = date.getMinutes()
+  const seconds = date.getSeconds()
+
+  if (locale === 'ja') {
+    const period = hours < 12 ? '午前' : '午後'
+    return `${period}${hour}時${minutes}分${seconds}秒をお知らせします`
+  }
+
+  const period = hours < 12 ? 'A.M.' : 'P.M.'
+  return `At the tone, the time will be ${hour || 12} hours, ${minutes} minutes, and ${seconds} seconds ${period}`
+}
+
 /** `HH:MM:SS` in the visitor's local time, always zero-padded and 24-hour. */
 export const formatWallClock = (date: Date) =>
   [date.getHours(), date.getMinutes(), date.getSeconds()]

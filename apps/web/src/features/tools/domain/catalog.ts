@@ -309,8 +309,8 @@ export const tools: ToolDefinition[] = [
     icon: BellRing,
     title: { ja: '時報', en: 'Time signal' },
     description: {
-      ja: '毎正時や一定間隔で時刻を音で知らせる',
-      en: 'Chime on the hour or at a fixed interval',
+      ja: '117風の音声や時報音で時刻を知らせる',
+      en: 'Announce the time with a 117-style voice or chime',
     },
     mode: 'inspect',
     workspace: 'time-signal',
