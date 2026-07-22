@@ -43,6 +43,32 @@ $ pnpm check
 $ pnpm format
 ```
 
+## API mocks
+
+DNS・TLS・HTTP診断、WHOIS検索、OGPチェック、SEOチェック、JWT署名検証は `apps/api`
+(Lambda) を呼び出します。ローカルでは [MSW](https://mswjs.io/) がこれらのレスポンスを
+返すため、AWSに接続せずに動作確認できます。
+
+```sh
+# service workerを有効にしてdevサーバーを起動
+pnpm --filter @devtoys/web dev:mock
+```
+
+ハンドラーは `apps/web/src/mocks/handlers.ts`、フィクスチャーは
+`apps/web/src/mocks/fixtures.ts` にあります。次のホスト名で分岐を確認できます。
+
+| 入力 | 挙動 |
+| --- | --- |
+| 任意のURL / ドメイン | 正常なページレポート |
+| `sloppy.example.com` | メタタグ・見出し欠落。SEO/OGPチェックが警告と失敗を返す |
+| `unreachable.example.com` | 取得失敗。エラーバナーを表示 |
+| `redirected.example.com` | リダイレクト後に404 |
+| `localhost` / `10.0.0.1` など | SSRFガードのエラーメッセージ |
+
+`pnpm --filter @devtoys/web test` はNode側の同じハンドラーを使い、APIクライアントの
+リクエスト内容とエラー処理を検証します。モックは `NEXT_PUBLIC_API_MOCKS=enabled`
+かつ開発ビルドのときだけ読み込まれ、本番の静的出力には含まれません。
+
 ## AWS deployment
 
 The production architecture is a private S3 bucket behind CloudFront, with `/api/*`
