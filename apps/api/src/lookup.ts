@@ -111,7 +111,9 @@ export const lookupWhois = async (input: string) => {
     const response = await askWhoisServer(server, domain)
     responses.push(response)
 
-    const referral = referralOf(response)?.replace(/^https?:\/\//, '').replace(/\/.*$/, '')
+    const referral = referralOf(response)
+      ?.replace(/^https?:\/\//, '')
+      .replace(/\/.*$/, '')
     if (!referral || servers.includes(referral)) break
     server = referral
   }
@@ -121,7 +123,10 @@ export const lookupWhois = async (input: string) => {
     domain,
     servers,
     summary: Object.fromEntries(
-      Object.entries(summaryFields).map(([key, pattern]) => [key, raw.match(pattern)?.[1].trim() ?? null]),
+      Object.entries(summaryFields).map(([key, pattern]) => [
+        key,
+        raw.match(pattern)?.[1].trim() ?? null,
+      ]),
     ),
     raw,
   }

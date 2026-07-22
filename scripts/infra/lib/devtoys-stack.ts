@@ -96,6 +96,11 @@ export class DevToysStack extends cdk.Stack {
       distribution,
       distributionPaths: ['/*'],
       prune: true,
+      // The export is ~1,300 objects. Lambda CPU scales with memory, and the
+      // handler's timeout is already at the 15 minute service maximum, so more
+      // memory is the only way to keep the upload inside it. 1,769 MiB is one
+      // full vCPU.
+      memoryLimit: 1769,
     })
 
     const hostedZone = route53.HostedZone.fromHostedZoneAttributes(this, 'HostedZone', {

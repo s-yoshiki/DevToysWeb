@@ -10,6 +10,30 @@ export const imageFormatLabels: Record<ImageFormat, string> = {
   'image/png': 'PNG',
 }
 
+export const imageFormatExtensions: Record<ImageFormat, string> = {
+  'image/webp': 'webp',
+  'image/avif': 'avif',
+  'image/jpeg': 'jpg',
+  'image/png': 'png',
+}
+
+const isImageFormat = (value: string): value is ImageFormat =>
+  (imageFormats as readonly string[]).includes(value)
+
+/**
+ * The format a file should be re-encoded to when the caller wants to keep the
+ * original. Anything the canvas cannot emit (HEIC, GIF, BMP…) becomes PNG so the
+ * result is at least lossless.
+ */
+export const sourceImageFormat = (file: File): ImageFormat =>
+  isImageFormat(file.type) ? file.type : 'image/png'
+
+/** Keeps the original name in the download, with the new format's extension. */
+export const withImageExtension = (fileName: string, format: ImageFormat) => {
+  const base = fileName.replace(/\.[^./\\]+$/, '') || 'image'
+  return `${base}.${imageFormatExtensions[format]}`
+}
+
 export type EncodedImage = { blob: Blob; width: number; height: number }
 
 const drawToCanvas = (bitmap: ImageBitmap, width: number, height: number) => {

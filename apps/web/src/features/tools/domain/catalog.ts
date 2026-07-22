@@ -1,14 +1,18 @@
 import {
   Aperture,
   Asterisk,
+  BellRing,
   Blend,
   Braces,
+  Calculator,
   CalendarClock,
   CaseSensitive,
   Code2,
   Crop,
+  Earth,
   FileCode2,
   FileImage,
+  FileSearch,
   FileText,
   FileType,
   Fingerprint,
@@ -16,6 +20,8 @@ import {
   GitPullRequest,
   Globe,
   Hash,
+  Hourglass,
+  Images,
   KeyRound,
   Layers,
   Link2,
@@ -24,27 +30,38 @@ import {
   LockKeyhole,
   type LucideIcon,
   Mail,
+  Minimize2,
   Network,
   Paintbrush,
   Palette,
+  Pencil,
   Pilcrow,
   QrCode,
   Quote,
   Regex,
   Route,
+  Ruler,
   Search,
+  Server,
+  Share2,
   Sigma,
+  Smartphone,
   Sparkles,
   SquareCode,
+  SquareFunction,
   TableProperties,
   Terminal,
   TextQuote,
   Timer,
+  TimerReset,
+  Wand2,
 } from 'lucide-react'
 import type { Locale } from '@/i18n/dictionaries'
 
 export type ToolCategory =
   | 'converters'
+  | 'calculators'
+  | 'time'
   | 'encoders'
   | 'formatters'
   | 'generators'
@@ -64,6 +81,19 @@ export type ToolDefinition = {
   mode: 'convert' | 'generate' | 'inspect'
   workspace?:
     | 'default'
+    | 'calculator'
+    | 'scientific-calculator'
+    | 'number-base'
+    | 'unit-convert'
+    | 'timezone'
+    | 'timer'
+    | 'stopwatch'
+    | 'time-signal'
+    | 'image-format'
+    | 'image-compress'
+    | 'drawing'
+    | 'png-transparent'
+    | 'heic-convert'
     | 'regex'
     | 'url-parser'
     | 'text-analyzer'
@@ -92,6 +122,9 @@ export type ToolDefinition = {
     | 'google-search'
     | 'gmail-search'
     | 'github-search'
+    | 'whois'
+    | 'ogp-check'
+    | 'seo-check'
 }
 
 export const tools: ToolDefinition[] = [
@@ -167,8 +200,26 @@ export const tools: ToolDefinition[] = [
     category: 'converters',
     icon: Sigma,
     title: { ja: '基数変換', en: 'Number base' },
-    description: { ja: '2〜36進数を自在に変換', en: 'Convert bases from 2 to 36' },
+    description: {
+      ja: '2〜36進数を同時に表示して変換',
+      en: 'Convert and compare bases from 2 to 36',
+    },
     mode: 'convert',
+    workspace: 'number-base',
+  },
+  {
+    slug: 'unit-convert',
+    emoji: '📏',
+    pathSlug: 'unit-converter',
+    category: 'converters',
+    icon: Ruler,
+    title: { ja: '単位変換', en: 'Unit converter' },
+    description: {
+      ja: '長さ・面積・重さ・データ容量などを一覧で変換',
+      en: 'Convert length, area, weight, data size and more at once',
+    },
+    mode: 'convert',
+    workspace: 'unit-convert',
   },
   {
     slug: 'date-time',
@@ -179,6 +230,90 @@ export const tools: ToolDefinition[] = [
     title: { ja: '日時変換', en: 'Date & time' },
     description: { ja: '日時とUnix timeを変換', en: 'Convert dates and Unix time' },
     mode: 'convert',
+  },
+  {
+    slug: 'timezone',
+    emoji: '🌏',
+    pathSlug: 'timezone-converter',
+    category: 'converters',
+    icon: Earth,
+    title: { ja: 'タイムゾーン変換', en: 'Time zone converter' },
+    description: {
+      ja: '同じ時刻を世界の各都市で見比べる',
+      en: 'Compare one moment across cities worldwide',
+    },
+    mode: 'convert',
+    workspace: 'timezone',
+  },
+  {
+    slug: 'calculator',
+    emoji: '🧮',
+    pathSlug: 'calculator',
+    category: 'calculators',
+    icon: Calculator,
+    title: { ja: '電卓', en: 'Calculator' },
+    description: {
+      ja: '式のまま計算して履歴を残す電卓',
+      en: 'Evaluate expressions and keep the history',
+    },
+    mode: 'inspect',
+    workspace: 'calculator',
+  },
+  {
+    slug: 'scientific-calculator',
+    emoji: '📐',
+    pathSlug: 'scientific-calculator',
+    category: 'calculators',
+    icon: SquareFunction,
+    title: { ja: '関数電卓', en: 'Scientific calculator' },
+    description: {
+      ja: '三角関数や対数、度数法・弧度法に対応',
+      en: 'Trigonometry, logarithms, degrees and radians',
+    },
+    mode: 'inspect',
+    workspace: 'scientific-calculator',
+  },
+  {
+    slug: 'timer',
+    emoji: '⏳',
+    pathSlug: 'timer',
+    category: 'time',
+    icon: Hourglass,
+    title: { ja: 'タイマー', en: 'Timer' },
+    description: {
+      ja: '残り時間を数えて終了時に音で知らせる',
+      en: 'Count down and chime when the time is up',
+    },
+    mode: 'inspect',
+    workspace: 'timer',
+  },
+  {
+    slug: 'stopwatch',
+    emoji: '⏱️',
+    pathSlug: 'stopwatch',
+    category: 'time',
+    icon: TimerReset,
+    title: { ja: 'ストップウォッチ', en: 'Stopwatch' },
+    description: {
+      ja: '1/100秒まで計測しラップを記録',
+      en: 'Measure to a hundredth of a second and record laps',
+    },
+    mode: 'inspect',
+    workspace: 'stopwatch',
+  },
+  {
+    slug: 'time-signal',
+    emoji: '🔔',
+    pathSlug: 'time-signal',
+    category: 'time',
+    icon: BellRing,
+    title: { ja: '時報', en: 'Time signal' },
+    description: {
+      ja: '毎正時や一定間隔で時刻を音で知らせる',
+      en: 'Chime on the hour or at a fixed interval',
+    },
+    mode: 'inspect',
+    workspace: 'time-signal',
   },
   {
     slug: 'base64',
@@ -585,6 +720,76 @@ export const tools: ToolDefinition[] = [
     workspace: 'image-convert',
   },
   {
+    slug: 'image-format',
+    emoji: '🖼',
+    pathSlug: 'image-format-converter',
+    category: 'images',
+    icon: Images,
+    title: { ja: '画像フォーマット変換', en: 'Image format converter' },
+    description: {
+      ja: 'PNG/JPEG/WebP/AVIFへまとめて変換',
+      en: 'Batch convert to PNG, JPEG, WebP or AVIF',
+    },
+    mode: 'convert',
+    workspace: 'image-format',
+  },
+  {
+    slug: 'image-compress',
+    emoji: '📉',
+    pathSlug: 'image-compressor',
+    category: 'images',
+    icon: Minimize2,
+    title: { ja: '画像圧縮', en: 'Image compressor' },
+    description: {
+      ja: '形式はそのままに複数画像をまとめて軽量化',
+      en: 'Shrink several images at once, keeping their format',
+    },
+    mode: 'convert',
+    workspace: 'image-compress',
+  },
+  {
+    slug: 'drawing',
+    emoji: '🖍️',
+    pathSlug: 'drawing-tool',
+    category: 'images',
+    icon: Pencil,
+    title: { ja: 'お絵描きツール', en: 'Drawing tool' },
+    description: {
+      ja: 'ブラウザで描いてPNGとして保存',
+      en: 'Sketch in the browser and save it as a PNG',
+    },
+    mode: 'generate',
+    workspace: 'drawing',
+  },
+  {
+    slug: 'png-transparent',
+    emoji: '🫧',
+    pathSlug: 'png-transparency-maker',
+    category: 'images',
+    icon: Wand2,
+    title: { ja: 'PNG透過', en: 'PNG transparency' },
+    description: {
+      ja: '指定した色を透明にしてPNGで書き出す',
+      en: 'Knock out a colour and export a transparent PNG',
+    },
+    mode: 'convert',
+    workspace: 'png-transparent',
+  },
+  {
+    slug: 'heic-convert',
+    emoji: '📱',
+    pathSlug: 'heic-converter',
+    category: 'images',
+    icon: Smartphone,
+    title: { ja: 'HEIC変換', en: 'HEIC converter' },
+    description: {
+      ja: 'iPhoneのHEIC写真をJPEG/PNGへ変換',
+      en: 'Turn iPhone HEIC photos into JPEG or PNG',
+    },
+    mode: 'convert',
+    workspace: 'heic-convert',
+  },
+  {
     slug: 'exif',
     emoji: '📸',
     pathSlug: 'exif-viewer',
@@ -638,6 +843,48 @@ export const tools: ToolDefinition[] = [
     workspace: 'site-diagnostics',
   },
   {
+    slug: 'whois',
+    emoji: '🗂️',
+    pathSlug: 'whois-lookup',
+    category: 'network',
+    icon: Server,
+    title: { ja: 'WHOIS検索', en: 'WHOIS lookup' },
+    description: {
+      ja: 'ドメインの登録者・期限・ステータスを照会',
+      en: 'Look up a domain registrar, dates and status',
+    },
+    mode: 'inspect',
+    workspace: 'whois',
+  },
+  {
+    slug: 'ogp-check',
+    emoji: '🪪',
+    pathSlug: 'ogp-checker',
+    category: 'network',
+    icon: Share2,
+    title: { ja: 'OGPチェック', en: 'OGP checker' },
+    description: {
+      ja: 'OGPとX Cardの設定をプレビューで確認',
+      en: 'Preview Open Graph and X Card tags for a page',
+    },
+    mode: 'inspect',
+    workspace: 'ogp-check',
+  },
+  {
+    slug: 'seo-check',
+    emoji: '🔬',
+    pathSlug: 'seo-checker',
+    category: 'network',
+    icon: FileSearch,
+    title: { ja: 'SEOチェック', en: 'SEO checker' },
+    description: {
+      ja: 'タイトルや見出し、canonicalなどを点検',
+      en: 'Audit titles, headings, canonical tags and more',
+    },
+    mode: 'inspect',
+    workspace: 'seo-check',
+  },
+  {
     slug: 'network-info',
     emoji: '📡',
     pathSlug: 'connection-info',
@@ -647,6 +894,21 @@ export const tools: ToolDefinition[] = [
     description: { ja: 'ブラウザの接続情報を確認', en: 'Inspect browser network details' },
     mode: 'inspect',
   },
+]
+
+/** Display order for every surface that lists categories. */
+export const categoryOrder: ToolCategory[] = [
+  'converters',
+  'calculators',
+  'time',
+  'encoders',
+  'formatters',
+  'generators',
+  'testers',
+  'search',
+  'text',
+  'images',
+  'network',
 ]
 
 export const findTool = (slug: string) => tools.find((tool) => tool.slug === slug)

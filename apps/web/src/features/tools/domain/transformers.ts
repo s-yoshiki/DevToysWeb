@@ -117,12 +117,7 @@ const jsonToToml = (value: string) => {
   return stringifyToml(parsed as Record<string, unknown>)
 }
 
-export const transform = (
-  slug: string,
-  value: string,
-  reverse = false,
-  options: Record<string, number> = {},
-) => {
+export const transform = (slug: string, value: string, reverse = false) => {
   if (!value) return ''
   switch (slug) {
     case 'yaml-json':
@@ -133,10 +128,6 @@ export const transform = (
       return reverse ? JSON.stringify(parseToml(value), null, 2) : jsonToToml(value)
     case 'json-xml':
       return reverse ? xmlToJson(value) : jsonToXml(value)
-    case 'number-base':
-      return Number.parseInt(value, options.from ?? 10)
-        .toString(options.to ?? 16)
-        .toUpperCase()
     case 'date-time': {
       const date = reverse ? new Date(Number(value) * 1000) : new Date(value)
       return reverse ? date.toISOString() : String(Math.floor(date.getTime() / 1000))
