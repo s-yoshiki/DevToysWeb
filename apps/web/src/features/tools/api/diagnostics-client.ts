@@ -27,7 +27,40 @@ const callApi = async (path: string, body: unknown) => {
   return result
 }
 
+/** Mirrors the fields of `/api/diagnose` that the page-oriented tools render. */
+export type SiteReport = {
+  target: string
+  http: {
+    finalUrl: string
+    status: number
+    durationMs: number
+    redirects: string[]
+    headers: Record<string, string | string[]>
+    securityHeaders: Record<string, string | null>
+  }
+  page: Record<string, string>
+  signals: {
+    lang: string | null
+    charset: string | null
+    h1: string[]
+    h2: string[]
+    images: { total: number; missingAlt: number }
+    links: { total: number; external: number; internal: number }
+    textLength: number
+  }
+}
+
 export const diagnoseSite = (url: string) => callApi('/diagnose', { url })
+export const inspectPage = (url: string) => callApi('/diagnose', { url }) as Promise<SiteReport>
+
+export type WhoisReport = {
+  domain: string
+  servers: string[]
+  summary: Record<string, string | null>
+  raw: string
+}
+
+export const lookupWhois = (domain: string) => callApi('/whois', { domain }) as Promise<WhoisReport>
 
 export type JwtVerifyRequest = {
   token: string

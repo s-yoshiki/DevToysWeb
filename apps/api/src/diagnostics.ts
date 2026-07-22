@@ -8,7 +8,7 @@ const decodeEntities = (value: string) =>
       ({ '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&#39;': "'" })[entity] ?? entity,
   )
 
-const extractMetadata = (html: string) => {
+export const extractMetadata = (html: string) => {
   const result: Record<string, string> = {}
   const title = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]
   if (title) result.title = decodeEntities(title.trim())
@@ -16,13 +16,75 @@ const extractMetadata = (html: string) => {
     const tag = match[0]
     const key = tag.match(/(?:name|property)=["']([^"']+)["']/i)?.[1]
     const content = tag.match(/content=["']([^"']*)["']/i)?.[1]
-    if (key && content && /^(?:description|robots|og:|twitter:)/i.test(key))
+    if (key && content && /^(?:description|robots|keywords|viewport|og:|twitter:)/i.test(key))
       result[key.toLowerCase()] = decodeEntities(content)
   }
   const canonical = html.match(/<link\s+[^>]*rel=["'][^"']*canonical[^"']*["'][^>]*>/i)?.[0]
   const href = canonical?.match(/href=["']([^"']+)["']/i)?.[1]
   if (href) result.canonical = href
   return result
+}
+
+const withoutInvisibleContent = (html: string) =>
+  html
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+
+const headingsOf = (html: string, level: 1 | 2) =>
+  [...html.matchAll(new RegExp(`<h${level}[^>]*>([\\s\\S]*?)</h${level}>`, 'gi'))].map((match) =>
+    decodeEntities(
+      match[1]
+        .replace(/<[^>]*>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim(),
+    ),
+  )
+
+export type PageSignals = ReturnType<typeof extractSignals>
+
+/**
+ * The structural facts an SEO audit needs that `extractMetadata` does not carry:
+ * document language, heading outline, alt coverage and link mix. Regex parsing is
+ * deliberate — the Lambda stays dependency-free and the audit only needs counts.
+ */
+export const extractSignals = (html: string, baseUrl: string) => {
+  const body = withoutInvisibleContent(html)
+  const images = [...body.matchAll(/<img\s+[^>]*>/gi)].map((match) => match[0])
+  const anchors = [...body.matchAll(/<a\s+[^>]*href=["']([^"']*)["'][^>]*>/gi)].map(
+    (match) => match[1],
+  )
+  const origin = (() => {
+    try {
+      return new URL(baseUrl).origin
+    } catch {
+      return ''
+    }
+  })()
+  const external = anchors.filter((href) => {
+    if (!/^https?:\/\//i.test(href)) return false
+    try {
+      return new URL(href).origin !== origin
+    } catch {
+      return false
+    }
+  }).length
+
+  return {
+    lang: html.match(/<html[^>]*\slang=["']([^"']+)["']/i)?.[1] ?? null,
+    charset: html.match(/<meta[^>]*\scharset=["']?([\w-]+)/i)?.[1] ?? null,
+    h1: headingsOf(body, 1),
+    h2: headingsOf(body, 2).slice(0, 20),
+    images: {
+      total: images.length,
+      missingAlt: images.filter((tag) => !/\salt=["'][^"']*["']/i.test(tag)).length,
+    },
+    links: { total: anchors.length, external, internal: anchors.length - external },
+    textLength: body
+      .replace(/<[^>]*>/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim().length,
+  }
 }
 
 const settle = async <T>(task: Promise<T>) =>
@@ -65,5 +127,6 @@ export const diagnose = async (input: string) => {
     },
     tls,
     page: extractMetadata(http.body),
+    signals: extractSignals(http.body, http.url),
   }
 }
