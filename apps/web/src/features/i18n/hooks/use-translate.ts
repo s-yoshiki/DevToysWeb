@@ -1,6 +1,6 @@
 'use client'
 
-import { useLocale } from '../components/locale-provider'
+import { useLocale } from '@/components/locale-provider'
 
 /**
  * Picks the copy for the active locale. Keeps bilingual literals next to the
