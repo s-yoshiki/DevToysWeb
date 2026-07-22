@@ -6,9 +6,9 @@ import type { ToolDefinition } from '@/features/tools/domain/catalog'
 import { generate, transform } from '@/features/tools/domain/transformers'
 import { formatNames, reversibleSlugs, sampleInputs } from '../functions/constants'
 
-export type ConverterOptions = { from: number; to: number; count: number; length: number }
+export type ConverterOptions = { count: number; length: number }
 
-const defaultOptions: ConverterOptions = { from: 10, to: 16, count: 5, length: 20 }
+const defaultOptions: ConverterOptions = { count: 5, length: 20 }
 
 /** `hash` is catalogued as a generator but behaves like a one-way conversion. */
 const isGeneratorTool = (tool: ToolDefinition) => tool.mode === 'generate' && tool.slug !== 'hash'
@@ -46,7 +46,7 @@ export const useConverter = (tool: ToolDefinition) => {
       setOutput(
         isGenerator
           ? generate(tool.slug, options.count, options.length)
-          : transform(tool.slug, input, reverse, options),
+          : transform(tool.slug, input, reverse),
       )
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : 'Invalid input')
@@ -63,11 +63,8 @@ export const useConverter = (tool: ToolDefinition) => {
   }, [tool.slug])
 
   const formats = useMemo<[string, string]>(
-    () =>
-      tool.slug === 'number-base'
-        ? [`Base ${options.from}`, `Base ${options.to}`]
-        : (formatNames[tool.slug] ?? [dictionary.input, dictionary.output]),
-    [dictionary.input, dictionary.output, options.from, options.to, tool.slug],
+    () => formatNames[tool.slug] ?? [dictionary.input, dictionary.output],
+    [dictionary.input, dictionary.output, tool.slug],
   )
 
   /** Moving the result back into the input makes the round trip verifiable. */

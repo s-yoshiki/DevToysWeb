@@ -5,22 +5,15 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useLocale } from '@/components/locale-provider'
-import { type ToolCategory, type ToolDefinition, tools } from '@/features/tools/domain/catalog'
+import {
+  categoryOrder as categories,
+  type ToolCategory,
+  type ToolDefinition,
+  tools,
+} from '@/features/tools/domain/catalog'
 import { getToolPath } from '@/features/tools/domain/tool-path'
 import { useRecentTools } from '@/features/tools/hooks/use-recent-tools'
 import { cn } from '@/lib/utils'
-
-const categories: ToolCategory[] = [
-  'converters',
-  'encoders',
-  'formatters',
-  'generators',
-  'testers',
-  'search',
-  'text',
-  'images',
-  'network',
-]
 
 const storageKey = 'devtoys:collapsed-categories'
 

@@ -64,24 +64,3 @@ export const GeneratorOptions = ({
     )}
   </OptionsRow>
 )
-
-export const NumberBaseOptions = ({ converter }: { converter: Converter }) => (
-  <OptionsRow>
-    <NumberOption
-      id="base-from"
-      label="From base"
-      min={2}
-      max={36}
-      value={converter.options.from}
-      onChange={(from) => converter.updateOptions({ from })}
-    />
-    <NumberOption
-      id="base-to"
-      label="To base"
-      min={2}
-      max={36}
-      value={converter.options.to}
-      onChange={(to) => converter.updateOptions({ to })}
-    />
-  </OptionsRow>
-)

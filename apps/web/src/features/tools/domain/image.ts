@@ -10,6 +10,19 @@ export const imageFormatLabels: Record<ImageFormat, string> = {
   'image/png': 'PNG',
 }
 
+export const imageFormatExtensions: Record<ImageFormat, string> = {
+  'image/webp': 'webp',
+  'image/avif': 'avif',
+  'image/jpeg': 'jpg',
+  'image/png': 'png',
+}
+
+/** Keeps the original name in the download, with the new format's extension. */
+export const withImageExtension = (fileName: string, format: ImageFormat) => {
+  const base = fileName.replace(/\.[^./\\]+$/, '') || 'image'
+  return `${base}.${imageFormatExtensions[format]}`
+}
+
 export type EncodedImage = { blob: Blob; width: number; height: number }
 
 const drawToCanvas = (bitmap: ImageBitmap, width: number, height: number) => {
