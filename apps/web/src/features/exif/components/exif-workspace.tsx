@@ -46,7 +46,7 @@ export const ExifWorkspace = ({ tool }: WorkspaceProps) => {
             </p>
           )}
           {exif.located && (
-            <p className="flex items-center gap-2 border-b border-amber-500/30 bg-amber-500/10 px-5 py-3 text-sm text-amber-700 dark:text-amber-400">
+            <p className="flex items-center gap-2 border-b border-warning/30 bg-warning/10 px-5 py-3 text-sm text-warning">
               <MapPin className="size-4 shrink-0" />
               {t(
                 'この画像には位置情報が含まれています。共有前に削除を検討してください。',
@@ -55,8 +55,8 @@ export const ExifWorkspace = ({ tool }: WorkspaceProps) => {
             </p>
           )}
           {exif.cleaned && (
-            <div className="flex flex-wrap items-center gap-3 border-b bg-emerald-500/10 px-5 py-3 text-sm">
-              <ShieldCheck className="size-4 text-emerald-600" />
+            <div className="flex flex-wrap items-center gap-3 border-b border-border bg-success/10 px-5 py-3 text-sm">
+              <ShieldCheck className="size-4 text-success" />
               <span>
                 {t(
                   `メタデータを除去しました（${formatBytes(exif.cleaned.size)}）`,

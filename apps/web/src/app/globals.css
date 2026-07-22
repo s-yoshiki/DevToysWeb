@@ -4,73 +4,87 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * Palette adapted from https://s-yoshiki.github.io/Gasyori100knockJS/ — a calm
+ * blue-grey neutral ramp with a single indigo accent. Values are kept as plain
+ * hex so they stay comparable with that reference; Tailwind's `/opacity`
+ * modifiers still work because v4 composes them with `color-mix()`.
+ */
 :root {
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.56 0.21 258);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.96 0.018 255);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.96 0.012 255);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.94 0.04 252);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.64 0.16 255);
-  --radius: 0.8rem;
-  --background: oklch(0.985 0.005 255);
-  --foreground: oklch(0.19 0.025 260);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --bg: #fbfbfd;
+  --surface: #ffffff;
+  --surface-subtle: #f4f5f8;
+  --border-subtle: #e3e6ec;
+  --border-strong: #ccd1da;
+  --text: #16181d;
+  --text-muted: #616b7a;
+  --accent: #3b5bdb;
+  --accent-hover: #2f4bc4;
+  --accent-subtle: #eaefff;
+  --accent-contrast: #ffffff;
+
+  --shadow-sm: 0 1px 2px #10121b0f;
+  --shadow: 0 4px 16px #10121b14;
+
+  /* shadcn surface tokens, mapped onto the palette above. */
+  --background: var(--bg);
+  --foreground: var(--text);
+  --card: var(--surface);
+  --card-foreground: var(--text);
+  --popover: var(--surface);
+  --popover-foreground: var(--text);
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-contrast);
+  --secondary: var(--surface-subtle);
+  --secondary-foreground: var(--text);
+  --muted: var(--surface-subtle);
+  --muted-foreground: var(--text-muted);
+  --accent-foreground: var(--accent-hover);
+  --border: var(--border-subtle);
+  --input: var(--border-strong);
+  --ring: var(--accent);
+
+  /*
+   * Status colours, from the same Open Color family as the accent but darkened
+   * until each clears 4.5:1 against every light surface (bg, card and muted) —
+   * they carry small text such as the SEO and EXIF findings, not just icons.
+   */
+  --destructive: #c92a2a;
+  --destructive-foreground: #ffffff;
+  --success: #237032;
+  --warning: #ad3e0b;
+
+  --radius: 10px;
+  /* Single source of truth for the sticky header, shared by the sidebar's
+     offset and height so the two can never drift apart. */
+  --header-height: 3.5rem;
 }
 
 .dark {
-  --background: oklch(0.15 0.025 260);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.19 0.03 260);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.7 0.17 250);
-  --primary-foreground: oklch(0.16 0.03 260);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.27 0.06 255);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --bg: #0f1116;
+  --surface: #171a21;
+  --surface-subtle: #1e222b;
+  --border-subtle: #272c37;
+  --border-strong: #3a4150;
+  --text: #e7e9ee;
+  --text-muted: #9aa3b2;
+  --accent: #7d97ff;
+  --accent-hover: #93a9ff;
+  --accent-subtle: #1c2440;
+  --accent-contrast: #0f1116;
+
+  --shadow-sm: 0 1px 2px #00000066;
+  --shadow: 0 4px 16px #00000073;
+
+  /* The accent is a light tint here, so hover must brighten and text on the
+     accent must be the dark background rather than white. */
+  --accent-foreground: #c3cfff;
+  --input: var(--border-strong);
+
+  --destructive: #ff8787;
+  --destructive-foreground: #0f1116;
+  --success: #69db7c;
+  --warning: #ffa94d;
 }
 
 @theme inline {
@@ -86,58 +100,87 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
+  --color-accent: var(--accent-subtle);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --font-heading: var(--font-sans);
-  --font-sans: var(--font-sans);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
-}
 
-* {
-  border-color: var(--border);
-}
-html {
-  scroll-behavior: smooth;
-}
-body {
-  min-height: 100vh;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: var(--radius);
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 20px;
+
+  --font-sans:
+    system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", Meiryo, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --font-heading: var(--font-sans);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+    /* Keeps the form-control and scrollbar UA chrome in step with the theme. */
+    color-scheme: light;
+  }
+  .dark {
+    color-scheme: dark;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply min-h-screen bg-background text-foreground antialiased;
   }
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+  /*
+   * One consistent, clearly visible focus ring for every interactive element.
+   * `:focus-visible` keeps it off mouse clicks, so it never reads as noise.
+   */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+  ::selection {
+    background: var(--accent-subtle);
+    color: var(--accent-hover);
+  }
+  /* Long monospace output must be able to break, or panes scroll sideways. */
+  code,
+  pre,
+  kbd,
+  samp {
+    @apply font-mono;
+  }
+}
+
+/* Respect the OS "reduce motion" setting instead of animating regardless. */
+@media (prefers-reduced-motion: reduce) {
   html {
-    @apply font-sans;
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    /* biome-ignore-start lint/complexity/noImportantStyles: durations are set by
+       Tailwind utilities on the elements themselves, so only `!important` can
+       override them from here. */
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    /* biome-ignore-end lint/complexity/noImportantStyles: see above */
   }
 }

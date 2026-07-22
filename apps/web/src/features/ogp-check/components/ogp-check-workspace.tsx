@@ -22,7 +22,7 @@ import {
 } from '../functions/ogp'
 
 const statusIcon = {
-  ok: <Check className="size-3.5 text-emerald-600 dark:text-emerald-400" />,
+  ok: <Check className="size-3.5 text-success" />,
   missing: <X className="size-3.5 text-destructive" />,
   optional: <Minus className="size-3.5 text-muted-foreground" />,
 }

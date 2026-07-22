@@ -10,7 +10,7 @@ export const CopyButton = ({ value }: { value: string }) => {
   const { copied, copy } = useCopy()
   return (
     <Button variant="ghost" size="sm" disabled={!value} onClick={() => void copy(value)}>
-      {copied ? <Check className="size-4 text-emerald-500" /> : <Clipboard className="size-4" />}
+      {copied ? <Check className="size-4 text-success" /> : <Clipboard className="size-4" />}
       {copied ? dictionary.copied : dictionary.copy}
     </Button>
   )

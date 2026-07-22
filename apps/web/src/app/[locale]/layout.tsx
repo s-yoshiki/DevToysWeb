@@ -14,16 +14,21 @@ const LocaleLayout = async ({
 }) => {
   const { locale } = await params
   if (!isLocale(locale)) notFound()
+  const dictionary = getDictionary(locale)
   return (
-    <LocaleProvider locale={locale} dictionary={getDictionary(locale)}>
+    <LocaleProvider locale={locale} dictionary={dictionary}>
       <AppHeader />
-      <div className="flex min-h-[calc(100vh-4rem)]">
+      <div className="flex min-h-[calc(100vh-var(--header-height))]">
         <AppSidebar />
-        <main className="min-w-0 flex-1">{children}</main>
+        <div className="flex min-w-0 flex-1 flex-col">
+          <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
+            {children}
+          </main>
+          <footer className="border-t border-border px-6 py-8 text-center text-xs text-muted-foreground">
+            {dictionary.appName} · {dictionary.footerNote}
+          </footer>
+        </div>
       </div>
-      <footer className="border-t py-8 text-center text-xs text-muted-foreground">
-        DevToys · Built for focus
-      </footer>
     </LocaleProvider>
   )
 }

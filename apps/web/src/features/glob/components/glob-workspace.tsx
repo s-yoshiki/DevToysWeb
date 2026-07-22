@@ -91,7 +91,7 @@ export const GlobWorkspace = ({ tool }: WorkspaceProps) => {
                     )}
                   >
                     {entry.matched ? (
-                      <Check className="size-4 shrink-0 text-emerald-500" />
+                      <Check className="size-4 shrink-0 text-success" />
                     ) : (
                       <X className="size-4 shrink-0 opacity-40" />
                     )}

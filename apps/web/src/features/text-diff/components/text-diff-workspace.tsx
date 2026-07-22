@@ -46,16 +46,16 @@ export const TextDiffWorkspace = ({ tool }: WorkspaceProps) => {
                 `${diff.additions} additions, ${diff.deletions} deletions`,
               )}
             </div>
-            <pre className="whitespace-pre-wrap break-words rounded-xl border bg-muted/20 p-5 font-mono text-sm">
+            <pre className="whitespace-pre-wrap break-words rounded-xl border border-border bg-muted/40 p-5 font-mono text-sm">
               {diff.changes.map((part, index) => (
                 <span
                   // biome-ignore lint/suspicious/noArrayIndexKey: diff parts have no identity beyond their position
                   key={`${index}-${part.value}`}
                   className={
                     part.added
-                      ? 'bg-emerald-500/25 text-emerald-700 dark:text-emerald-300'
+                      ? 'bg-success/25 text-foreground underline decoration-success decoration-2'
                       : part.removed
-                        ? 'bg-red-500/25 text-red-700 line-through dark:text-red-300'
+                        ? 'bg-destructive/25 text-foreground line-through decoration-destructive decoration-2'
                         : ''
                   }
                 >
