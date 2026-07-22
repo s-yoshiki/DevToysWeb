@@ -1,6 +1,6 @@
-import { getDictionary, type Locale } from '@/features/i18n/domain/dictionaries'
 import { type ToolDefinition, tools } from '@/features/tools/domain/catalog'
 import { getToolPath } from '@/features/tools/domain/tool-path'
+import { getDictionary, type Locale } from '@/i18n/dictionaries'
 import { toolDescription } from './metadata'
 import { absoluteUrl, siteName, siteUrl } from './site'
 

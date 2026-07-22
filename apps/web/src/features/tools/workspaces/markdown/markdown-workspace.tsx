@@ -1,7 +1,7 @@
 'use client'
 
 import { Card, CardContent } from '@/components/ui/card'
-import { useTranslate } from '@/features/i18n/hooks/use-translate'
+import { useTranslate } from '@/hooks/use-translate'
 import { CopyButton } from '../../components/copy-button'
 import { CodeArea, Pane, PaneHeader } from '../../components/workspace-panes'
 import { WorkspaceShell } from '../../components/workspace-shell'

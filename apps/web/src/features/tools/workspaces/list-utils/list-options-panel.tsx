@@ -2,7 +2,7 @@
 
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useTranslate } from '@/features/i18n/hooks/use-translate'
+import { useTranslate } from '@/hooks/use-translate'
 import { SegmentedControl, ToggleRow } from '../../components/segmented-control'
 import type { ListOptions } from '../../domain/text-tools'
 

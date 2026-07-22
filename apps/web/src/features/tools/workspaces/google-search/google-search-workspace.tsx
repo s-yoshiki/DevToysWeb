@@ -1,6 +1,6 @@
 'use client'
 
-import { useTranslate } from '@/features/i18n/hooks/use-translate'
+import { useTranslate } from '@/hooks/use-translate'
 import { DateField, NumberField, SelectField, TextField } from '../../components/search/fields'
 import {
   FiltersCard,

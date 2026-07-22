@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation'
-import { LocaleProvider } from '@/features/i18n/components/locale-provider'
-import { getDictionary, isLocale, locales } from '@/features/i18n/domain/dictionaries'
+import { LocaleProvider } from '@/components/locale-provider'
 import { AppHeader } from '@/features/navigation/components/app-header'
 import { AppSidebar } from '@/features/navigation/components/app-sidebar'
+import { getDictionary, isLocale, locales } from '@/i18n/dictionaries'
 
 export const generateStaticParams = () => locales.map((locale) => ({ locale }))
 const LocaleLayout = async ({

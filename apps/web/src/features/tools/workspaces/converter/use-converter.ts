@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useLocale } from '@/features/i18n/components/locale-provider'
+import { useLocale } from '@/components/locale-provider'
 import type { ToolDefinition } from '../../domain/catalog'
 import { generate, transform } from '../../domain/transformers'
 import { formatNames, reversibleSlugs, sampleInputs } from './constants'

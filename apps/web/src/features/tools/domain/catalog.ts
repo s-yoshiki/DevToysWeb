@@ -41,7 +41,7 @@ import {
   TextQuote,
   Timer,
 } from 'lucide-react'
-import type { Locale } from '@/features/i18n/domain/dictionaries'
+import type { Locale } from '@/i18n/dictionaries'
 
 export type ToolCategory =
   | 'converters'

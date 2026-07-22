@@ -3,7 +3,7 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useTranslate } from '@/features/i18n/hooks/use-translate'
+import { useTranslate } from '@/hooks/use-translate'
 import { ResultCard } from '../../components/result-card'
 import { WorkspaceShell } from '../../components/workspace-shell'
 import type { WorkspaceProps } from '../types'

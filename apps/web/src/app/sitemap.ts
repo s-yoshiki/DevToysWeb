@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
-import { locales } from '@/features/i18n/domain/dictionaries'
 import { absoluteUrl, alternatesFor } from '@/features/seo/domain/site'
 import { tools } from '@/features/tools/domain/catalog'
+import { locales } from '@/i18n/dictionaries'
 
 // Required by `output: 'export'`: the sitemap is emitted once at build time.
 export const dynamic = 'force-static'

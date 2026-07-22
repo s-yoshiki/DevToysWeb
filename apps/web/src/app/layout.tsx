@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { ThemeProvider } from '@/components/theme-provider'
 import { ogImage, siteName, siteUrl } from '@/features/seo/domain/site'
-import { ThemeProvider } from '@/features/theme/components/theme-provider'
 
 export const metadata: Metadata = {
   // Lets every page declare canonical and Open Graph URLs as relative paths.

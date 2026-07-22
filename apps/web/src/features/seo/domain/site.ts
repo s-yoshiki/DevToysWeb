@@ -1,5 +1,5 @@
-import type { Locale } from '@/features/i18n/domain/dictionaries'
-import { locales } from '@/features/i18n/domain/dictionaries'
+import type { Locale } from '@/i18n/dictionaries'
+import { locales } from '@/i18n/dictionaries'
 
 // Production origin served by CloudFront. Keep in sync with `hostedZoneName`
 // in scripts/infra/bin/infra.ts.

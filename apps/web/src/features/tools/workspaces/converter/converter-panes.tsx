@@ -1,10 +1,10 @@
 'use client'
 
 import { ArrowLeftRight, FileInput, FileOutput } from 'lucide-react'
+import { useLocale } from '@/components/locale-provider'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { useLocale } from '@/features/i18n/components/locale-provider'
-import { useTranslate } from '@/features/i18n/hooks/use-translate'
+import { useTranslate } from '@/hooks/use-translate'
 import { CopyButton } from '../../components/copy-button'
 import { CodeArea, Pane } from '../../components/workspace-panes'
 import type { Converter } from './use-converter'
