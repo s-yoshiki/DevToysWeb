@@ -1,6 +1,12 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import { formatWallClock, nextSlotAt, slotIndex } from './time-signal'
+import {
+  formatTimeAnnouncement,
+  formatWallClock,
+  nextSlotAt,
+  nextTelephoneSignalAt,
+  slotIndex,
+} from './time-signal'
 
 const at = (hours: number, minutes: number, seconds = 0) =>
   new Date(2026, 0, 15, hours, minutes, seconds)
@@ -31,5 +37,26 @@ describe('nextSlotAt', () => {
 describe('formatWallClock', () => {
   it('zero-pads every part', () => {
     assert.equal(formatWallClock(at(9, 5, 3)), '09:05:03')
+  })
+})
+
+describe('nextTelephoneSignalAt', () => {
+  it('uses the next 10-second boundary', () => {
+    assert.deepEqual(nextTelephoneSignalAt(at(9, 5, 3)), at(9, 5, 10))
+    assert.deepEqual(nextTelephoneSignalAt(at(9, 5, 9), 5_000), at(9, 5, 20))
+  })
+})
+
+describe('formatTimeAnnouncement', () => {
+  it('formats Japanese announcements like the 117 service', () => {
+    assert.equal(formatTimeAnnouncement(at(9, 5, 10), 'ja'), '午前9時5分10秒をお知らせします')
+    assert.equal(formatTimeAnnouncement(at(12, 30, 20), 'ja'), '午後0時30分20秒をお知らせします')
+  })
+
+  it('formats an English announcement', () => {
+    assert.equal(
+      formatTimeAnnouncement(at(21, 5, 10), 'en'),
+      'At the tone, the time will be 9 hours, 5 minutes, and 10 seconds P.M.',
+    )
   })
 })

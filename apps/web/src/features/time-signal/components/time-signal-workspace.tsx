@@ -1,6 +1,7 @@
 'use client'
 
 import { BellRing, CircleAlert, Volume2 } from 'lucide-react'
+import { useLocale } from '@/components/locale-provider'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -14,6 +15,7 @@ import { formatWallClock, type SignalInterval, signalIntervals } from '../functi
 import { type SignalStyle, useTimeSignal } from '../hooks/use-time-signal'
 
 export const TimeSignalWorkspace = ({ tool }: WorkspaceProps) => {
+  const { locale } = useLocale()
   const t = useTranslate()
   const signal = useTimeSignal()
 
@@ -32,7 +34,7 @@ export const TimeSignalWorkspace = ({ tool }: WorkspaceProps) => {
             </span>
             <p className="text-sm text-muted-foreground">
               {signal.now
-                ? signal.now.toLocaleDateString(undefined, {
+                ? signal.now.toLocaleDateString(locale === 'ja' ? 'ja-JP' : 'en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
@@ -62,36 +64,53 @@ export const TimeSignalWorkspace = ({ tool }: WorkspaceProps) => {
                 onChange={signal.setEnabled}
               />
               <div className="space-y-2">
-                <Label>{t('お知らせの間隔', 'Interval')}</Label>
-                <SegmentedControl
-                  value={String(signal.interval) as `${SignalInterval}`}
-                  options={intervalOptions}
-                  onChange={(value) => signal.setInterval(Number(value) as SignalInterval)}
-                  label={t('お知らせの間隔', 'Interval')}
-                />
-              </div>
-              <div className="space-y-2">
                 <Label>{t('音の種類', 'Sound')}</Label>
                 <SegmentedControl<SignalStyle>
                   value={signal.style}
                   options={[
+                    { value: 'telephone', label: t('117風（音声）', '117 voice') },
                     { value: 'pips', label: t('時報音（ピッ×3＋ポーン）', 'Pips') },
                     { value: 'count', label: t('時刻の数だけ鳴らす', 'Count the hour') },
                   ]}
                   onChange={signal.setStyle}
                   label={t('音の種類', 'Sound')}
                 />
+                {signal.style === 'telephone' && (
+                  <p className="text-xs text-muted-foreground">
+                    {t(
+                      '10秒ごとに時刻を読み上げ、3秒前から時報音を鳴らします。',
+                      'Announces the time every 10 seconds, with pips starting 3 seconds before.',
+                    )}
+                  </p>
+                )}
               </div>
+              {signal.style !== 'telephone' && (
+                <div className="space-y-2">
+                  <Label>{t('お知らせの間隔', 'Interval')}</Label>
+                  <SegmentedControl
+                    value={String(signal.interval) as `${SignalInterval}`}
+                    options={intervalOptions}
+                    onChange={(value) => signal.setInterval(Number(value) as SignalInterval)}
+                    label={t('お知らせの間隔', 'Interval')}
+                  />
+                </div>
+              )}
               <Button variant="outline" onClick={signal.test}>
                 <Volume2 className="size-4" />
-                {t('音を試す', 'Test the sound')}
+                {signal.style === 'telephone'
+                  ? t('音声と時報音を試す', 'Test voice and signal')
+                  : t('音を試す', 'Test the sound')}
               </Button>
               {!signal.supported && (
                 <p className="flex items-start gap-2 text-xs text-destructive">
                   <CircleAlert className="mt-0.5 size-3.5 shrink-0" />
                   {t(
-                    'このブラウザは音の再生に対応していません。',
-                    'This browser cannot play the signal sound.',
+                    signal.style === 'telephone' && !signal.speechSupported
+                      ? 'このブラウザは音声読み上げに対応していません。'
+                      : 'このブラウザは音の再生に対応していません。',
+                    signal.style === 'telephone' && !signal.speechSupported
+                      ? 'This browser does not support speech synthesis.'
+                      : 'This browser cannot play the signal sound.',
                   )}
                 </p>
               )}
