@@ -7,7 +7,7 @@ import { WorkspaceShell } from '@/features/tools/components/workspace-shell'
 import type { WorkspaceProps } from '@/features/tools/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
 import { useConverter } from '../hooks/use-converter'
-import { GeneratorOptions, NumberBaseOptions } from './converter-options'
+import { GeneratorOptions } from './converter-options'
 import { InputPane, OutputPane } from './converter-panes'
 import { ConverterToolbar } from './converter-toolbar'
 
@@ -28,7 +28,6 @@ export const ConverterWorkspace = ({ tool }: WorkspaceProps) => {
           {converter.isGenerator && (
             <GeneratorOptions converter={converter} withLength={tool.slug === 'password'} />
           )}
-          {tool.slug === 'number-base' && <NumberBaseOptions converter={converter} />}
           {converter.error && (
             <ErrorBanner
               title={t('変換できませんでした', 'Conversion failed')}

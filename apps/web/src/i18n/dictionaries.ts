@@ -32,6 +32,7 @@ const dictionaries = {
     categories: {
       search: 'カスタム検索',
       converters: '変換',
+      calculators: '計算',
       encoders: 'エンコード',
       formatters: '整形',
       generators: '生成',
@@ -71,6 +72,7 @@ const dictionaries = {
     categories: {
       search: 'Custom Search',
       converters: 'Converters',
+      calculators: 'Calculators',
       encoders: 'Encode & decode',
       formatters: 'Formatters',
       generators: 'Generators',

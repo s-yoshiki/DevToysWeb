@@ -6,21 +6,9 @@ import { useLocale } from '@/components/locale-provider'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
-import { type ToolCategory, tools } from '../domain/catalog'
+import { categoryOrder as categories, type ToolCategory, tools } from '../domain/catalog'
 import { useRecentTools } from '../hooks/use-recent-tools'
 import { ToolCard } from './tool-card'
-
-const categories: ToolCategory[] = [
-  'converters',
-  'encoders',
-  'formatters',
-  'generators',
-  'testers',
-  'search',
-  'text',
-  'images',
-  'network',
-]
 
 export const ToolDashboard = () => {
   const { locale, dictionary } = useLocale()

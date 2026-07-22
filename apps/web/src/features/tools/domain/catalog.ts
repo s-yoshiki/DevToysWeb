@@ -3,10 +3,12 @@ import {
   Asterisk,
   Blend,
   Braces,
+  Calculator,
   CalendarClock,
   CaseSensitive,
   Code2,
   Crop,
+  Earth,
   FileCode2,
   FileImage,
   FileText,
@@ -16,6 +18,7 @@ import {
   GitPullRequest,
   Globe,
   Hash,
+  Images,
   KeyRound,
   Layers,
   Link2,
@@ -34,8 +37,10 @@ import {
   Route,
   Search,
   Sigma,
+  Smartphone,
   Sparkles,
   SquareCode,
+  SquareFunction,
   TableProperties,
   Terminal,
   TextQuote,
@@ -45,6 +50,7 @@ import type { Locale } from '@/i18n/dictionaries'
 
 export type ToolCategory =
   | 'converters'
+  | 'calculators'
   | 'encoders'
   | 'formatters'
   | 'generators'
@@ -64,6 +70,12 @@ export type ToolDefinition = {
   mode: 'convert' | 'generate' | 'inspect'
   workspace?:
     | 'default'
+    | 'calculator'
+    | 'scientific-calculator'
+    | 'number-base'
+    | 'timezone'
+    | 'image-format'
+    | 'heic-convert'
     | 'regex'
     | 'url-parser'
     | 'text-analyzer'
@@ -167,8 +179,12 @@ export const tools: ToolDefinition[] = [
     category: 'converters',
     icon: Sigma,
     title: { ja: '基数変換', en: 'Number base' },
-    description: { ja: '2〜36進数を自在に変換', en: 'Convert bases from 2 to 36' },
+    description: {
+      ja: '2〜36進数を同時に表示して変換',
+      en: 'Convert and compare bases from 2 to 36',
+    },
     mode: 'convert',
+    workspace: 'number-base',
   },
   {
     slug: 'date-time',
@@ -179,6 +195,48 @@ export const tools: ToolDefinition[] = [
     title: { ja: '日時変換', en: 'Date & time' },
     description: { ja: '日時とUnix timeを変換', en: 'Convert dates and Unix time' },
     mode: 'convert',
+  },
+  {
+    slug: 'timezone',
+    emoji: '🌏',
+    pathSlug: 'timezone-converter',
+    category: 'converters',
+    icon: Earth,
+    title: { ja: 'タイムゾーン変換', en: 'Time zone converter' },
+    description: {
+      ja: '同じ時刻を世界の各都市で見比べる',
+      en: 'Compare one moment across cities worldwide',
+    },
+    mode: 'convert',
+    workspace: 'timezone',
+  },
+  {
+    slug: 'calculator',
+    emoji: '🧮',
+    pathSlug: 'calculator',
+    category: 'calculators',
+    icon: Calculator,
+    title: { ja: '電卓', en: 'Calculator' },
+    description: {
+      ja: '式のまま計算して履歴を残す電卓',
+      en: 'Evaluate expressions and keep the history',
+    },
+    mode: 'inspect',
+    workspace: 'calculator',
+  },
+  {
+    slug: 'scientific-calculator',
+    emoji: '📐',
+    pathSlug: 'scientific-calculator',
+    category: 'calculators',
+    icon: SquareFunction,
+    title: { ja: '関数電卓', en: 'Scientific calculator' },
+    description: {
+      ja: '三角関数や対数、度数法・弧度法に対応',
+      en: 'Trigonometry, logarithms, degrees and radians',
+    },
+    mode: 'inspect',
+    workspace: 'scientific-calculator',
   },
   {
     slug: 'base64',
@@ -585,6 +643,34 @@ export const tools: ToolDefinition[] = [
     workspace: 'image-convert',
   },
   {
+    slug: 'image-format',
+    emoji: '🖼',
+    pathSlug: 'image-format-converter',
+    category: 'images',
+    icon: Images,
+    title: { ja: '画像フォーマット変換', en: 'Image format converter' },
+    description: {
+      ja: 'PNG/JPEG/WebP/AVIFへまとめて変換',
+      en: 'Batch convert to PNG, JPEG, WebP or AVIF',
+    },
+    mode: 'convert',
+    workspace: 'image-format',
+  },
+  {
+    slug: 'heic-convert',
+    emoji: '📱',
+    pathSlug: 'heic-converter',
+    category: 'images',
+    icon: Smartphone,
+    title: { ja: 'HEIC変換', en: 'HEIC converter' },
+    description: {
+      ja: 'iPhoneのHEIC写真をJPEG/PNGへ変換',
+      en: 'Turn iPhone HEIC photos into JPEG or PNG',
+    },
+    mode: 'convert',
+    workspace: 'heic-convert',
+  },
+  {
     slug: 'exif',
     emoji: '📸',
     pathSlug: 'exif-viewer',
@@ -647,6 +733,20 @@ export const tools: ToolDefinition[] = [
     description: { ja: 'ブラウザの接続情報を確認', en: 'Inspect browser network details' },
     mode: 'inspect',
   },
+]
+
+/** Display order for every surface that lists categories. */
+export const categoryOrder: ToolCategory[] = [
+  'converters',
+  'calculators',
+  'encoders',
+  'formatters',
+  'generators',
+  'testers',
+  'search',
+  'text',
+  'images',
+  'network',
 ]
 
 export const findTool = (slug: string) => tools.find((tool) => tool.slug === slug)

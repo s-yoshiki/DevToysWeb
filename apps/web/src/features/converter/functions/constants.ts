@@ -50,7 +50,6 @@ enabled: true`,
     "features": { "feature": ["convert", "format"] }
   }
 }`,
-  'number-base': '255',
   'date-time': '2026-07-16T12:00:00+09:00',
   base64: 'Hello, DevToys! こんにちは',
   url: 'https://example.com/search?q=DevToys&lang=ja',

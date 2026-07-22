@@ -44,9 +44,7 @@ test('lists every subject alternative name', () => {
 })
 
 test('accepts a bare Base64 body without PEM armour', () => {
-  const body = selfSigned
-    .replace(/-----(BEGIN|END) CERTIFICATE-----/g, '')
-    .replace(/\s+/g, '')
+  const body = selfSigned.replace(/-----(BEGIN|END) CERTIFICATE-----/g, '').replace(/\s+/g, '')
   const [certificate] = decodeCertificate(body).certificates
   assert.equal(certificate.subject.CN, 'devtoys.test')
 })
