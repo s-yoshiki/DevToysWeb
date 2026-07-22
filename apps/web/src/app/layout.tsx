@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ogImage, siteName, siteUrl } from '@/features/seo/domain/site'
+import { ApiMockProvider } from '@/mocks/api-mock-provider'
 
 export const metadata: Metadata = {
   // Lets every page declare canonical and Open Graph URLs as relative paths.
@@ -24,7 +25,9 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang="ja" suppressHydrationWarning>
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <ApiMockProvider>{children}</ApiMockProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

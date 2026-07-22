@@ -40,6 +40,7 @@ manager version is pinned in the root `package.json`.
   `apps/web/src/features/tools/components/`
 - Hooks shared by several workspaces: `apps/web/src/features/tools/hooks/`
 - Browser-side clients for `apps/api`: `apps/web/src/features/tools/api/`
+- MSW handlers and fixtures for those clients: `apps/web/src/mocks/`
 - Shared UI primitives: `apps/web/src/components/ui/`
 - Cross-cutting components and hooks used by more than one feature
   (locale/theme providers, `useTranslate`): `apps/web/src/components/` and
@@ -99,6 +100,30 @@ pnpm --filter @devtoys/infra synth:dev
 
 For UI changes, inspect both `/ja/` and `/en/`, plus a representative tool route at mobile
 and desktop widths. A successful typecheck alone does not validate the static export.
+
+## Mocking the API
+
+The server-backed tools (site diagnostics, WHOIS, OGP, SEO, JWT) call `apps/api`. MSW
+answers those calls from fixtures so they can be exercised without a Lambda:
+
+```sh
+pnpm --filter @devtoys/web dev:mock   # next dev with the service worker enabled
+```
+
+- `src/mocks/handlers.ts` mirrors the routes in `apps/api/src/index.ts`, and
+  `src/mocks/fixtures.ts` replays the same validation errors — including the SSRF
+  guards — so error states are reachable offline.
+- Scenario hostnames drive the interesting branches: `sloppy.example.com` (failing SEO
+  and OGP checks), `unreachable.example.com` (error banner),
+  `redirected.example.com` (redirect chain and 404). Anything else returns a healthy
+  page report.
+- Node tests call `installMockApi()` from `src/mocks/node.ts`; unhandled requests fail
+  the test instead of reaching the network.
+- Mocks only load when `NEXT_PUBLIC_API_MOCKS=enabled` **and** `NODE_ENV` is
+  `development`, so a production export contains no MSW code. The worker script is
+  generated into `apps/web/public/` by `dev:mock` and is git-ignored; do not deploy it.
+- When an `apps/api` route or payload changes, update the matching handler and fixture
+  in the same change.
 
 ## Tests and change hygiene
 

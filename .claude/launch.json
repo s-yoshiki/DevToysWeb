@@ -7,6 +7,13 @@
       "runtimeArgs": ["--filter", "@devtoys/web", "dev"],
       "port": 3000,
       "autoPort": true
+    },
+    {
+      "name": "web-mock",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@devtoys/web", "dev:mock"],
+      "port": 3000,
+      "autoPort": true
     }
   ]
 }

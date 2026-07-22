@@ -1,11 +1,18 @@
 'use client'
 
 import { useState } from 'react'
-import { verifyJwt } from '@/features/tools/api/diagnostics-client'
+import { type JwtVerifyRequest, verifyJwt } from '@/features/tools/api/diagnostics-client'
 import { useApiRequest } from '@/features/tools/hooks/use-api-request'
 
 export const keyModes = ['jwks', 'publicKey', 'secret'] as const
 export type KeyMode = (typeof keyModes)[number]
+
+/** The API names the JWKS field `jwksUrl`; the UI mode stays `jwks`. */
+const requestField: Record<KeyMode, keyof JwtVerifyRequest> = {
+  jwks: 'jwksUrl',
+  publicKey: 'publicKey',
+  secret: 'secret',
+}
 
 export const useJwtVerify = () => {
   const [token, setToken] = useState('')
@@ -26,7 +33,7 @@ export const useJwtVerify = () => {
       token,
       issuer: issuer || undefined,
       audience: audience || undefined,
-      [mode]: key,
+      [requestField[mode]]: key,
     })
 
   const clear = () => {

@@ -1,11 +1,12 @@
-const configuredApiBase = process.env.NEXT_PUBLIC_DIAGNOSTICS_API_URL?.replace(/\/$/, '')
-
-/** CloudFront routes `/api` to the Lambda, so a relative base works in production. */
-const apiBase = configuredApiBase
-  ? configuredApiBase.endsWith('/api')
-    ? configuredApiBase
-    : `${configuredApiBase}/api`
-  : '/api'
+/**
+ * CloudFront routes `/api` to the Lambda, so a relative base works in
+ * production. Resolved per call so tests can point the client at a mock origin.
+ */
+const apiBase = () => {
+  const configured = process.env.NEXT_PUBLIC_DIAGNOSTICS_API_URL?.replace(/\/$/, '')
+  if (!configured) return '/api'
+  return configured.endsWith('/api') ? configured : `${configured}/api`
+}
 
 const sha256 = async (value: string) => {
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value))
@@ -14,7 +15,7 @@ const sha256 = async (value: string) => {
 
 const callApi = async (path: string, body: unknown) => {
   const payload = JSON.stringify(body)
-  const response = await fetch(`${apiBase}${path}`, {
+  const response = await fetch(`${apiBase()}${path}`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
@@ -67,7 +68,7 @@ export type JwtVerifyRequest = {
   issuer?: string
   audience?: string
   secret?: string
-  jwks?: string
+  jwksUrl?: string
   publicKey?: string
 }
 
