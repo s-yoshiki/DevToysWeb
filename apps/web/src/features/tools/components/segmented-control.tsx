@@ -16,7 +16,10 @@ export const SegmentedControl = <Value extends string>({
   onChange: (value: Value) => void
   label: string
 }) => (
-  <fieldset className="flex flex-wrap gap-1 rounded-lg border bg-background p-1" aria-label={label}>
+  <fieldset
+    className="flex flex-wrap gap-1 rounded-lg border border-border bg-muted p-1"
+    aria-label={label}
+  >
     {options.map((option) => (
       <Button
         key={option.value}

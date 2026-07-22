@@ -81,7 +81,7 @@ export const StopwatchWorkspace = ({ tool }: WorkspaceProps) => {
                     <span
                       className={cn(
                         'font-mono text-sm tabular-nums',
-                        lap.split === stopwatch.fastest && 'text-emerald-600 dark:text-emerald-400',
+                        lap.split === stopwatch.fastest && 'text-success',
                         lap.split === stopwatch.slowest && 'text-destructive',
                       )}
                     >

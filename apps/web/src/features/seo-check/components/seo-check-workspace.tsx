@@ -16,8 +16,8 @@ import { cn } from '@/lib/utils'
 import { auditSeo, type CheckLevel, countByLevel, scoreOf } from '../functions/seo-audit'
 
 const levelIcon: Record<CheckLevel, React.ReactNode> = {
-  pass: <Check className="size-4 text-emerald-600 dark:text-emerald-400" />,
-  warn: <CircleAlert className="size-4 text-amber-500" />,
+  pass: <Check className="size-4 text-success" />,
+  warn: <CircleAlert className="size-4 text-warning" />,
   fail: <X className="size-4 text-destructive" />,
 }
 
@@ -88,9 +88,9 @@ export const SeoCheckWorkspace = ({ tool }: WorkspaceProps) => {
                     className={cn(
                       'font-mono text-5xl font-semibold tabular-nums',
                       score >= 80
-                        ? 'text-emerald-600 dark:text-emerald-400'
+                        ? 'text-success'
                         : score >= 60
-                          ? 'text-amber-500'
+                          ? 'text-warning'
                           : 'text-destructive',
                     )}
                   >

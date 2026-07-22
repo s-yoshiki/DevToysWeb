@@ -13,7 +13,7 @@ import {
   type ToolDefinition,
   tools,
 } from '@/features/tools/domain/catalog'
-import { getToolPath } from '@/features/tools/domain/tool-path'
+import { getToolPath, isSamePath } from '@/features/tools/domain/tool-path'
 import { useRecentTools } from '@/features/tools/hooks/use-recent-tools'
 import { cn } from '@/lib/utils'
 
@@ -80,10 +80,10 @@ const ToolLink = ({ tool, active }: { tool: ToolDefinition; active: boolean }) =
       href={getToolPath(locale, tool)}
       aria-current={active ? 'page' : undefined}
       className={cn(
-        'group flex items-center gap-3 rounded-xl px-3 py-2 text-sm transition-colors',
+        'group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors',
         active
           ? 'bg-accent font-medium text-accent-foreground'
-          : 'text-muted-foreground hover:bg-accent/70 hover:text-accent-foreground',
+          : 'text-muted-foreground hover:bg-muted hover:text-foreground',
       )}
     >
       <span className="w-5 text-center text-base" aria-hidden="true">
@@ -107,10 +107,8 @@ const RailLink = ({ tool, active }: { tool: ToolDefinition; active: boolean }) =
             aria-current={active ? 'page' : undefined}
             aria-label={tool.title[locale]}
             className={cn(
-              'flex size-10 items-center justify-center rounded-xl text-lg transition-colors',
-              active
-                ? 'bg-accent text-accent-foreground'
-                : 'text-muted-foreground hover:bg-accent/70',
+              'flex size-10 items-center justify-center rounded-lg text-lg transition-colors',
+              active ? 'bg-accent text-accent-foreground' : 'text-muted-foreground hover:bg-muted',
             )}
           />
         }
@@ -129,13 +127,13 @@ export const AppSidebar = () => {
   const { collapsed, toggle } = useCollapsedCategories()
   const [rail, setRail] = usePersistentState(railStorageKey, false, parseBoolean)
 
-  const isActive = (tool: ToolDefinition) => pathname === getToolPath(locale, tool)
+  const isActive = (tool: ToolDefinition) => isSamePath(pathname, getToolPath(locale, tool))
   const toggleLabel = rail ? dictionary.expandSidebar : dictionary.collapseSidebar
 
   return (
     <aside
       className={cn(
-        'sticky top-16 hidden h-[calc(100vh-4rem)] shrink-0 overflow-hidden border-r bg-card/35 transition-[width] duration-200 lg:block',
+        'sticky top-[var(--header-height)] hidden h-[calc(100vh-var(--header-height))] shrink-0 overflow-hidden border-r border-border transition-[width] duration-200 lg:block',
         rail ? 'w-[4.5rem]' : 'w-64',
       )}
       data-collapsed={rail}
@@ -162,7 +160,10 @@ export const AppSidebar = () => {
 
         {rail ? (
           <TooltipProvider delay={150}>
-            <nav className="flex flex-col items-center gap-1" aria-label="Tool navigation">
+            <nav
+              className="flex flex-col items-center gap-1"
+              aria-label={dictionary.mainNavigation}
+            >
               <Tooltip>
                 <TooltipTrigger
                   render={
@@ -170,10 +171,10 @@ export const AppSidebar = () => {
                       href={`/${locale}`}
                       aria-label={dictionary.allTools}
                       className={cn(
-                        'flex size-10 items-center justify-center rounded-xl transition-colors',
-                        pathname === `/${locale}`
-                          ? 'bg-primary text-primary-foreground shadow-sm'
-                          : 'text-muted-foreground hover:bg-accent',
+                        'flex size-10 items-center justify-center rounded-lg transition-colors',
+                        isSamePath(pathname, `/${locale}`)
+                          ? 'bg-primary text-primary-foreground'
+                          : 'text-muted-foreground hover:bg-muted hover:text-foreground',
                       )}
                     />
                   }
@@ -201,10 +202,10 @@ export const AppSidebar = () => {
             <Link
               href={`/${locale}`}
               className={cn(
-                'mb-5 flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors',
-                pathname === `/${locale}`
-                  ? 'bg-primary text-primary-foreground shadow-sm'
-                  : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
+                'mb-5 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
+                isSamePath(pathname, `/${locale}`)
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-muted-foreground hover:bg-muted hover:text-foreground',
               )}
             >
               <LayoutGrid className="size-4" />
@@ -213,7 +214,7 @@ export const AppSidebar = () => {
 
             {recent.length > 0 && (
               <section className="mb-6">
-                <h2 className="mb-2 flex items-center gap-1.5 px-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground/70">
+                <h2 className="mb-2 flex items-center gap-1.5 px-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
                   <History className="size-3" />
                   {dictionary.recentTools}
                 </h2>
@@ -225,7 +226,7 @@ export const AppSidebar = () => {
               </section>
             )}
 
-            <nav className="space-y-3" aria-label="Tool navigation">
+            <nav className="space-y-3" aria-label={dictionary.mainNavigation}>
               {categories.map((category) => {
                 const entries = tools.filter((tool) => tool.category === category)
                 const isCollapsed = collapsed.includes(category)
@@ -235,7 +236,7 @@ export const AppSidebar = () => {
                       type="button"
                       onClick={() => toggle(category)}
                       aria-expanded={!isCollapsed}
-                      className="mb-1 flex w-full items-center gap-1.5 rounded-lg px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground/70 transition-colors hover:text-foreground"
+                      className="mb-1 flex w-full items-center gap-1.5 rounded-lg px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground transition-colors hover:text-foreground"
                     >
                       <ChevronDown
                         className={cn('size-3 transition-transform', isCollapsed && '-rotate-90')}

@@ -15,8 +15,8 @@ export const ResultCard = ({
   value: string
   error?: boolean
 }) => (
-  <Card className="overflow-hidden border-border/70">
-    <CardHeader className="flex flex-row items-center justify-between border-b bg-muted/30 py-3">
+  <Card className="overflow-hidden">
+    <CardHeader className="flex flex-row items-center justify-between border-b border-border bg-muted/50 py-3">
       <CardTitle className="text-sm">{title}</CardTitle>
       <CopyButton value={value} />
     </CardHeader>

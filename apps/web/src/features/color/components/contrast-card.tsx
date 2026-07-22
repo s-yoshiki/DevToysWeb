@@ -27,7 +27,7 @@ const ContrastLevels = ({ ratio }: { ratio: number }) => {
           variant={level.pass ? 'default' : 'outline'}
           className={cn(
             'justify-center py-1',
-            level.pass ? 'bg-emerald-600 text-white' : 'text-muted-foreground',
+            level.pass ? 'bg-success text-background' : 'text-muted-foreground',
           )}
         >
           {level.pass ? '✓' : '✕'} {level.label}

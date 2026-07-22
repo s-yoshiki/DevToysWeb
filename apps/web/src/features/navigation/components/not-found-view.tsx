@@ -33,7 +33,7 @@ export const NotFoundView = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="border-b">
+      <header className="border-b border-border">
         <div className="mx-auto flex h-16 max-w-5xl items-center px-4 sm:px-6">
           <Link href={`/${locale}`} className="flex items-center gap-2 font-bold tracking-tight">
             <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
@@ -48,7 +48,7 @@ export const NotFoundView = () => {
         <div className="flex flex-col items-start gap-8 sm:flex-row sm:items-center">
           <p
             aria-hidden="true"
-            className="bg-gradient-to-br from-primary to-primary/25 bg-clip-text font-mono text-7xl font-bold leading-none text-transparent sm:text-8xl"
+            className="font-mono text-7xl font-bold leading-none text-primary sm:text-8xl"
           >
             404
           </p>
@@ -70,14 +70,14 @@ export const NotFoundView = () => {
               </Button>
               <Button variant="outline" onClick={() => window.history.back()} className="h-9 px-3">
                 <ArrowLeft className="size-4" />
-                {locale === 'ja' ? '前のページへ' : 'Go back'}
+                {dictionary.goBack}
               </Button>
             </div>
           </div>
         </div>
 
         <section className="mt-14">
-          <h2 className="mb-3 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground/70">
+          <h2 className="mb-3 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
             <Compass className="size-3" />
             {dictionary.popularDestinations}
           </h2>
@@ -86,7 +86,7 @@ export const NotFoundView = () => {
               <li key={tool.slug}>
                 <Link
                   href={getToolPath(locale, tool)}
-                  className="flex items-center gap-3 rounded-xl border bg-card/50 px-4 py-3 transition-colors hover:border-primary/40 hover:bg-accent/60"
+                  className="flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3 transition-colors hover:border-border-strong hover:bg-muted"
                 >
                   <span className="text-lg" aria-hidden="true">
                     {tool.emoji}
@@ -104,8 +104,8 @@ export const NotFoundView = () => {
         </section>
       </main>
 
-      <footer className="border-t py-8 text-center text-xs text-muted-foreground">
-        DevToys · Built for focus
+      <footer className="border-t border-border py-8 text-center text-xs text-muted-foreground">
+        {dictionary.appName} · {dictionary.footerNote}
       </footer>
     </div>
   )

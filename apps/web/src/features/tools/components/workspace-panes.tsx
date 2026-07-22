@@ -25,7 +25,7 @@ export const Pane = ({
   <div
     className={cn(
       'flex flex-col',
-      variant === 'source' ? 'border-b lg:border-b-0 lg:border-r' : 'bg-muted/15',
+      variant === 'source' ? 'border-b border-border lg:border-b-0 lg:border-r' : 'bg-muted/40',
       className,
     )}
   >
@@ -40,7 +40,7 @@ export const PaneHeader = ({
   title: React.ReactNode
   actions?: React.ReactNode
 }) => (
-  <div className="flex h-11 items-center justify-between gap-3 border-b px-5">
+  <div className="flex h-11 items-center justify-between gap-3 border-b border-border px-5">
     <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
       {title}
     </span>

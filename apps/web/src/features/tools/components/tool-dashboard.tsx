@@ -1,7 +1,7 @@
 'use client'
 
-import { ArrowRight, History, LayoutGrid, Search, Sparkles, TrendingUp } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { ArrowRight, History, LayoutGrid, Search, TrendingUp, X } from 'lucide-react'
+import { useId, useMemo, useState } from 'react'
 import { useLocale } from '@/components/locale-provider'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -10,11 +10,33 @@ import { categoryOrder as categories, type ToolCategory, tools } from '../domain
 import { useRecentTools } from '../hooks/use-recent-tools'
 import { ToolCard } from './tool-card'
 
+const popularSlugs = ['json-format', 'base64', 'jwt', 'regex', 'text-diff', 'qr-code']
+
+const SectionHeading = ({
+  icon: Icon,
+  children,
+  count,
+}: {
+  icon?: typeof History
+  children: React.ReactNode
+  count?: number
+}) => (
+  <div className="mb-4 flex items-center gap-2">
+    {Icon && <Icon className="size-4 text-muted-foreground" aria-hidden="true" />}
+    <h2 className="text-sm font-semibold tracking-tight">{children}</h2>
+    {count !== undefined && (
+      <span className="text-xs tabular-nums text-muted-foreground">{count}</span>
+    )}
+  </div>
+)
+
 export const ToolDashboard = () => {
   const { locale, dictionary } = useLocale()
   const recent = useRecentTools()
   const [query, setQuery] = useState('')
   const [activeCategory, setActiveCategory] = useState<ToolCategory | 'all'>('all')
+  const searchId = useId()
+
   const visible = useMemo(
     () =>
       tools.filter(
@@ -26,63 +48,78 @@ export const ToolDashboard = () => {
       ),
     [activeCategory, locale, query],
   )
-  const popular = ['json-format', 'base64', 'jwt', 'regex', 'text-diff', 'qr-code']
+  const popular = popularSlugs
     .map((slug) => tools.find((tool) => tool.slug === slug))
     .filter((tool): tool is (typeof tools)[number] => Boolean(tool))
 
+  const isFiltered = Boolean(query) || activeCategory !== 'all'
   const resetFilters = () => {
     setQuery('')
     setActiveCategory('all')
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <section className="relative overflow-hidden rounded-3xl border bg-card px-6 py-10 shadow-sm sm:px-10 sm:py-14">
-        <div className="absolute -right-24 -top-24 size-80 rounded-full bg-primary/10 blur-3xl" />
-        <div className="relative max-w-3xl">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border bg-background/70 px-3 py-1 text-xs font-medium text-muted-foreground">
-            <Sparkles className="size-3.5 text-primary" />
-            {tools.length} {dictionary.toolCount}
-          </div>
-          <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-5xl">
-            {dictionary.tagline}
-          </h1>
-          <p className="mt-4 max-w-2xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg">
-            {dictionary.heroDescription}
-          </p>
-          <div className="relative mt-8 max-w-2xl">
-            <Search className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder={dictionary.search}
-              className="h-14 rounded-2xl bg-background pl-11 text-base shadow-sm"
-            />
-          </div>
+    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+      <section className="border-b border-border pb-10">
+        {/* Deliberately not uppercased: the copy is Japanese in one locale, and
+            `uppercase` would rewrite the Latin inside it ("Web" → "WEB"). */}
+        <p className="mb-3 text-xs font-medium text-muted-foreground">
+          {tools.length} {dictionary.toolCount}
+        </p>
+        <h1 className="text-balance text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
+          {dictionary.tagline}
+        </h1>
+        <p className="mt-4 max-w-2xl text-pretty leading-7 text-muted-foreground">
+          {dictionary.heroDescription}
+        </p>
+
+        <div className="relative mt-8 max-w-xl">
+          {/* A placeholder is not an accessible name, so the field keeps a real
+              (visually hidden) label of its own. */}
+          <label htmlFor={searchId} className="sr-only">
+            {dictionary.search}
+          </label>
+          <Search
+            className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+            aria-hidden="true"
+          />
+          <Input
+            id={searchId}
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder={dictionary.search}
+            className="h-11 bg-card pl-10 pr-10 text-base"
+          />
+          {query && (
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              aria-label={dictionary.clearSearch}
+              onClick={() => setQuery('')}
+              className="absolute right-2 top-1/2 -translate-y-1/2"
+            >
+              <X className="size-4" />
+            </Button>
+          )}
         </div>
       </section>
 
-      {!query && activeCategory === 'all' && recent.length > 0 && (
+      {!isFiltered && recent.length > 0 && (
         <section className="mt-10">
-          <div className="mb-5 flex items-center gap-2">
-            <History className="size-5 text-primary" />
-            <h2 className="text-lg font-semibold">{dictionary.recentTools}</h2>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            {recent.slice(0, 4).map((tool) => (
+          <SectionHeading icon={History}>{dictionary.recentTools}</SectionHeading>
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            {recent.slice(0, 3).map((tool) => (
               <ToolCard key={tool.slug} tool={tool} locale={locale} />
             ))}
           </div>
         </section>
       )}
 
-      {!query && activeCategory === 'all' && (
+      {!isFiltered && (
         <section className="mt-10">
-          <div className="mb-5 flex items-center gap-2">
-            <TrendingUp className="size-5 text-primary" />
-            <h2 className="text-lg font-semibold">{dictionary.popularTools}</h2>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <SectionHeading icon={TrendingUp}>{dictionary.popularTools}</SectionHeading>
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {popular.map((tool) => (
               <ToolCard key={tool.slug} tool={tool} locale={locale} />
             ))}
@@ -90,56 +127,56 @@ export const ToolDashboard = () => {
         </section>
       )}
 
-      <section className="mt-10 rounded-2xl border bg-card/60 p-4 sm:p-5">
-        <div className="mb-4 flex items-center gap-2 text-sm font-semibold">
-          <LayoutGrid className="size-4 text-primary" />
-          {dictionary.browseByCategory}
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={() => setActiveCategory('all')}
-            className={cn(
-              'rounded-full border px-3.5 py-2 text-sm transition-colors',
-              activeCategory === 'all'
-                ? 'border-primary bg-primary text-primary-foreground'
-                : 'bg-background text-muted-foreground hover:border-primary/40 hover:text-foreground',
-            )}
-          >
-            {dictionary.allTools} <span className="ml-1 opacity-70">{tools.length}</span>
-          </button>
-          {categories.map((category) => {
-            const count = tools.filter((tool) => tool.category === category).length
+      <section className="mt-10">
+        <SectionHeading icon={LayoutGrid}>{dictionary.browseByCategory}</SectionHeading>
+        {/*
+         * A group of independent on/off filters, so each button reports its own
+         * `aria-pressed` state rather than relying on colour alone.
+         */}
+        <fieldset className="flex flex-wrap gap-2" aria-label={dictionary.filterByCategory}>
+          {(['all', ...categories] as const).map((category) => {
+            const selected = activeCategory === category
+            const count =
+              category === 'all'
+                ? tools.length
+                : tools.filter((tool) => tool.category === category).length
             return (
               <button
                 key={category}
                 type="button"
+                aria-pressed={selected}
                 onClick={() => setActiveCategory(category)}
                 className={cn(
-                  'rounded-full border px-3.5 py-2 text-sm transition-colors',
-                  activeCategory === category
+                  'rounded-full border px-3.5 py-1.5 text-sm transition-colors',
+                  selected
                     ? 'border-primary bg-primary text-primary-foreground'
-                    : 'bg-background text-muted-foreground hover:border-primary/40 hover:text-foreground',
+                    : 'border-border bg-card text-muted-foreground hover:border-border-strong hover:text-foreground',
                 )}
               >
-                {dictionary.categories[category]} <span className="ml-1 opacity-70">{count}</span>
+                {category === 'all' ? dictionary.allTools : dictionary.categories[category]}
+                <span className="ml-1.5 tabular-nums opacity-70">{count}</span>
               </button>
             )
           })}
-        </div>
+        </fieldset>
       </section>
 
-      <div className="mt-12 space-y-12">
+      {/* Filtering happens without a page load, so the new result count has to
+          be announced for it to reach a screen reader at all. */}
+      <p aria-live="polite" className="sr-only">
+        {visible.length} {dictionary.toolsFound}
+      </p>
+
+      <div className="mt-10 space-y-10">
         {categories.map((category) => {
           const entries = visible.filter((tool) => tool.category === category)
           if (!entries.length) return null
           return (
             <section key={category}>
-              <div className="mb-5 flex items-center gap-3">
-                <h2 className="text-lg font-semibold">{dictionary.categories[category]}</h2>
-                <span className="text-xs text-muted-foreground">{entries.length}</span>
-              </div>
-              <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              <SectionHeading count={entries.length}>
+                {dictionary.categories[category]}
+              </SectionHeading>
+              <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
                 {entries.map((tool) => (
                   <ToolCard key={tool.slug} tool={tool} locale={locale} />
                 ))}
@@ -148,11 +185,12 @@ export const ToolDashboard = () => {
           )
         })}
         {!visible.length && (
-          <div className="rounded-2xl border border-dashed py-16 text-center">
-            <Search className="mx-auto size-8 text-muted-foreground/50" />
+          <div className="rounded-xl border border-dashed border-border-strong py-16 text-center">
+            <Search className="mx-auto size-7 text-muted-foreground" aria-hidden="true" />
             <p className="mt-4 font-medium">{dictionary.noToolsFound}</p>
-            <Button variant="ghost" className="mt-2" onClick={resetFilters}>
-              {dictionary.resetFilters} <ArrowRight className="size-4" />
+            <Button variant="outline" className="mt-4" onClick={resetFilters}>
+              {dictionary.resetFilters}
+              <ArrowRight className="size-4" />
             </Button>
           </div>
         )}
