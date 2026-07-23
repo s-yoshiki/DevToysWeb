@@ -98,6 +98,7 @@ export type ToolDefinition = {
     | 'url-parser'
     | 'text-analyzer'
     | 'markdown'
+    | 'mermaid'
     | 'cron'
     | 'subnet'
     | 'json-query'
@@ -657,6 +658,20 @@ export const tools: ToolDefinition[] = [
     description: { ja: 'Markdownを安全にプレビュー', en: 'Safely preview Markdown' },
     mode: 'inspect',
     workspace: 'markdown',
+  },
+  {
+    slug: 'mermaid',
+    emoji: '🧜',
+    pathSlug: 'mermaid-editor',
+    category: 'text',
+    icon: GitPullRequest,
+    title: { ja: 'Mermaidエディタ', en: 'Mermaid editor' },
+    description: {
+      ja: 'Mermaid記法のダイアグラムを編集・プレビュー',
+      en: 'Edit and preview diagrams written in Mermaid',
+    },
+    mode: 'inspect',
+    workspace: 'mermaid',
   },
   {
     slug: 'cron',

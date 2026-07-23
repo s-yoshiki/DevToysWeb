@@ -22,6 +22,7 @@ import { JwtWorkspace } from '@/features/jwt'
 import { ListUtilsWorkspace } from '@/features/list-utils'
 import { LoremWorkspace } from '@/features/lorem'
 import { MarkdownWorkspace } from '@/features/markdown'
+import { MermaidWorkspace } from '@/features/mermaid'
 import { NumberBaseWorkspace } from '@/features/number-base'
 import { OgpCheckWorkspace } from '@/features/ogp-check'
 import { PngTransparentWorkspace } from '@/features/png-transparent'
@@ -73,6 +74,7 @@ export const workspaces: Record<WorkspaceKey, ComponentType<WorkspaceProps>> = {
   'list-utils': ListUtilsWorkspace,
   lorem: LoremWorkspace,
   markdown: MarkdownWorkspace,
+  mermaid: MermaidWorkspace,
   'number-base': NumberBaseWorkspace,
   'ogp-check': OgpCheckWorkspace,
   'png-transparent': PngTransparentWorkspace,
