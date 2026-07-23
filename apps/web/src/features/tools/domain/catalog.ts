@@ -664,8 +664,11 @@ export const tools: ToolDefinition[] = [
     pathSlug: 'cron-parser',
     category: 'converters',
     icon: Timer,
-    title: { ja: 'Cron式パーサー', en: 'Cron parser' },
-    description: { ja: 'Cron式と次回実行日時を確認', en: 'Inspect cron schedules and next runs' },
+    title: { ja: 'Cron式ジェネレーター', en: 'Cron expression editor' },
+    description: {
+      ja: 'Cron式を組み立て、意味と次回実行日時を確認',
+      en: 'Build cron expressions and check what they mean',
+    },
     mode: 'inspect',
     workspace: 'cron',
   },

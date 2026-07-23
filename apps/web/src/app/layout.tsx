@@ -15,7 +15,17 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
   },
-  icons: { icon: '/favicon.ico' },
+  // The .ico carries 16/32/48 for legacy browsers; the SVG scales everywhere else.
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '16x16 32x32 48x48' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    apple: { url: '/apple-touch-icon.png', sizes: '180x180' },
+  },
+  // `.json` rather than `.webmanifest`: `aws s3 sync` only guesses a usable
+  // content type for extensions it knows, and browsers accept application/json.
+  manifest: '/manifest.json',
   openGraph: { type: 'website', siteName, images: [ogImage] },
   twitter: { card: 'summary_large_image', images: [ogImage] },
   formatDetection: { telephone: false, email: false, address: false },
