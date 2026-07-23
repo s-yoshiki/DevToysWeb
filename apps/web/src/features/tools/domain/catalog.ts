@@ -44,6 +44,7 @@ import {
   Search,
   Server,
   Share2,
+  Shield,
   Sigma,
   Smartphone,
   Sparkles,
@@ -125,6 +126,7 @@ export type ToolDefinition = {
     | 'whois'
     | 'ogp-check'
     | 'seo-check'
+    | 'badge'
 }
 
 export const tools: ToolDefinition[] = [
@@ -491,6 +493,20 @@ export const tools: ToolDefinition[] = [
     },
     mode: 'generate',
     workspace: 'lorem',
+  },
+  {
+    slug: 'badge',
+    emoji: '🏷️',
+    pathSlug: 'badge-generator',
+    category: 'generators',
+    icon: Shield,
+    title: { ja: 'バッジ生成', en: 'Badge generator' },
+    description: {
+      ja: 'Shields.io・Badgen.netのREADME用バッジを生成',
+      en: 'Generate Shields.io and Badgen.net badges for READMEs',
+    },
+    mode: 'generate',
+    workspace: 'badge',
   },
   {
     slug: 'hash',

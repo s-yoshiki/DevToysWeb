@@ -43,6 +43,7 @@ import { UnitConvertWorkspace } from '@/features/unit-convert'
 import { UrlParserWorkspace } from '@/features/url-parser'
 import { WhoisWorkspace } from '@/features/whois'
 import { XSearchWorkspace } from '@/features/x-search'
+import { BadgeWorkspace } from './badge/badge-workspace'
 import type { WorkspaceKey, WorkspaceProps } from './types'
 
 /**
@@ -52,6 +53,7 @@ import type { WorkspaceKey, WorkspaceProps } from './types'
 export const workspaces: Record<WorkspaceKey, ComponentType<WorkspaceProps>> = {
   default: ConverterWorkspace,
   'base64-image': Base64ImageWorkspace,
+  badge: BadgeWorkspace,
   'basic-auth': BasicAuthWorkspace,
   calculator: CalculatorWorkspace,
   color: ColorWorkspace,
