@@ -2,12 +2,15 @@ import type { ComponentType } from 'react'
 import { Base64ImageWorkspace } from '@/features/base64-image'
 import { BasicAuthWorkspace } from '@/features/basic-auth'
 import { CalculatorWorkspace, ScientificCalculatorWorkspace } from '@/features/calculator'
+import { CameraWorkspace } from '@/features/camera'
 import { ColorWorkspace } from '@/features/color'
 import { ConverterWorkspace } from '@/features/converter'
 import { CronWorkspace } from '@/features/cron'
 import { CurlWorkspace } from '@/features/curl'
+import { DeviceInfoWorkspace } from '@/features/device-info'
 import { DrawingWorkspace } from '@/features/drawing'
 import { ExifWorkspace } from '@/features/exif'
+import { GeolocationWorkspace } from '@/features/geolocation'
 import { GithubSearchWorkspace } from '@/features/github-search'
 import { GlobWorkspace } from '@/features/glob'
 import { GmailSearchWorkspace } from '@/features/gmail-search'
@@ -17,6 +20,7 @@ import { HmacWorkspace } from '@/features/hmac'
 import { ImageCompressWorkspace } from '@/features/image-compress'
 import { ImageConvertWorkspace } from '@/features/image-convert'
 import { ImageFormatWorkspace } from '@/features/image-format'
+import { JsRunnerWorkspace } from '@/features/js-runner'
 import { JsonQueryWorkspace } from '@/features/json-query'
 import { JwtWorkspace } from '@/features/jwt'
 import { ListUtilsWorkspace } from '@/features/list-utils'
@@ -27,6 +31,7 @@ import { NumberBaseWorkspace } from '@/features/number-base'
 import { OgpCheckWorkspace } from '@/features/ogp-check'
 import { PngTransparentWorkspace } from '@/features/png-transparent'
 import { QrCodeWorkspace } from '@/features/qr-code'
+import { QrScannerWorkspace } from '@/features/qr-scanner'
 import { RegexWorkspace } from '@/features/regex'
 import { SelectorWorkspace } from '@/features/selector'
 import { SeoCheckWorkspace } from '@/features/seo-check'
@@ -57,11 +62,14 @@ export const workspaces: Record<WorkspaceKey, ComponentType<WorkspaceProps>> = {
   badge: BadgeWorkspace,
   'basic-auth': BasicAuthWorkspace,
   calculator: CalculatorWorkspace,
+  camera: CameraWorkspace,
   color: ColorWorkspace,
   cron: CronWorkspace,
   curl: CurlWorkspace,
+  'device-info': DeviceInfoWorkspace,
   drawing: DrawingWorkspace,
   exif: ExifWorkspace,
+  geolocation: GeolocationWorkspace,
   'github-search': GithubSearchWorkspace,
   glob: GlobWorkspace,
   'gmail-search': GmailSearchWorkspace,
@@ -72,6 +80,7 @@ export const workspaces: Record<WorkspaceKey, ComponentType<WorkspaceProps>> = {
   'image-convert': ImageConvertWorkspace,
   'image-format': ImageFormatWorkspace,
   'json-query': JsonQueryWorkspace,
+  'js-runner': JsRunnerWorkspace,
   jwt: JwtWorkspace,
   'list-utils': ListUtilsWorkspace,
   lorem: LoremWorkspace,
@@ -81,6 +90,7 @@ export const workspaces: Record<WorkspaceKey, ComponentType<WorkspaceProps>> = {
   'ogp-check': OgpCheckWorkspace,
   'png-transparent': PngTransparentWorkspace,
   'qr-code': QrCodeWorkspace,
+  'qr-scanner': QrScannerWorkspace,
   regex: RegexWorkspace,
   'scientific-calculator': ScientificCalculatorWorkspace,
   selector: SelectorWorkspace,
