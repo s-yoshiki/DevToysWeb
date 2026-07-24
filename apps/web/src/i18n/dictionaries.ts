@@ -31,6 +31,10 @@ const dictionaries = {
     shared: 'リンクをコピーしました',
     collapseSidebar: 'サイドバーを折りたたむ',
     expandSidebar: 'サイドバーを開く',
+    maximizeWorkspace: 'ツール領域を最大化',
+    restoreWorkspace: 'ツール領域を元に戻す',
+    enterBrowserFullscreen: 'ブラウザを全画面にする',
+    exitBrowserFullscreen: 'ブラウザの全画面を解除',
     notFoundTitle: 'ページが見つかりません',
     notFoundDescription:
       'お探しのページは移動または削除された可能性があります。ツール一覧から探してみてください。',
@@ -92,6 +96,10 @@ const dictionaries = {
     shared: 'Link copied',
     collapseSidebar: 'Collapse sidebar',
     expandSidebar: 'Expand sidebar',
+    maximizeWorkspace: 'Maximize workspace',
+    restoreWorkspace: 'Restore workspace',
+    enterBrowserFullscreen: 'Enter browser fullscreen',
+    exitBrowserFullscreen: 'Exit browser fullscreen',
     notFoundTitle: 'This page could not be found',
     notFoundDescription:
       'The page you are looking for may have moved or been removed. Try finding it in the tool list instead.',

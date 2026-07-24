@@ -1,9 +1,10 @@
 'use client'
 
-import { RotateCcw } from 'lucide-react'
+import { Expand, Maximize2, Minimize2, RotateCcw, Shrink } from 'lucide-react'
 import { useLocale } from '@/components/locale-provider'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { useFullscreen } from '@/hooks/use-fullscreen'
 import type { ToolDefinition } from '@/libs/domain/catalog'
 
 /**
@@ -20,9 +21,10 @@ export const WorkspaceShell = ({
   children: React.ReactNode
 }) => {
   const { locale, dictionary } = useLocale()
+  const { maximized, browserFullscreen, toggleMaximized, toggleBrowserFullscreen } = useFullscreen()
   const Icon = tool.icon
   return (
-    <div className="mx-auto max-w-6xl px-3 py-4 sm:px-4 lg:px-6">
+    <div data-workspace-shell className="mx-auto max-w-6xl px-3 py-4 sm:px-4 lg:px-6">
       <header className="mb-4 flex flex-col justify-between gap-3 border-b border-border pb-4 sm:flex-row sm:items-end">
         <div>
           <Badge variant="secondary" className="mb-2 capitalize">
@@ -41,10 +43,40 @@ export const WorkspaceShell = ({
             </div>
           </div>
         </div>
-        <Button variant="outline" onClick={onClear}>
-          <RotateCcw className="size-4" />
-          {dictionary.clear}
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={toggleMaximized}
+            aria-pressed={maximized}
+            aria-label={maximized ? dictionary.restoreWorkspace : dictionary.maximizeWorkspace}
+            title={maximized ? dictionary.restoreWorkspace : dictionary.maximizeWorkspace}
+          >
+            {maximized ? <Minimize2 className="size-4" /> : <Maximize2 className="size-4" />}
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={toggleBrowserFullscreen}
+            aria-pressed={browserFullscreen}
+            aria-label={
+              browserFullscreen
+                ? dictionary.exitBrowserFullscreen
+                : dictionary.enterBrowserFullscreen
+            }
+            title={
+              browserFullscreen
+                ? dictionary.exitBrowserFullscreen
+                : dictionary.enterBrowserFullscreen
+            }
+          >
+            {browserFullscreen ? <Shrink className="size-4" /> : <Expand className="size-4" />}
+          </Button>
+          <Button variant="outline" onClick={onClear}>
+            <RotateCcw className="size-4" />
+            {dictionary.clear}
+          </Button>
+        </div>
       </header>
       {children}
     </div>

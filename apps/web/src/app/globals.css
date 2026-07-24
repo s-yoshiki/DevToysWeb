@@ -167,6 +167,23 @@
   }
 }
 
+/*
+ * In-app "maximize workspace" mode (see use-fullscreen.ts). Hiding the app
+ * chrome lets the active tool fill the window; the content region then claims
+ * the full viewport height the header used to leave for it, and the workspace
+ * drops its reading-width cap so the extra space is actually usable.
+ */
+html[data-maximized] [data-app-chrome] {
+  /* biome-ignore lint/complexity/noImportantStyles: overrides utility display. */
+  display: none !important;
+}
+html[data-maximized] [data-content-region] {
+  min-height: 100vh;
+}
+html[data-maximized] [data-workspace-shell] {
+  max-width: none;
+}
+
 /* Respect the OS "reduce motion" setting instead of animating regardless. */
 @media (prefers-reduced-motion: reduce) {
   html {
