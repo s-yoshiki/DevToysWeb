@@ -48,6 +48,7 @@ import { TimezoneWorkspace } from '@/features/timezone'
 import { UnitConvertWorkspace } from '@/features/unit-convert'
 import { UrlParserWorkspace } from '@/features/url-parser'
 import { WhoisWorkspace } from '@/features/whois'
+import { WorldClockWorkspace } from '@/features/world-clock'
 import { XSearchWorkspace } from '@/features/x-search'
 import { BadgeWorkspace } from './badge/badge-workspace'
 import type { WorkspaceKey, WorkspaceProps } from './types'
@@ -108,5 +109,6 @@ export const workspaces: Record<WorkspaceKey, ComponentType<WorkspaceProps>> = {
   'unit-convert': UnitConvertWorkspace,
   'url-parser': UrlParserWorkspace,
   whois: WhoisWorkspace,
+  'world-clock': WorldClockWorkspace,
   'x-search': XSearchWorkspace,
 }

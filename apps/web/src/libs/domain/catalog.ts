@@ -138,6 +138,7 @@ export type ToolDefinition = {
     | 'qr-scanner'
     | 'device-info'
     | 'js-runner'
+    | 'world-clock'
 }
 
 export const tools: ToolDefinition[] = [
@@ -327,6 +328,20 @@ export const tools: ToolDefinition[] = [
     },
     mode: 'inspect',
     workspace: 'time-signal',
+  },
+  {
+    slug: 'world-clock',
+    emoji: '🕰️',
+    pathSlug: 'world-clock',
+    category: 'time',
+    icon: Globe,
+    title: { ja: '世界時計', en: 'World clock' },
+    description: {
+      ja: '複数都市の現在時刻を並べてリアルタイム表示',
+      en: 'Watch the current time in cities side by side',
+    },
+    mode: 'inspect',
+    workspace: 'world-clock',
   },
   {
     slug: 'base64',
