@@ -377,7 +377,10 @@ export const tools: ToolDefinition[] = [
     category: 'encoders',
     icon: LockKeyhole,
     title: { ja: 'Base64', en: 'Base64' },
-    description: { ja: 'UTF-8文字列を安全に変換', en: 'Encode and decode UTF-8 text' },
+    description: {
+      ja: 'テキストとBase64を相互変換（UTF-8対応）',
+      en: 'Encode and decode Base64 with full UTF-8 support',
+    },
     mode: 'convert',
   },
   {
@@ -387,7 +390,10 @@ export const tools: ToolDefinition[] = [
     category: 'encoders',
     icon: Link2,
     title: { ja: 'URL', en: 'URL' },
-    description: { ja: 'URLコンポーネントを変換', en: 'Encode and decode URL components' },
+    description: {
+      ja: 'URLやクエリ値をパーセントエンコード・デコード',
+      en: 'Percent-encode and decode URLs and query values',
+    },
     mode: 'convert',
   },
   {
@@ -397,7 +403,10 @@ export const tools: ToolDefinition[] = [
     category: 'encoders',
     icon: TextQuote,
     title: { ja: 'HTMLエスケープ', en: 'HTML escape' },
-    description: { ja: 'HTML特殊文字をエスケープ', en: 'Escape HTML special characters' },
+    description: {
+      ja: 'HTMLの特殊文字をエスケープ・復元',
+      en: 'Escape and unescape HTML special characters',
+    },
     mode: 'convert',
   },
   {
@@ -460,7 +469,10 @@ export const tools: ToolDefinition[] = [
     category: 'formatters',
     icon: Braces,
     title: { ja: 'JSON整形', en: 'JSON formatter' },
-    description: { ja: 'JSONを読みやすく整形', en: 'Format and validate JSON' },
+    description: {
+      ja: 'JSONを検証して読みやすく整形',
+      en: 'Validate and pretty-print JSON',
+    },
     mode: 'convert',
   },
   {
@@ -470,7 +482,10 @@ export const tools: ToolDefinition[] = [
     category: 'formatters',
     icon: Code2,
     title: { ja: 'SQL整形', en: 'SQL formatter' },
-    description: { ja: 'SQLクエリを整形', en: 'Format SQL queries' },
+    description: {
+      ja: 'SQLをキーワード整形して読みやすく',
+      en: 'Pretty-print SQL with keyword casing',
+    },
     mode: 'convert',
   },
   {
@@ -480,7 +495,10 @@ export const tools: ToolDefinition[] = [
     category: 'formatters',
     icon: Code2,
     title: { ja: 'XML整形', en: 'XML formatter' },
-    description: { ja: 'XMLを読みやすく整形', en: 'Format XML documents' },
+    description: {
+      ja: 'XMLをインデントして読みやすく整形',
+      en: 'Indent and pretty-print XML documents',
+    },
     mode: 'convert',
   },
   {
@@ -548,7 +566,10 @@ export const tools: ToolDefinition[] = [
     category: 'generators',
     icon: Sparkles,
     title: { ja: 'パスワード生成', en: 'Password generator' },
-    description: { ja: '安全なパスワードを生成', en: 'Generate secure passwords' },
+    description: {
+      ja: '文字種と長さを指定して安全なパスワードを生成',
+      en: 'Generate secure passwords by length and character set',
+    },
     mode: 'generate',
   },
   {
@@ -586,7 +607,10 @@ export const tools: ToolDefinition[] = [
     category: 'generators',
     icon: Hash,
     title: { ja: 'ハッシュ', en: 'Hash' },
-    description: { ja: 'SHAハッシュを計算', en: 'Calculate SHA hashes' },
+    description: {
+      ja: 'テキストのSHAハッシュ値を計算',
+      en: 'Calculate SHA hash digests of text',
+    },
     mode: 'generate',
   },
   {
@@ -680,7 +704,10 @@ export const tools: ToolDefinition[] = [
     category: 'testers',
     icon: Route,
     title: { ja: 'JSONPath・Schema検証', en: 'JSONPath & Schema' },
-    description: { ja: 'JSONの抽出とSchema検証', en: 'Query and validate JSON data' },
+    description: {
+      ja: 'JSONPathで抽出しJSON Schemaで検証',
+      en: 'Extract with JSONPath and validate against JSON Schema',
+    },
     mode: 'inspect',
     workspace: 'json-query',
   },
@@ -808,7 +835,10 @@ export const tools: ToolDefinition[] = [
     category: 'generators',
     icon: QrCode,
     title: { ja: 'QRコード生成', en: 'QR code generator' },
-    description: { ja: 'テキストからQRコードを生成', en: 'Generate a QR code from text' },
+    description: {
+      ja: 'テキストやURLからQRコードを生成して保存',
+      en: 'Generate a QR code from text or a URL and save it',
+    },
     mode: 'generate',
     workspace: 'qr-code',
   },
@@ -819,7 +849,10 @@ export const tools: ToolDefinition[] = [
     category: 'images',
     icon: FileImage,
     title: { ja: 'Base64画像変換', en: 'Base64 image converter' },
-    description: { ja: '画像とData URLを相互変換', en: 'Convert images and Data URLs' },
+    description: {
+      ja: '画像とData URL(Base64)を相互変換',
+      en: 'Convert images to and from Base64 Data URLs',
+    },
     mode: 'convert',
     workspace: 'base64-image',
   },
@@ -1037,7 +1070,10 @@ export const tools: ToolDefinition[] = [
     category: 'network',
     icon: Network,
     title: { ja: 'ネットワーク情報', en: 'Network info' },
-    description: { ja: 'ブラウザの接続情報を確認', en: 'Inspect browser network details' },
+    description: {
+      ja: 'ブラウザが公開する接続情報を確認',
+      en: 'Inspect the connection details your browser exposes',
+    },
     mode: 'inspect',
     workspace: 'connection-info',
   },
