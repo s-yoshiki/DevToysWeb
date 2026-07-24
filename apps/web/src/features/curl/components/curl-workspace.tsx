@@ -2,9 +2,11 @@
 
 import { Card, CardContent } from '@/components/ui/card'
 import { type CurlTarget, curlTargets } from '@/features/curl/functions/curl'
+import { CodeEditor } from '@/features/tools/components/code-editor'
+import { languageForFormat } from '@/features/tools/components/code-editor-language'
 import { CopyButton } from '@/features/tools/components/copy-button'
 import { SegmentedControl } from '@/features/tools/components/segmented-control'
-import { CodeArea, Pane, PaneGrid, PaneHeader } from '@/features/tools/components/workspace-panes'
+import { Pane, PaneGrid, PaneHeader } from '@/features/tools/components/workspace-panes'
 import { WorkspaceShell } from '@/features/tools/components/workspace-shell'
 import type { WorkspaceProps } from '@/features/tools/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
@@ -30,20 +32,22 @@ export const CurlWorkspace = ({ tool }: WorkspaceProps) => {
             <PaneGrid className="min-h-[32rem]">
               <Pane>
                 <PaneHeader title="cURL" />
-                <CodeArea
+                <CodeEditor
                   value={curl.input}
-                  onChange={(event) => curl.setInput(event.target.value)}
-                  aria-label="cURL"
+                  onChange={(value) => curl.setInput(value)}
+                  language="shell"
+                  ariaLabel="cURL"
                   className="min-h-64"
                 />
               </Pane>
               <Pane variant="result">
                 <PaneHeader title={curl.target} actions={<CopyButton value={curl.value} />} />
-                <CodeArea
+                <CodeEditor
                   readOnly
                   value={curl.value}
-                  aria-label={curl.target}
-                  className={`min-h-64 ${curl.error ? 'text-destructive' : ''}`}
+                  language={languageForFormat(curl.target)}
+                  ariaLabel={curl.target}
+                  className="min-h-64"
                 />
               </Pane>
             </PaneGrid>

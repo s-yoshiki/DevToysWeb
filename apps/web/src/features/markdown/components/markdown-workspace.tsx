@@ -1,8 +1,9 @@
 'use client'
 
 import { Card, CardContent } from '@/components/ui/card'
+import { CodeEditor } from '@/features/tools/components/code-editor'
 import { CopyButton } from '@/features/tools/components/copy-button'
-import { CodeArea, Pane, PaneHeader } from '@/features/tools/components/workspace-panes'
+import { Pane, PaneHeader } from '@/features/tools/components/workspace-panes'
 import { WorkspaceShell } from '@/features/tools/components/workspace-shell'
 import type { WorkspaceProps } from '@/features/tools/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
@@ -18,10 +19,11 @@ export const MarkdownWorkspace = ({ tool }: WorkspaceProps) => {
         <CardContent className="grid min-h-[520px] p-0 lg:grid-cols-2">
           <Pane>
             <PaneHeader title="Markdown" />
-            <CodeArea
+            <CodeEditor
               value={markdown.input}
-              onChange={(event) => markdown.setInput(event.target.value)}
-              aria-label="Markdown"
+              onChange={(value) => markdown.setInput(value)}
+              language="markdown"
+              ariaLabel="Markdown"
               className="min-h-64"
             />
           </Pane>

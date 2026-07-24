@@ -1,12 +1,8 @@
 'use client'
 
 import { Card, CardContent } from '@/components/ui/card'
-import {
-  CodeArea,
-  ErrorBanner,
-  Pane,
-  PaneHeader,
-} from '@/features/tools/components/workspace-panes'
+import { CodeEditor } from '@/features/tools/components/code-editor'
+import { ErrorBanner, Pane, PaneHeader } from '@/features/tools/components/workspace-panes'
 import { WorkspaceShell } from '@/features/tools/components/workspace-shell'
 import type { WorkspaceProps } from '@/features/tools/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
@@ -22,11 +18,10 @@ export const MermaidWorkspace = ({ tool }: WorkspaceProps) => {
         <CardContent className="grid min-h-[520px] p-0 lg:grid-cols-2">
           <Pane>
             <PaneHeader title="Mermaid" />
-            <CodeArea
+            <CodeEditor
               value={mermaid.input}
-              onChange={(event) => mermaid.setInput(event.target.value)}
-              aria-label={t('Mermaidコード', 'Mermaid code')}
-              spellCheck={false}
+              onChange={(value) => mermaid.setInput(value)}
+              ariaLabel={t('Mermaidコード', 'Mermaid code')}
               className="min-h-64"
             />
           </Pane>

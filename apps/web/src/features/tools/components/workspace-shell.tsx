@@ -22,10 +22,10 @@ export const WorkspaceShell = ({
   const { locale, dictionary } = useLocale()
   const Icon = tool.icon
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-      <header className="mb-8 flex flex-col justify-between gap-5 border-b border-border pb-6 sm:flex-row sm:items-end">
+    <div className="mx-auto max-w-6xl px-3 py-4 sm:px-4 lg:px-6">
+      <header className="mb-4 flex flex-col justify-between gap-3 border-b border-border pb-4 sm:flex-row sm:items-end">
         <div>
-          <Badge variant="secondary" className="mb-3 capitalize">
+          <Badge variant="secondary" className="mb-2 capitalize">
             {dictionary.categories[tool.category]}
           </Badge>
           <div className="flex items-center gap-3">
