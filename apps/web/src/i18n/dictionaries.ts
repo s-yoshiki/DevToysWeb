@@ -60,6 +60,7 @@ const dictionaries = {
       text: 'テキスト',
       images: '画像',
       network: 'ネットワーク',
+      device: 'デバイス',
     },
   },
   en: {
@@ -120,6 +121,7 @@ const dictionaries = {
       text: 'Text',
       images: 'Images',
       network: 'Network',
+      device: 'Device',
     },
   },
 } as const

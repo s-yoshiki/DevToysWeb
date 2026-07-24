@@ -6,8 +6,10 @@ import {
   Braces,
   Calculator,
   CalendarClock,
+  Camera,
   CaseSensitive,
   Code2,
+  Cpu,
   Crop,
   Earth,
   FileCode2,
@@ -30,6 +32,7 @@ import {
   LockKeyhole,
   type LucideIcon,
   Mail,
+  MapPin,
   Minimize2,
   Network,
   Paintbrush,
@@ -41,6 +44,7 @@ import {
   Regex,
   Route,
   Ruler,
+  ScanLine,
   Search,
   Server,
   Share2,
@@ -71,6 +75,7 @@ export type ToolCategory =
   | 'text'
   | 'images'
   | 'network'
+  | 'device'
 export type ToolDefinition = {
   slug: string
   pathSlug: string
@@ -128,6 +133,11 @@ export type ToolDefinition = {
     | 'ogp-check'
     | 'seo-check'
     | 'badge'
+    | 'geolocation'
+    | 'camera'
+    | 'qr-scanner'
+    | 'device-info'
+    | 'js-runner'
 }
 
 export const tools: ToolDefinition[] = [
@@ -576,6 +586,20 @@ export const tools: ToolDefinition[] = [
     workspace: 'github-search',
   },
   {
+    slug: 'js-runner',
+    emoji: '▶️',
+    pathSlug: 'javascript-typescript-runner',
+    category: 'testers',
+    icon: Code2,
+    title: { ja: 'JS・TS実行', en: 'JS & TS runner' },
+    description: {
+      ja: 'JavaScript/TypeScriptを標準入出力付きでブラウザ実行',
+      en: 'Run JavaScript/TypeScript in the browser with stdin/stdout',
+    },
+    mode: 'inspect',
+    workspace: 'js-runner',
+  },
+  {
     slug: 'regex',
     emoji: '🧪',
     pathSlug: 'regular-expression-tester',
@@ -928,6 +952,62 @@ export const tools: ToolDefinition[] = [
     description: { ja: 'ブラウザの接続情報を確認', en: 'Inspect browser network details' },
     mode: 'inspect',
   },
+  {
+    slug: 'geolocation',
+    emoji: '📍',
+    pathSlug: 'geolocation',
+    category: 'device',
+    icon: MapPin,
+    title: { ja: '位置情報', en: 'Geolocation' },
+    description: {
+      ja: '現在地の緯度・経度・精度を取得して地図で確認',
+      en: 'Read latitude, longitude and accuracy from your device',
+    },
+    mode: 'inspect',
+    workspace: 'geolocation',
+  },
+  {
+    slug: 'camera-capture',
+    emoji: '📷',
+    pathSlug: 'camera-capture',
+    category: 'device',
+    icon: Camera,
+    title: { ja: 'カメラ撮影', en: 'Camera capture' },
+    description: {
+      ja: 'Webカメラの映像から写真を撮影してPNG保存',
+      en: 'Capture a photo from your webcam and save it as PNG',
+    },
+    mode: 'generate',
+    workspace: 'camera',
+  },
+  {
+    slug: 'qr-scanner',
+    emoji: '🔎',
+    pathSlug: 'qr-scanner',
+    category: 'device',
+    icon: ScanLine,
+    title: { ja: 'QR・バーコード読取', en: 'QR & barcode scanner' },
+    description: {
+      ja: 'カメラでQRコードやバーコードを読み取る',
+      en: 'Scan QR codes and barcodes with your camera',
+    },
+    mode: 'inspect',
+    workspace: 'qr-scanner',
+  },
+  {
+    slug: 'device-info',
+    emoji: '🖥️',
+    pathSlug: 'device-info',
+    category: 'device',
+    icon: Cpu,
+    title: { ja: 'デバイス情報', en: 'Device info' },
+    description: {
+      ja: '画面・バッテリー・CPU・ネットワークなどのブラウザ情報を一覧',
+      en: 'Inspect screen, battery, CPU and other browser details',
+    },
+    mode: 'inspect',
+    workspace: 'device-info',
+  },
 ]
 
 /** Display order for every surface that lists categories. */
@@ -943,6 +1023,7 @@ export const categoryOrder: ToolCategory[] = [
   'text',
   'images',
   'network',
+  'device',
 ]
 
 export const findTool = (slug: string) => tools.find((tool) => tool.slug === slug)
