@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { useFullscreen } from '@/hooks/use-fullscreen'
 import type { ToolDefinition } from '@/libs/domain/catalog'
+import { cn } from '@/libs/utils'
 
 /**
  * Page frame shared by every workspace: category badge, tool identity and the
@@ -25,21 +26,42 @@ export const WorkspaceShell = ({
   const Icon = tool.icon
   return (
     <div data-workspace-shell className="mx-auto max-w-6xl px-3 py-4 sm:px-4 lg:px-6">
-      <header className="mb-4 flex flex-col justify-between gap-3 border-b border-border pb-4 sm:flex-row sm:items-end">
+      <header
+        className={cn(
+          'flex flex-col justify-between gap-3 border-b border-border sm:flex-row sm:items-end',
+          // Maximized mode trades the tool identity's presence for working space:
+          // a tighter frame, a smaller icon and title, and no description.
+          maximized ? 'mb-2 pb-2' : 'mb-4 pb-4',
+        )}
+      >
         <div>
-          <Badge variant="secondary" className="mb-2 capitalize">
-            {dictionary.categories[tool.category]}
-          </Badge>
+          {!maximized && (
+            <Badge variant="secondary" className="mb-2 capitalize">
+              {dictionary.categories[tool.category]}
+            </Badge>
+          )}
           <div className="flex items-center gap-3">
             <div
-              className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-accent text-primary"
+              className={cn(
+                'flex shrink-0 items-center justify-center rounded-xl bg-accent text-primary',
+                maximized ? 'size-8' : 'size-11',
+              )}
               aria-hidden="true"
             >
-              <Icon className="size-5" />
+              <Icon className={maximized ? 'size-4' : 'size-5'} />
             </div>
             <div>
-              <h1 className="text-xl font-bold tracking-tight sm:text-2xl">{tool.title[locale]}</h1>
-              <p className="mt-1 text-sm text-muted-foreground">{tool.description[locale]}</p>
+              <h1
+                className={cn(
+                  'font-bold tracking-tight',
+                  maximized ? 'text-base sm:text-lg' : 'text-xl sm:text-2xl',
+                )}
+              >
+                {tool.title[locale]}
+              </h1>
+              {!maximized && (
+                <p className="mt-1 text-sm text-muted-foreground">{tool.description[locale]}</p>
+              )}
             </div>
           </div>
         </div>
