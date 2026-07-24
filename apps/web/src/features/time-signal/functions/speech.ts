@@ -21,8 +21,8 @@ export const speakTimeAnnouncement = (date: Date, locale: 'ja' | 'en', onEnd?: (
   if (activeUtterance) window.speechSynthesis.cancel()
   const utterance = new SpeechSynthesisUtterance(formatTimeAnnouncement(date, locale))
   utterance.lang = locale === 'ja' ? 'ja-JP' : 'en-US'
-  utterance.rate = locale === 'ja' ? 1.05 : 1
-  utterance.pitch = 1
+  utterance.rate = locale === 'ja' ? 0.95 : 0.8
+  utterance.pitch = 0.9
 
   const voice = window.speechSynthesis
     .getVoices()
