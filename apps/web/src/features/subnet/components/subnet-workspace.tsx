@@ -3,9 +3,9 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { ResultCard } from '@/features/tools/components/result-card'
-import { WorkspaceShell } from '@/features/tools/components/workspace-shell'
-import type { WorkspaceProps } from '@/features/tools/workspaces/types'
+import { ResultCard } from '@/components/result-card'
+import { WorkspaceShell } from '@/components/workspace-shell'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
 import { useSubnet } from '../hooks/use-subnet'
 

@@ -4,7 +4,7 @@ import {
   orGroup,
   quotePhrase,
   splitTerms,
-} from '@/features/tools/domain/search-operators'
+} from '@/libs/domain/search-operators'
 
 /** Mailbox scope, matching Gmail's `in:` operator. */
 export type GmailLocation =

@@ -1,8 +1,8 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { playBeep } from '@/features/tools/domain/audio'
-import { toMilliseconds } from '@/features/tools/domain/duration'
+import { playBeep } from '@/libs/domain/audio'
+import { toMilliseconds } from '@/libs/domain/duration'
 
 export type TimerStatus = 'idle' | 'running' | 'paused' | 'finished'
 

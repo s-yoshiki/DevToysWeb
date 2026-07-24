@@ -5,7 +5,7 @@ import {
   defaultListOptions,
   formatList,
   type ListOptions,
-} from '@/features/tools/domain/text-tools'
+} from '@/libs/domain/text-tools'
 
 const sampleList = `banana
 apple

@@ -1,5 +1,5 @@
 import type { GoogleTimeRange } from '@/features/google-search/functions/google-search'
-import type { Bilingual } from '@/features/tools/components/search/types'
+import type { Bilingual } from '@/components/search/types'
 
 export const googleLanguages: { value: string; label: Bilingual }[] = [
   { value: '', label: { ja: '指定しない', en: 'Any language' } },

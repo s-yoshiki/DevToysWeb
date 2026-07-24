@@ -6,14 +6,14 @@ import {
   SelectField,
   SwitchField,
   TextField,
-} from '@/features/tools/components/search/fields'
+} from '@/components/search/fields'
 import {
   FiltersCard,
   SearchPreview,
   SectionHeading,
-} from '@/features/tools/components/search/search-layout'
-import { WorkspaceShell } from '@/features/tools/components/workspace-shell'
-import type { WorkspaceProps } from '@/features/tools/workspaces/types'
+} from '@/components/search/search-layout'
+import { WorkspaceShell } from '@/components/workspace-shell'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
 import { gmailAgeUnits, gmailCategories, gmailLocations, gmailStates } from '../functions/constants'
 import { useGmailSearch } from '../hooks/use-gmail-search'

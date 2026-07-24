@@ -13,9 +13,9 @@ import {
   categoryOrder as categories,
   type ToolDefinition,
   tools,
-} from '@/features/tools/domain/catalog'
-import { getToolPath, isSamePath } from '@/features/tools/domain/tool-path'
-import { cn } from '@/lib/utils'
+} from '@/libs/domain/catalog'
+import { getToolPath, isSamePath } from '@/libs/domain/tool-path'
+import { cn } from '@/libs/utils'
 import { CommandPalette, useCommandPalette } from './command-palette'
 
 /** Rendered after mount so the static export never ships a platform-specific hint. */

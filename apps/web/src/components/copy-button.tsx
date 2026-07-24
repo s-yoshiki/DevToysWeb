@@ -3,7 +3,7 @@
 import { Check, Clipboard } from 'lucide-react'
 import { useLocale } from '@/components/locale-provider'
 import { Button } from '@/components/ui/button'
-import { useCopy } from '../hooks/use-copy'
+import { useCopy } from '@/hooks/use-copy'
 
 export const CopyButton = ({ value }: { value: string }) => {
   const { dictionary } = useLocale()

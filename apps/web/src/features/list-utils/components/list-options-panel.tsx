@@ -2,8 +2,8 @@
 
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { SegmentedControl, ToggleRow } from '@/features/tools/components/segmented-control'
-import type { ListOptions } from '@/features/tools/domain/text-tools'
+import { SegmentedControl, ToggleRow } from '@/components/segmented-control'
+import type { ListOptions } from '@/libs/domain/text-tools'
 import { useTranslate } from '@/hooks/use-translate'
 
 export const ListOptionsPanel = ({

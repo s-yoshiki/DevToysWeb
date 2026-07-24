@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { findTool, type ToolDefinition } from '../domain/catalog'
+import { findTool, type ToolDefinition } from '@/libs/domain/catalog'
 
 const storageKey = 'devtoys:recent-tools'
 const limit = 8

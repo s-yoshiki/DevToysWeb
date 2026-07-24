@@ -4,8 +4,8 @@ import { ArrowLeft, Braces, Compass, Home } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { findTool } from '@/features/tools/domain/catalog'
-import { getToolPath } from '@/features/tools/domain/tool-path'
+import { findTool } from '@/libs/domain/catalog'
+import { getToolPath } from '@/libs/domain/tool-path'
 import { getDictionary, isLocale, type Locale } from '@/i18n/dictionaries'
 
 const suggestions = ['json-format', 'base64', 'unit-convert', 'timer', 'qr-code', 'text-diff']

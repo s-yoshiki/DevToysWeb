@@ -12,10 +12,10 @@ import {
   type ToolCategory,
   type ToolDefinition,
   tools,
-} from '@/features/tools/domain/catalog'
-import { getToolPath, isSamePath } from '@/features/tools/domain/tool-path'
-import { useRecentTools } from '@/features/tools/hooks/use-recent-tools'
-import { cn } from '@/lib/utils'
+} from '@/libs/domain/catalog'
+import { getToolPath, isSamePath } from '@/libs/domain/tool-path'
+import { useRecentTools } from '@/hooks/use-recent-tools'
+import { cn } from '@/libs/utils'
 
 const storageKey = 'devtoys:collapsed-categories'
 const railStorageKey = 'devtoys:sidebar-collapsed'

@@ -15,11 +15,11 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { CopyButton } from '@/features/tools/components/copy-button'
-import { SegmentedControl } from '@/features/tools/components/segmented-control'
-import { WorkspaceShell } from '@/features/tools/components/workspace-shell'
-import type { BadgeStyle } from '@/features/tools/domain/badge'
-import type { WorkspaceProps } from '@/features/tools/workspaces/types'
+import { CopyButton } from '@/components/copy-button'
+import { SegmentedControl } from '@/components/segmented-control'
+import { WorkspaceShell } from '@/components/workspace-shell'
+import type { BadgeStyle } from '@/workspaces/badge/badge'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
 import { useBadge } from './use-badge'
 

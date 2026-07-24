@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { useLocale } from '@/components/locale-provider'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
-import { type ToolDefinition, tools } from '@/features/tools/domain/catalog'
-import { getToolPath } from '@/features/tools/domain/tool-path'
-import { useRecentTools } from '@/features/tools/hooks/use-recent-tools'
-import { cn } from '@/lib/utils'
+import { type ToolDefinition, tools } from '@/libs/domain/catalog'
+import { getToolPath } from '@/libs/domain/tool-path'
+import { useRecentTools } from '@/hooks/use-recent-tools'
+import { cn } from '@/libs/utils'
 
 /** Every string a tool can reasonably be searched by, in both locales. */
 const haystack = (tool: ToolDefinition) =>

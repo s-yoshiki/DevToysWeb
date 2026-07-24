@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { type EscapeTarget, escapeString, unescapeString } from '@/features/tools/domain/text-tools'
+import { type EscapeTarget, escapeString, unescapeString } from '@/libs/domain/text-tools'
 
 export const useStringEscape = () => {
   const [target, setTarget] = useState<EscapeTarget>('json')

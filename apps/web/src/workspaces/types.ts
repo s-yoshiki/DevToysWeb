@@ -1,4 +1,4 @@
-import type { ToolDefinition } from '../domain/catalog'
+import type { ToolDefinition } from '@/libs/domain/catalog'
 
 /** Every workspace receives the catalog entry that selected it. */
 export type WorkspaceProps = { tool: ToolDefinition }

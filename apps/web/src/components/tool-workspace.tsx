@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect } from 'react'
-import { findTool } from '../domain/catalog'
-import { recordToolVisit } from '../hooks/use-recent-tools'
-import { workspaces } from '../workspaces/registry'
+import { findTool } from '@/libs/domain/catalog'
+import { recordToolVisit } from '@/hooks/use-recent-tools'
+import { workspaces } from '@/workspaces/registry'
 
 /** Resolves a catalog slug to the workspace that renders it. */
 export const ToolWorkspace = ({ slug }: { slug: string }) => {

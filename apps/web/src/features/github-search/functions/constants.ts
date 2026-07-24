@@ -7,7 +7,7 @@ import type {
   GithubReviewState,
   GithubSearchType,
 } from '@/features/github-search/functions/github-search'
-import type { Bilingual } from '@/features/tools/components/search/types'
+import type { Bilingual } from '@/components/search/types'
 
 export const searchTypes: { value: GithubSearchType; label: Bilingual }[] = [
   { value: 'repositories', label: { ja: 'リポジトリ', en: 'Repositories' } },

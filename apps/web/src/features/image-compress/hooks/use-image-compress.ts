@@ -7,8 +7,8 @@ import {
   maxImageFileSize,
   sourceImageFormat,
   withImageExtension,
-} from '@/features/tools/domain/image'
-import { useImageBatch } from '@/features/tools/hooks/use-image-batch'
+} from '@/libs/domain/image'
+import { useImageBatch } from '@/hooks/use-image-batch'
 import { useTranslate } from '@/hooks/use-translate'
 
 /** `source` keeps each file in the format it arrived in. */

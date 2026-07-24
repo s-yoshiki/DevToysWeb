@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import type { SiteReport } from '@/features/tools/api/diagnostics-client'
+import type { SiteReport } from '@/libs/api/diagnostics-client'
 import { auditSeo, countByLevel, type SeoCheck, scoreOf } from './seo-audit'
 
 const report = (overrides: Partial<SiteReport> = {}): SiteReport => ({

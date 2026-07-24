@@ -4,7 +4,7 @@ import { RotateCcw } from 'lucide-react'
 import { useLocale } from '@/components/locale-provider'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import type { ToolDefinition } from '../domain/catalog'
+import type { ToolDefinition } from '@/libs/domain/catalog'
 
 /**
  * Page frame shared by every workspace: category badge, tool identity and the

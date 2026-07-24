@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import type { ToolDefinition } from '@/features/tools/domain/catalog'
+import type { ToolDefinition } from '@/libs/domain/catalog'
 import { getDictionary, type Locale } from '@/i18n/dictionaries'
 import { alternatesFor, ogImage, ogLocales, siteName } from './site'
 

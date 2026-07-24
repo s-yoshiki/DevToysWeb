@@ -1,4 +1,4 @@
-import type { SiteReport, WhoisReport } from '@/features/tools/api/diagnostics-client'
+import type { SiteReport, WhoisReport } from '@/libs/api/diagnostics-client'
 
 /**
  * Canned payloads shaped like the real `apps/api` responses, so the browser

@@ -4,7 +4,7 @@
  * loaded on demand because libheif is several megabytes of WebAssembly.
  */
 
-import type { ImageFormat } from '@/features/tools/domain/image'
+import type { ImageFormat } from '@/libs/domain/image'
 
 /** Brands that mean "HEVC-coded still image". `avif` is deliberately absent. */
 const heicBrands = new Set(['heic', 'heix', 'heim', 'heis', 'hevc', 'hevx', 'hevm', 'hevs', 'heif'])

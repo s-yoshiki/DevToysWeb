@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation'
 import { JsonLd } from '@/features/seo/components/json-ld'
 import { toolMetadata } from '@/features/seo/domain/metadata'
 import { breadcrumbJsonLd, toolJsonLd } from '@/features/seo/domain/structured-data'
-import { ToolWorkspace } from '@/features/tools/components/tool-workspace'
-import { findToolByPath, tools } from '@/features/tools/domain/catalog'
+import { ToolWorkspace } from '@/components/tool-workspace'
+import { findToolByPath, tools } from '@/libs/domain/catalog'
 import { isLocale } from '@/i18n/dictionaries'
 
 type PageParams = { locale: string; category: string; tool: string }

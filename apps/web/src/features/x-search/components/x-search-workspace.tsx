@@ -5,15 +5,15 @@ import {
   NumberField,
   SelectField,
   TextField,
-} from '@/features/tools/components/search/fields'
+} from '@/components/search/fields'
 import {
   FiltersCard,
   OptionGroup,
   SearchPreview,
   SectionHeading,
-} from '@/features/tools/components/search/search-layout'
-import { WorkspaceShell } from '@/features/tools/components/workspace-shell'
-import type { WorkspaceProps } from '@/features/tools/workspaces/types'
+} from '@/components/search/search-layout'
+import { WorkspaceShell } from '@/components/workspace-shell'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
 import { filterModes, resultTabs, xLanguages } from '../functions/constants'
 import { useXSearch } from '../hooks/use-x-search'

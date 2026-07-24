@@ -1,10 +1,10 @@
 'use client'
 
 import { Card, CardContent } from '@/components/ui/card'
-import { CodeEditor } from '@/features/tools/components/code-editor'
-import { ErrorBanner, Pane, PaneHeader } from '@/features/tools/components/workspace-panes'
-import { WorkspaceShell } from '@/features/tools/components/workspace-shell'
-import type { WorkspaceProps } from '@/features/tools/workspaces/types'
+import { CodeEditor } from '@/components/code-editor'
+import { ErrorBanner, Pane, PaneHeader } from '@/components/workspace-panes'
+import { WorkspaceShell } from '@/components/workspace-shell'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
 import { useMermaid } from '../hooks/use-mermaid'
 
