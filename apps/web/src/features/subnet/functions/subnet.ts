@@ -2,12 +2,26 @@ export type SubnetSummary = {
   address: string
   prefix: number
   subnetMask: string
+  wildcardMask: string
   network: string
   broadcast: string
   firstHost: string
   lastHost: string
   totalAddresses: number
   usableHosts: number
+  addressClass: string
+  maskBinary: string
+}
+
+const toBinary = (value: number) =>
+  [24, 16, 8, 0].map((shift) => ((value >>> shift) & 255).toString(2).padStart(8, '0')).join('.')
+
+const classOf = (firstOctet: number) => {
+  if (firstOctet < 128) return 'A'
+  if (firstOctet < 192) return 'B'
+  if (firstOctet < 224) return 'C'
+  if (firstOctet < 240) return 'D (multicast)'
+  return 'E (reserved)'
 }
 
 const ipToNumber = (ip: string) => {
@@ -36,11 +50,14 @@ export const describeSubnet = (cidr: string): SubnetSummary => {
     address: ip,
     prefix,
     subnetMask: numberToIp(mask),
+    wildcardMask: numberToIp(~mask >>> 0),
     network: numberToIp(network),
     broadcast: numberToIp(broadcast),
     firstHost: numberToIp(first),
     lastHost: numberToIp(last),
     totalAddresses: 2 ** (32 - prefix),
     usableHosts: prefix === 32 ? 1 : prefix === 31 ? 2 : Math.max(0, 2 ** (32 - prefix) - 2),
+    addressClass: classOf((address >>> 24) & 255),
+    maskBinary: toBinary(mask),
   }
 }

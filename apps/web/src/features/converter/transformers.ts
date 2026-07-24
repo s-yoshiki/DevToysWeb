@@ -128,10 +128,6 @@ export const transform = (slug: string, value: string, reverse = false) => {
       return reverse ? JSON.stringify(parseToml(value), null, 2) : jsonToToml(value)
     case 'json-xml':
       return reverse ? xmlToJson(value) : jsonToXml(value)
-    case 'date-time': {
-      const date = reverse ? new Date(Number(value) * 1000) : new Date(value)
-      return reverse ? date.toISOString() : String(Math.floor(date.getTime() / 1000))
-    }
     case 'base64':
       return reverse ? base64ToUtf8(value) : utf8ToBase64(value)
     case 'url':

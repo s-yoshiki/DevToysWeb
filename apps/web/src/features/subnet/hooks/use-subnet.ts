@@ -1,16 +1,17 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { describeSubnet } from '@/features/subnet/functions/subnet'
+import { describeSubnet, type SubnetSummary } from '@/features/subnet/functions/subnet'
 
 export const useSubnet = () => {
   const [input, setInput] = useState('192.168.10.42/24')
 
-  const result = useMemo(() => {
+  const result = useMemo<{ summary: SubnetSummary | null; error: string }>(() => {
+    if (!input.trim()) return { summary: null, error: '' }
     try {
-      return { value: JSON.stringify(describeSubnet(input), null, 2), error: false }
+      return { summary: describeSubnet(input), error: '' }
     } catch (reason) {
-      return { value: reason instanceof Error ? reason.message : 'Invalid CIDR', error: true }
+      return { summary: null, error: reason instanceof Error ? reason.message : 'Invalid CIDR' }
     }
   }, [input])
 
