@@ -5,8 +5,9 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { CodeEditor } from '@/features/tools/components/code-editor'
 import { CopyButton } from '@/features/tools/components/copy-button'
-import { CodeArea, Pane, PaneGrid, PaneHeader } from '@/features/tools/components/workspace-panes'
+import { Pane, PaneGrid, PaneHeader } from '@/features/tools/components/workspace-panes'
 import { WorkspaceShell } from '@/features/tools/components/workspace-shell'
 import type { WorkspaceProps } from '@/features/tools/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
@@ -67,10 +68,10 @@ export const GlobWorkspace = ({ tool }: WorkspaceProps) => {
           <PaneGrid className="min-h-[420px]">
             <Pane>
               <PaneHeader title={t('テストするパス', 'Paths to test')} />
-              <CodeArea
+              <CodeEditor
                 value={glob.paths}
-                onChange={(event) => glob.setPaths(event.target.value)}
-                aria-label={t('テストするパス', 'Paths to test')}
+                onChange={(value) => glob.setPaths(value)}
+                ariaLabel={t('テストするパス', 'Paths to test')}
               />
             </Pane>
             <Pane variant="result">

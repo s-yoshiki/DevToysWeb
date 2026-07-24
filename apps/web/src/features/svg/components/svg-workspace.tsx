@@ -3,8 +3,9 @@
 import { useLocale } from '@/components/locale-provider'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { CodeEditor } from '@/features/tools/components/code-editor'
 import { CopyButton } from '@/features/tools/components/copy-button'
-import { CodeArea, Pane, PaneHeader } from '@/features/tools/components/workspace-panes'
+import { Pane, PaneHeader } from '@/features/tools/components/workspace-panes'
 import { WorkspaceShell } from '@/features/tools/components/workspace-shell'
 import { formatBytes } from '@/features/tools/domain/bytes'
 import type { WorkspaceProps } from '@/features/tools/workspaces/types'
@@ -44,11 +45,12 @@ export const SvgWorkspace = ({ tool }: WorkspaceProps) => {
           <div className="grid lg:grid-cols-2">
             <Pane className="min-h-[320px]">
               <PaneHeader title={dictionary.input} />
-              <CodeArea
+              <CodeEditor
                 value={svg.input}
-                onChange={(event) => svg.setInput(event.target.value)}
-                aria-label={dictionary.input}
-                className="min-h-72 text-xs"
+                onChange={(value) => svg.setInput(value)}
+                language="xml"
+                ariaLabel={dictionary.input}
+                className="min-h-72"
               />
             </Pane>
             <div
@@ -71,11 +73,12 @@ export const SvgWorkspace = ({ tool }: WorkspaceProps) => {
               </span>
               <CopyButton value={svg.output} />
             </div>
-            <CodeArea
+            <CodeEditor
               readOnly
               value={svg.output}
-              aria-label={t('最適化後のSVG', 'Optimised SVG')}
-              className="min-h-32 text-xs"
+              language="xml"
+              ariaLabel={t('最適化後のSVG', 'Optimised SVG')}
+              className="min-h-32"
             />
             <div className="flex h-11 items-center justify-between border-y bg-muted/30 px-5">
               <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
@@ -83,11 +86,12 @@ export const SvgWorkspace = ({ tool }: WorkspaceProps) => {
               </span>
               <CopyButton value={svg.dataUri} />
             </div>
-            <CodeArea
+            <CodeEditor
               readOnly
               value={svg.dataUri}
-              aria-label="CSS data URI"
-              className="min-h-24 text-xs"
+              wordWrap
+              ariaLabel="CSS data URI"
+              className="min-h-24"
             />
           </div>
         </CardContent>

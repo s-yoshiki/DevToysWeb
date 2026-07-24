@@ -24,7 +24,7 @@ const LocaleLayout = async ({
           <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
             {children}
           </main>
-          <footer className="border-t border-border px-6 py-8 text-center text-xs text-muted-foreground">
+          <footer className="border-t border-border px-6 py-5 text-center text-xs text-muted-foreground">
             {dictionary.appName} · {dictionary.footerNote}
           </footer>
         </div>

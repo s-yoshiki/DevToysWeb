@@ -3,8 +3,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { CodeEditor } from '@/features/tools/components/code-editor'
 import { CopyButton } from '@/features/tools/components/copy-button'
-import { CodeArea, Pane, PaneGrid, PaneHeader } from '@/features/tools/components/workspace-panes'
+import { Pane, PaneGrid, PaneHeader } from '@/features/tools/components/workspace-panes'
 import { WorkspaceShell } from '@/features/tools/components/workspace-shell'
 import type { WorkspaceProps } from '@/features/tools/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
@@ -48,10 +49,10 @@ export const RegexWorkspace = ({ tool }: WorkspaceProps) => {
           <PaneGrid className="min-h-[430px]">
             <Pane>
               <PaneHeader title={t('テスト文字列', 'Test text')} />
-              <CodeArea
+              <CodeEditor
                 value={regex.input}
-                onChange={(event) => regex.setInput(event.target.value)}
-                aria-label={t('テスト文字列', 'Test text')}
+                onChange={(value) => regex.setInput(value)}
+                ariaLabel={t('テスト文字列', 'Test text')}
               />
             </Pane>
             <Pane variant="result">
@@ -59,12 +60,7 @@ export const RegexWorkspace = ({ tool }: WorkspaceProps) => {
                 title={t(`一致結果 (${regex.matches.length})`, `Matches (${regex.matches.length})`)}
                 actions={<CopyButton value={regex.output} />}
               />
-              <CodeArea
-                readOnly
-                value={regex.output}
-                aria-label={t('一致結果', 'Matches')}
-                className={regex.error ? 'text-destructive' : ''}
-              />
+              <CodeEditor readOnly value={regex.output} ariaLabel={t('一致結果', 'Matches')} />
             </Pane>
           </PaneGrid>
         </CardContent>

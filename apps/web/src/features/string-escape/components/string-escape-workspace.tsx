@@ -2,9 +2,11 @@
 
 import { useLocale } from '@/components/locale-provider'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { CodeEditor } from '@/features/tools/components/code-editor'
+import { languageForFormat } from '@/features/tools/components/code-editor-language'
 import { CopyButton } from '@/features/tools/components/copy-button'
 import { SegmentedControl } from '@/features/tools/components/segmented-control'
-import { CodeArea, Pane, PaneGrid, PaneHeader } from '@/features/tools/components/workspace-panes'
+import { Pane, PaneGrid, PaneHeader } from '@/features/tools/components/workspace-panes'
 import { WorkspaceShell } from '@/features/tools/components/workspace-shell'
 import { type EscapeTarget, escapeTargets } from '@/features/tools/domain/text-tools'
 import type { WorkspaceProps } from '@/features/tools/workspaces/types'
@@ -61,10 +63,11 @@ export const StringEscapeWorkspace = ({ tool }: WorkspaceProps) => {
           <PaneGrid>
             <Pane>
               <PaneHeader title={dictionary.input} />
-              <CodeArea
+              <CodeEditor
                 value={escaper.input}
-                onChange={(event) => escaper.setInput(event.target.value)}
-                aria-label={dictionary.input}
+                onChange={(value) => escaper.setInput(value)}
+                language={escaper.reverse ? languageForFormat(escaper.target) : 'plaintext'}
+                ariaLabel={dictionary.input}
               />
             </Pane>
             <Pane variant="result">
@@ -72,7 +75,12 @@ export const StringEscapeWorkspace = ({ tool }: WorkspaceProps) => {
                 title={dictionary.output}
                 actions={<CopyButton value={escaper.output} />}
               />
-              <CodeArea readOnly value={escaper.output} aria-label={dictionary.output} />
+              <CodeEditor
+                readOnly
+                value={escaper.output}
+                language={escaper.reverse ? 'plaintext' : languageForFormat(escaper.target)}
+                ariaLabel={dictionary.output}
+              />
             </Pane>
           </PaneGrid>
         </CardContent>

@@ -59,7 +59,7 @@ export const ToolDashboard = () => {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-6xl px-3 py-6 sm:px-4 lg:px-6">
       <section className="border-b border-border pb-10">
         {/* Deliberately not uppercased: the copy is Japanese in one locale, and
             `uppercase` would rewrite the Latin inside it ("Web" → "WEB"). */}

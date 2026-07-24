@@ -4,8 +4,10 @@ import { ArrowLeftRight, FileInput, FileOutput } from 'lucide-react'
 import { useLocale } from '@/components/locale-provider'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { CodeEditor } from '@/features/tools/components/code-editor'
+import { languageForFormat } from '@/features/tools/components/code-editor-language'
 import { CopyButton } from '@/features/tools/components/copy-button'
-import { CodeArea, Pane } from '@/features/tools/components/workspace-panes'
+import { Pane } from '@/features/tools/components/workspace-panes'
 import { useTranslate } from '@/hooks/use-translate'
 import type { Converter } from '../hooks/use-converter'
 
@@ -27,10 +29,11 @@ export const InputPane = ({ converter }: { converter: Converter }) => {
           {converter.inputFormat}
         </Badge>
       </div>
-      <CodeArea
+      <CodeEditor
         value={converter.input}
-        onChange={(event) => converter.setInput(event.target.value)}
-        aria-label={`${dictionary.input}: ${converter.inputFormat}`}
+        onChange={(value) => converter.setInput(value)}
+        language={languageForFormat(converter.inputFormat)}
+        ariaLabel={`${dictionary.input}: ${converter.inputFormat}`}
         placeholder={`${converter.inputFormat} ${t('を入力または貼り付け', '— type or paste here')}…`}
       />
     </Pane>
@@ -64,10 +67,11 @@ export const OutputPane = ({ converter, label }: { converter: Converter; label: 
           <CopyButton value={converter.output} />
         </div>
       </div>
-      <CodeArea
+      <CodeEditor
         readOnly
         value={converter.output}
-        aria-label={`${dictionary.output}: ${label}`}
+        language={languageForFormat(label)}
+        ariaLabel={`${dictionary.output}: ${label}`}
         placeholder={t('変換結果がここに表示されます', 'The result will appear here')}
       />
     </Pane>
