@@ -13,19 +13,6 @@ const defaultOptions: ConverterOptions = { count: 5, length: 20 }
 /** `hash` is catalogued as a generator but behaves like a one-way conversion. */
 const isGeneratorTool = (tool: ToolDefinition) => tool.mode === 'generate' && tool.slug !== 'hash'
 
-const networkInfo = () =>
-  JSON.stringify(
-    {
-      online: navigator.onLine,
-      language: navigator.language,
-      platform: navigator.platform,
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      userAgent: navigator.userAgent,
-    },
-    null,
-    2,
-  )
-
 /**
  * Drives the generic input → output workspace: transformation, generator
  * settings, and which format sits on each side of the arrow.
@@ -57,10 +44,6 @@ export const useConverter = (tool: ToolDefinition) => {
   useEffect(() => {
     if (tool.mode !== 'generate' && input) run()
   }, [run, tool.mode, input])
-
-  useEffect(() => {
-    if (tool.slug === 'network-info') setOutput(networkInfo())
-  }, [tool.slug])
 
   const formats = useMemo<[string, string]>(
     () => formatNames[tool.slug] ?? [dictionary.input, dictionary.output],

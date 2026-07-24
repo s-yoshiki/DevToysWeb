@@ -2,7 +2,8 @@
 
 import { useMemo, useState } from 'react'
 
-type RegexMatch = { match: string; index?: number; groups: unknown }
+export type RegexGroup = { name: string; value: string | undefined }
+export type RegexMatch = { key: string; match: string; index: number; groups: RegexGroup[] }
 
 /** Runs the expression against the sample text on every keystroke. */
 export const useRegex = () => {
@@ -16,10 +17,13 @@ export const useRegex = () => {
       // Matching without `g` would only ever return the first hit.
       const effectiveFlags = flags.includes('g') ? flags : `${flags}g`
       const expression = new RegExp(pattern, effectiveFlags)
-      const matches = [...input.matchAll(expression)].map((match) => ({
+      const matches: RegexMatch[] = [...input.matchAll(expression)].map((match, i) => ({
+        key: `${i}-${match.index}`,
         match: match[0],
-        index: match.index,
-        groups: match.groups ?? match.slice(1),
+        index: match.index ?? 0,
+        groups: match.groups
+          ? Object.entries(match.groups).map(([name, value]) => ({ name, value }))
+          : match.slice(1).map((value, i) => ({ name: String(i + 1), value })),
       }))
       return { matches, error: '' }
     } catch (reason) {

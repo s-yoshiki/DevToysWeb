@@ -4,7 +4,6 @@ export const formatNames: Record<string, [string, string]> = {
   'json-csv': ['JSON', 'CSV'],
   'json-toml': ['JSON', 'TOML'],
   'json-xml': ['JSON', 'XML'],
-  'date-time': ['ISO 8601', 'Unix time'],
   base64: ['Text', 'Base64'],
   url: ['Text', 'URL encoded'],
   html: ['HTML', 'Escaped HTML'],
@@ -23,7 +22,6 @@ export const reversibleSlugs = [
   'json-csv',
   'json-toml',
   'json-xml',
-  'date-time',
   'base64',
   'url',
   'html',
@@ -50,7 +48,6 @@ enabled: true`,
     "features": { "feature": ["convert", "format"] }
   }
 }`,
-  'date-time': '2026-07-16T12:00:00+09:00',
   base64: 'Hello, DevToys! こんにちは',
   url: 'https://example.com/search?q=DevToys&lang=ja',
   html: '<section class="hero">DevToys & Web</section>',

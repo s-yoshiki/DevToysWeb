@@ -3,10 +3,13 @@ import { Base64ImageWorkspace } from '@/features/base64-image'
 import { BasicAuthWorkspace } from '@/features/basic-auth'
 import { CalculatorWorkspace, ScientificCalculatorWorkspace } from '@/features/calculator'
 import { CameraWorkspace } from '@/features/camera'
+import { CidrWorkspace } from '@/features/cidr'
 import { ColorWorkspace } from '@/features/color'
+import { ConnectionInfoWorkspace } from '@/features/connection-info'
 import { ConverterWorkspace } from '@/features/converter'
 import { CronWorkspace } from '@/features/cron'
 import { CurlWorkspace } from '@/features/curl'
+import { DateCalcWorkspace } from '@/features/date-calc'
 import { DeviceInfoWorkspace } from '@/features/device-info'
 import { DrawingWorkspace } from '@/features/drawing'
 import { ExifWorkspace } from '@/features/exif'
@@ -27,6 +30,7 @@ import { ListUtilsWorkspace } from '@/features/list-utils'
 import { LoremWorkspace } from '@/features/lorem'
 import { MarkdownWorkspace } from '@/features/markdown'
 import { MermaidWorkspace } from '@/features/mermaid'
+import { MojibakeWorkspace } from '@/features/mojibake'
 import { NumberBaseWorkspace } from '@/features/number-base'
 import { OgpCheckWorkspace } from '@/features/ogp-check'
 import { PngTransparentWorkspace } from '@/features/png-transparent'
@@ -40,13 +44,16 @@ import { StopwatchWorkspace } from '@/features/stopwatch'
 import { StringEscapeWorkspace } from '@/features/string-escape'
 import { SubnetWorkspace } from '@/features/subnet'
 import { SvgWorkspace } from '@/features/svg'
+import { TestDataWorkspace } from '@/features/test-data'
 import { TextAnalyzerWorkspace } from '@/features/text-analyzer'
 import { TextDiffWorkspace } from '@/features/text-diff'
 import { TimeSignalWorkspace } from '@/features/time-signal'
 import { TimerWorkspace } from '@/features/timer'
 import { TimezoneWorkspace } from '@/features/timezone'
 import { UnitConvertWorkspace } from '@/features/unit-convert'
+import { UnixTimeWorkspace } from '@/features/unix-time'
 import { UrlParserWorkspace } from '@/features/url-parser'
+import { UuidWorkspace } from '@/features/uuid'
 import { WhoisWorkspace } from '@/features/whois'
 import { WorldClockWorkspace } from '@/features/world-clock'
 import { XSearchWorkspace } from '@/features/x-search'
@@ -64,8 +71,11 @@ export const workspaces: Record<WorkspaceKey, ComponentType<WorkspaceProps>> = {
   'basic-auth': BasicAuthWorkspace,
   calculator: CalculatorWorkspace,
   camera: CameraWorkspace,
+  cidr: CidrWorkspace,
   color: ColorWorkspace,
+  'connection-info': ConnectionInfoWorkspace,
   cron: CronWorkspace,
+  'date-calc': DateCalcWorkspace,
   curl: CurlWorkspace,
   'device-info': DeviceInfoWorkspace,
   drawing: DrawingWorkspace,
@@ -87,6 +97,7 @@ export const workspaces: Record<WorkspaceKey, ComponentType<WorkspaceProps>> = {
   lorem: LoremWorkspace,
   markdown: MarkdownWorkspace,
   mermaid: MermaidWorkspace,
+  mojibake: MojibakeWorkspace,
   'number-base': NumberBaseWorkspace,
   'ogp-check': OgpCheckWorkspace,
   'png-transparent': PngTransparentWorkspace,
@@ -101,13 +112,16 @@ export const workspaces: Record<WorkspaceKey, ComponentType<WorkspaceProps>> = {
   'string-escape': StringEscapeWorkspace,
   subnet: SubnetWorkspace,
   svg: SvgWorkspace,
+  'test-data': TestDataWorkspace,
   'text-analyzer': TextAnalyzerWorkspace,
   'text-diff': TextDiffWorkspace,
   'time-signal': TimeSignalWorkspace,
   timer: TimerWorkspace,
   timezone: TimezoneWorkspace,
   'unit-convert': UnitConvertWorkspace,
+  'unix-time': UnixTimeWorkspace,
   'url-parser': UrlParserWorkspace,
+  uuid: UuidWorkspace,
   whois: WhoisWorkspace,
   'world-clock': WorldClockWorkspace,
   'x-search': XSearchWorkspace,

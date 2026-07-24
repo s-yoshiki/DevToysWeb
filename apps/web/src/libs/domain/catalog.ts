@@ -2,10 +2,12 @@ import {
   Aperture,
   Asterisk,
   BellRing,
+  Binary,
   Blend,
   Braces,
   Calculator,
   CalendarClock,
+  CalendarDays,
   Camera,
   CaseSensitive,
   Code2,
@@ -139,6 +141,13 @@ export type ToolDefinition = {
     | 'device-info'
     | 'js-runner'
     | 'world-clock'
+    | 'uuid'
+    | 'date-calc'
+    | 'cidr'
+    | 'mojibake'
+    | 'test-data'
+    | 'unix-time'
+    | 'connection-info'
 }
 
 export const tools: ToolDefinition[] = [
@@ -241,9 +250,13 @@ export const tools: ToolDefinition[] = [
     pathSlug: 'unix-time-converter',
     category: 'converters',
     icon: CalendarClock,
-    title: { ja: '日時変換', en: 'Date & time' },
-    description: { ja: '日時とUnix timeを変換', en: 'Convert dates and Unix time' },
+    title: { ja: 'Unix時間変換', en: 'Unix time converter' },
+    description: {
+      ja: 'Unix timeと日時を相互変換し各種表記で表示',
+      en: 'Convert Unix time and dates across many representations',
+    },
     mode: 'convert',
+    workspace: 'unix-time',
   },
   {
     slug: 'timezone',
@@ -342,6 +355,20 @@ export const tools: ToolDefinition[] = [
     },
     mode: 'inspect',
     workspace: 'world-clock',
+  },
+  {
+    slug: 'date-calc',
+    emoji: '📆',
+    pathSlug: 'date-calculator',
+    category: 'time',
+    icon: CalendarDays,
+    title: { ja: '日付計算', en: 'Date calculator' },
+    description: {
+      ja: '期間・年齢の計算と日付の加算・減算',
+      en: 'Compute durations and add or subtract from a date',
+    },
+    mode: 'inspect',
+    workspace: 'date-calc',
   },
   {
     slug: 'base64',
@@ -492,9 +519,27 @@ export const tools: ToolDefinition[] = [
     pathSlug: 'uuid-generator',
     category: 'generators',
     icon: Fingerprint,
-    title: { ja: 'UUID生成', en: 'UUID generator' },
-    description: { ja: 'UUID v4をまとめて生成', en: 'Generate UUID v4 values' },
+    title: { ja: 'UUID・ULID生成', en: 'UUID & ULID generator' },
+    description: {
+      ja: 'v1/v4/v7・ULID・名前ベース(v3/v5)を生成',
+      en: 'Generate v1/v4/v7, ULID and name-based (v3/v5) IDs',
+    },
     mode: 'generate',
+    workspace: 'uuid',
+  },
+  {
+    slug: 'test-data',
+    emoji: '🧪',
+    pathSlug: 'test-data-generator',
+    category: 'generators',
+    icon: TableProperties,
+    title: { ja: 'テストデータ生成', en: 'Test data generator' },
+    description: {
+      ja: 'ダミーの氏名・住所・メール等をJSON/CSV/SQLで生成',
+      en: 'Generate dummy names, addresses and more as JSON/CSV/SQL',
+    },
+    mode: 'generate',
+    workspace: 'test-data',
   },
   {
     slug: 'password',
@@ -666,6 +711,20 @@ export const tools: ToolDefinition[] = [
     },
     mode: 'inspect',
     workspace: 'glob',
+  },
+  {
+    slug: 'mojibake',
+    emoji: '🩹',
+    pathSlug: 'mojibake-restore',
+    category: 'text',
+    icon: Wand2,
+    title: { ja: '文字化け解析・復元', en: 'Mojibake restorer' },
+    description: {
+      ja: '文字化けした文字列を解析して元の文字に復元',
+      en: 'Analyze garbled text and restore the original characters',
+    },
+    mode: 'inspect',
+    workspace: 'mojibake',
   },
   {
     slug: 'text-analyzer',
@@ -888,6 +947,20 @@ export const tools: ToolDefinition[] = [
     workspace: 'subnet',
   },
   {
+    slug: 'cidr',
+    emoji: '🧮',
+    pathSlug: 'cidr-calculator',
+    category: 'network',
+    icon: Binary,
+    title: { ja: 'CIDR計算', en: 'CIDR calculator' },
+    description: {
+      ja: 'IPv4/IPv6のCIDRを計算し包含判定・分割',
+      en: 'Calculate IPv4/IPv6 CIDR ranges, containment and splits',
+    },
+    mode: 'inspect',
+    workspace: 'cidr',
+  },
+  {
     slug: 'url-parser',
     emoji: '🧭',
     pathSlug: 'url-parser',
@@ -907,7 +980,7 @@ export const tools: ToolDefinition[] = [
     pathSlug: 'dns-tls-http-ogp-diagnostics',
     category: 'network',
     icon: Network,
-    title: { ja: 'DNS・TLS・HTTP・OGP診断', en: 'DNS, TLS, HTTP & OGP diagnostics' },
+    title: { ja: 'DNS・TLS・HTTP診断', en: 'DNS, TLS & HTTP diagnostics' },
     description: {
       ja: 'ドメインとWebページをまとめて診断',
       en: 'Inspect a domain and web page in one request',
@@ -966,6 +1039,7 @@ export const tools: ToolDefinition[] = [
     title: { ja: 'ネットワーク情報', en: 'Network info' },
     description: { ja: 'ブラウザの接続情報を確認', en: 'Inspect browser network details' },
     mode: 'inspect',
+    workspace: 'connection-info',
   },
   {
     slug: 'geolocation',
