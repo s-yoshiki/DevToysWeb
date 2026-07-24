@@ -2,7 +2,7 @@
 
 import { CircleAlert } from 'lucide-react'
 import { Textarea } from '@/components/ui/textarea'
-import { cn } from '@/lib/utils'
+import { cn } from '@/libs/utils'
 
 /** Two-up editor layout: source on the left, result on the right. */
 export const PaneGrid = ({

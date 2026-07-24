@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { encodeImage, type ImageFormat, maxImageFileSize } from '@/features/tools/domain/image'
+import { encodeImage, type ImageFormat, maxImageFileSize } from '@/libs/domain/image'
 import { useTranslate } from '@/hooks/use-translate'
 
 type Source = { file: File; url: string }

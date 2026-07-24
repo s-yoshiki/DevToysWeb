@@ -1,8 +1,8 @@
 import { ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
 import type { Locale } from '@/i18n/dictionaries'
-import type { ToolDefinition } from '../domain/catalog'
-import { getToolPath } from '../domain/tool-path'
+import type { ToolDefinition } from '@/libs/domain/catalog'
+import { getToolPath } from '@/libs/domain/tool-path'
 
 export const ToolCard = ({ tool, locale }: { tool: ToolDefinition; locale: Locale }) => {
   return (

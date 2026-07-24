@@ -1,4 +1,4 @@
-import type { SiteReport } from '@/features/tools/api/diagnostics-client'
+import type { SiteReport } from '@/libs/api/diagnostics-client'
 import type { Locale } from '@/i18n/dictionaries'
 
 export type CheckLevel = 'pass' | 'warn' | 'fail'

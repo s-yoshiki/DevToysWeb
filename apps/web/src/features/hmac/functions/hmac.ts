@@ -1,4 +1,4 @@
-import { bytesToBase64, bytesToHex } from '@/features/tools/domain/base64'
+import { bytesToBase64, bytesToHex } from '@/libs/domain/base64'
 
 export const hmacAlgorithms = ['SHA-256', 'SHA-384', 'SHA-512'] as const
 export type HmacAlgorithm = (typeof hmacAlgorithms)[number]

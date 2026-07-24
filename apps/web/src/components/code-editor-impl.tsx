@@ -4,7 +4,7 @@ import Editor, { loader, type OnMount } from '@monaco-editor/react'
 import * as monaco from 'monaco-editor'
 import { useTheme } from 'next-themes'
 import { useEffect, useRef } from 'react'
-import { cn } from '@/lib/utils'
+import { cn } from '@/libs/utils'
 import type { CodeEditorProps } from './code-editor-types'
 
 /*

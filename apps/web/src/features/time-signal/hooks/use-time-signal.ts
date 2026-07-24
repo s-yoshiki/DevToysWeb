@@ -8,7 +8,7 @@ import {
   playTimeSignal,
   prepareAudio,
   scheduleTelephoneTimeSignal,
-} from '@/features/tools/domain/audio'
+} from '@/libs/domain/audio'
 import {
   cancelTimeAnnouncement,
   isSpeechSupported,

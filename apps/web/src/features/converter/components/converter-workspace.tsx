@@ -2,9 +2,9 @@
 
 import { useLocale } from '@/components/locale-provider'
 import { Card, CardContent } from '@/components/ui/card'
-import { ErrorBanner } from '@/features/tools/components/workspace-panes'
-import { WorkspaceShell } from '@/features/tools/components/workspace-shell'
-import type { WorkspaceProps } from '@/features/tools/workspaces/types'
+import { ErrorBanner } from '@/components/workspace-panes'
+import { WorkspaceShell } from '@/components/workspace-shell'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
 import { useConverter } from '../hooks/use-converter'
 import { GeneratorOptions } from './converter-options'

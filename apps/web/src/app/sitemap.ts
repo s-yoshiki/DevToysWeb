@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { absoluteUrl, alternatesFor } from '@/features/seo/domain/site'
-import { tools } from '@/features/tools/domain/catalog'
+import { tools } from '@/libs/domain/catalog'
 import { locales } from '@/i18n/dictionaries'
 
 // Required by `output: 'export'`: the sitemap is emitted once at build time.

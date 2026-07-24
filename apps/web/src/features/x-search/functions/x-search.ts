@@ -5,7 +5,7 @@ import {
   orGroup,
   quotePhrase,
   splitTerms,
-} from '@/features/tools/domain/search-operators'
+} from '@/libs/domain/search-operators'
 
 /** Three-state toggle used by X search filters such as replies and links. */
 export type XSearchFilterMode = 'any' | 'only' | 'exclude'

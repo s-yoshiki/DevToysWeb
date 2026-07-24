@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { lookupWhois, type WhoisReport } from '@/features/tools/api/diagnostics-client'
+import { lookupWhois, type WhoisReport } from '@/libs/api/diagnostics-client'
 
 export const useWhois = () => {
   const [domain, setDomain] = useState('example.com')

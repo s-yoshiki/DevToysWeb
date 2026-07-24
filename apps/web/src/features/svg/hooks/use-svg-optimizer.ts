@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { optimizeSvg, svgToDataUri } from '@/features/tools/domain/source-formatters'
+import { optimizeSvg, svgToDataUri } from '@/features/svg/source-formatters'
 
 const sampleSvg = `<?xml version="1.0" encoding="UTF-8"?>
 <!-- Exported by an editor -->

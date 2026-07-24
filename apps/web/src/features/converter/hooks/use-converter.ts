@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLocale } from '@/components/locale-provider'
-import type { ToolDefinition } from '@/features/tools/domain/catalog'
-import { generate, transform } from '@/features/tools/domain/transformers'
+import type { ToolDefinition } from '@/libs/domain/catalog'
+import { generate, transform } from '@/features/converter/transformers'
 import { formatNames, reversibleSlugs, sampleInputs } from '../functions/constants'
 
 export type ConverterOptions = { count: number; length: number }

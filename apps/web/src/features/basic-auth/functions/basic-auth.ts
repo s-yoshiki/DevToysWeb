@@ -1,4 +1,4 @@
-import { decodeBase64, encodeBase64 } from '@/features/tools/domain/base64'
+import { decodeBase64, encodeBase64 } from '@/libs/domain/base64'
 
 export const buildBasicAuthHeader = (username: string, password: string) =>
   `Authorization: Basic ${encodeBase64(`${username}:${password}`)}`

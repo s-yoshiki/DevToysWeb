@@ -5,7 +5,7 @@ import {
   orGroup,
   quotePhrase,
   splitTerms,
-} from '@/features/tools/domain/search-operators'
+} from '@/libs/domain/search-operators'
 
 /** Result vertical, matching GitHub's `type=` URL parameter. */
 export type GithubSearchType =

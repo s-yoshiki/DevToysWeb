@@ -5,8 +5,8 @@ import {
   type ImageFormat,
   maxImageFileSize,
   withImageExtension,
-} from '@/features/tools/domain/image'
-import { useImageBatch } from '@/features/tools/hooks/use-image-batch'
+} from '@/libs/domain/image'
+import { useImageBatch } from '@/hooks/use-image-batch'
 import { useTranslate } from '@/hooks/use-translate'
 import { convertHeic, isHeicFile } from '../functions/heic'
 

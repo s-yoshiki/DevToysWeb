@@ -5,7 +5,7 @@ import {
   orGroup,
   quotePhrase,
   splitTerms,
-} from '@/features/tools/domain/search-operators'
+} from '@/libs/domain/search-operators'
 
 /** Recency filter, matching Google's `tbs=qdr:` values. */
 export type GoogleTimeRange = '' | 'h' | 'd' | 'w' | 'm' | 'y'

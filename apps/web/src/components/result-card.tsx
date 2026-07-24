@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Textarea } from '@/components/ui/textarea'
-import { cn } from '@/lib/utils'
+import { cn } from '@/libs/utils'
 import { CopyButton } from './copy-button'
 
 /** Read-only result panel with a copy action, used by the single-output tools. */

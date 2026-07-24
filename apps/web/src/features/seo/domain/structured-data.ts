@@ -1,5 +1,5 @@
-import { type ToolDefinition, tools } from '@/features/tools/domain/catalog'
-import { getToolPath } from '@/features/tools/domain/tool-path'
+import { type ToolDefinition, tools } from '@/libs/domain/catalog'
+import { getToolPath } from '@/libs/domain/tool-path'
 import { getDictionary, type Locale } from '@/i18n/dictionaries'
 import { toolDescription } from './metadata'
 import { absoluteUrl, siteName, siteUrl } from './site'

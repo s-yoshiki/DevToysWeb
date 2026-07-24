@@ -1,4 +1,4 @@
-import type { Bilingual } from '@/features/tools/components/search/types'
+import type { Bilingual } from '@/components/search/types'
 import type { XSearchFilterMode, XSearchResultTab } from '@/features/x-search/functions/x-search'
 
 export const xLanguages: { value: string; label: Bilingual }[] = [

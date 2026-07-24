@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { inspectPage, type SiteReport } from '../api/diagnostics-client'
+import { inspectPage, type SiteReport } from '@/libs/api/diagnostics-client'
 
 /**
  * Fetches one page report from `/api/diagnose`. The OGP and SEO checkers read

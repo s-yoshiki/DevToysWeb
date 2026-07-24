@@ -5,7 +5,7 @@ import {
   type AngleMode,
   evaluateExpression,
   formatResult,
-} from '@/features/tools/domain/expression'
+} from '@/features/calculator/expression'
 
 export type HistoryEntry = { id: string; expression: string; result: string }
 

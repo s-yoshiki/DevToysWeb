@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { toRgbString, wcagLevels } from '@/features/color/functions/color'
 import { useTranslate } from '@/hooks/use-translate'
-import { cn } from '@/lib/utils'
+import { cn } from '@/libs/utils'
 import type { useColor } from '../hooks/use-color'
 
 /** WCAG pass/fail badges for the four text-size and level combinations. */

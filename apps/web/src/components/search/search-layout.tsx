@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useTranslate } from '@/hooks/use-translate'
-import { cn } from '@/lib/utils'
+import { cn } from '@/libs/utils'
 import { CopyButton } from '../copy-button'
 import type { Bilingual } from './types'
 

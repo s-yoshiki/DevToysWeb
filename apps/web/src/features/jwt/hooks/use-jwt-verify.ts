@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { type JwtVerifyRequest, verifyJwt } from '@/features/tools/api/diagnostics-client'
-import { useApiRequest } from '@/features/tools/hooks/use-api-request'
+import { type JwtVerifyRequest, verifyJwt } from '@/libs/api/diagnostics-client'
+import { useApiRequest } from '@/hooks/use-api-request'
 
 export const keyModes = ['jwks', 'publicKey', 'secret'] as const
 export type KeyMode = (typeof keyModes)[number]

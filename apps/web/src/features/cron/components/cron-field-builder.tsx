@@ -1,7 +1,7 @@
 'use client'
 
 import { Input } from '@/components/ui/input'
-import { SegmentedControl } from '@/features/tools/components/segmented-control'
+import { SegmentedControl } from '@/components/segmented-control'
 import { useTranslate } from '@/hooks/use-translate'
 import { type CronFieldName, cronFieldSpec } from '../functions/cron'
 import type { CronFieldMode, CronFieldSpec } from '../functions/cron-builder'

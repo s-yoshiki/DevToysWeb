@@ -4,7 +4,7 @@ import { dump, load } from 'js-yaml'
 import { parse as parseToml, stringify as stringifyToml } from 'smol-toml'
 import { format as formatSql } from 'sql-formatter'
 import xmlFormatter from 'xml-formatter'
-import { formatCss, formatHtml } from './source-formatters'
+import { formatCss, formatHtml } from '@/features/svg/source-formatters'
 
 const escapeHtml = (value: string) =>
   value.replace(

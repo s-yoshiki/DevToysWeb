@@ -1,8 +1,8 @@
 'use client'
 
 import { Card, CardContent } from '@/components/ui/card'
-import { WorkspaceShell } from '@/features/tools/components/workspace-shell'
-import type { WorkspaceProps } from '@/features/tools/workspaces/types'
+import { WorkspaceShell } from '@/components/workspace-shell'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
 import { basicKeys } from '../functions/keypads'
 import { useCalculator } from '../hooks/use-calculator'

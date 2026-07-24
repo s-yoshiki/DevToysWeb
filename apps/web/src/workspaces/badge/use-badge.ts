@@ -8,7 +8,7 @@ import {
   type BadgeStyle,
   badgePresets,
   buildBadgeOutputs,
-} from '../../domain/badge'
+} from './badge'
 
 const initialOptions: BadgeOptions = {
   provider: 'shields',
