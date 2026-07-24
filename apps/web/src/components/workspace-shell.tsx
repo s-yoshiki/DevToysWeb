@@ -4,6 +4,7 @@ import { Expand, Maximize2, Minimize2, RotateCcw, Shrink } from 'lucide-react'
 import { useLocale } from '@/components/locale-provider'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { WorkspaceGuide } from '@/components/workspace-guide'
 import { useFullscreen } from '@/hooks/use-fullscreen'
 import type { ToolDefinition } from '@/libs/domain/catalog'
 import { cn } from '@/libs/utils'
@@ -101,6 +102,7 @@ export const WorkspaceShell = ({
         </div>
       </header>
       {children}
+      {!maximized && <WorkspaceGuide tool={tool} />}
     </div>
   )
 }
