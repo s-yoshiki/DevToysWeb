@@ -2,8 +2,6 @@
 import * as cdk from 'aws-cdk-lib'
 import { CertificateStack } from '../lib/certificate-stack.js'
 import { DevToysStack } from '../lib/devtoys-stack.js'
-import { GitHubActionsStack } from '../lib/github-actions-stack.js'
-import { GitHubOidcProviderStack } from '../lib/github-oidc-provider-stack.js'
 
 const app = new cdk.App()
 const environment = app.node.tryGetContext('environment')
@@ -24,28 +22,6 @@ const awsEnvironment = {
   region: app.node.tryGetContext('region') ?? process.env.CDK_DEPLOY_REGION ?? 'ap-northeast-1',
 }
 const stackPrefix = deployEnvironment === 'dev' ? 'Dev' : 'Prd'
-
-// The OIDC provider is account-wide, so it is created once and imported by ARN
-// from both environment role stacks.
-const oidcProviderStack = new GitHubOidcProviderStack(app, 'DevToysGitHubOidcStack', {
-  env: awsEnvironment,
-  tags: { Project: 'DevToysWeb' },
-})
-
-const githubActionsStack = new GitHubActionsStack(app, `${stackPrefix}DevToysGitHubActionsStack`, {
-  env: awsEnvironment,
-  githubEnvironment: deployEnvironment,
-  roleName:
-    deployEnvironment === 'dev'
-      ? 'DevToysWebGitHubActionsDeployRole'
-      : 'DevToysWebGitHubActionsPrdDeployRole',
-  existingProviderArn: `arn:aws:iam::${account}:oidc-provider/token.actions.githubusercontent.com`,
-  tags: { Environment: deployEnvironment, Project: 'DevToysWeb' },
-})
-
-// The provider is imported by a constructed ARN rather than a CloudFormation
-// export, so declare the ordering explicitly for `cdk deploy --all`.
-githubActionsStack.addDependency(oidcProviderStack)
 
 // `devtoys.ex-foundry.com` is delegated from the `ex-foundry.com` parent zone,
 // so both the apex (prd) and the dev subdomain are served from this zone.

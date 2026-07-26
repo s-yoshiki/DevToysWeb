@@ -92,14 +92,6 @@ AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra cdk bootstrap aws://82201357
 # us-east-1 hosts the CloudFront certificate stack
 AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra cdk bootstrap aws://822013579886/us-east-1 --context environment=prd
 
-# One-time creation of the account-wide GitHub OIDC provider
-# (skip if the account already has a token.actions.githubusercontent.com provider)
-AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra deploy:github:oidc
-
-# One-time creation of the GitHub Actions deployment roles
-AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra deploy:github:dev
-AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra deploy:github:prd
-
 # Build the static site and deploy dev or prd from your machine.
 # These deploy the certificate stack and the site stack together.
 pnpm install
@@ -110,9 +102,6 @@ AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra deploy:prd
 
 The environment stacks are named `DevDevToysStack` and `PrdDevToysStack`, with
 their certificates in `DevDevToysCertificateStack` and `PrdDevToysCertificateStack`.
-The environment-specific GitHub deployment roles are managed by
-`DevDevToysGitHubActionsStack` and `PrdDevToysGitHubActionsStack`, and the shared
-GitHub OIDC provider by `DevToysGitHubOidcStack`.
 Both environments are deployed to AWS account `822013579886` in `ap-northeast-1`,
 using the `AWS_PROFILE=ex-foundry` profile for local operations. Point that
 profile at `822013579886` before running any of the commands above. To target a
@@ -130,6 +119,8 @@ workflows assert that the assumed role lives in `AWS_ACCOUNT_ID` (defaulting to
 deploying to the wrong account. The role must trust GitHub's
 OIDC provider for this repository and have permission to deploy the CDK stack. No
 long-lived AWS access keys are required.
+The shared OIDC provider and environment-specific deployment roles are managed
+centrally by `s-yoshiki/aws-terraform`, not by this CDK application.
 
 The `Deploy website content` workflow can update only the static S3 content for a
 selected environment without running CDK. It reads the bucket name and CloudFront
