@@ -51,7 +51,9 @@ manager version is pinned in the root `package.json`.
   `apps/web/src/app/sitemap.ts` and `apps/web/src/app/robots.ts`
 - Server endpoints: `apps/api/src/`; keep the `/api` prefix because CloudFront routes it
 - AWS resources and routing: `scripts/infra/lib/devtoys-stack.ts`
-- GitHub Actions OIDC and deployment role: `scripts/infra/lib/github-actions-stack.ts`
+- GitHub Actions OIDC and deployment roles are managed centrally in
+  `s-yoshiki/aws-terraform`; this repository only consumes their ARNs through
+  GitHub Environment Variables.
 
 When adding a tool, update the catalog and both locales together. Reuse an existing
 workspace when possible; otherwise extend the `workspace` union, add a flat
