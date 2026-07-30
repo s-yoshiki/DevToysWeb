@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ogImage, siteName, siteUrl } from '@/features/seo/domain/site'
@@ -35,6 +36,18 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang="ja" suppressHydrationWarning>
       <body>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-YCXXYP9PZH"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-YCXXYP9PZH');
+          `}
+        </Script>
         <ThemeProvider>
           <ApiMockProvider>{children}</ApiMockProvider>
         </ThemeProvider>
