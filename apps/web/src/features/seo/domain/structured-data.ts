@@ -1,6 +1,7 @@
+import type { ContentPageSlug } from '@/features/content/domain/page-slugs'
+import { getDictionary, type Locale } from '@/i18n/dictionaries'
 import { type ToolDefinition, tools } from '@/libs/domain/catalog'
 import { getToolPath } from '@/libs/domain/tool-path'
-import { getDictionary, type Locale } from '@/i18n/dictionaries'
 import { toolDescription } from './metadata'
 import { absoluteUrl, siteName, siteUrl } from './site'
 
@@ -51,6 +52,20 @@ export const toolJsonLd = (tool: ToolDefinition, locale: Locale) => ({
   inLanguage: locale,
   isPartOf: { '@id': `${siteUrl}/#website` },
 })
+
+export const contentPageJsonLd = (slug: ContentPageSlug, locale: Locale) => {
+  const page = getDictionary(locale).contentPages[slug]
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: page.title,
+    description: page.description,
+    url: `${siteUrl}/${locale}/${slug}/`,
+    inLanguage: locale,
+    isPartOf: { '@id': `${siteUrl}/#website` },
+  }
+}
 
 // Categories have no route of their own, so the trail stays home → tool rather
 // than emitting a breadcrumb entry without a resolvable `item`.

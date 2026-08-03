@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
-import type { ToolDefinition } from '@/libs/domain/catalog'
+import type { ContentPageSlug } from '@/features/content/domain/page-slugs'
 import { getDictionary, type Locale } from '@/i18n/dictionaries'
+import type { ToolDefinition } from '@/libs/domain/catalog'
 import { alternatesFor, ogImage, ogLocales, siteName } from './site'
 
 const baseKeywords: Record<Locale, string[]> = {
@@ -84,3 +85,15 @@ export const toolMetadata = (tool: ToolDefinition, locale: Locale): Metadata =>
     description: toolDescription(tool, locale),
     keywords: toolKeywords(tool, locale),
   })
+
+export const contentPageMetadata = (slug: ContentPageSlug, locale: Locale): Metadata => {
+  const page = getDictionary(locale).contentPages[slug]
+
+  return buildMetadata({
+    locale,
+    path: slug,
+    title: page.title,
+    description: page.description,
+    keywords: [page.title, ...baseKeywords[locale]],
+  })
+}

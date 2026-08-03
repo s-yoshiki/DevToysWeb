@@ -4,9 +4,10 @@ import { ArrowLeft, Braces, Compass, Home } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { contentPageLinks } from '@/features/content/domain/page-slugs'
+import { getDictionary, isLocale, type Locale } from '@/i18n/dictionaries'
 import { findTool } from '@/libs/domain/catalog'
 import { getToolPath } from '@/libs/domain/tool-path'
-import { getDictionary, isLocale, type Locale } from '@/i18n/dictionaries'
 
 const suggestions = ['json-format', 'base64', 'unit-convert', 'timer', 'qr-code', 'text-diff']
 
@@ -104,8 +105,24 @@ export const NotFoundView = () => {
         </section>
       </main>
 
-      <footer className="border-t border-border py-8 text-center text-xs text-muted-foreground">
-        {dictionary.appName} · {dictionary.footerNote}
+      <footer className="border-t border-border px-4 py-8 text-center text-xs text-muted-foreground">
+        <nav aria-label={locale === 'ja' ? 'サイト情報' : 'Site information'}>
+          <ul className="flex flex-wrap justify-center gap-x-4 gap-y-2">
+            {contentPageLinks.map((link) => (
+              <li key={link.slug}>
+                <Link
+                  href={`/${locale}/${link.slug}`}
+                  className="transition-colors hover:text-foreground"
+                >
+                  {dictionary.sitePages[link.key]}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <p className="mt-4">
+          {dictionary.appName} · {dictionary.footerNote}
+        </p>
       </footer>
     </div>
   )
