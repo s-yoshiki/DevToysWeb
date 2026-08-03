@@ -1,5 +1,7 @@
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { LocaleProvider } from '@/components/locale-provider'
+import { contentPageLinks } from '@/features/content/domain/page-slugs'
 import { AppHeader } from '@/features/navigation/components/app-header'
 import { AppSidebar } from '@/features/navigation/components/app-sidebar'
 import { getDictionary, isLocale, locales } from '@/i18n/dictionaries'
@@ -30,9 +32,27 @@ const LocaleLayout = async ({
           </main>
           <footer
             data-app-chrome="footer"
-            className="border-t border-border px-6 py-5 text-center text-xs text-muted-foreground"
+            className="border-t border-border px-4 py-6 text-xs text-muted-foreground sm:px-6"
           >
-            {dictionary.appName} · {dictionary.footerNote}
+            <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 text-center">
+              <nav aria-label={locale === 'ja' ? 'サイト情報' : 'Site information'}>
+                <ul className="flex flex-wrap justify-center gap-x-4 gap-y-2">
+                  {contentPageLinks.map((link) => (
+                    <li key={link.slug}>
+                      <Link
+                        href={`/${locale}/${link.slug}`}
+                        className="transition-colors hover:text-foreground"
+                      >
+                        {dictionary.sitePages[link.key]}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+              <p>
+                {dictionary.appName} · {dictionary.footerNote}
+              </p>
+            </div>
           </footer>
         </div>
       </div>
