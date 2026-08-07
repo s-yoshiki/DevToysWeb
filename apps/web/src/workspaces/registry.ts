@@ -12,6 +12,7 @@ import { CurlWorkspace } from '@/features/curl'
 import { DateCalcWorkspace } from '@/features/date-calc'
 import { DeviceInfoWorkspace } from '@/features/device-info'
 import { DrawingWorkspace } from '@/features/drawing'
+import { EmojiWorkspace } from '@/features/emoji'
 import { ExifWorkspace } from '@/features/exif'
 import { GeolocationWorkspace } from '@/features/geolocation'
 import { GithubSearchWorkspace } from '@/features/github-search'
@@ -23,6 +24,7 @@ import { HmacWorkspace } from '@/features/hmac'
 import { ImageCompressWorkspace } from '@/features/image-compress'
 import { ImageConvertWorkspace } from '@/features/image-convert'
 import { ImageFormatWorkspace } from '@/features/image-format'
+import { InvisibleWorkspace } from '@/features/invisible'
 import { JsRunnerWorkspace } from '@/features/js-runner'
 import { JsonQueryWorkspace } from '@/features/json-query'
 import { JwtWorkspace } from '@/features/jwt'
@@ -79,6 +81,7 @@ export const workspaces: Record<WorkspaceKey, ComponentType<WorkspaceProps>> = {
   curl: CurlWorkspace,
   'device-info': DeviceInfoWorkspace,
   drawing: DrawingWorkspace,
+  emoji: EmojiWorkspace,
   exif: ExifWorkspace,
   geolocation: GeolocationWorkspace,
   'github-search': GithubSearchWorkspace,
@@ -90,6 +93,7 @@ export const workspaces: Record<WorkspaceKey, ComponentType<WorkspaceProps>> = {
   'image-compress': ImageCompressWorkspace,
   'image-convert': ImageConvertWorkspace,
   'image-format': ImageFormatWorkspace,
+  invisible: InvisibleWorkspace,
   'json-query': JsonQueryWorkspace,
   'js-runner': JsRunnerWorkspace,
   jwt: JwtWorkspace,
