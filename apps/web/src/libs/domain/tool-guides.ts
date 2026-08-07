@@ -879,6 +879,30 @@ export const toolGuides: Record<string, ToolGuide> = {
       ],
     },
   },
+  emoji: {
+    usage: {
+      ja: [
+        '一覧・検索モードで、名前・キーワード・絵文字から探します。カテゴリで絞り込むこともできます。',
+        '絵文字を選ぶと、表示文字・Unicodeコード・HTMLコードを確認してコピーできます。',
+        'ランダム生成モードでカテゴリと個数を指定し、絵文字の組み合わせを作ります。',
+      ],
+      en: [
+        'Use Browse & search to find emoji by name, keyword, or the character itself. You can also filter by category.',
+        'Select an emoji to inspect and copy its character, Unicode code points, or HTML entities.',
+        'Use Random generate to choose a category and count, then create an emoji combination.',
+      ],
+    },
+    notes: {
+      ja: [
+        '絵文字の見た目はOS・ブラウザ・フォントによって異なります。',
+        '複数コードポイントの絵文字では、Unicodeコードに異体字セレクタが含まれる場合があります。',
+      ],
+      en: [
+        'Emoji appearance varies by operating system, browser, and font.',
+        'Some emoji contain multiple code points, including a variation selector in the Unicode output.',
+      ],
+    },
+  },
   hash: {
     usage: {
       ja: [
@@ -1136,6 +1160,32 @@ export const toolGuides: Record<string, ToolGuide> = {
       en: [
         'If the original bytes are lost, full recovery may be impossible.',
         'Text mangled through several bad conversions is harder to restore.',
+      ],
+    },
+  },
+  invisible: {
+    usage: {
+      ja: [
+        '調べたいテキストを貼り付けると、空白・ゼロ幅・方向制御文字を検出します。',
+        '可視化プレビューとUnicodeコードポイント、JavaScript表記で混入位置を確認します。',
+        '必要に応じて検出文字を除いた結果をコピーまたは入力へ反映します。文字一覧では実体の1文字をコピーできます。',
+      ],
+      en: [
+        'Paste text to detect whitespace, zero-width characters, and direction controls.',
+        'Use the visualized preview, Unicode code points, and JavaScript notation to find each occurrence.',
+        'Copy or apply the text without detected characters when appropriate. The catalog copies the actual character.',
+      ],
+    },
+    notes: {
+      ja: [
+        '見えない文字には、結合・言語・絵文字・方向制御に必要なものがあります。検出した文字を一括削除する前に用途を確認してください。',
+        'U+200D（ゼロ幅接合子）は絵文字シーケンスに使われます。U+200Cや方向制御文字も無条件に削除しないでください。',
+        'このツールは入力をブラウザ内で処理し、外部へ送信しません。',
+      ],
+      en: [
+        'Some invisible characters are required for joining, language shaping, emoji, or text direction. Check their purpose before removing them.',
+        'U+200D (zero-width joiner) is used in emoji sequences. Do not remove U+200C or direction controls indiscriminately.',
+        'Input is processed in the browser and is not sent anywhere.',
       ],
     },
   },

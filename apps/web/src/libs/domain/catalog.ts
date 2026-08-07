@@ -135,6 +135,7 @@ export type ToolDefinition = {
     | 'ogp-check'
     | 'seo-check'
     | 'badge'
+    | 'emoji'
     | 'geolocation'
     | 'camera'
     | 'qr-scanner'
@@ -145,6 +146,7 @@ export type ToolDefinition = {
     | 'date-calc'
     | 'cidr'
     | 'mojibake'
+    | 'invisible'
     | 'test-data'
     | 'unix-time'
     | 'connection-info'
@@ -601,6 +603,20 @@ export const tools: ToolDefinition[] = [
     workspace: 'badge',
   },
   {
+    slug: 'emoji',
+    emoji: '😀',
+    pathSlug: 'emoji-list-generator',
+    category: 'generators',
+    icon: Sparkles,
+    title: { ja: '絵文字一覧・生成', en: 'Emoji list & generator' },
+    description: {
+      ja: '絵文字を検索・一覧表示し、UnicodeやHTMLコードを確認して生成',
+      en: 'Browse, search, inspect, and randomly generate Unicode emoji',
+    },
+    mode: 'generate',
+    workspace: 'emoji',
+  },
+  {
     slug: 'hash',
     emoji: '#️⃣',
     pathSlug: 'hash-generator',
@@ -752,6 +768,20 @@ export const tools: ToolDefinition[] = [
     },
     mode: 'inspect',
     workspace: 'mojibake',
+  },
+  {
+    slug: 'invisible',
+    emoji: '🫥',
+    pathSlug: 'invisible-character-inspector',
+    category: 'text',
+    icon: ScanLine,
+    title: { ja: '見えない文字検出', en: 'Invisible character inspector' },
+    description: {
+      ja: '空白・ゼロ幅・方向制御文字を検出して可視化',
+      en: 'Detect and visualize whitespace, zero-width, and direction controls',
+    },
+    mode: 'inspect',
+    workspace: 'invisible',
   },
   {
     slug: 'text-analyzer',
