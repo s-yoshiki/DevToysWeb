@@ -1,6 +1,7 @@
 'use client'
 
-import { Dices, Search, Sparkles } from 'lucide-react'
+import { Dices, ListChecks, Search, Sparkles } from 'lucide-react'
+import { useMemo } from 'react'
 import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
 import { SegmentedControl } from '@/components/segmented-control'
@@ -23,6 +24,7 @@ import type { WorkspaceProps } from '@/workspaces/types'
 import type { EmojiCategory, EmojiEntry } from '../functions/emoji'
 import {
   emojiCategories,
+  formatEmojiList,
   getEmojiCodePoints,
   getEmojiHtml,
   getEmojiHtmlDecimal,
@@ -40,8 +42,8 @@ const categoryLabel = (category: EmojiCategory | 'all', t: (ja: string, en: stri
     travel: t('旅行・場所', 'Travel & places'),
     activities: t('活動', 'Activities'),
     objects: t('物', 'Objects'),
-    symbols: t('記号・旗', 'Symbols & flags'),
-    variants: t('ZWJ亜種', 'ZWJ variants'),
+    symbols: t('記号', 'Symbols'),
+    flags: t('旗', 'Flags'),
   }
   return labels[category]
 }
@@ -93,6 +95,7 @@ export const EmojiWorkspace = ({ tool }: WorkspaceProps) => {
   const { locale } = useLocale()
   const t = useTranslate()
   const emoji = useEmoji()
+  const resultsList = useMemo(() => formatEmojiList(emoji.results, locale), [emoji.results, locale])
 
   const modeOptions: { value: EmojiMode; label: string }[] = [
     { value: 'list', label: t('一覧・検索', 'Browse & search') },
@@ -163,6 +166,17 @@ export const EmojiWorkspace = ({ tool }: WorkspaceProps) => {
                   {emoji.results.length} / {emoji.total} {t('件', 'matches')}
                 </p>
                 <Badge variant="secondary">{categoryLabel(emoji.category, t)}</Badge>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-dashed border-border/70 px-3 py-2">
+                <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <ListChecks className="size-3.5 shrink-0" aria-hidden="true" />
+                  {t(
+                    '表示中の絵文字を「絵文字・名前・Unicode・HTML」の一覧としてコピー',
+                    'Copy the emoji shown here as a list of emoji, name, Unicode, and HTML',
+                  )}
+                </p>
+                <CopyButton value={resultsList} />
               </div>
 
               <div className="grid grid-cols-3 gap-2 sm:grid-cols-5 md:grid-cols-6">
@@ -253,7 +267,7 @@ export const EmojiWorkspace = ({ tool }: WorkspaceProps) => {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="emoji-count">{t('個数', 'Count')}</Label>
+                  <Label htmlFor="emoji-count">{t('個数（最大30）', 'Count (max 30)')}</Label>
                   <Input
                     id="emoji-count"
                     type="number"

@@ -196,9 +196,11 @@ export const InvisibleWorkspace = ({ tool }: WorkspaceProps) => {
                   {invisible.occurrences.map((item) => (
                     <div
                       key={`${item.index}-${item.codePoint}`}
-                      className="grid gap-3 px-5 py-3 sm:grid-cols-[3rem_5rem_8.5rem_minmax(0,1fr)_auto] sm:items-center"
+                      className="grid gap-3 px-5 py-3 sm:grid-cols-[4.5rem_5rem_8.5rem_minmax(0,1fr)_auto] sm:items-center"
                     >
-                      <span className="text-xs text-muted-foreground">#{item.index + 1}</span>
+                      <span className="whitespace-nowrap font-mono text-xs text-muted-foreground">
+                        {t(`${item.line}行${item.column}列`, `Ln ${item.line}, Col ${item.column}`)}
+                      </span>
                       <Badge variant="secondary" className="w-fit font-mono">
                         {item.marker}
                       </Badge>
