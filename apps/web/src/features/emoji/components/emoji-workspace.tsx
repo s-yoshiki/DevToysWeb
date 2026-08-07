@@ -21,7 +21,13 @@ import { WorkspaceShell } from '@/components/workspace-shell'
 import { useTranslate } from '@/hooks/use-translate'
 import type { WorkspaceProps } from '@/workspaces/types'
 import type { EmojiCategory, EmojiEntry } from '../functions/emoji'
-import { emojiCategories, getEmojiCodePoints, getEmojiHtml } from '../functions/emoji'
+import {
+  emojiCategories,
+  getEmojiCodePoints,
+  getEmojiHtml,
+  getEmojiHtmlDecimal,
+  isZwjSequence,
+} from '../functions/emoji'
 import { type EmojiMode, useEmoji } from '../hooks/use-emoji'
 
 const categoryLabel = (category: EmojiCategory | 'all', t: (ja: string, en: string) => string) => {
@@ -35,6 +41,7 @@ const categoryLabel = (category: EmojiCategory | 'all', t: (ja: string, en: stri
     activities: t('活動', 'Activities'),
     objects: t('物', 'Objects'),
     symbols: t('記号・旗', 'Symbols & flags'),
+    variants: t('ZWJ亜種', 'ZWJ variants'),
   }
   return labels[category]
 }
@@ -190,16 +197,34 @@ export const EmojiWorkspace = ({ tool }: WorkspaceProps) => {
                   </span>
                   <div className="min-w-0">
                     <p className="truncate font-medium">{emoji.selected.name[locale]}</p>
-                    <Badge variant="outline" className="mt-1">
-                      {categoryLabel(emoji.selected.category, t)}
-                    </Badge>
+                    <div className="mt-1 flex flex-wrap gap-1">
+                      <Badge variant="outline">{categoryLabel(emoji.selected.category, t)}</Badge>
+                      {isZwjSequence(emoji.selected.emoji) && (
+                        <Badge variant="secondary">{t('ZWJ接合', 'ZWJ sequence')}</Badge>
+                      )}
+                    </div>
                   </div>
                 </div>
+                {isZwjSequence(emoji.selected.emoji) && (
+                  <p className="mt-4 text-xs leading-5 text-muted-foreground">
+                    {t(
+                      '複数の絵文字をゼロ幅接合子（U+200D）でつないだシーケンスです。',
+                      'A sequence that joins multiple emoji with the zero-width joiner (U+200D).',
+                    )}
+                  </p>
+                )}
               </div>
               <div>
                 <OutputRow label={t('テキスト', 'Text')} value={emoji.selected.emoji} />
                 <OutputRow label="Unicode" value={getEmojiCodePoints(emoji.selected.emoji)} />
-                <OutputRow label="HTML" value={getEmojiHtml(emoji.selected.emoji)} />
+                <OutputRow
+                  label={t('HTML（16進）', 'HTML (hex)')}
+                  value={getEmojiHtml(emoji.selected.emoji)}
+                />
+                <OutputRow
+                  label={t('HTML（10進）', 'HTML (decimal)')}
+                  value={getEmojiHtmlDecimal(emoji.selected.emoji)}
+                />
               </div>
             </div>
           </div>

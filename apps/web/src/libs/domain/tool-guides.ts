@@ -882,24 +882,28 @@ export const toolGuides: Record<string, ToolGuide> = {
   emoji: {
     usage: {
       ja: [
-        '一覧・検索モードで、名前・キーワード・絵文字から探します。カテゴリで絞り込むこともできます。',
-        '絵文字を選ぶと、表示文字・Unicodeコード・HTMLコードを確認してコピーできます。',
-        'ランダム生成モードでカテゴリと個数を指定し、絵文字の組み合わせを作ります。',
+        '一覧・検索モードで、名前・キーワード・絵文字・Unicodeコード・HTMLエンティティから探します。カテゴリで絞り込むこともできます。',
+        '絵文字を選ぶと、表示文字・Unicodeコード・HTMLエンティティ（16進・10進）を確認してコピーできます。',
+        'ZWJ亜種カテゴリでは、ゼロ幅接合子（U+200D）で複数の絵文字を組み合わせたシーケンスを探せます。',
+        'ランダム生成モードでカテゴリと個数を指定し、単体絵文字やZWJシーケンスを作ります。',
       ],
       en: [
-        'Use Browse & search to find emoji by name, keyword, or the character itself. You can also filter by category.',
-        'Select an emoji to inspect and copy its character, Unicode code points, or HTML entities.',
-        'Use Random generate to choose a category and count, then create an emoji combination.',
+        'Use Browse & search to find emoji by name, keyword, character, Unicode code point, or HTML entity. You can also filter by category.',
+        'Select an emoji to inspect and copy its character, Unicode code points, or hexadecimal/decimal HTML entities.',
+        'Use the ZWJ variants category to find sequences that join multiple emoji with the zero-width joiner (U+200D).',
+        'Use Random generate to choose a category and count, then create individual emoji or ZWJ sequences.',
       ],
     },
     notes: {
       ja: [
         '絵文字の見た目はOS・ブラウザ・フォントによって異なります。',
         '複数コードポイントの絵文字では、Unicodeコードに異体字セレクタが含まれる場合があります。',
+        'ZWJシーケンスは表示環境によって異なる場合があります。コピー時はU+200Dを含む実体の文字列を使います。',
       ],
       en: [
         'Emoji appearance varies by operating system, browser, and font.',
         'Some emoji contain multiple code points, including a variation selector in the Unicode output.',
+        'ZWJ sequences can render differently across platforms. Copy the actual string when preserving U+200D matters.',
       ],
     },
   },

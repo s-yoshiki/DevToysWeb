@@ -7,6 +7,7 @@ export type EmojiCategory =
   | 'activities'
   | 'objects'
   | 'symbols'
+  | 'variants'
 
 export type EmojiEntry = {
   emoji: string
@@ -23,9 +24,16 @@ const entry = (
   ...keywords: string[]
 ): EmojiEntry => ({ emoji, name: { ja, en }, keywords, category })
 
+export const ZERO_WIDTH_JOINER = '\u200d'
+
+const zwj = (...parts: string[]) => parts.join(ZERO_WIDTH_JOINER)
+
+const zwjEntry = (parts: string[], ja: string, en: string, ...keywords: string[]) =>
+  entry(zwj(...parts), ja, en, 'variants', 'ZWJ', 'ゼロ幅接合子', 'variant', ...keywords)
+
 /**
- * A small, browser-local emoji catalog. Names and groups follow the Unicode
- * emoji list/CLDR naming style; the reference page is useful when checking
+ * A curated, browser-local emoji catalog. Names and groups follow the Unicode
+ * emoji list/CLDR naming style; the reference pages are useful when checking
  * the same display, text, and HTML-code fields in a browser.
  */
 export const emojiCatalog: readonly EmojiEntry[] = [
@@ -94,6 +102,150 @@ export const emojiCatalog: readonly EmojiEntry[] = [
   entry('🧑', '大人', 'person', 'people', '人', 'adult'),
   entry('👩', '女性', 'woman', 'people', '人', 'female'),
   entry('👨', '男性', 'man', 'people', '人', 'male'),
+
+  // ZWJ sequences & emoji variants
+  zwjEntry(['👩', '💻'], '女性プログラマー', 'woman technologist', '女性', '仕事', 'computer'),
+  zwjEntry(['👨', '💻'], '男性プログラマー', 'man technologist', '男性', '仕事', 'computer'),
+  zwjEntry(['🧑', '💻'], 'プログラマー', 'technologist', '仕事', 'computer'),
+  zwjEntry(['👩', '🔬'], '女性科学者', 'woman scientist', '女性', '科学', 'science'),
+  zwjEntry(['👨', '🔬'], '男性科学者', 'man scientist', '男性', '科学', 'science'),
+  zwjEntry(['🧑', '🔬'], '科学者', 'scientist', '科学', 'science'),
+  zwjEntry(['👩', '🎨'], '女性アーティスト', 'woman artist', '女性', '芸術', 'art'),
+  zwjEntry(['👨', '🎨'], '男性アーティスト', 'man artist', '男性', '芸術', 'art'),
+  zwjEntry(['🧑', '🎨'], 'アーティスト', 'artist', '芸術', 'art'),
+  zwjEntry(['👩', '🚀'], '女性宇宙飛行士', 'woman astronaut', '女性', '宇宙', 'space'),
+  zwjEntry(['👨', '🚀'], '男性宇宙飛行士', 'man astronaut', '男性', '宇宙', 'space'),
+  zwjEntry(['🧑', '🚀'], '宇宙飛行士', 'astronaut', '宇宙', 'space'),
+  zwjEntry(['👩', '⚕️'], '女性医療従事者', 'woman health worker', '女性', '医療', 'medical'),
+  zwjEntry(['👨', '⚕️'], '男性医療従事者', 'man health worker', '男性', '医療', 'medical'),
+  zwjEntry(['🧑', '⚕️'], '医療従事者', 'health worker', '医療', 'medical'),
+  zwjEntry(['👩', '🍳'], '女性シェフ', 'woman cook', '女性', '料理', 'cook'),
+  zwjEntry(['👨', '🍳'], '男性シェフ', 'man cook', '男性', '料理', 'cook'),
+  zwjEntry(['🧑', '🍳'], 'シェフ', 'cook', '料理', 'cook'),
+  zwjEntry(['👩', '🏫'], '女性教師', 'woman teacher', '女性', '教育', 'teacher'),
+  zwjEntry(['👨', '🏫'], '男性教師', 'man teacher', '男性', '教育', 'teacher'),
+  zwjEntry(['🧑', '🏫'], '教師', 'teacher', '教育', 'teacher'),
+  zwjEntry(['🧑', '🎓'], '学生', 'student', '教育', 'school', 'student'),
+  zwjEntry(['👩', '🎓'], '女子学生', 'woman student', '女性', '教育', 'school', 'student'),
+  zwjEntry(['👨', '🎓'], '男子学生', 'man student', '男性', '教育', 'school', 'student'),
+  zwjEntry(['🧑', '⚖️'], '裁判官', 'judge', '法律', 'law'),
+  zwjEntry(['👩', '⚖️'], '女性裁判官', 'woman judge', '女性', '法律', 'law'),
+  zwjEntry(['👨', '⚖️'], '男性裁判官', 'man judge', '男性', '法律', 'law'),
+  zwjEntry(['🧑', '🌾'], '農家', 'farmer', '農業', 'farm'),
+  zwjEntry(['👩', '🌾'], '女性農家', 'woman farmer', '女性', '農業', 'farm'),
+  zwjEntry(['👨', '🌾'], '男性農家', 'man farmer', '男性', '農業', 'farm'),
+  zwjEntry(['🧑', '🔧'], '整備士', 'mechanic', '仕事', '工具', 'mechanic'),
+  zwjEntry(['👩', '🔧'], '女性整備士', 'woman mechanic', '女性', '仕事', '工具', 'mechanic'),
+  zwjEntry(['👨', '🔧'], '男性整備士', 'man mechanic', '男性', '仕事', '工具', 'mechanic'),
+  zwjEntry(['🧑', '🏭'], '工場作業員', 'factory worker', '仕事', '工場', 'worker'),
+  zwjEntry(['👩', '🏭'], '女性工場作業員', 'woman factory worker', '女性', '仕事', '工場'),
+  zwjEntry(['👨', '🏭'], '男性工場作業員', 'man factory worker', '男性', '仕事', '工場'),
+  zwjEntry(['🧑', '💼'], '会社員', 'office worker', '仕事', 'オフィス', 'office'),
+  zwjEntry(['👩', '💼'], '女性会社員', 'woman office worker', '女性', '仕事', 'オフィス'),
+  zwjEntry(['👨', '💼'], '男性会社員', 'man office worker', '男性', '仕事', 'オフィス'),
+  zwjEntry(['🧑', '🎤'], '歌手', 'singer', '音楽', 'music', 'singer'),
+  zwjEntry(['👩', '🎤'], '女性歌手', 'woman singer', '女性', '音楽', 'music'),
+  zwjEntry(['👨', '🎤'], '男性歌手', 'man singer', '男性', '音楽', 'music'),
+  zwjEntry(['🧑', '✈️'], 'パイロット', 'pilot', '仕事', '飛行機', 'pilot'),
+  zwjEntry(['👩', '✈️'], '女性パイロット', 'woman pilot', '女性', '飛行機', 'pilot'),
+  zwjEntry(['👨', '✈️'], '男性パイロット', 'man pilot', '男性', '飛行機', 'pilot'),
+  zwjEntry(['🧑', '🚒'], '消防士', 'firefighter', '仕事', '消防', 'firefighter'),
+  zwjEntry(['👩', '🚒'], '女性消防士', 'woman firefighter', '女性', '消防', 'firefighter'),
+  zwjEntry(['👨', '🚒'], '男性消防士', 'man firefighter', '男性', '消防', 'firefighter'),
+  zwjEntry(
+    ['🧑', '🦯'],
+    '白杖を持つ人',
+    'person with white cane',
+    'アクセシビリティ',
+    'accessibility',
+  ),
+  zwjEntry(['👩', '🦯'], '白杖を持つ女性', 'woman with white cane', '女性', 'アクセシビリティ'),
+  zwjEntry(['👨', '🦯'], '白杖を持つ男性', 'man with white cane', '男性', 'アクセシビリティ'),
+  zwjEntry(['🧑', '🦼'], '電動車いすの人', 'person in motorized wheelchair', 'アクセシビリティ'),
+  zwjEntry(
+    ['👩', '🦼'],
+    '電動車いすの女性',
+    'woman in motorized wheelchair',
+    '女性',
+    'アクセシビリティ',
+  ),
+  zwjEntry(
+    ['👨', '🦼'],
+    '電動車いすの男性',
+    'man in motorized wheelchair',
+    '男性',
+    'アクセシビリティ',
+  ),
+  zwjEntry(['🧑', '🦽'], '手動車いすの人', 'person in manual wheelchair', 'アクセシビリティ'),
+  zwjEntry(
+    ['👩', '🦽'],
+    '手動車いすの女性',
+    'woman in manual wheelchair',
+    '女性',
+    'アクセシビリティ',
+  ),
+  zwjEntry(
+    ['👨', '🦽'],
+    '手動車いすの男性',
+    'man in manual wheelchair',
+    '男性',
+    'アクセシビリティ',
+  ),
+  zwjEntry(['🦸', '♂️'], '男性スーパーヒーロー', 'man superhero', 'ファンタジー', 'superhero'),
+  zwjEntry(['🦸', '♀️'], '女性スーパーヒーロー', 'woman superhero', 'ファンタジー', 'superhero'),
+  zwjEntry(['🧙', '♂️'], '男性魔法使い', 'man mage', 'ファンタジー', 'mage'),
+  zwjEntry(['🧙', '♀️'], '女性魔法使い', 'woman mage', 'ファンタジー', 'mage'),
+  zwjEntry(['🧑', '🦰'], '赤毛の人', 'person with red hair', '髪', 'red hair'),
+  zwjEntry(['🧑', '🦱'], 'くせ毛の人', 'person with curly hair', '髪', 'curly hair'),
+  zwjEntry(['🧑', '🦳'], '白髪の人', 'person with white hair', '髪', 'white hair'),
+  zwjEntry(['🧑', '🦲'], '坊主頭の人', 'person with bald head', '髪', 'bald'),
+  zwjEntry(['🧑', '🍼'], '赤ちゃんに授乳する人', 'person feeding baby', '育児', 'baby'),
+  zwjEntry(
+    ['🫱🏻', '🫲🏿'],
+    '肌の色が異なる握手',
+    'handshake with different skin tones',
+    '握手',
+    'handshake',
+  ),
+  zwjEntry(
+    ['🧑', '🤝', '🧑'],
+    '人同士が手をつなぐ',
+    'people holding hands',
+    '手をつなぐ',
+    'holding hands',
+  ),
+  zwjEntry(
+    ['👨', '👩', '👧', '👦'],
+    '家族（父・母・娘・息子）',
+    'family: man, woman, girl, boy',
+    '家族',
+    'family',
+  ),
+  zwjEntry(
+    ['🧑', '🧑', '🧒'],
+    '家族（大人2人・子ども）',
+    'family: adult, adult, child',
+    '家族',
+    'family',
+  ),
+  zwjEntry(
+    ['👩', '❤️', '👨'],
+    'ハートのカップル',
+    'couple with heart: woman, man',
+    '恋愛',
+    'couple',
+    'love',
+  ),
+  zwjEntry(['🏳️', '🌈'], 'レインボーフラッグ', 'rainbow flag', '旗', 'pride'),
+  zwjEntry(
+    ['🏳️', '⚧️'],
+    'トランスジェンダーフラッグ',
+    'transgender flag',
+    '旗',
+    'pride',
+    'transgender',
+  ),
+  zwjEntry(['👁️', '🗨️'], '吹き出しの目', 'eye in speech bubble', '会話', 'speech'),
 
   // Animals & nature
   entry('🐶', '犬の顔', 'dog face', 'animals', '犬', 'dog'),
@@ -307,6 +459,7 @@ export const emojiCategories: readonly (EmojiCategory | 'all')[] = [
   'activities',
   'objects',
   'symbols',
+  'variants',
 ]
 
 const normalize = (value: string) => value.normalize('NFKC').toLocaleLowerCase().trim()
@@ -320,7 +473,15 @@ export const filterEmojis = (
   return entries.filter((item) => {
     if (category !== 'all' && item.category !== category) return false
     if (!normalizedQuery) return true
-    const searchable = [item.emoji, item.name.ja, item.name.en, ...item.keywords]
+    const searchable = [
+      item.emoji,
+      item.name.ja,
+      item.name.en,
+      getEmojiCodePoints(item.emoji),
+      getEmojiHtml(item.emoji),
+      getEmojiHtmlDecimal(item.emoji),
+      ...item.keywords,
+    ]
       .map(normalize)
       .join(' ')
     return searchable.includes(normalizedQuery)
@@ -332,9 +493,16 @@ export const getEmojiCodePoints = (value: string) =>
     .map((character) => `U+${character.codePointAt(0)?.toString(16).toUpperCase()}`)
     .join(' ')
 
+export const isZwjSequence = (value: string) => value.includes(ZERO_WIDTH_JOINER)
+
 export const getEmojiHtml = (value: string) =>
   Array.from(value)
     .map((character) => `&#x${character.codePointAt(0)?.toString(16)};`)
+    .join('')
+
+export const getEmojiHtmlDecimal = (value: string) =>
+  Array.from(value)
+    .map((character) => `&#${character.codePointAt(0)};`)
     .join('')
 
 export const generateEmojis = (
