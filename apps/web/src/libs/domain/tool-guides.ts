@@ -911,6 +911,152 @@ export const toolGuides: Record<string, ToolGuide> = {
       ],
     },
   },
+  kaomoji: {
+    usage: {
+      ja: [
+        '一覧・検索モードで、名前・キーワード・顔文字そのものから探します。カテゴリで絞り込むこともできます。',
+        '顔文字を選ぶと、そのままのテキスト・Unicodeコード・HTMLエンティティ・JS/JSONエスケープをコピーできます。',
+        'ソースコードへ埋め込むときは、JS・JSONエスケープの出力を使うとファイルをASCIIのまま保てます。',
+        'ランダム生成モードでカテゴリと個数を指定すると、1行に1つずつ顔文字を出力します。',
+      ],
+      en: [
+        'Use Browse & search to find kaomoji by name, keyword, or the characters themselves, and filter by category.',
+        'Select one to copy the raw text, its Unicode code points, HTML entities, or a JS/JSON escape.',
+        'Use the JS / JSON escape output when embedding a kaomoji in source that has to stay ASCII.',
+        'Use Random generate to pick a category and count; results are printed one per line.',
+      ],
+    },
+    notes: {
+      ja: [
+        '顔文字は絵文字と違い通常の文字の並びです。フォントによっては字幅が揃わず崩れて見えることがあります。',
+        '半角カタカナや特殊記号を含む顔文字は、Shift_JISなど一部の文字コードで正しく送れない場合があります。',
+        '等幅フォント前提で作られた顔文字は、プロポーショナルフォントの環境では形が変わります。',
+      ],
+      en: [
+        'Unlike emoji, kaomoji are ordinary character sequences, so a font with uneven widths can distort them.',
+        'Kaomoji containing half-width katakana or rare symbols may not survive legacy encodings such as Shift_JIS.',
+        'Art drawn for a monospace font changes shape when rendered with a proportional one.',
+      ],
+    },
+  },
+  'fancy-text': {
+    usage: {
+      ja: [
+        '装飾したいテキストを入力します。空のあいだはサンプル文字列でプレビューされます。',
+        '太字・斜体・筆記体・丸囲みなど、スタイルごとの結果が一覧で表示されます。',
+        '使いたいスタイルの行のコピーボタンで、その1件だけをコピーします。',
+        'ヘッダーのコピーボタンでは、全スタイルの結果をまとめてコピーできます。',
+      ],
+      en: [
+        'Type the text to decorate; a sample string is previewed until you do.',
+        'Every style — bold, italic, script, circled, and more — is rendered in the list.',
+        'Use the copy button on a row to take just that style.',
+        'The copy button in the header copies every style at once.',
+      ],
+    },
+    notes: {
+      ja: [
+        'これはフォントではなく別のUnicode文字への置き換えです。スクリーンリーダーでは正しく読み上げられません。',
+        '検索やソートは元の文字と一致しません。ユーザー名や見出し、本文には使わないでください。',
+        '取り消し線と下線は結合文字を使うため、文字数が2倍になり、環境によっては表示が崩れます。',
+        'ASCIIの英数字だけが対象です。日本語や記号はそのまま残ります。',
+      ],
+      en: [
+        'This substitutes different Unicode characters rather than applying a font, so screen readers mis-announce it.',
+        'Search and sorting will not match the original letters—avoid it for usernames, headings, and body copy.',
+        'Strikethrough and underline use combining marks, doubling the character count and rendering unevenly on some platforms.',
+        'Only ASCII letters and digits are converted; Japanese and punctuation pass through unchanged.',
+      ],
+    },
+  },
+  'char-width': {
+    usage: {
+      ja: [
+        '変換方向（全角→半角 / 半角→全角）を選びます。',
+        '英数字・記号・カタカナ・スペースのうち、変換したい文字種だけをオンにします。',
+        '必要ならひらがな・カタカナの相互変換も指定します。幅の変換のあとに適用されます。',
+        '左のペインにテキストを貼り付け、右のペインの結果をコピーします。',
+      ],
+      en: [
+        'Choose the direction: full-width to half-width, or the reverse.',
+        'Switch on only the classes you want converted: alphanumerics, symbols, katakana, or spaces.',
+        'Optionally convert between hiragana and katakana; that step runs after the width conversion.',
+        'Paste text into the left pane and copy the result from the right.',
+      ],
+    },
+    notes: {
+      ja: [
+        '濁点・半濁点付きの半角カタカナは2文字です。全角へ変換すると1文字に結合され、文字数が変わります。',
+        '半角へ戻すと逆に文字数が増えます。文字数制限のある項目では変換後の長さを確認してください。',
+        '漢字とひらがなには全角・半角の区別がないため、そのまま残ります。',
+        '全角スペース（U+3000）と半角スペースの変換は「スペース」をオンにしたときだけ行われます。',
+      ],
+      en: [
+        'Voiced half-width katakana are two characters; widening them composes one, which changes the length.',
+        'Narrowing does the opposite and makes the text longer—check the result against any length limit.',
+        'Kanji and hiragana have no width variants, so they pass through untouched.',
+        'The ideographic space (U+3000) is only converted while the Space class is switched on.',
+      ],
+    },
+  },
+  'json-types': {
+    usage: {
+      ja: [
+        'APIレスポンスなどのJSONサンプルを左のペインに貼り付けます。',
+        '出力言語（TypeScript / Go / Python）を選びます。',
+        '必要ならルート型名を変更します。ネストしたオブジェクトはキー名から命名されます。',
+        '生成された型定義をコピーしてプロジェクトに貼り付けます。',
+      ],
+      en: [
+        'Paste a JSON sample—an API response, for example—into the left pane.',
+        'Choose the output language: TypeScript, Go, or Python.',
+        'Rename the root type if you like; nested objects are named after their key.',
+        'Copy the generated definitions into your project.',
+      ],
+    },
+    notes: {
+      ja: [
+        '型はサンプル1件から推論されます。サンプルに現れないフィールドや値は表現できません。',
+        '配列の要素は統合されるため、要素ごとに欠けているキーは省略可能フィールドになります。複数パターンを含むサンプルを使うと精度が上がります。',
+        'JSONには整数と浮動小数点数の区別がありません。小数点を含む値がなければ整数型として生成されます。',
+        'nullだけの値からは型を決められないため、TypeScriptではnull、Goではany、PythonではAnyになります。',
+        '日付やUUIDは文字列として扱われます。必要に応じて生成後に置き換えてください。',
+      ],
+      en: [
+        'Types are inferred from one sample, so fields and values the sample never shows cannot be represented.',
+        'Array elements are merged, so keys missing from some elements become optional—include several shapes for a better result.',
+        'JSON does not distinguish integers from floats; a value without a decimal point is inferred as an integer type.',
+        'A field that is only ever null carries no type, so it becomes null in TypeScript and any/Any in Go and Python.',
+        'Dates and UUIDs are inferred as strings; swap in a richer type after generating if you need one.',
+      ],
+    },
+  },
+  'http-status': {
+    usage: {
+      ja: [
+        'コード番号、英語の名称、日本語の説明、RFC番号のいずれでも検索できます。',
+        '1xx〜5xxのクラスで絞り込むと、その範囲だけが表示されます。',
+        'コピーボタンで「404 Not Found」の形式のステータス行をコピーできます。',
+      ],
+      en: [
+        'Search by code, reason phrase, description, or RFC number.',
+        'Filter by class to narrow the list to a single 1xx–5xx range.',
+        'The copy button yields a status line such as `404 Not Found`.',
+      ],
+    },
+    notes: {
+      ja: [
+        '掲載しているのはIANAに登録されたコードです。CDNやWebサーバー独自の拡張コードは含みません。',
+        '「ボディなし」のコードでは、応答本文を返してはいけません。ミドルウェアが自動で付けていないか確認してください。',
+        '説明は要約です。実装の判断に使う場合は、記載のRFCの該当セクションを確認してください。',
+      ],
+      en: [
+        'Only codes in the IANA registry are listed; vendor extensions from CDNs and web servers are not.',
+        'Codes marked "No body" must not carry a response body—check that middleware is not adding one.',
+        'The descriptions are summaries; consult the cited RFC section before relying on one in an implementation.',
+      ],
+    },
+  },
   hash: {
     usage: {
       ja: [

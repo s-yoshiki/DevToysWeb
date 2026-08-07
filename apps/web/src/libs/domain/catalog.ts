@@ -1,5 +1,6 @@
 import {
   Aperture,
+  ArrowLeftRight,
   Asterisk,
   BellRing,
   Binary,
@@ -29,6 +30,7 @@ import {
   KeyRound,
   Layers,
   Link2,
+  ListChecks,
   ListOrdered,
   ListTree,
   LockKeyhole,
@@ -53,6 +55,7 @@ import {
   Shield,
   Sigma,
   Smartphone,
+  Smile,
   Sparkles,
   SquareCode,
   SquareFunction,
@@ -61,6 +64,7 @@ import {
   TextQuote,
   Timer,
   TimerReset,
+  Type,
   Wand2,
 } from 'lucide-react'
 import type { Locale } from '@/i18n/dictionaries'
@@ -150,6 +154,11 @@ export type ToolDefinition = {
     | 'test-data'
     | 'unix-time'
     | 'connection-info'
+    | 'kaomoji'
+    | 'char-width'
+    | 'json-types'
+    | 'fancy-text'
+    | 'http-status'
 }
 
 export const tools: ToolDefinition[] = [
@@ -203,6 +212,20 @@ export const tools: ToolDefinition[] = [
     title: { ja: 'JSON ↔ XML', en: 'JSON ↔ XML' },
     description: { ja: 'XML文書とJSONを相互変換', en: 'Convert between XML documents and JSON' },
     mode: 'convert',
+  },
+  {
+    slug: 'json-types',
+    emoji: '🧬',
+    pathSlug: 'json-to-type-definition',
+    category: 'converters',
+    icon: FileCode2,
+    title: { ja: 'JSON → 型定義', en: 'JSON to type definitions' },
+    description: {
+      ja: 'JSONサンプルからTypeScript・Go・Pythonの型を生成',
+      en: 'Generate TypeScript, Go, and Python types from a JSON sample',
+    },
+    mode: 'convert',
+    workspace: 'json-types',
   },
   {
     slug: 'color',
@@ -617,6 +640,34 @@ export const tools: ToolDefinition[] = [
     workspace: 'emoji',
   },
   {
+    slug: 'kaomoji',
+    emoji: '(^_^)',
+    pathSlug: 'kaomoji-generator',
+    category: 'generators',
+    icon: Smile,
+    title: { ja: '顔文字一覧・生成', en: 'Kaomoji list & generator' },
+    description: {
+      ja: '顔文字を検索・一覧表示し、エスケープした出力を確認して生成',
+      en: 'Browse, search, escape, and randomly generate Japanese emoticons',
+    },
+    mode: 'generate',
+    workspace: 'kaomoji',
+  },
+  {
+    slug: 'fancy-text',
+    emoji: '𝓐',
+    pathSlug: 'fancy-text-generator',
+    category: 'generators',
+    icon: Type,
+    title: { ja: '装飾文字生成', en: 'Fancy text generator' },
+    description: {
+      ja: '太字・筆記体・丸囲みなどのUnicode装飾文字へ変換',
+      en: 'Convert text into bold, script, circled, and other Unicode styles',
+    },
+    mode: 'generate',
+    workspace: 'fancy-text',
+  },
+  {
     slug: 'hash',
     emoji: '#️⃣',
     pathSlug: 'hash-generator',
@@ -782,6 +833,20 @@ export const tools: ToolDefinition[] = [
     },
     mode: 'inspect',
     workspace: 'invisible',
+  },
+  {
+    slug: 'char-width',
+    emoji: 'Ａ',
+    pathSlug: 'fullwidth-halfwidth-converter',
+    category: 'text',
+    icon: ArrowLeftRight,
+    title: { ja: '全角・半角変換', en: 'Full-width & half-width converter' },
+    description: {
+      ja: '英数字・記号・カタカナ・スペースの全角と半角を相互変換',
+      en: 'Convert alphanumerics, symbols, katakana, and spaces between widths',
+    },
+    mode: 'convert',
+    workspace: 'char-width',
   },
   {
     slug: 'text-analyzer',
@@ -1106,6 +1171,20 @@ export const tools: ToolDefinition[] = [
     },
     mode: 'inspect',
     workspace: 'connection-info',
+  },
+  {
+    slug: 'http-status',
+    emoji: '🚦',
+    pathSlug: 'http-status-code-list',
+    category: 'network',
+    icon: ListChecks,
+    title: { ja: 'HTTPステータスコード一覧', en: 'HTTP status code list' },
+    description: {
+      ja: '1xx〜5xxのステータスコードを日英の解説とRFC参照付きで検索',
+      en: 'Search 1xx-5xx status codes with bilingual notes and RFC references',
+    },
+    mode: 'inspect',
+    workspace: 'http-status',
   },
   {
     slug: 'geolocation',
