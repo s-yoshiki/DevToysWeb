@@ -44,4 +44,17 @@ describe('inspectInvisibleText', () => {
     assert.equal(visualizeInvisibleText('A\u200b B'), 'AZWSP·B')
     assert.equal(removeInvisibleCharacters('A\u200b B'), 'AB')
   })
+
+  it('tracks line and column across line feeds', () => {
+    const occurrences = inspectInvisibleText('AB\n\u200bC\nD\u00a0E')
+    assert.deepEqual(
+      occurrences.map((item) => [item.line, item.column]),
+      [
+        [1, 3],
+        [2, 1],
+        [2, 3],
+        [3, 2],
+      ],
+    )
+  })
 })
