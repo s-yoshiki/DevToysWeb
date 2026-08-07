@@ -79,11 +79,13 @@ Development and CI use Node.js 26. The Lambda currently uses AWS's latest manage
 Node.js runtime (24) until the Node.js 26 managed runtime becomes available.
 
 The site is served from `https://devtoys.ex-foundry.com` (prd) and
-`https://dev.devtoys.ex-foundry.com` (dev). Both names live in the delegated
-`devtoys.ex-foundry.com` hosted zone. CloudFront only accepts certificates from
-`us-east-1`, so the ACM certificate is created by a separate stack pinned to that
-region and passed to the site stack as a cross-region reference — which is why
-`us-east-1` must be bootstrapped as well.
+`https://dev.devtoys.ex-foundry.com` (dev). The prd CloudFront distribution can
+temporarily accept `https://ex-foundry.com` as an additional hostname for a
+review, while the parent-zone apex Alias is switched by `s-yoshiki/aws-terraform`.
+Both DevToys names live in the delegated `devtoys.ex-foundry.com` hosted zone.
+CloudFront only accepts certificates from `us-east-1`, so the ACM certificate is
+created by a separate stack pinned to that region and passed to the site stack as
+a cross-region reference — which is why `us-east-1` must be bootstrapped as well.
 
 ```sh
 # One-time bootstrap for the target account/region. The CDK app is evaluated even
@@ -99,6 +101,12 @@ pnpm build
 AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra deploy:dev
 AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra deploy:prd
 ```
+
+When the apex is temporarily used as the review URL, build with
+`NEXT_PUBLIC_SITE_URL=https://ex-foundry.com` so canonical, Open Graph, sitemap,
+and robots URLs use the apex. The GitHub Actions deployment workflows set this
+automatically for `prd`; omit the variable after restoring the normal DevToys
+hostname.
 
 The environment stacks are named `DevDevToysStack` and `PrdDevToysStack`, with
 their certificates in `DevDevToysCertificateStack` and `PrdDevToysCertificateStack`.

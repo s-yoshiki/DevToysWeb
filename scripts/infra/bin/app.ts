@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import * as cdk from 'aws-cdk-lib'
+import type { HostedZoneConfig } from '../lib/certificate-stack.js'
 import { CertificateStack } from '../lib/certificate-stack.js'
 import { DevToysStack } from '../lib/devtoys-stack.js'
 
@@ -29,6 +30,17 @@ const hostedZoneId = 'Z0619515E2LNT3K1FO5D'
 const hostedZoneName = 'devtoys.ex-foundry.com'
 const domainName = deployEnvironment === 'prd' ? hostedZoneName : `dev.${hostedZoneName}`
 
+// The parent zone is managed by s-yoshiki/aws-terraform. DevToys only adds the
+// apex as a CloudFront alternate domain and uses the parent zone for ACM DNS
+// validation; the parent A/AAAA Alias is switched separately by Terraform.
+const apexDomain: HostedZoneConfig = {
+  hostedZoneId: 'Z09015692K83AC02LQGL2',
+  hostedZoneName: 'ex-foundry.com',
+}
+const additionalDomainNames = deployEnvironment === 'prd' ? ['ex-foundry.com'] : []
+const validationHostedZones: Record<string, HostedZoneConfig> =
+  deployEnvironment === 'prd' ? { 'ex-foundry.com': apexDomain } : {}
+
 // CloudFront reads certificates from us-east-1 only, so the certificate is
 // pinned there and handed to the site stack across regions.
 const certificateStack = new CertificateStack(app, `${stackPrefix}DevToysCertificateStack`, {
@@ -37,6 +49,8 @@ const certificateStack = new CertificateStack(app, `${stackPrefix}DevToysCertifi
   domainName,
   hostedZoneId,
   hostedZoneName,
+  subjectAlternativeNames: additionalDomainNames,
+  validationHostedZones,
   tags: { Environment: deployEnvironment, Project: 'DevToysWeb' },
 })
 
@@ -47,5 +61,6 @@ new DevToysStack(app, `${stackPrefix}DevToysStack`, {
   domainName,
   hostedZoneId,
   hostedZoneName,
+  additionalDomainNames,
   tags: { Environment: deployEnvironment },
 })

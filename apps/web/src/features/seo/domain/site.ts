@@ -1,9 +1,10 @@
 import type { Locale } from '@/i18n/dictionaries'
 import { locales } from '@/i18n/dictionaries'
 
-// Production origin served by CloudFront. Keep in sync with `hostedZoneName`
-// in scripts/infra/bin/infra.ts.
-export const siteUrl = 'https://devtoys.ex-foundry.com'
+// Production origin served by CloudFront. The temporary apex review can set
+// NEXT_PUBLIC_SITE_URL=https://ex-foundry.com at build time; the default keeps
+// existing deployments on the DevToys hostname.
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://devtoys.ex-foundry.com'
 export const siteName = 'DevToys'
 
 export const ogLocales: Record<Locale, string> = { ja: 'ja_JP', en: 'en_US' }

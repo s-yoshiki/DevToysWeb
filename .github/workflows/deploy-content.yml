@@ -28,6 +28,7 @@ jobs:
       STACK_NAME: ${{ inputs.environment == 'dev' && 'DevDevToysStack' || 'PrdDevToysStack' }}
       AWS_DEPLOY_ROLE_ARN: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
       EXPECTED_AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID || '822013579886' }}
+      NEXT_PUBLIC_SITE_URL: ${{ inputs.environment == 'prd' && 'https://ex-foundry.com' || 'https://dev.devtoys.ex-foundry.com' }}
     steps:
       - uses: actions/checkout@v4
 
