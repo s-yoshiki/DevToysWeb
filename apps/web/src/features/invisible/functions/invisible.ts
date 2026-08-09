@@ -13,6 +13,8 @@ export type InvisibleCharacter = {
 
 export type InvisibleOccurrence = InvisibleCharacter & {
   index: number
+  line: number
+  column: number
 }
 
 const createCharacter = (
@@ -338,11 +340,21 @@ const byCharacter = new Map(invisibleCharacters.map((item) => [item.character, i
 
 export const findInvisibleCharacter = (character: string) => byCharacter.get(character)
 
-export const inspectInvisibleText = (text: string): InvisibleOccurrence[] =>
-  Array.from(text).flatMap((character, index) => {
+export const inspectInvisibleText = (text: string): InvisibleOccurrence[] => {
+  let line = 1
+  let column = 1
+  return Array.from(text).flatMap((character, index) => {
     const item = findInvisibleCharacter(character)
-    return item ? [{ ...item, index }] : []
+    const occurrence = item ? [{ ...item, index, line, column }] : []
+    if (character === '\n') {
+      line += 1
+      column = 1
+    } else {
+      column += 1
+    }
+    return occurrence
   })
+}
 
 export const visualizeInvisibleText = (text: string) =>
   Array.from(text)

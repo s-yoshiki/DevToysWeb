@@ -6,13 +6,14 @@ import { contentPageMetadata } from '@/features/seo/domain/metadata'
 import { contentPageJsonLd } from '@/features/seo/domain/structured-data'
 import { isLocale } from '@/i18n/dictionaries'
 
-type PageParams = { locale: string; page: string }
+type PageParams = { locale: string; category: string }
 
-export const generateStaticParams = () => contentPageLinks.map(({ slug: page }) => ({ page }))
+export const generateStaticParams = () =>
+  contentPageLinks.map(({ slug: category }) => ({ category }))
 
 const resolvePage = async (params: Promise<PageParams>) => {
-  const { locale, page } = await params
-  const link = contentPageLinks.find((entry) => entry.slug === page)
+  const { locale, category } = await params
+  const link = contentPageLinks.find((entry) => entry.slug === category)
   if (!isLocale(locale) || !link) notFound()
   return { locale, slug: link.slug as ContentPageSlug }
 }

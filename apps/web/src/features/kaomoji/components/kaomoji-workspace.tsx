@@ -1,7 +1,6 @@
 'use client'
 
-import { Dices, ListChecks, Search, Sparkles } from 'lucide-react'
-import { useMemo } from 'react'
+import { Dices, Search, Smile } from 'lucide-react'
 import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
 import { SegmentedControl } from '@/components/segmented-control'
@@ -21,29 +20,30 @@ import { Textarea } from '@/components/ui/textarea'
 import { WorkspaceShell } from '@/components/workspace-shell'
 import { useTranslate } from '@/hooks/use-translate'
 import type { WorkspaceProps } from '@/workspaces/types'
-import type { EmojiCategory, EmojiEntry } from '../functions/emoji'
+import type { KaomojiCategory, KaomojiEntry } from '../functions/kaomoji'
 import {
-  emojiCategories,
-  formatEmojiList,
-  getEmojiCodePoints,
-  getEmojiHtml,
-  getEmojiHtmlDecimal,
-  isZwjSequence,
-} from '../functions/emoji'
-import { type EmojiMode, useEmoji } from '../hooks/use-emoji'
+  getKaomojiCodePoints,
+  getKaomojiHtml,
+  getKaomojiUnicodeEscape,
+  kaomojiCategories,
+} from '../functions/kaomoji'
+import { type KaomojiMode, useKaomoji } from '../hooks/use-kaomoji'
 
-const categoryLabel = (category: EmojiCategory | 'all', t: (ja: string, en: string) => string) => {
-  const labels: Record<EmojiCategory | 'all', string> = {
+const categoryLabel = (
+  category: KaomojiCategory | 'all',
+  t: (ja: string, en: string) => string,
+) => {
+  const labels: Record<KaomojiCategory | 'all', string> = {
     all: t('すべて', 'All'),
-    smileys: t('顔・感情', 'Smileys & emotion'),
-    people: t('人・体', 'People & body'),
-    animals: t('動物・自然', 'Animals & nature'),
-    food: t('食べ物・飲み物', 'Food & drink'),
-    travel: t('旅行・場所', 'Travel & places'),
-    activities: t('活動', 'Activities'),
-    objects: t('物', 'Objects'),
-    symbols: t('記号', 'Symbols'),
-    flags: t('旗', 'Flags'),
+    joy: t('喜び・笑い', 'Joy & laughter'),
+    love: t('愛情・照れ', 'Love & bashful'),
+    sad: t('悲しみ・涙', 'Sadness & tears'),
+    anger: t('怒り', 'Anger'),
+    surprise: t('驚き', 'Surprise'),
+    greeting: t('挨拶・お辞儀', 'Greetings & bows'),
+    action: t('動作・リアクション', 'Actions & reactions'),
+    animal: t('動物', 'Animals'),
+    misc: t('その他・装飾', 'Misc & decorated'),
   }
   return labels[category]
 }
@@ -65,76 +65,73 @@ const OutputRow = ({ label, value }: { label: string; value: string }) => (
   </div>
 )
 
-const EmojiTile = ({
+const KaomojiTile = ({
   item,
   selected,
   onSelect,
   locale,
 }: {
-  item: EmojiEntry
+  item: KaomojiEntry
   selected: boolean
-  onSelect: (item: EmojiEntry) => void
+  onSelect: (item: KaomojiEntry) => void
   locale: 'ja' | 'en'
 }) => (
   <button
     type="button"
     onClick={() => onSelect(item)}
-    className={`flex min-h-24 flex-col items-center justify-center gap-1 rounded-xl border p-2 text-center transition-colors hover:border-primary/60 hover:bg-accent/60 ${selected ? 'border-primary bg-accent' : 'border-border/70 bg-background'}`}
+    className={`flex min-h-20 flex-col items-center justify-center gap-1.5 rounded-xl border p-2 text-center transition-colors hover:border-primary/60 hover:bg-accent/60 ${selected ? 'border-primary bg-accent' : 'border-border/70 bg-background'}`}
     title={item.name[locale]}
   >
-    <span className="text-3xl leading-none" aria-hidden="true">
-      {item.emoji}
-    </span>
+    <span className="max-w-full truncate text-base leading-none">{item.kaomoji}</span>
     <span className="max-w-full truncate text-[11px] text-muted-foreground">
       {item.name[locale]}
     </span>
   </button>
 )
 
-export const EmojiWorkspace = ({ tool }: WorkspaceProps) => {
+export const KaomojiWorkspace = ({ tool }: WorkspaceProps) => {
   const { locale } = useLocale()
   const t = useTranslate()
-  const emoji = useEmoji()
-  const resultsList = useMemo(() => formatEmojiList(emoji.results, locale), [emoji.results, locale])
+  const kaomoji = useKaomoji()
 
-  const modeOptions: { value: EmojiMode; label: string }[] = [
+  const modeOptions: { value: KaomojiMode; label: string }[] = [
     { value: 'list', label: t('一覧・検索', 'Browse & search') },
     { value: 'generate', label: t('ランダム生成', 'Random generate') },
   ]
 
   return (
-    <WorkspaceShell tool={tool} onClear={emoji.clear}>
+    <WorkspaceShell tool={tool} onClear={kaomoji.clear}>
       <Card className="overflow-hidden border-border/70 shadow-xl shadow-foreground/[0.03]">
         <CardHeader className="border-b bg-muted/30 py-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <CardTitle className="flex items-center gap-2 text-sm font-medium">
-              <Sparkles className="size-4 text-primary" />
-              {t('絵文字ツール', 'Emoji toolkit')}
+              <Smile className="size-4 text-primary" />
+              {t('顔文字ツール', 'Kaomoji toolkit')}
             </CardTitle>
             <SegmentedControl
-              value={emoji.mode}
-              onChange={emoji.setMode}
-              label={t('絵文字ツールのモード', 'Emoji tool mode')}
+              value={kaomoji.mode}
+              onChange={kaomoji.setMode}
+              label={t('顔文字ツールのモード', 'Kaomoji tool mode')}
               options={modeOptions}
             />
           </div>
         </CardHeader>
 
-        {emoji.mode === 'list' ? (
+        {kaomoji.mode === 'list' ? (
           <div className="grid gap-0 lg:grid-cols-[minmax(0,1fr)_20rem]">
             <CardContent className="min-w-0 space-y-5 p-5 lg:border-r">
               <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_13rem]">
                 <div className="space-y-2">
-                  <Label htmlFor="emoji-search">
-                    {t('名前・キーワード・絵文字で検索', 'Search by name, keyword, or emoji')}
+                  <Label htmlFor="kaomoji-search">
+                    {t('名前・キーワード・顔文字で検索', 'Search by name, keyword, or kaomoji')}
                   </Label>
                   <div className="relative">
                     <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                     <Input
-                      id="emoji-search"
-                      value={emoji.query}
-                      onChange={(event) => emoji.setQuery(event.target.value)}
-                      placeholder={t('例：犬、rocket、❤️', 'e.g. dog, rocket, ❤️')}
+                      id="kaomoji-search"
+                      value={kaomoji.query}
+                      onChange={(event) => kaomoji.setQuery(event.target.value)}
+                      placeholder={t('例：泣く、shrug、(^_^)', 'e.g. cry, shrug, (^_^)')}
                       className="pl-8"
                     />
                   </div>
@@ -142,16 +139,16 @@ export const EmojiWorkspace = ({ tool }: WorkspaceProps) => {
                 <div className="space-y-2">
                   <Label>{t('カテゴリ', 'Category')}</Label>
                   <Select
-                    value={emoji.category}
+                    value={kaomoji.category}
                     onValueChange={(value) =>
-                      value && emoji.setCategory(value as EmojiCategory | 'all')
+                      value && kaomoji.setCategory(value as KaomojiCategory | 'all')
                     }
                   >
                     <SelectTrigger className="w-full">
-                      <SelectValue>{categoryLabel(emoji.category, t)}</SelectValue>
+                      <SelectValue>{categoryLabel(kaomoji.category, t)}</SelectValue>
                     </SelectTrigger>
                     <SelectContent>
-                      {emojiCategories.map((category) => (
+                      {kaomojiCategories.map((category) => (
                         <SelectItem key={category} value={category}>
                           {categoryLabel(category, t)}
                         </SelectItem>
@@ -163,38 +160,27 @@ export const EmojiWorkspace = ({ tool }: WorkspaceProps) => {
 
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <p className="text-xs text-muted-foreground">
-                  {emoji.results.length} / {emoji.total} {t('件', 'matches')}
+                  {kaomoji.results.length} / {kaomoji.total} {t('件', 'matches')}
                 </p>
-                <Badge variant="secondary">{categoryLabel(emoji.category, t)}</Badge>
+                <Badge variant="secondary">{categoryLabel(kaomoji.category, t)}</Badge>
               </div>
 
-              <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-dashed border-border/70 px-3 py-2">
-                <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                  <ListChecks className="size-3.5 shrink-0" aria-hidden="true" />
-                  {t(
-                    '表示中の絵文字を「絵文字・名前・Unicode・HTML」の一覧としてコピー',
-                    'Copy the emoji shown here as a list of emoji, name, Unicode, and HTML',
-                  )}
-                </p>
-                <CopyButton value={resultsList} />
-              </div>
-
-              <div className="grid grid-cols-3 gap-2 sm:grid-cols-5 md:grid-cols-6">
-                {emoji.results.map((item) => (
-                  <EmojiTile
-                    key={`${item.category}-${item.emoji}`}
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
+                {kaomoji.results.map((item) => (
+                  <KaomojiTile
+                    key={`${item.category}-${item.kaomoji}`}
                     item={item}
-                    selected={item.emoji === emoji.selected.emoji}
-                    onSelect={emoji.select}
+                    selected={item.kaomoji === kaomoji.selected.kaomoji}
+                    onSelect={kaomoji.select}
                     locale={locale}
                   />
                 ))}
               </div>
-              {emoji.results.length === 0 && (
+              {kaomoji.results.length === 0 && (
                 <p className="rounded-lg border border-dashed p-8 text-center text-sm text-muted-foreground">
                   {t(
-                    '一致する絵文字がありません。検索語やカテゴリを変えてください。',
-                    'No matching emoji. Try another query or category.',
+                    '一致する顔文字がありません。検索語やカテゴリを変えてください。',
+                    'No matching kaomoji. Try another query or category.',
                   )}
                 </p>
               )}
@@ -205,39 +191,35 @@ export const EmojiWorkspace = ({ tool }: WorkspaceProps) => {
                 <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
                   {t('選択中', 'Selected')}
                 </p>
-                <div className="mt-4 flex items-center gap-3">
-                  <span className="text-5xl leading-none" aria-hidden="true">
-                    {emoji.selected.emoji}
-                  </span>
+                <div className="mt-4 space-y-2">
+                  <p className="break-all text-2xl leading-snug">{kaomoji.selected.kaomoji}</p>
                   <div className="min-w-0">
-                    <p className="truncate font-medium">{emoji.selected.name[locale]}</p>
+                    <p className="truncate font-medium">{kaomoji.selected.name[locale]}</p>
                     <div className="mt-1 flex flex-wrap gap-1">
-                      <Badge variant="outline">{categoryLabel(emoji.selected.category, t)}</Badge>
-                      {isZwjSequence(emoji.selected.emoji) && (
-                        <Badge variant="secondary">{t('ZWJ接合', 'ZWJ sequence')}</Badge>
-                      )}
+                      <Badge variant="outline">{categoryLabel(kaomoji.selected.category, t)}</Badge>
+                      <Badge variant="secondary">
+                        {Array.from(kaomoji.selected.kaomoji).length} {t('文字', 'chars')}
+                      </Badge>
                     </div>
                   </div>
                 </div>
-                {isZwjSequence(emoji.selected.emoji) && (
-                  <p className="mt-4 text-xs leading-5 text-muted-foreground">
-                    {t(
-                      '複数の絵文字をゼロ幅接合子（U+200D）でつないだシーケンスです。',
-                      'A sequence that joins multiple emoji with the zero-width joiner (U+200D).',
-                    )}
-                  </p>
-                )}
+                <p className="mt-4 text-xs leading-5 text-muted-foreground">
+                  {t(
+                    '顔文字は通常の文字の並びです。表示が崩れる場合はエスケープした出力を使ってください。',
+                    'Kaomoji are ordinary character sequences. Use an escaped output when the raw text does not survive transport.',
+                  )}
+                </p>
               </div>
               <div>
-                <OutputRow label={t('テキスト', 'Text')} value={emoji.selected.emoji} />
-                <OutputRow label="Unicode" value={getEmojiCodePoints(emoji.selected.emoji)} />
+                <OutputRow label={t('テキスト', 'Text')} value={kaomoji.selected.kaomoji} />
+                <OutputRow label="Unicode" value={getKaomojiCodePoints(kaomoji.selected.kaomoji)} />
                 <OutputRow
-                  label={t('HTML（16進）', 'HTML (hex)')}
-                  value={getEmojiHtml(emoji.selected.emoji)}
+                  label={t('HTMLエンティティ', 'HTML entities')}
+                  value={getKaomojiHtml(kaomoji.selected.kaomoji)}
                 />
                 <OutputRow
-                  label={t('HTML（10進）', 'HTML (decimal)')}
-                  value={getEmojiHtmlDecimal(emoji.selected.emoji)}
+                  label={t('JS・JSONエスケープ', 'JS / JSON escape')}
+                  value={getKaomojiUnicodeEscape(kaomoji.selected.kaomoji)}
                 />
               </div>
             </div>
@@ -249,16 +231,16 @@ export const EmojiWorkspace = ({ tool }: WorkspaceProps) => {
                 <div className="space-y-2">
                   <Label>{t('生成するカテゴリ', 'Generation category')}</Label>
                   <Select
-                    value={emoji.category}
+                    value={kaomoji.category}
                     onValueChange={(value) =>
-                      value && emoji.setCategory(value as EmojiCategory | 'all')
+                      value && kaomoji.setCategory(value as KaomojiCategory | 'all')
                     }
                   >
                     <SelectTrigger className="w-full">
-                      <SelectValue>{categoryLabel(emoji.category, t)}</SelectValue>
+                      <SelectValue>{categoryLabel(kaomoji.category, t)}</SelectValue>
                     </SelectTrigger>
                     <SelectContent>
-                      {emojiCategories.map((category) => (
+                      {kaomojiCategories.map((category) => (
                         <SelectItem key={category} value={category}>
                           {categoryLabel(category, t)}
                         </SelectItem>
@@ -267,25 +249,25 @@ export const EmojiWorkspace = ({ tool }: WorkspaceProps) => {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="emoji-count">{t('個数（最大30）', 'Count (max 30)')}</Label>
+                  <Label htmlFor="kaomoji-count">{t('個数', 'Count')}</Label>
                   <Input
-                    id="emoji-count"
+                    id="kaomoji-count"
                     type="number"
                     min={1}
                     max={30}
-                    value={emoji.count}
-                    onChange={(event) => emoji.setCount(Number(event.target.value))}
+                    value={kaomoji.count}
+                    onChange={(event) => kaomoji.setCount(Number(event.target.value))}
                   />
                 </div>
               </div>
-              <Button onClick={emoji.generate}>
+              <Button onClick={kaomoji.generate}>
                 <Dices className="size-4" />
-                {t('絵文字を生成', 'Generate emoji')}
+                {t('顔文字を生成', 'Generate kaomoji')}
               </Button>
               <p className="text-xs text-muted-foreground">
                 {t(
-                  'Unicode絵文字をカテゴリからランダムに選びます。',
-                  'Randomly pick Unicode emoji from the selected category.',
+                  'カテゴリから顔文字をランダムに選び、1行に1つずつ出力します。',
+                  'Randomly pick kaomoji from the selected category, one per line.',
                 )}
               </p>
             </div>
@@ -296,32 +278,26 @@ export const EmojiWorkspace = ({ tool }: WorkspaceProps) => {
                   <CardTitle className="text-sm font-medium">
                     {t('生成結果', 'Generated result')}
                   </CardTitle>
-                  <CopyButton value={emoji.generatedOutput} />
+                  <CopyButton value={kaomoji.generatedOutput} />
                 </div>
               </CardHeader>
               <CardContent className="space-y-4 p-5">
-                <div className="flex min-h-28 items-center justify-center rounded-lg border bg-background p-4 text-center text-4xl leading-relaxed">
-                  {emoji.generatedOutput}
-                </div>
                 <Textarea
                   readOnly
-                  value={emoji.generatedOutput}
+                  value={kaomoji.generatedOutput}
                   aria-label={t('生成結果', 'Generated result')}
-                  className="min-h-20 resize-none bg-background text-center text-lg"
+                  className="min-h-40 resize-none bg-background text-sm"
                 />
                 <div className="flex flex-wrap gap-2">
-                  {emoji.generatedTiles.map(({ item, key }) => (
+                  {kaomoji.generatedTiles.map(({ item, key }) => (
                     <Button
                       key={key}
                       variant="outline"
                       size="sm"
                       title={item.name[locale]}
-                      onClick={() => emoji.select(item)}
+                      onClick={() => kaomoji.select(item)}
                     >
-                      <span className="text-lg" aria-hidden="true">
-                        {item.emoji}
-                      </span>
-                      {item.name[locale]}
+                      {item.kaomoji}
                     </Button>
                   ))}
                 </div>
