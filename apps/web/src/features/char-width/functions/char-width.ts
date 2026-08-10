@@ -1,3 +1,8 @@
+import { hiraganaToKatakana, katakanaToHiragana } from '@/libs/domain/kana'
+
+// Re-exported so callers of this tool keep one import for every kana concern.
+export { hiraganaToKatakana, katakanaToHiragana }
+
 export type WidthDirection = 'toFullWidth' | 'toHalfWidth'
 export type WidthTarget = 'alphanumeric' | 'symbol' | 'katakana' | 'space'
 export type KanaConversion = 'none' | 'toKatakana' | 'toHiragana'
@@ -45,10 +50,6 @@ const voicedToFull = pairs(VOICED_BASE, VOICED_FULL)
 const semiVoicedToFull = pairs(SEMI_VOICED_BASE, SEMI_VOICED_FULL)
 const fullToVoiced = pairs(VOICED_FULL, VOICED_BASE)
 const fullToSemiVoiced = pairs(SEMI_VOICED_FULL, SEMI_VOICED_BASE)
-
-const HIRAGANA_START = 0x3041
-const HIRAGANA_END = 0x3096
-const KANA_OFFSET = 0x60
 
 const isAsciiAlphanumeric = (code: number) =>
   (code >= 0x30 && code <= 0x39) || (code >= 0x41 && code <= 0x5a) || (code >= 0x61 && code <= 0x7a)
@@ -110,20 +111,6 @@ const katakanaToHalfWidth = (value: string) =>
     const semiVoiced = fullToSemiVoiced.get(character)
     if (semiVoiced) return `${semiVoiced}${SEMI_VOICED_MARK}`
     return fullToHalfKana.get(character) ?? character
-  }).join('')
-
-export const hiraganaToKatakana = (value: string) =>
-  Array.from(value, (character) => {
-    const code = character.codePointAt(0) ?? 0
-    return code >= HIRAGANA_START && code <= HIRAGANA_END
-      ? String.fromCodePoint(code + KANA_OFFSET)
-      : character
-  }).join('')
-
-export const katakanaToHiragana = (value: string) =>
-  Array.from(value, (character) => {
-    const code = (character.codePointAt(0) ?? 0) - KANA_OFFSET
-    return code >= HIRAGANA_START && code <= HIRAGANA_END ? String.fromCodePoint(code) : character
   }).join('')
 
 export const convertCharWidth = (value: string, options: CharWidthOptions) => {

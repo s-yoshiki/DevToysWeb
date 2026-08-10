@@ -2,12 +2,48 @@ import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
 import {
   filterKaomoji,
-  generateKaomoji,
   getKaomojiCodePoints,
   getKaomojiHtml,
   getKaomojiUnicodeEscape,
   kaomojiCatalog,
+  kaomojiCategories,
 } from './kaomoji'
+import {
+  buildKaomoji,
+  defaultKaomojiParts,
+  kaomojiArms,
+  kaomojiBrackets,
+  kaomojiDecorations,
+  kaomojiEyes,
+  kaomojiMouths,
+  randomKaomojiParts,
+} from './kaomoji-parts'
+
+describe('kaomojiCatalog', () => {
+  it('holds no duplicate kaomoji', () => {
+    const seen = new Set(kaomojiCatalog.map((item) => item.kaomoji))
+    assert.equal(seen.size, kaomojiCatalog.length)
+  })
+
+  it('gives every entry both locales and a listed category', () => {
+    const categories = new Set(kaomojiCategories)
+    for (const item of kaomojiCatalog) {
+      assert.ok(item.name.ja.length > 0, `${item.kaomoji} has no Japanese name`)
+      assert.ok(item.name.en.length > 0, `${item.kaomoji} has no English name`)
+      assert.ok(categories.has(item.category), `${item.kaomoji} has an unlisted category`)
+    }
+  })
+
+  it('fills every category with entries', () => {
+    for (const category of kaomojiCategories) {
+      if (category === 'all') continue
+      assert.ok(
+        kaomojiCatalog.some((item) => item.category === category),
+        `${category} is empty`,
+      )
+    }
+  })
+})
 
 describe('filterKaomoji', () => {
   it('matches Japanese and English names', () => {
@@ -17,6 +53,20 @@ describe('filterKaomoji', () => {
 
   it('matches the kaomoji characters themselves', () => {
     assert.equal(filterKaomoji(kaomojiCatalog, '(T_T)', 'all')[0]?.name.en, 'sobbing')
+  })
+
+  it('ignores whether the query is hiragana, katakana, or half-width', () => {
+    const hiragana = filterKaomoji(kaomojiCatalog, 'ねこ', 'all')
+    assert.ok(hiragana.length > 0)
+    assert.deepEqual(filterKaomoji(kaomojiCatalog, 'ネコ', 'all'), hiragana)
+    assert.deepEqual(filterKaomoji(kaomojiCatalog, 'ﾈｺ', 'all'), hiragana)
+  })
+
+  it('ignores full-width and letter case in latin queries', () => {
+    const plain = filterKaomoji(kaomojiCatalog, 'cat', 'all')
+    assert.ok(plain.length > 0)
+    assert.deepEqual(filterKaomoji(kaomojiCatalog, 'CAT', 'all'), plain)
+    assert.deepEqual(filterKaomoji(kaomojiCatalog, 'ｃａｔ', 'all'), plain)
   })
 
   it('combines a search query with a category filter', () => {
@@ -52,14 +102,50 @@ describe('kaomoji output helpers', () => {
   })
 })
 
-describe('generateKaomoji', () => {
-  it('clamps the count and can be made deterministic', () => {
-    const values = generateKaomoji(kaomojiCatalog.slice(0, 2), 40, () => 0)
-    assert.equal(values.length, 30)
-    assert.ok(values.every((item) => item.kaomoji === kaomojiCatalog[0].kaomoji))
+describe('buildKaomoji', () => {
+  it('nests parts outward from the face', () => {
+    assert.equal(
+      buildKaomoji({
+        brackets: 'round',
+        eyes: 'caret',
+        mouth: 'under',
+        arms: 'raise',
+        decoration: 'none',
+      }),
+      'ヽ(^_^)ﾉ',
+    )
   })
 
-  it('falls back to an empty result when the source is empty', () => {
-    assert.deepEqual(generateKaomoji([], 5), [])
+  it('omits parts set to none', () => {
+    assert.equal(buildKaomoji(defaultKaomojiParts), '(^_^)')
+    assert.equal(buildKaomoji({ ...defaultKaomojiParts, brackets: 'none', mouth: 'none' }), '^^')
+  })
+
+  it('wraps the whole face in the decoration', () => {
+    assert.equal(buildKaomoji({ ...defaultKaomojiParts, decoration: 'star' }), '☆(^_^)☆')
+  })
+
+  it('falls back to the first option for an unknown part id', () => {
+    assert.equal(buildKaomoji({ ...defaultKaomojiParts, eyes: 'nope' }), '(^_^)')
+  })
+})
+
+describe('randomKaomojiParts', () => {
+  it('picks the first option of every table when random returns zero', () => {
+    const parts = randomKaomojiParts(() => 0)
+    assert.deepEqual(parts, {
+      brackets: kaomojiBrackets[0].id,
+      eyes: kaomojiEyes[0].id,
+      mouth: kaomojiMouths[0].id,
+      arms: kaomojiArms[0].id,
+      decoration: kaomojiDecorations[0].id,
+    })
+  })
+
+  it('always produces a selection that builds', () => {
+    for (let seed = 0; seed < 20; seed += 1) {
+      const parts = randomKaomojiParts(() => seed / 20)
+      assert.equal(typeof buildKaomoji(parts), 'string')
+    }
   })
 })
