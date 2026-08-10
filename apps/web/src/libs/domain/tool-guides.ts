@@ -914,16 +914,18 @@ export const toolGuides: Record<string, ToolGuide> = {
   kaomoji: {
     usage: {
       ja: [
-        '一覧・検索モードで、名前・キーワード・顔文字そのものから探します。カテゴリで絞り込むこともできます。',
-        '顔文字を選ぶと、そのままのテキスト・Unicodeコード・HTMLエンティティ・JS/JSONエスケープをコピーできます。',
+        '一覧・検索モードで、名前・キーワード・顔文字そのものから探します。ひらがな・カタカナ・半角カナはどれで入力しても同じ結果になります。',
+        'タイルをクリックすると、その顔文字がクリップボードへコピーされます。',
+        '右のパネルでは、選んだ顔文字のUnicodeコード・HTMLエンティティ・JS/JSONエスケープも確認してコピーできます。',
         'ソースコードへ埋め込むときは、JS・JSONエスケープの出力を使うとファイルをASCIIのまま保てます。',
-        'ランダム生成モードでカテゴリと個数を指定すると、1行に1つずつ顔文字を出力します。',
+        'パーツ組み立てモードでは、目・口・輪郭・腕・飾りを選んで独自の顔文字を作れます。迷ったらランダムボタンで組み替えます。',
       ],
       en: [
-        'Use Browse & search to find kaomoji by name, keyword, or the characters themselves, and filter by category.',
-        'Select one to copy the raw text, its Unicode code points, HTML entities, or a JS/JSON escape.',
+        'Use Browse & search to find kaomoji by name, keyword, or the characters themselves; hiragana, katakana, and half-width kana all match the same entries.',
+        'Click a tile to copy that kaomoji straight to the clipboard.',
+        'The side panel also shows the selected kaomoji as Unicode code points, HTML entities, and a JS/JSON escape.',
         'Use the JS / JSON escape output when embedding a kaomoji in source that has to stay ASCII.',
-        'Use Random generate to pick a category and count; results are printed one per line.',
+        'Switch to Parts builder to assemble your own from eyes, mouth, outline, arms, and decoration, or hit randomise for a starting point.',
       ],
     },
     notes: {
