@@ -135,3 +135,7 @@ pnpm --filter @devtoys/web dev:mock   # next dev with the service worker enabled
   targeted fixes when useful.
 - Do not commit generated build output or local environment files.
 - Summarize changed behavior and list the validation commands actually run.
+
+## Architecture decisions
+
+Record new technical decisions in `docs/adr/` before implementation. Keep the ADR concise and link related historical material when it exists.
