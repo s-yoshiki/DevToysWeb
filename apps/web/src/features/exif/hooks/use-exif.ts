@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import { type ExifEntry, hasLocationData, readExif } from '@/features/exif/functions/exif'
-import { maxImageFileSize, stripMetadata } from '@/libs/domain/image'
 import { useTranslate } from '@/hooks/use-translate'
+import { maxImageFileSize, stripMetadata } from '@/libs/domain/image'
 
 export const useExif = () => {
   const t = useTranslate()

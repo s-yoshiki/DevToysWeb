@@ -1,18 +1,18 @@
 'use client'
 
+import { BatchFileList } from '@/components/batch-file-list'
+import { SegmentedControl } from '@/components/segmented-control'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { BatchFileList } from '@/components/batch-file-list'
-import { SegmentedControl } from '@/components/segmented-control'
 import { WorkspaceShell } from '@/components/workspace-shell'
+import { maxBatchFiles } from '@/hooks/use-image-batch'
+import { useTranslate } from '@/hooks/use-translate'
 import { formatBytes } from '@/libs/domain/bytes'
 import { type ImageFormat, imageFormatLabels, imageFormats } from '@/libs/domain/image'
-import { maxBatchFiles } from '@/hooks/use-image-batch'
 import type { WorkspaceProps } from '@/workspaces/types'
-import { useTranslate } from '@/hooks/use-translate'
 import { useImageFormat } from '../hooks/use-image-format'
 
 const formatOptions = imageFormats.map((value) => ({ value, label: imageFormatLabels[value] }))

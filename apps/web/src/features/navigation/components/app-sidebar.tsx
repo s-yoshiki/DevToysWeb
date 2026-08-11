@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useLocale } from '@/components/locale-provider'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { useRecentTools } from '@/hooks/use-recent-tools'
 import {
   categoryOrder as categories,
   type ToolCategory,
@@ -14,7 +15,6 @@ import {
   tools,
 } from '@/libs/domain/catalog'
 import { getToolPath, isSamePath } from '@/libs/domain/tool-path'
-import { useRecentTools } from '@/hooks/use-recent-tools'
 import { cn } from '@/libs/utils'
 
 const storageKey = 'devtoys:collapsed-categories'

@@ -1,13 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import {
-  type ImageFormat,
-  maxImageFileSize,
-  withImageExtension,
-} from '@/libs/domain/image'
 import { useImageBatch } from '@/hooks/use-image-batch'
 import { useTranslate } from '@/hooks/use-translate'
+import { type ImageFormat, maxImageFileSize, withImageExtension } from '@/libs/domain/image'
 import { convertHeic, isHeicFile } from '../functions/heic'
 
 /** Canvas can encode all three, and none of them need a HEVC licence to open. */

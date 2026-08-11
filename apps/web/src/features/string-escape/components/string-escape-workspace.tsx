@@ -1,16 +1,16 @@
 'use client'
 
-import { useLocale } from '@/components/locale-provider'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { CodeEditor } from '@/components/code-editor'
 import { languageForFormat } from '@/components/code-editor-language'
 import { CopyButton } from '@/components/copy-button'
+import { useLocale } from '@/components/locale-provider'
 import { SegmentedControl } from '@/components/segmented-control'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes'
 import { WorkspaceShell } from '@/components/workspace-shell'
+import { useTranslate } from '@/hooks/use-translate'
 import { type EscapeTarget, escapeTargets } from '@/libs/domain/text-tools'
 import type { WorkspaceProps } from '@/workspaces/types'
-import { useTranslate } from '@/hooks/use-translate'
 import { useStringEscape } from '../hooks/use-string-escape'
 
 const escapeLabels: Record<EscapeTarget, string> = {

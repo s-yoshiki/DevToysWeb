@@ -3,9 +3,9 @@
 import { CircleAlert, Download, Loader2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import type { BatchItem } from '@/hooks/use-image-batch'
 import { useTranslate } from '@/hooks/use-translate'
 import { formatBytes } from '@/libs/domain/bytes'
-import type { BatchItem } from '@/hooks/use-image-batch'
 
 /** Per-file outcome list shared by the batch image tools. */
 export const BatchFileList = ({

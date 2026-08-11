@@ -61,8 +61,7 @@ export const dateDifference = (a: Date, b: Date): DateDifference => {
 
   // Anchor `from` forward by as many whole months as fit without passing `to`,
   // then measure the leftover span. This avoids the day-borrowing edge cases.
-  let totalMonths =
-    (to.getFullYear() - from.getFullYear()) * 12 + (to.getMonth() - from.getMonth())
+  let totalMonths = (to.getFullYear() - from.getFullYear()) * 12 + (to.getMonth() - from.getMonth())
   if (addCalendarMonths(from, totalMonths) > to) totalMonths--
   const anchor = addCalendarMonths(from, totalMonths)
 
