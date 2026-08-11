@@ -1,11 +1,11 @@
 'use client'
 
-import { Card, CardContent } from '@/components/ui/card'
 import { CodeEditor } from '@/components/code-editor'
+import { Card, CardContent } from '@/components/ui/card'
 import { ErrorBanner, Pane, PaneHeader } from '@/components/workspace-panes'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useMermaid } from '../hooks/use-mermaid'
 
 export const MermaidWorkspace = ({ tool }: WorkspaceProps) => {

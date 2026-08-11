@@ -1,11 +1,11 @@
 'use client'
 
 import { History } from 'lucide-react'
+import { CopyButton } from '@/components/copy-button'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { CopyButton } from '@/components/copy-button'
 import { useTranslate } from '@/hooks/use-translate'
 import { cn } from '@/libs/utils'
 import type { CalculatorKey } from '../functions/keypads'

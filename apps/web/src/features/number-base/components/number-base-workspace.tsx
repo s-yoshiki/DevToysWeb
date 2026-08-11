@@ -1,15 +1,15 @@
 'use client'
 
+import { CopyButton } from '@/components/copy-button'
+import { ToggleRow } from '@/components/segmented-control'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { CopyButton } from '@/components/copy-button'
-import { ToggleRow } from '@/components/segmented-control'
 import { ErrorBanner } from '@/components/workspace-panes'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { maxBase, minBase } from '../functions/number-base'
 import { useNumberBase } from '../hooks/use-number-base'
 

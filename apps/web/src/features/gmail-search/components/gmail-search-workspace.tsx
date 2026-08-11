@@ -7,14 +7,10 @@ import {
   SwitchField,
   TextField,
 } from '@/components/search/fields'
-import {
-  FiltersCard,
-  SearchPreview,
-  SectionHeading,
-} from '@/components/search/search-layout'
+import { FiltersCard, SearchPreview, SectionHeading } from '@/components/search/search-layout'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { gmailAgeUnits, gmailCategories, gmailLocations, gmailStates } from '../functions/constants'
 import { useGmailSearch } from '../hooks/use-gmail-search'
 

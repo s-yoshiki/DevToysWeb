@@ -1,15 +1,15 @@
 'use client'
 
+import { CodeEditor } from '@/components/code-editor'
+import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { CodeEditor } from '@/components/code-editor'
-import { CopyButton } from '@/components/copy-button'
 import { Pane, PaneHeader } from '@/components/workspace-panes'
 import { WorkspaceShell } from '@/components/workspace-shell'
+import { useTranslate } from '@/hooks/use-translate'
 import { formatBytes } from '@/libs/domain/bytes'
 import type { WorkspaceProps } from '@/workspaces/types'
-import { useTranslate } from '@/hooks/use-translate'
 import { useSvgOptimizer } from '../hooks/use-svg-optimizer'
 
 const checkerboard =

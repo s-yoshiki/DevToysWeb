@@ -1,17 +1,17 @@
 'use client'
 
 import { LoaderCircle, Search } from 'lucide-react'
+import { CopyButton } from '@/components/copy-button'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { CopyButton } from '@/components/copy-button'
 import { ErrorBanner } from '@/components/workspace-panes'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useWhois } from '../hooks/use-whois'
 
 const summaryOrder = ['registrar', 'createdAt', 'updatedAt', 'expiresAt', 'status'] as const

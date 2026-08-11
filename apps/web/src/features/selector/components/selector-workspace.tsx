@@ -1,15 +1,15 @@
 'use client'
 
+import { CopyButton } from '@/components/copy-button'
+import { SegmentedControl } from '@/components/segmented-control'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import type { SelectorMode } from '@/features/selector/functions/selector'
-import { CopyButton } from '@/components/copy-button'
-import { SegmentedControl } from '@/components/segmented-control'
 import { CodeArea, Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import type { WorkspaceProps } from '@/workspaces/types'
+import type { SelectorMode } from '@/features/selector/functions/selector'
 import { useTranslate } from '@/hooks/use-translate'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useSelector } from '../hooks/use-selector'
 
 const modeOptions: { value: SelectorMode; label: string }[] = [

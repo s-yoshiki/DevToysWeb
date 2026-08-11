@@ -1,11 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import {
-  defaultListOptions,
-  formatList,
-  type ListOptions,
-} from '@/libs/domain/text-tools'
+import { defaultListOptions, formatList, type ListOptions } from '@/libs/domain/text-tools'
 
 const sampleList = `banana
 apple

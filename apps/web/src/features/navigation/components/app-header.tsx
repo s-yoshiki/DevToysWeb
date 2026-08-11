@@ -9,11 +9,7 @@ import { useLocale } from '@/components/locale-provider'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import {
-  categoryOrder as categories,
-  type ToolDefinition,
-  tools,
-} from '@/libs/domain/catalog'
+import { categoryOrder as categories, type ToolDefinition, tools } from '@/libs/domain/catalog'
 import { getToolPath, isSamePath } from '@/libs/domain/tool-path'
 import { cn } from '@/libs/utils'
 import { CommandPalette, useCommandPalette } from './command-palette'

@@ -1,15 +1,15 @@
 'use client'
 
 import { Download, Eraser, Pencil, Redo2, Trash2, Undo2 } from 'lucide-react'
+import { SegmentedControl } from '@/components/segmented-control'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { SegmentedControl } from '@/components/segmented-control'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
 import { cn } from '@/libs/utils'
+import type { WorkspaceProps } from '@/workspaces/types'
 import type { Background } from '../functions/canvas'
 import { brushColors, useDrawing } from '../hooks/use-drawing'
 

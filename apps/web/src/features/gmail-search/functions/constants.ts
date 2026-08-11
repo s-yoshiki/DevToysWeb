@@ -1,10 +1,10 @@
+import type { Bilingual } from '@/components/search/types'
 import type {
   GmailAgeUnit,
   GmailCategory,
   GmailLocation,
   GmailState,
 } from '@/features/gmail-search/functions/gmail-search'
-import type { Bilingual } from '@/components/search/types'
 
 export const gmailCategories: { value: GmailCategory; label: Bilingual }[] = [
   { value: '', label: { ja: '指定しない', en: 'Any category' } },

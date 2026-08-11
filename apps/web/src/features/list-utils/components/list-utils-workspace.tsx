@@ -1,12 +1,12 @@
 'use client'
 
+import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { CopyButton } from '@/components/copy-button'
 import { CodeArea, Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useListUtils } from '../hooks/use-list-utils'
 import { ListOptionsPanel } from './list-options-panel'
 
