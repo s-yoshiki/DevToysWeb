@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "turbo run build",
-    "deploy": "pnpm --filter @devtoys/infra deploy",
+    "deploy": "pnpm --filter @repo/infra deploy",
     "dev": "turbo run dev",
     "format": "biome format --write .",
     "format:check": "biome format .",

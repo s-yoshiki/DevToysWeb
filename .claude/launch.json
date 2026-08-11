@@ -4,14 +4,14 @@
     {
       "name": "web",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "@devtoys/web", "dev"],
+      "runtimeArgs": ["--filter", "@repo/web", "dev"],
       "port": 3000,
       "autoPort": true
     },
     {
       "name": "web-mock",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "@devtoys/web", "dev:mock"],
+      "runtimeArgs": ["--filter", "@repo/web", "dev:mock"],
       "port": 3000,
       "autoPort": true
     }
