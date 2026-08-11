@@ -1,8 +1,8 @@
 'use client'
 
 import { type MouseEvent as ReactMouseEvent, useCallback, useEffect, useRef, useState } from 'react'
-import { maxImageFileSize } from '@/libs/domain/image'
 import { useTranslate } from '@/hooks/use-translate'
+import { maxImageFileSize } from '@/libs/domain/image'
 import { knockOutColor, parseHexColor, toHexColor } from '../functions/png-transparent'
 
 type Source = { width: number; height: number; pixels: Uint8ClampedArray; name: string }

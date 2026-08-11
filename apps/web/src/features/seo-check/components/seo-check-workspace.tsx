@@ -10,9 +10,9 @@ import { Label } from '@/components/ui/label'
 import { ErrorBanner } from '@/components/workspace-panes'
 import { WorkspaceShell } from '@/components/workspace-shell'
 import { usePageReport } from '@/hooks/use-page-report'
-import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
 import { cn } from '@/libs/utils'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { auditSeo, type CheckLevel, countByLevel, scoreOf } from '../functions/seo-audit'
 
 const levelIcon: Record<CheckLevel, React.ReactNode> = {

@@ -3,8 +3,8 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { CodeArea, Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useTextDiff } from '../hooks/use-text-diff'
 
 export const TextDiffWorkspace = ({ tool }: WorkspaceProps) => {

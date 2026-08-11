@@ -1,15 +1,15 @@
 'use client'
 
-import { Card, CardContent } from '@/components/ui/card'
-import { type CurlTarget, curlTargets } from '@/features/curl/functions/curl'
 import { CodeEditor } from '@/components/code-editor'
 import { languageForFormat } from '@/components/code-editor-language'
 import { CopyButton } from '@/components/copy-button'
 import { SegmentedControl } from '@/components/segmented-control'
+import { Card, CardContent } from '@/components/ui/card'
 import { Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import type { WorkspaceProps } from '@/workspaces/types'
+import { type CurlTarget, curlTargets } from '@/features/curl/functions/curl'
 import { useTranslate } from '@/hooks/use-translate'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useCurlConverter } from '../hooks/use-curl-converter'
 
 const targetOptions = curlTargets.map((value) => ({ value, label: value }))

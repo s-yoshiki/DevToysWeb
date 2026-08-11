@@ -1,11 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import {
-  type AngleMode,
-  evaluateExpression,
-  formatResult,
-} from '@/features/calculator/expression'
+import { type AngleMode, evaluateExpression, formatResult } from '@/features/calculator/expression'
 
 export type HistoryEntry = { id: string; expression: string; result: string }
 

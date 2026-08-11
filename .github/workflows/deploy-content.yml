@@ -42,7 +42,7 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @devtoys/web build
+      - run: pnpm verify
 
       - name: Validate AWS deployment configuration
         run: |

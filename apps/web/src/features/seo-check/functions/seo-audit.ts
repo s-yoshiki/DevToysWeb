@@ -1,5 +1,5 @@
-import type { SiteReport } from '@/libs/api/diagnostics-client'
 import type { Locale } from '@/i18n/dictionaries'
+import type { SiteReport } from '@/libs/api/diagnostics-client'
 
 export type CheckLevel = 'pass' | 'warn' | 'fail'
 

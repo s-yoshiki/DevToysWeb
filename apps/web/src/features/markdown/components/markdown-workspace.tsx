@@ -1,12 +1,12 @@
 'use client'
 
-import { Card, CardContent } from '@/components/ui/card'
 import { CodeEditor } from '@/components/code-editor'
 import { CopyButton } from '@/components/copy-button'
+import { Card, CardContent } from '@/components/ui/card'
 import { Pane, PaneHeader } from '@/components/workspace-panes'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useMarkdownPreview } from '../hooks/use-markdown-preview'
 
 export const MarkdownWorkspace = ({ tool }: WorkspaceProps) => {

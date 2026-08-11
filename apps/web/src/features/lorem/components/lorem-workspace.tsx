@@ -1,18 +1,18 @@
 'use client'
 
 import { Play } from 'lucide-react'
+import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
+import { SegmentedControl, ToggleRow } from '@/components/segmented-control'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import type { LoremLanguage, LoremUnit } from '@/features/lorem/functions/lorem'
-import { CopyButton } from '@/components/copy-button'
-import { SegmentedControl, ToggleRow } from '@/components/segmented-control'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import type { WorkspaceProps } from '@/workspaces/types'
+import type { LoremLanguage, LoremUnit } from '@/features/lorem/functions/lorem'
 import { useTranslate } from '@/hooks/use-translate'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useLorem } from '../hooks/use-lorem'
 
 export const LoremWorkspace = ({ tool }: WorkspaceProps) => {

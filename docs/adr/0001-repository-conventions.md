@@ -1,4 +1,4 @@
-# ADR 0001: 設定・コマンド・エージェント運用の共通規約
+# ADR 0001: ex-foundry リポジトリ規約
 
 - Status: Accepted
 - Date: 2026-08-11
@@ -12,6 +12,7 @@ ex-foundry のサービス間で、Biome、TypeScript、品質チェック、設
 - 実体のあるBiome設定は `configs/biome/` に置き、ルートの `biome.json` は入口として `extends` する。
 - 共有TypeScript設定は `configs/tsconfig/` の `@repo/typescript-config` workspace package に集約する。
 - ルートの `package.json` は `check`、`check:fix`、`format`、`format:check`、`lint`、`typecheck`、`test`、`build`、`deploy` を標準コマンド名とし、カバレッジ対応サービスでは `test:coverage` も提供する。サービス固有の前処理は各スクリプトの中に残す。
+- `verify` は `check`、`typecheck`、`test`、`build` をこの順に実行するCIの入口とし、GitHub Actionsも `pnpm verify` を呼び出す。デプロイ固有の処理はその後に残す。
 - 技術的な判断は `docs/adr/` に記録する。
 - リポジトリ固有のエージェント手順は `.agents/skills/ex-foundry-maintainer/` に置く。外部状態を変更するコマンドは明示的な依頼なしに実行しない。
 

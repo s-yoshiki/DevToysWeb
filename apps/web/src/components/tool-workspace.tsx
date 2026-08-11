@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect } from 'react'
-import { findTool } from '@/libs/domain/catalog'
 import { recordToolVisit } from '@/hooks/use-recent-tools'
+import { findTool } from '@/libs/domain/catalog'
 import { workspaces } from '@/workspaces/registry'
 
 /** Resolves a catalog slug to the workspace that renders it. */

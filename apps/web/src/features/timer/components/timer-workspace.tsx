@@ -1,17 +1,17 @@
 'use client'
 
 import { Pause, Play, RotateCcw, Volume2, VolumeX } from 'lucide-react'
+import { ToggleRow } from '@/components/segmented-control'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { ToggleRow } from '@/components/segmented-control'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import { formatClock } from '@/libs/domain/duration'
-import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
+import { formatClock } from '@/libs/domain/duration'
 import { cn } from '@/libs/utils'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useTimer } from '../hooks/use-timer'
 
 const presets = [60, 180, 300, 600, 900, 1800]
