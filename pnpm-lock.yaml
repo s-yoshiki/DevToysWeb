@@ -24,6 +24,9 @@ importers:
         specifier: ^4.12.30
         version: 4.12.30
     devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../configs/tsconfig
       '@types/aws-lambda':
         specifier: ^8.10.152
         version: 8.10.162
@@ -124,6 +127,9 @@ importers:
         specifier: ^3.7.0
         version: 3.7.0
     devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../configs/tsconfig
       '@tailwindcss/postcss':
         specifier: ^4.3.2
         version: 4.3.2
@@ -161,6 +167,8 @@ importers:
         specifier: npm:@typescript/typescript6@^6.0.2
         version: '@typescript/typescript6@6.0.2'
 
+  configs/tsconfig: {}
+
   scripts/infra:
     dependencies:
       aws-cdk-lib:
@@ -170,6 +178,9 @@ importers:
         specifier: ^10.4.2
         version: 10.6.0
     devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../configs/tsconfig
       '@types/node':
         specifier: ^26.1.1
         version: 26.1.1

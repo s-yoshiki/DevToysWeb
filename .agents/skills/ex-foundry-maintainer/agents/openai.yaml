@@ -1,0 +1,4 @@
+interface:
+  display_name: "ex-foundry maintainer"
+  short_description: "Maintain ex-foundry service conventions"
+  default_prompt: "Use the ex-foundry repository workflow for this task."
