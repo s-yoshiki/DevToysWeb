@@ -18,7 +18,6 @@ type DevToysStackProps = cdk.StackProps & {
   domainName: string
   hostedZoneId: string
   hostedZoneName: string
-  additionalDomainNames?: readonly string[]
   certificate: acm.ICertificate
 }
 
@@ -56,7 +55,7 @@ export class DevToysStack extends cdk.Stack {
     })
 
     const distribution = new cloudfront.Distribution(this, 'Distribution', {
-      domainNames: [props.domainName, ...(props.additionalDomainNames ?? [])],
+      domainNames: [props.domainName],
       certificate: props.certificate,
       defaultRootObject: 'index.html',
       defaultBehavior: {
