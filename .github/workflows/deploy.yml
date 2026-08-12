@@ -32,7 +32,6 @@ jobs:
       EXPECTED_AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID || '822013579886' }}
       # Keeps the CDK target region identical to the credentials region below.
       CDK_DEPLOY_REGION: ${{ vars.AWS_REGION || 'ap-northeast-1' }}
-      NEXT_PUBLIC_SITE_URL: ${{ github.event_name == 'push' && 'https://ex-foundry.com' || inputs.environment == 'prd' && 'https://ex-foundry.com' || 'https://dev.devtoys.ex-foundry.com' }}
     steps:
       - uses: actions/checkout@v4
 
