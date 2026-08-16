@@ -1,17 +1,17 @@
 'use client'
 
 import { Download, Pipette } from 'lucide-react'
+import { ToggleRow } from '@/components/segmented-control'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { ToggleRow } from '@/components/segmented-control'
 import { ErrorBanner } from '@/components/workspace-panes'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
 import { cn } from '@/libs/utils'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { usePngTransparent } from '../hooks/use-png-transparent'
 
 const transparencyPattern =

@@ -5,9 +5,9 @@ import { useId, useMemo, useState } from 'react'
 import { useLocale } from '@/components/locale-provider'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { cn } from '@/libs/utils'
-import { categoryOrder as categories, type ToolCategory, tools } from '@/libs/domain/catalog'
 import { useRecentTools } from '@/hooks/use-recent-tools'
+import { categoryOrder as categories, type ToolCategory, tools } from '@/libs/domain/catalog'
+import { cn } from '@/libs/utils'
 import { ToolCard } from './tool-card'
 
 const popularSlugs = ['json-format', 'base64', 'jwt', 'regex', 'text-diff', 'qr-code']

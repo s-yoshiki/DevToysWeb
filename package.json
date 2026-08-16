@@ -7,15 +7,18 @@
   },
   "scripts": {
     "build": "turbo run build",
+    "deploy": "pnpm --filter @repo/infra deploy",
     "dev": "turbo run dev",
     "format": "biome format --write .",
     "format:check": "biome format .",
     "lint": "biome lint .",
     "check": "biome check .",
     "check:fix": "biome check --write .",
+    "check-types": "pnpm typecheck",
     "start": "turbo run start",
     "test": "turbo run test",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "verify": "pnpm check && pnpm typecheck && pnpm test && pnpm build"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.3",

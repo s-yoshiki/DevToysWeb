@@ -1,7 +1,9 @@
 'use client'
 
 import { ExternalLink } from 'lucide-react'
+import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
+import { SegmentedControl } from '@/components/segmented-control'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -15,12 +17,10 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { CopyButton } from '@/components/copy-button'
-import { SegmentedControl } from '@/components/segmented-control'
 import { WorkspaceShell } from '@/components/workspace-shell'
+import { useTranslate } from '@/hooks/use-translate'
 import type { BadgeStyle } from '@/workspaces/badge/badge'
 import type { WorkspaceProps } from '@/workspaces/types'
-import { useTranslate } from '@/hooks/use-translate'
 import { useBadge } from './use-badge'
 
 const styles: BadgeStyle[] = ['flat', 'flat-square', 'plastic', 'for-the-badge', 'social']

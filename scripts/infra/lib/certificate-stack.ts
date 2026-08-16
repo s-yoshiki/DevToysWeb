@@ -7,13 +7,6 @@ type CertificateStackProps = cdk.StackProps & {
   domainName: string
   hostedZoneId: string
   hostedZoneName: string
-  subjectAlternativeNames?: readonly string[]
-  validationHostedZones?: Record<string, HostedZoneConfig>
-}
-
-export type HostedZoneConfig = {
-  hostedZoneId: string
-  hostedZoneName: string
 }
 
 /**
@@ -32,29 +25,9 @@ export class CertificateStack extends cdk.Stack {
       zoneName: props.hostedZoneName,
     })
 
-    const validationHostedZones = {
-      [props.domainName]: hostedZone,
-      ...Object.fromEntries(
-        Object.entries(props.validationHostedZones ?? {}).map(([domainName, config]) => [
-          domainName,
-          route53.HostedZone.fromHostedZoneAttributes(
-            this,
-            `ValidationHostedZone${domainName.replace(/[^a-zA-Z0-9]/g, '')}`,
-            {
-              hostedZoneId: config.hostedZoneId,
-              zoneName: config.hostedZoneName,
-            },
-          ),
-        ]),
-      ),
-    }
-
     this.certificate = new acm.Certificate(this, 'SiteCertificate', {
       domainName: props.domainName,
-      subjectAlternativeNames: props.subjectAlternativeNames
-        ? [...props.subjectAlternativeNames]
-        : undefined,
-      validation: acm.CertificateValidation.fromDnsMultiZone(validationHostedZones),
+      validation: acm.CertificateValidation.fromDns(hostedZone),
     })
 
     // CloudFront may still reference the previous certificate while a

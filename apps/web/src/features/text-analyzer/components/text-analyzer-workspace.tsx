@@ -1,12 +1,12 @@
 'use client'
 
+import { CopyButton } from '@/components/copy-button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { CopyButton } from '@/components/copy-button'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useTextAnalyzer } from '../hooks/use-text-analyzer'
 
 const StatTile = ({ label, value }: { label: string; value: number }) => (

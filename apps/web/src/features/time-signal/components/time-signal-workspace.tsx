@@ -2,15 +2,15 @@
 
 import { BellRing, CircleAlert, Volume2 } from 'lucide-react'
 import { useLocale } from '@/components/locale-provider'
+import { SegmentedControl, ToggleRow } from '@/components/segmented-control'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
-import { SegmentedControl, ToggleRow } from '@/components/segmented-control'
 import { WorkspaceShell } from '@/components/workspace-shell'
+import { useTranslate } from '@/hooks/use-translate'
 import { formatClock } from '@/libs/domain/duration'
 import type { WorkspaceProps } from '@/workspaces/types'
-import { useTranslate } from '@/hooks/use-translate'
 import { formatWallClock, type SignalInterval, signalIntervals } from '../functions/time-signal'
 import { type SignalStyle, useTimeSignal } from '../hooks/use-time-signal'
 

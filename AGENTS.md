@@ -14,6 +14,10 @@ DevToysWeb is a pnpm/Turborepo monorepo for a bilingual developer-tool website.
 Use pnpm from the repository root. The expected runtime is Node.js 26 and the package
 manager version is pinned in the root `package.json`.
 
+Workspace packages use the shared `@repo/*` scope. Keep the root project name separate from
+workspace package names, and update package-scoped commands, workflow filters, and docs together
+when renaming a package.
+
 ## Before changing code
 
 1. Read the nearest source files and their callers before editing.
@@ -83,6 +87,7 @@ Run the smallest relevant check during iteration, then the repository-level chec
 hand-off when the scope warrants it.
 
 ```sh
+pnpm verify             # check, typecheck, test, and build in CI order
 pnpm typecheck          # all TypeScript packages
 pnpm lint               # Biome lint
 pnpm format:check       # formatting without modifying files
@@ -93,11 +98,11 @@ pnpm build              # production build and static export
 Package-scoped equivalents are faster for focused work:
 
 ```sh
-pnpm --filter @devtoys/web typecheck
-pnpm --filter @devtoys/web build
-pnpm --filter @devtoys/api test
-pnpm --filter @devtoys/infra typecheck
-pnpm --filter @devtoys/infra synth:dev
+pnpm --filter @repo/web typecheck
+pnpm --filter @repo/web build
+pnpm --filter @repo/api test
+pnpm --filter @repo/infra typecheck
+pnpm --filter @repo/infra synth:dev
 ```
 
 For UI changes, inspect both `/ja/` and `/en/`, plus a representative tool route at mobile
@@ -109,7 +114,7 @@ The server-backed tools (site diagnostics, WHOIS, OGP, SEO, JWT) call `apps/api`
 answers those calls from fixtures so they can be exercised without a Lambda:
 
 ```sh
-pnpm --filter @devtoys/web dev:mock   # next dev with the service worker enabled
+pnpm --filter @repo/web dev:mock   # next dev with the service worker enabled
 ```
 
 - `src/mocks/handlers.ts` mirrors the routes in `apps/api/src/index.ts`, and
@@ -135,3 +140,7 @@ pnpm --filter @devtoys/web dev:mock   # next dev with the service worker enabled
   targeted fixes when useful.
 - Do not commit generated build output or local environment files.
 - Summarize changed behavior and list the validation commands actually run.
+
+## Architecture decisions
+
+Record new technical decisions in `docs/adr/` before implementation. Keep the ADR concise and link related historical material when it exists.

@@ -51,7 +51,7 @@ DNS・TLS・HTTP診断、WHOIS検索、OGPチェック、SEOチェック、JWT�
 
 ```sh
 # service workerを有効にしてdevサーバーを起動
-pnpm --filter @devtoys/web dev:mock
+pnpm --filter @repo/web dev:mock
 ```
 
 ハンドラーは `apps/web/src/mocks/handlers.ts`、フィクスチャーは
@@ -65,7 +65,7 @@ pnpm --filter @devtoys/web dev:mock
 | `redirected.example.com` | リダイレクト後に404 |
 | `localhost` / `10.0.0.1` など | SSRFガードのエラーメッセージ |
 
-`pnpm --filter @devtoys/web test` はNode側の同じハンドラーを使い、APIクライアントの
+`pnpm --filter @repo/web test` はNode側の同じハンドラーを使い、APIクライアントの
 リクエスト内容とエラー処理を検証します。モックは `NEXT_PUBLIC_API_MOCKS=enabled`
 かつ開発ビルドのときだけ読み込まれ、本番の静的出力には含まれません。
 
@@ -79,34 +79,26 @@ Development and CI use Node.js 26. The Lambda currently uses AWS's latest manage
 Node.js runtime (24) until the Node.js 26 managed runtime becomes available.
 
 The site is served from `https://devtoys.ex-foundry.com` (prd) and
-`https://dev.devtoys.ex-foundry.com` (dev). The prd CloudFront distribution can
-temporarily accept `https://ex-foundry.com` as an additional hostname for a
-review, while the parent-zone apex Alias is switched by `s-yoshiki/aws-terraform`.
-Both DevToys names live in the delegated `devtoys.ex-foundry.com` hosted zone.
-CloudFront only accepts certificates from `us-east-1`, so the ACM certificate is
-created by a separate stack pinned to that region and passed to the site stack as
-a cross-region reference — which is why `us-east-1` must be bootstrapped as well.
+`https://dev.devtoys.ex-foundry.com` (dev). Both names live in the delegated
+`devtoys.ex-foundry.com` hosted zone. CloudFront only accepts certificates from
+`us-east-1`, so the ACM certificate is created by a separate stack pinned to that
+region and passed to the site stack as a cross-region reference — which is why
+`us-east-1` must be bootstrapped as well.
 
 ```sh
 # One-time bootstrap for the target account/region. The CDK app is evaluated even
 # for bootstrap, so the environment context is required.
-AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra cdk bootstrap aws://822013579886/ap-northeast-1 --context environment=prd
+AWS_PROFILE=ex-foundry pnpm --filter @repo/infra cdk bootstrap aws://822013579886/ap-northeast-1 --context environment=prd
 # us-east-1 hosts the CloudFront certificate stack
-AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra cdk bootstrap aws://822013579886/us-east-1 --context environment=prd
+AWS_PROFILE=ex-foundry pnpm --filter @repo/infra cdk bootstrap aws://822013579886/us-east-1 --context environment=prd
 
 # Build the static site and deploy dev or prd from your machine.
 # These deploy the certificate stack and the site stack together.
 pnpm install
 pnpm build
-AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra deploy:dev
-AWS_PROFILE=ex-foundry pnpm --filter @devtoys/infra deploy:prd
+AWS_PROFILE=ex-foundry pnpm --filter @repo/infra deploy:dev
+AWS_PROFILE=ex-foundry pnpm --filter @repo/infra deploy:prd
 ```
-
-When the apex is temporarily used as the review URL, build with
-`NEXT_PUBLIC_SITE_URL=https://ex-foundry.com` so canonical, Open Graph, sitemap,
-and robots URLs use the apex. The GitHub Actions deployment workflows set this
-automatically for `prd`; omit the variable after restoring the normal DevToys
-hostname.
 
 The environment stacks are named `DevDevToysStack` and `PrdDevToysStack`, with
 their certificates in `DevDevToysCertificateStack` and `PrdDevToysCertificateStack`.

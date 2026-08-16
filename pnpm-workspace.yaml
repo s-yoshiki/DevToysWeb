@@ -1,5 +1,6 @@
 packages:
   - apps/*
+  - configs/*
   - scripts/*
 
 confirmModulesPurge: false
@@ -7,7 +8,7 @@ confirmModulesPurge: false
 allowBuilds:
   esbuild: true
   # msw's postinstall only prints a funding notice; the worker script is committed
-  # to apps/web/public and refreshed with `pnpm --filter @devtoys/web mock:init`.
+  # to apps/web/public and refreshed with `pnpm --filter @repo/web mock:init`.
   msw: false
   sharp: true
 

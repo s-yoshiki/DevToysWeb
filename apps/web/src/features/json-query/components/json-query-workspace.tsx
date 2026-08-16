@@ -1,14 +1,14 @@
 'use client'
 
+import { ResultCard } from '@/components/result-card'
+import { SegmentedControl } from '@/components/segmented-control'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { ResultCard } from '@/components/result-card'
-import { SegmentedControl } from '@/components/segmented-control'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { type JsonQueryMode, useJsonQuery } from '../hooks/use-json-query'
 
 const modeOptions: { value: JsonQueryMode; label: string }[] = [

@@ -1,18 +1,18 @@
 'use client'
 
 import { Download } from 'lucide-react'
+import { SegmentedControl } from '@/components/segmented-control'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { SegmentedControl } from '@/components/segmented-control'
 import { Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes'
 import { WorkspaceShell } from '@/components/workspace-shell'
+import { useTranslate } from '@/hooks/use-translate'
 import { formatBytes } from '@/libs/domain/bytes'
 import { type ImageFormat, imageFormatLabels, imageFormats } from '@/libs/domain/image'
 import type { WorkspaceProps } from '@/workspaces/types'
-import { useTranslate } from '@/hooks/use-translate'
 import { useImageConvert } from '../hooks/use-image-convert'
 
 const formatOptions = imageFormats.map((value) => ({ value, label: imageFormatLabels[value] }))

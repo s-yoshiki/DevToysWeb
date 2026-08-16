@@ -1,5 +1,5 @@
 {
-  "name": "@devtoys/api",
+  "name": "@repo/api",
   "private": true,
   "engines": {
     "node": ">=26.0.0"
@@ -14,6 +14,7 @@
     "hono": "^4.12.30"
   },
   "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
     "@types/aws-lambda": "^8.10.152",
     "@types/node": "^26.1.1",
     "tsx": "^4.20.3",

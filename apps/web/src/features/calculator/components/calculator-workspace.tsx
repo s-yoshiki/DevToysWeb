@@ -2,8 +2,8 @@
 
 import { Card, CardContent } from '@/components/ui/card'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { basicKeys } from '../functions/keypads'
 import { useCalculator } from '../hooks/use-calculator'
 import { CalculatorDisplay, CalculatorHistory, CalculatorKeypad } from './calculator-panels'

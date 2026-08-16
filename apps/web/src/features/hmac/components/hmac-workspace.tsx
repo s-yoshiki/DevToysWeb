@@ -1,14 +1,14 @@
 'use client'
 
+import { CopyButton } from '@/components/copy-button'
+import { SegmentedControl } from '@/components/segmented-control'
 import { Card, CardContent } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { type HmacAlgorithm, hmacAlgorithms } from '@/features/hmac/functions/hmac'
-import { CopyButton } from '@/components/copy-button'
-import { SegmentedControl } from '@/components/segmented-control'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import type { WorkspaceProps } from '@/workspaces/types'
+import { type HmacAlgorithm, hmacAlgorithms } from '@/features/hmac/functions/hmac'
 import { useTranslate } from '@/hooks/use-translate'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useHmac } from '../hooks/use-hmac'
 
 const algorithmOptions = hmacAlgorithms.map((value) => ({ value, label: value }))

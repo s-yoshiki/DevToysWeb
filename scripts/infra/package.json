@@ -1,5 +1,5 @@
 {
-  "name": "@devtoys/infra",
+  "name": "@repo/infra",
   "private": true,
   "engines": {
     "node": ">=26.0.0"
@@ -19,6 +19,7 @@
     "constructs": "^10.4.2"
   },
   "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
     "@types/node": "^26.1.1",
     "aws-cdk": "^2.1024.0",
     "esbuild": "^0.25.8",

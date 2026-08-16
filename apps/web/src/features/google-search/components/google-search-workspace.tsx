@@ -1,11 +1,6 @@
 'use client'
 
-import {
-  DateField,
-  NumberField,
-  SelectField,
-  TextField,
-} from '@/components/search/fields'
+import { DateField, NumberField, SelectField, TextField } from '@/components/search/fields'
 import {
   FiltersCard,
   OptionGroup,
@@ -13,8 +8,8 @@ import {
   SectionHeading,
 } from '@/components/search/search-layout'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { fileTypes, googleLanguages, timeRanges } from '../functions/constants'
 import { useGoogleSearch } from '../hooks/use-google-search'
 

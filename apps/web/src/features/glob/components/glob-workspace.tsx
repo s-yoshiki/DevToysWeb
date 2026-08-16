@@ -1,17 +1,17 @@
 'use client'
 
 import { Check, X } from 'lucide-react'
+import { CodeEditor } from '@/components/code-editor'
+import { CopyButton } from '@/components/copy-button'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { CodeEditor } from '@/components/code-editor'
-import { CopyButton } from '@/components/copy-button'
 import { Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes'
 import { WorkspaceShell } from '@/components/workspace-shell'
-import type { WorkspaceProps } from '@/workspaces/types'
 import { useTranslate } from '@/hooks/use-translate'
 import { cn } from '@/libs/utils'
+import type { WorkspaceProps } from '@/workspaces/types'
 import { useGlob } from '../hooks/use-glob'
 
 export const GlobWorkspace = ({ tool }: WorkspaceProps) => {
