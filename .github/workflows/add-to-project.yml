@@ -1,0 +1,19 @@
+name: Add issues and pull requests to project
+
+on:
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  contents: read
+
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@v2.0.0
+        with:
+          project-url: https://github.com/users/s-yoshiki/projects/1
+          github-token: ${{ secrets.GH_AUTOMATION_TOKEN }}
