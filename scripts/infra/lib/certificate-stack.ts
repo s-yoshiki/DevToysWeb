@@ -57,6 +57,12 @@ export class CertificateStack extends cdk.Stack {
       validation: acm.CertificateValidation.fromDnsMultiZone(validationHostedZones),
     })
 
+    // CloudFront may still reference the previous certificate while a
+    // cross-region deployment replaces this resource. Retaining the old
+    // certificate lets the site stack switch first instead of failing with
+    // ACM's "certificate in use" error during the replacement.
+    this.certificate.applyRemovalPolicy(cdk.RemovalPolicy.RETAIN)
+
     new cdk.CfnOutput(this, 'CertificateArn', {
       value: this.certificate.certificateArn,
       description: `ACM certificate for ${props.domainName}`,
