@@ -40,7 +40,7 @@ const LocaleLayout = async ({
                   {contentPageLinks.map((link) => (
                     <li key={link.slug}>
                       <Link
-                        href={`/${locale}/${link.slug}`}
+                        href={`/${locale}/${link.slug}/`}
                         className="transition-colors hover:text-foreground"
                       >
                         {dictionary.sitePages[link.key]}

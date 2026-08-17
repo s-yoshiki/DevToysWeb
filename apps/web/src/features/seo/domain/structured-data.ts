@@ -38,7 +38,7 @@ export const toolListJsonLd = (locale: Locale) => ({
     '@type': 'ListItem',
     position: index + 1,
     name: tool.title[locale],
-    url: `${siteUrl}${getToolPath(locale, tool)}/`,
+    url: `${siteUrl}${getToolPath(locale, tool)}`,
   })),
 })
 
@@ -48,7 +48,7 @@ export const toolJsonLd = (tool: ToolDefinition, locale: Locale) => ({
   ...freeBrowserApp,
   name: tool.title[locale],
   description: toolDescription(tool, locale),
-  url: `${siteUrl}${getToolPath(locale, tool)}/`,
+  url: `${siteUrl}${getToolPath(locale, tool)}`,
   inLanguage: locale,
   isPartOf: { '@id': `${siteUrl}/#website` },
 })
@@ -78,7 +78,7 @@ export const breadcrumbJsonLd = (tool: ToolDefinition, locale: Locale) => ({
       '@type': 'ListItem',
       position: 2,
       name: tool.title[locale],
-      item: `${siteUrl}${getToolPath(locale, tool)}/`,
+      item: `${siteUrl}${getToolPath(locale, tool)}`,
     },
   ],
 })

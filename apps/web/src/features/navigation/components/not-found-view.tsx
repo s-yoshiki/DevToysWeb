@@ -36,7 +36,7 @@ export const NotFoundView = () => {
     <div className="flex min-h-screen flex-col">
       <header className="border-b border-border">
         <div className="mx-auto flex h-16 max-w-5xl items-center px-4 sm:px-6">
-          <Link href={`/${locale}`} className="flex items-center gap-2 font-bold tracking-tight">
+          <Link href={`/${locale}/`} className="flex items-center gap-2 font-bold tracking-tight">
             <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
               <Braces className="size-4" />
             </span>
@@ -63,7 +63,7 @@ export const NotFoundView = () => {
             <div className="mt-6 flex flex-wrap gap-2">
               <Button
                 nativeButton={false}
-                render={<Link href={`/${locale}`} />}
+                render={<Link href={`/${locale}/`} />}
                 className="h-9 px-3"
               >
                 <Home className="size-4" />
@@ -111,7 +111,7 @@ export const NotFoundView = () => {
             {contentPageLinks.map((link) => (
               <li key={link.slug}>
                 <Link
-                  href={`/${locale}/${link.slug}`}
+                  href={`/${locale}/${link.slug}/`}
                   className="transition-colors hover:text-foreground"
                 >
                   {dictionary.sitePages[link.key]}

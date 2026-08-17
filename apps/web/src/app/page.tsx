@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 }
 
 const Page = () => {
-  redirect('/ja')
+  redirect('/ja/')
 }
 
 export default Page

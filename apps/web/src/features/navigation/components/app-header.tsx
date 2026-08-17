@@ -119,7 +119,7 @@ export const AppHeader = () => {
         </Sheet>
 
         <Link
-          href={`/${locale}`}
+          href={`/${locale}/`}
           className="flex shrink-0 items-center gap-2 font-bold tracking-tight"
         >
           <span className="flex size-7 items-center justify-center rounded-lg bg-primary text-primary-foreground">

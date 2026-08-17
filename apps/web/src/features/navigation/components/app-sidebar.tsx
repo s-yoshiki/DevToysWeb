@@ -168,7 +168,7 @@ export const AppSidebar = () => {
                 <TooltipTrigger
                   render={
                     <Link
-                      href={`/${locale}`}
+                      href={`/${locale}/`}
                       aria-label={dictionary.allTools}
                       className={cn(
                         'flex size-10 items-center justify-center rounded-lg transition-colors',
@@ -200,7 +200,7 @@ export const AppSidebar = () => {
         ) : (
           <>
             <Link
-              href={`/${locale}`}
+              href={`/${locale}/`}
               className={cn(
                 'mb-5 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
                 isSamePath(pathname, `/${locale}`)

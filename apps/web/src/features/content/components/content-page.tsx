@@ -12,7 +12,7 @@ export const ContentPage = ({ locale, slug }: { locale: Locale; slug: ContentPag
       <nav aria-label={locale === 'ja' ? 'パンくずリスト' : 'Breadcrumb'}>
         <ol className="flex flex-wrap items-center gap-1 text-xs text-muted-foreground">
           <li>
-            <Link href={`/${locale}`} className="transition-colors hover:text-foreground">
+            <Link href={`/${locale}/`} className="transition-colors hover:text-foreground">
               {dictionary.appName}
             </Link>
           </li>
@@ -87,7 +87,7 @@ export const ContentPage = ({ locale, slug }: { locale: Locale; slug: ContentPag
           {contentPageLinks.map((link) => (
             <li key={link.slug}>
               <Link
-                href={`/${locale}/${link.slug}`}
+                href={`/${locale}/${link.slug}/`}
                 aria-current={link.slug === slug ? 'page' : undefined}
                 className="flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2.5 text-sm transition-colors hover:border-border-strong hover:bg-muted"
               >
