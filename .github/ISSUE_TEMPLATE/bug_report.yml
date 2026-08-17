@@ -3,6 +3,7 @@ description: Report a reproducible problem / 再現可能な不具合を報告�
 title: "[Bug]: "
 labels:
   - bug
+projects: ["s-yoshiki/1"]
 body:
   - type: markdown
     attributes:

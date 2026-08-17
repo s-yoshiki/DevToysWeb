@@ -3,6 +3,7 @@ description: Suggest a new tool or improvement / 新しいツールや改善を�
 title: "[Feature]: "
 labels:
   - enhancement
+projects: ["s-yoshiki/1"]
 body:
   - type: markdown
     attributes:
