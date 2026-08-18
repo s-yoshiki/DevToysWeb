@@ -1,6 +1,7 @@
 'use client'
 
 import { Check, ImageOff, LoaderCircle, Minus, Play, X } from 'lucide-react'
+import { useId } from 'react'
 import { CopyButton } from '@/components/copy-button'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -57,6 +58,7 @@ const FieldTable = ({ title, fields }: { title: string; fields: OgpField[] }) =>
 )
 
 export const OgpCheckWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const page = usePageReport('OGP check failed')
 
@@ -72,10 +74,10 @@ export const OgpCheckWorkspace = ({ tool }: WorkspaceProps) => {
       <div className="space-y-4">
         <Card className="border-border/70">
           <CardContent className="space-y-3 p-5">
-            <Label htmlFor="ogp-check-url">URL</Label>
+            <Label htmlFor={`${fieldId}-ogp-check-url`}>URL</Label>
             <div className="flex gap-2">
               <Input
-                id="ogp-check-url"
+                id={`${fieldId}-ogp-check-url`}
                 value={page.url}
                 spellCheck={false}
                 onChange={(event) => page.setUrl(event.target.value)}

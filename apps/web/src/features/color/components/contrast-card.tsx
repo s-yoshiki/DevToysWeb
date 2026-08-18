@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -38,6 +40,7 @@ const ContrastLevels = ({ ratio }: { ratio: number }) => {
 }
 
 export const ContrastCard = ({ color }: { color: ReturnType<typeof useColor> }) => {
+  const fieldId = useId()
   const t = useTranslate()
   return (
     <Card className="h-fit overflow-hidden border-border/70">
@@ -48,9 +51,9 @@ export const ContrastCard = ({ color }: { color: ReturnType<typeof useColor> }) 
       </CardHeader>
       <CardContent className="space-y-4 p-5">
         <div className="space-y-2">
-          <Label htmlFor="color-background">{t('背景色', 'Background')}</Label>
+          <Label htmlFor={`${fieldId}-color-background`}>{t('背景色', 'Background')}</Label>
           <Input
-            id="color-background"
+            id={`${fieldId}-color-background`}
             value={color.background}
             onChange={(event) => color.setBackground(event.target.value)}
             className="font-mono"

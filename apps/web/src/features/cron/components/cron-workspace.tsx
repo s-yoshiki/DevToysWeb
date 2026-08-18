@@ -1,6 +1,7 @@
 'use client'
 
 import { CalendarClock, Info } from 'lucide-react'
+import { useId } from 'react'
 import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
 import { ToggleRow } from '@/components/segmented-control'
@@ -16,8 +17,6 @@ import { cronFieldValues } from '../functions/cron'
 import { listTimeZones, useCron } from '../hooks/use-cron'
 import { CronFieldBuilder } from './cron-field-builder'
 
-const zoneListId = 'cron-timezone-options'
-
 const presets = [
   { expression: '* * * * *', ja: '毎分', en: 'Every minute' },
   { expression: '*/5 * * * *', ja: '5分ごと', en: 'Every 5 minutes' },
@@ -30,10 +29,12 @@ const presets = [
 ]
 
 export const CronWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const { locale } = useLocale()
   const cron = useCron()
   const { analysis } = cron
+  const zoneListId = `${fieldId}-timezone-options`
 
   return (
     <WorkspaceShell tool={tool} onClear={cron.clear}>
@@ -48,11 +49,13 @@ export const CronWorkspace = ({ tool }: WorkspaceProps) => {
           <CardContent className="grid gap-4 p-5 sm:grid-cols-[minmax(0,1fr)_16rem] sm:items-end">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="cron-expression">{t('Cron式', 'Cron expression')}</Label>
+                <Label htmlFor={`${fieldId}-cron-expression`}>
+                  {t('Cron式', 'Cron expression')}
+                </Label>
                 <CopyButton value={cron.expression} />
               </div>
               <Input
-                id="cron-expression"
+                id={`${fieldId}-cron-expression`}
                 value={cron.expression}
                 spellCheck={false}
                 autoComplete="off"
@@ -61,9 +64,9 @@ export const CronWorkspace = ({ tool }: WorkspaceProps) => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="cron-timezone">{t('タイムゾーン', 'Time zone')}</Label>
+              <Label htmlFor={`${fieldId}-cron-timezone`}>{t('タイムゾーン', 'Time zone')}</Label>
               <Input
-                id="cron-timezone"
+                id={`${fieldId}-cron-timezone`}
                 list={zoneListId}
                 value={cron.timezone}
                 spellCheck={false}
@@ -201,7 +204,7 @@ export const CronWorkspace = ({ tool }: WorkspaceProps) => {
             <CardTitle className="text-sm">{t('ビルダー', 'Builder')}</CardTitle>
             <div className="w-40">
               <ToggleRow
-                id="cron-seconds"
+                id={`${fieldId}-cron-seconds`}
                 label={t('秒フィールド', 'Seconds field')}
                 checked={cron.hasSeconds}
                 onChange={cron.toggleSeconds}

@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { CopyButton } from '@/components/copy-button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -11,6 +13,7 @@ import type { WorkspaceProps } from '@/workspaces/types'
 import { useSubnet } from '../hooks/use-subnet'
 
 export const SubnetWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const subnet = useSubnet()
   const { summary } = subnet
@@ -20,9 +23,9 @@ export const SubnetWorkspace = ({ tool }: WorkspaceProps) => {
       <div className="space-y-4">
         <Card className="overflow-hidden border-border/70 shadow-xl shadow-foreground/[0.03]">
           <CardContent className="space-y-2 p-5">
-            <Label htmlFor="subnet-cidr">IPv4 / CIDR</Label>
+            <Label htmlFor={`${fieldId}-subnet-cidr`}>IPv4 / CIDR</Label>
             <Input
-              id="subnet-cidr"
+              id={`${fieldId}-subnet-cidr`}
               value={subnet.input}
               onChange={(event) => subnet.setInput(event.target.value)}
               className="font-mono text-base"

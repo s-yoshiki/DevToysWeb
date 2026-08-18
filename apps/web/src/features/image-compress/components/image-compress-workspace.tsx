@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { BatchFileList } from '@/components/batch-file-list'
 import { SegmentedControl } from '@/components/segmented-control'
 import { Badge } from '@/components/ui/badge'
@@ -17,6 +19,7 @@ import type { CompressTarget } from '../hooks/use-image-compress'
 import { useImageCompress } from '../hooks/use-image-compress'
 
 export const ImageCompressWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const images = useImageCompress()
 
@@ -42,14 +45,14 @@ export const ImageCompressWorkspace = ({ tool }: WorkspaceProps) => {
         <CardContent className="p-0">
           <div className="grid gap-5 border-b bg-muted/20 p-5 sm:grid-cols-2">
             <div className="space-y-2 sm:col-span-2">
-              <Label htmlFor="image-compress-files">
+              <Label htmlFor={`${fieldId}-image-compress-files`}>
                 {t(
                   `画像ファイル（最大${maxBatchFiles}件・各15MBまで）`,
                   `Image files (up to ${maxBatchFiles}, 15 MB each)`,
                 )}
               </Label>
               <Input
-                id="image-compress-files"
+                id={`${fieldId}-image-compress-files`}
                 type="file"
                 accept="image/*"
                 multiple
@@ -74,11 +77,11 @@ export const ImageCompressWorkspace = ({ tool }: WorkspaceProps) => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="image-compress-quality">
+              <Label htmlFor={`${fieldId}-image-compress-quality`}>
                 {t(`品質 (${images.quality}%)`, `Quality (${images.quality}%)`)}
               </Label>
               <Input
-                id="image-compress-quality"
+                id={`${fieldId}-image-compress-quality`}
                 type="range"
                 min={10}
                 max={100}

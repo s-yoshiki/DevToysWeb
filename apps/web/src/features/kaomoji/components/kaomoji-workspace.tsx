@@ -1,6 +1,7 @@
 'use client'
 
 import { Check, Dices, Search, Smile } from 'lucide-react'
+import { useId } from 'react'
 import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
 import { SegmentedControl } from '@/components/segmented-control'
@@ -176,6 +177,7 @@ const PartSelect = <Part extends PairPart | SinglePart>({
 }
 
 export const KaomojiWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const { locale } = useLocale()
   const t = useTranslate()
   const kaomoji = useKaomoji()
@@ -221,13 +223,13 @@ export const KaomojiWorkspace = ({ tool }: WorkspaceProps) => {
           <div className="flex flex-col lg:grid lg:grid-cols-[minmax(0,1fr)_20rem]">
             <CardContent className="order-1 min-w-0 space-y-4 p-5 pb-0 lg:col-start-1 lg:row-start-1 lg:border-r">
               <div className="space-y-2">
-                <Label htmlFor="kaomoji-search">
+                <Label htmlFor={`${fieldId}-kaomoji-search`}>
                   {t('名前・キーワード・顔文字で検索', 'Search by name, keyword, or kaomoji')}
                 </Label>
                 <div className="relative">
                   <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
-                    id="kaomoji-search"
+                    id={`${fieldId}-kaomoji-search`}
                     value={kaomoji.query}
                     onChange={(event) => kaomoji.setQuery(event.target.value)}
                     placeholder={t('例：泣く、ネコ、shrug', 'e.g. cry, cat, shrug')}
@@ -364,7 +366,7 @@ export const KaomojiWorkspace = ({ tool }: WorkspaceProps) => {
             <CardContent className="min-w-0 space-y-5 p-5 lg:border-r">
               <div className="grid gap-4 sm:grid-cols-2">
                 <PartSelect
-                  id="kaomoji-eyes"
+                  id={`${fieldId}-kaomoji-eyes`}
                   label={t('目', 'Eyes')}
                   parts={kaomojiEyes}
                   value={kaomoji.parts.eyes}
@@ -372,7 +374,7 @@ export const KaomojiWorkspace = ({ tool }: WorkspaceProps) => {
                   locale={locale}
                 />
                 <PartSelect
-                  id="kaomoji-mouth"
+                  id={`${fieldId}-kaomoji-mouth`}
                   label={t('口', 'Mouth')}
                   parts={kaomojiMouths}
                   value={kaomoji.parts.mouth}
@@ -380,7 +382,7 @@ export const KaomojiWorkspace = ({ tool }: WorkspaceProps) => {
                   locale={locale}
                 />
                 <PartSelect
-                  id="kaomoji-brackets"
+                  id={`${fieldId}-kaomoji-brackets`}
                   label={t('輪郭・括弧', 'Outline')}
                   parts={kaomojiBrackets}
                   value={kaomoji.parts.brackets}
@@ -388,7 +390,7 @@ export const KaomojiWorkspace = ({ tool }: WorkspaceProps) => {
                   locale={locale}
                 />
                 <PartSelect
-                  id="kaomoji-arms"
+                  id={`${fieldId}-kaomoji-arms`}
                   label={t('腕', 'Arms')}
                   parts={kaomojiArms}
                   value={kaomoji.parts.arms}
@@ -396,7 +398,7 @@ export const KaomojiWorkspace = ({ tool }: WorkspaceProps) => {
                   locale={locale}
                 />
                 <PartSelect
-                  id="kaomoji-decoration"
+                  id={`${fieldId}-kaomoji-decoration`}
                   label={t('飾り', 'Decoration')}
                   parts={kaomojiDecorations}
                   value={kaomoji.parts.decoration}

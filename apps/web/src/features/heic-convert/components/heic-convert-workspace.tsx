@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { BatchFileList } from '@/components/batch-file-list'
 import { SegmentedControl } from '@/components/segmented-control'
 import { Button } from '@/components/ui/button'
@@ -19,6 +21,7 @@ const formatOptions = heicTargetFormats.map((value) => ({
 }))
 
 export const HeicConvertWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const heic = useHeicConvert()
 
@@ -33,14 +36,14 @@ export const HeicConvertWorkspace = ({ tool }: WorkspaceProps) => {
         <CardContent className="p-0">
           <div className="grid gap-5 border-b bg-muted/20 p-5 sm:grid-cols-2 lg:grid-cols-4">
             <div className="space-y-2 sm:col-span-2">
-              <Label htmlFor="heic-files">
+              <Label htmlFor={`${fieldId}-heic-files`}>
                 {t(
                   `HEIC / HEIFファイル（最大${maxBatchFiles}件・各15MBまで）`,
                   `HEIC / HEIF files (up to ${maxBatchFiles}, 15 MB each)`,
                 )}
               </Label>
               <Input
-                id="heic-files"
+                id={`${fieldId}-heic-files`}
                 type="file"
                 accept=".heic,.heif,.hif,image/heic,image/heif"
                 multiple
@@ -57,11 +60,11 @@ export const HeicConvertWorkspace = ({ tool }: WorkspaceProps) => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="heic-quality">
+              <Label htmlFor={`${fieldId}-heic-quality`}>
                 {t(`品質 (${heic.quality}%)`, `Quality (${heic.quality}%)`)}
               </Label>
               <Input
-                id="heic-quality"
+                id={`${fieldId}-heic-quality`}
                 type="range"
                 min={10}
                 max={100}

@@ -90,7 +90,7 @@ export class DevToysStack extends cdk.Stack {
       invokedViaFunctionUrl: true,
     })
 
-    new s3deploy.BucketDeployment(this, 'DeployWebsite', {
+    void new s3deploy.BucketDeployment(this, 'DeployWebsite', {
       sources: [s3deploy.Source.asset(path.join(repositoryRoot, 'apps/web/out'))],
       destinationBucket: siteBucket,
       distribution,
@@ -112,31 +112,31 @@ export class DevToysStack extends cdk.Stack {
       new route53targets.CloudFrontTarget(distribution),
     )
 
-    new route53.ARecord(this, 'SiteAliasRecord', {
+    void new route53.ARecord(this, 'SiteAliasRecord', {
       zone: hostedZone,
       recordName: props.domainName,
       target: aliasTarget,
     })
 
-    new route53.AaaaRecord(this, 'SiteAliasRecordIpv6', {
+    void new route53.AaaaRecord(this, 'SiteAliasRecordIpv6', {
       zone: hostedZone,
       recordName: props.domainName,
       target: aliasTarget,
     })
 
-    new cdk.CfnOutput(this, 'WebsiteUrl', {
+    void new cdk.CfnOutput(this, 'WebsiteUrl', {
       value: `https://${props.domainName}`,
     })
 
-    new cdk.CfnOutput(this, 'DistributionDomainName', {
+    void new cdk.CfnOutput(this, 'DistributionDomainName', {
       value: distribution.distributionDomainName,
     })
 
-    new cdk.CfnOutput(this, 'SiteBucketName', {
+    void new cdk.CfnOutput(this, 'SiteBucketName', {
       value: siteBucket.bucketName,
     })
 
-    new cdk.CfnOutput(this, 'DistributionId', {
+    void new cdk.CfnOutput(this, 'DistributionId', {
       value: distribution.distributionId,
     })
   }

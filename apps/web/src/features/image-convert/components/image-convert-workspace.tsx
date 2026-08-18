@@ -1,6 +1,7 @@
 'use client'
 
 import { Download } from 'lucide-react'
+import { useId } from 'react'
 import { SegmentedControl } from '@/components/segmented-control'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -18,6 +19,7 @@ import { useImageConvert } from '../hooks/use-image-convert'
 const formatOptions = imageFormats.map((value) => ({ value, label: imageFormatLabels[value] }))
 
 export const ImageConvertWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const image = useImageConvert()
 
@@ -32,11 +34,11 @@ export const ImageConvertWorkspace = ({ tool }: WorkspaceProps) => {
         <CardContent className="p-0">
           <div className="grid gap-5 border-b bg-muted/20 p-5 sm:grid-cols-2 lg:grid-cols-4">
             <div className="space-y-2 sm:col-span-2">
-              <Label htmlFor="image-file">
+              <Label htmlFor={`${fieldId}-image-file`}>
                 {t('画像ファイル（最大15MB）', 'Image file (max 15 MB)')}
               </Label>
               <Input
-                id="image-file"
+                id={`${fieldId}-image-file`}
                 type="file"
                 accept="image/*"
                 onChange={(event) => image.loadFile(event.target.files?.[0])}
@@ -52,11 +54,11 @@ export const ImageConvertWorkspace = ({ tool }: WorkspaceProps) => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="image-quality">
+              <Label htmlFor={`${fieldId}-image-quality`}>
                 {t(`品質 (${image.quality}%)`, `Quality (${image.quality}%)`)}
               </Label>
               <Input
-                id="image-quality"
+                id={`${fieldId}-image-quality`}
                 type="range"
                 min={10}
                 max={100}
@@ -66,11 +68,11 @@ export const ImageConvertWorkspace = ({ tool }: WorkspaceProps) => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="image-width">
+              <Label htmlFor={`${fieldId}-image-width`}>
                 {t('最大幅 (px, 0で無効)', 'Max width (px, 0 disables)')}
               </Label>
               <Input
-                id="image-width"
+                id={`${fieldId}-image-width`}
                 type="number"
                 min={0}
                 max={10000}

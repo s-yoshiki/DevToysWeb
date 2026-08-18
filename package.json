@@ -21,7 +21,7 @@
     "verify": "pnpm check && pnpm typecheck && pnpm test && pnpm build"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.3",
+    "@biomejs/biome": "^2.5.8",
     "esbuild": "^0.25.12",
     "turbo": "^2.10.5"
   }

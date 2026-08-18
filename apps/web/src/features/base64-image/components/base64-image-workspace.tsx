@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { CopyButton } from '@/components/copy-button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -14,6 +16,7 @@ const checkerboard =
   'bg-[linear-gradient(45deg,#eee_25%,transparent_25%),linear-gradient(-45deg,#eee_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#eee_75%),linear-gradient(-45deg,transparent_75%,#eee_75%)] bg-[length:20px_20px]'
 
 export const Base64ImageWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const image = useBase64Image()
 
@@ -23,11 +26,11 @@ export const Base64ImageWorkspace = ({ tool }: WorkspaceProps) => {
         <CardContent className="grid gap-6 p-5 lg:grid-cols-2">
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="base64-image-file">
+              <Label htmlFor={`${fieldId}-base64-image-file`}>
                 {t('画像ファイル（最大5MB）', 'Image file (max 5 MB)')}
               </Label>
               <Input
-                id="base64-image-file"
+                id={`${fieldId}-base64-image-file`}
                 type="file"
                 accept="image/*"
                 onChange={(event) => image.loadFile(event.target.files?.[0])}
@@ -35,11 +38,11 @@ export const Base64ImageWorkspace = ({ tool }: WorkspaceProps) => {
             </div>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="base64-image-data">Data URL</Label>
+                <Label htmlFor={`${fieldId}-base64-image-data`}>Data URL</Label>
                 <CopyButton value={image.value} />
               </div>
               <Textarea
-                id="base64-image-data"
+                id={`${fieldId}-base64-image-data`}
                 value={image.value}
                 onChange={(event) => image.setValue(event.target.value)}
                 className="min-h-80 font-mono text-xs"

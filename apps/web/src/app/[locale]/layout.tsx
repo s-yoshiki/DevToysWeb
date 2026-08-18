@@ -27,6 +27,7 @@ const LocaleLayout = async ({
           <AppSidebar />
         </div>
         <div className="flex min-w-0 flex-1 flex-col">
+          {/* biome-ignore lint/correctness/useUniqueElementIds: the document has one main landmark by design. */}
           <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
             {children}
           </main>

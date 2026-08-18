@@ -1,6 +1,7 @@
 'use client'
 
 import { Check, X } from 'lucide-react'
+import { useId } from 'react'
 import { CopyButton } from '@/components/copy-button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -12,6 +13,7 @@ import type { WorkspaceProps } from '@/workspaces/types'
 import { useCidr } from '../hooks/use-cidr'
 
 export const CidrWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const cidr = useCidr()
   const { result } = cidr
@@ -27,9 +29,9 @@ export const CidrWorkspace = ({ tool }: WorkspaceProps) => {
           </CardHeader>
           <CardContent className="space-y-4 p-5">
             <div className="space-y-2">
-              <Label htmlFor="cidr-input">{t('CIDR表記', 'CIDR notation')}</Label>
+              <Label htmlFor={`${fieldId}-cidr-input`}>{t('CIDR表記', 'CIDR notation')}</Label>
               <Input
-                id="cidr-input"
+                id={`${fieldId}-cidr-input`}
                 value={cidr.input}
                 onChange={(event) => cidr.setInput(event.target.value)}
                 className="font-mono text-base"
@@ -80,9 +82,9 @@ export const CidrWorkspace = ({ tool }: WorkspaceProps) => {
               </CardHeader>
               <CardContent className="space-y-3 p-5">
                 <div className="space-y-2">
-                  <Label htmlFor="cidr-probe">{t('IP / CIDR', 'IP / CIDR')}</Label>
+                  <Label htmlFor={`${fieldId}-cidr-probe`}>{t('IP / CIDR', 'IP / CIDR')}</Label>
                   <Input
-                    id="cidr-probe"
+                    id={`${fieldId}-cidr-probe`}
                     value={cidr.probe}
                     onChange={(event) => cidr.setProbe(event.target.value)}
                     className="font-mono"
@@ -117,12 +119,15 @@ export const CidrWorkspace = ({ tool }: WorkspaceProps) => {
                   {t('サブネット分割', 'Split into subnets')}
                 </CardTitle>
                 <div className="flex items-center gap-2">
-                  <Label htmlFor="cidr-split" className="text-xs text-muted-foreground">
+                  <Label
+                    htmlFor={`${fieldId}-cidr-split`}
+                    className="text-xs text-muted-foreground"
+                  >
                     {t('新しいプレフィックス', 'New prefix')}
                   </Label>
                   <span className="font-mono text-sm">/</span>
                   <Input
-                    id="cidr-split"
+                    id={`${fieldId}-cidr-split`}
                     type="number"
                     min={result.prefix}
                     max={cidr.parsed?.bits}

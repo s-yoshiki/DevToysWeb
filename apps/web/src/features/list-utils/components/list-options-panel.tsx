@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { SegmentedControl, ToggleRow } from '@/components/segmented-control'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -13,6 +15,7 @@ export const ListOptionsPanel = ({
   options: ListOptions
   update: (patch: Partial<ListOptions>) => void
 }) => {
+  const fieldId = useId()
   const t = useTranslate()
   return (
     <div className="grid gap-5 border-b bg-muted/20 p-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -33,13 +36,13 @@ export const ListOptionsPanel = ({
       </div>
       <div className="space-y-3">
         <ToggleRow
-          id="list-trim"
+          id={`${fieldId}-list-trim`}
           label={t('前後の空白を除去', 'Trim whitespace')}
           checked={options.trim}
           onChange={(trim) => update({ trim })}
         />
         <ToggleRow
-          id="list-empty"
+          id={`${fieldId}-list-empty`}
           label={t('空行を削除', 'Drop empty lines')}
           checked={options.dropEmpty}
           onChange={(dropEmpty) => update({ dropEmpty })}
@@ -47,22 +50,22 @@ export const ListOptionsPanel = ({
       </div>
       <div className="space-y-3">
         <ToggleRow
-          id="list-unique"
+          id={`${fieldId}-list-unique`}
           label={t('重複を除去', 'Remove duplicates')}
           checked={options.unique}
           onChange={(unique) => update({ unique })}
         />
         <ToggleRow
-          id="list-reverse"
+          id={`${fieldId}-list-reverse`}
           label={t('逆順にする', 'Reverse order')}
           checked={options.reverse}
           onChange={(reverse) => update({ reverse })}
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="list-prefix">{t('各行の前', 'Prefix')}</Label>
+        <Label htmlFor={`${fieldId}-list-prefix`}>{t('各行の前', 'Prefix')}</Label>
         <Input
-          id="list-prefix"
+          id={`${fieldId}-list-prefix`}
           value={options.prefix}
           onChange={(event) => update({ prefix: event.target.value })}
           className="font-mono"
@@ -70,9 +73,9 @@ export const ListOptionsPanel = ({
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="list-suffix">{t('各行の後', 'Suffix')}</Label>
+        <Label htmlFor={`${fieldId}-list-suffix`}>{t('各行の後', 'Suffix')}</Label>
         <Input
-          id="list-suffix"
+          id={`${fieldId}-list-suffix`}
           value={options.suffix}
           onChange={(event) => update({ suffix: event.target.value })}
           className="font-mono"
@@ -81,13 +84,13 @@ export const ListOptionsPanel = ({
       </div>
       <div className="space-y-3">
         <ToggleRow
-          id="list-numbered"
+          id={`${fieldId}-list-numbered`}
           label={t('連番を振る', 'Number the lines')}
           checked={options.numbered}
           onChange={(numbered) => update({ numbered })}
         />
         <div className="space-y-2">
-          <Label htmlFor="list-separator">{t('区切り', 'Join with')}</Label>
+          <Label htmlFor={`${fieldId}-list-separator`}>{t('区切り', 'Join with')}</Label>
           <SegmentedControl
             value={options.separator}
             onChange={(separator) => update({ separator })}

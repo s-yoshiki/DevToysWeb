@@ -40,6 +40,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           src="https://www.googletagmanager.com/gtag/js?id=G-YCXXYP9PZH"
           strategy="afterInteractive"
         />
+        {/* biome-ignore lint/correctness/useUniqueElementIds: Next uses this stable id to deduplicate the analytics script. */}
         <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];

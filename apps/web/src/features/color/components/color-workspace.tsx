@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { CopyButton } from '@/components/copy-button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -22,6 +24,7 @@ const ColorRow = ({ format, value }: { format: string; value: string }) => (
 )
 
 export const ColorWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const color = useColor()
 
@@ -35,9 +38,9 @@ export const ColorWorkspace = ({ tool }: WorkspaceProps) => {
           <CardContent className="p-0">
             <div className="flex items-end gap-3 border-b bg-muted/20 p-5">
               <div className="min-w-0 flex-1 space-y-2">
-                <Label htmlFor="color-input">HEX / RGB / HSL</Label>
+                <Label htmlFor={`${fieldId}-color-input`}>HEX / RGB / HSL</Label>
                 <Input
-                  id="color-input"
+                  id={`${fieldId}-color-input`}
                   value={color.input}
                   onChange={(event) => color.setInput(event.target.value)}
                   className="font-mono"

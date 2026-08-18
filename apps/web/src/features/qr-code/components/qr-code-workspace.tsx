@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { SegmentedControl } from '@/components/segmented-control'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -15,6 +17,7 @@ import { type CorrectionLevel, correctionLevels } from '../types/qr-code'
 const levelOptions = correctionLevels.map((value) => ({ value, label: value }))
 
 export const QrCodeWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const qr = useQrCode()
 
@@ -24,9 +27,9 @@ export const QrCodeWorkspace = ({ tool }: WorkspaceProps) => {
         <CardContent className="grid gap-6 p-5 lg:grid-cols-2">
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="qr-content">{t('内容', 'Content')}</Label>
+              <Label htmlFor={`${fieldId}-qr-content`}>{t('内容', 'Content')}</Label>
               <Textarea
-                id="qr-content"
+                id={`${fieldId}-qr-content`}
                 value={qr.input}
                 onChange={(event) => qr.setInput(event.target.value)}
                 className="min-h-40"
@@ -34,9 +37,9 @@ export const QrCodeWorkspace = ({ tool }: WorkspaceProps) => {
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="qr-size">{t('サイズ', 'Size')}</Label>
+                <Label htmlFor={`${fieldId}-qr-size`}>{t('サイズ', 'Size')}</Label>
                 <Input
-                  id="qr-size"
+                  id={`${fieldId}-qr-size`}
                   type="number"
                   min={128}
                   max={1024}

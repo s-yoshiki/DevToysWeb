@@ -1,5 +1,6 @@
 'use client'
 
+import { useId } from 'react'
 import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
 import { Badge } from '@/components/ui/badge'
@@ -15,9 +16,12 @@ import { unitFamilies } from '../functions/units'
 import { useUnitConvert } from '../hooks/use-unit-convert'
 
 export const UnitConvertWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const { locale } = useLocale()
   const converter = useUnitConvert()
+  const valueId = `${fieldId}-value`
+  const unitId = `${fieldId}-unit`
 
   return (
     <WorkspaceShell tool={tool} onClear={converter.clear}>
@@ -42,9 +46,9 @@ export const UnitConvertWorkspace = ({ tool }: WorkspaceProps) => {
 
             <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
               <div className="space-y-2">
-                <Label htmlFor="unit-convert-value">{t('数値', 'Value')}</Label>
+                <Label htmlFor={valueId}>{t('数値', 'Value')}</Label>
                 <Input
-                  id="unit-convert-value"
+                  id={valueId}
                   value={converter.input}
                   inputMode="decimal"
                   spellCheck={false}
@@ -54,9 +58,9 @@ export const UnitConvertWorkspace = ({ tool }: WorkspaceProps) => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="unit-convert-unit">{t('単位', 'Unit')}</Label>
+                <Label htmlFor={unitId}>{t('単位', 'Unit')}</Label>
                 <select
-                  id="unit-convert-unit"
+                  id={unitId}
                   value={converter.unit.id}
                   onChange={(event) => converter.setUnitId(event.target.value)}
                   className="h-9 w-full rounded-lg border border-input bg-transparent px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"

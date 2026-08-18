@@ -1,6 +1,7 @@
 'use client'
 
 import { Play } from 'lucide-react'
+import { useId } from 'react'
 import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
 import { SegmentedControl, ToggleRow } from '@/components/segmented-control'
@@ -16,6 +17,7 @@ import type { WorkspaceProps } from '@/workspaces/types'
 import { useLorem } from '../hooks/use-lorem'
 
 export const LoremWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const { dictionary } = useLocale()
   const t = useTranslate()
   const lorem = useLorem()
@@ -62,9 +64,9 @@ export const LoremWorkspace = ({ tool }: WorkspaceProps) => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="lorem-count">{t('個数', 'Count')}</Label>
+              <Label htmlFor={`${fieldId}-lorem-count`}>{t('個数', 'Count')}</Label>
               <Input
-                id="lorem-count"
+                id={`${fieldId}-lorem-count`}
                 type="number"
                 min={1}
                 max={200}
@@ -75,7 +77,7 @@ export const LoremWorkspace = ({ tool }: WorkspaceProps) => {
             <div className="flex items-end pb-1">
               <div className="w-full">
                 <ToggleRow
-                  id="lorem-start"
+                  id={`${fieldId}-lorem-start`}
                   label={t('"Lorem ipsum" で開始', 'Start with “Lorem ipsum”')}
                   checked={lorem.startWithLorem}
                   onChange={lorem.setStartWithLorem}
