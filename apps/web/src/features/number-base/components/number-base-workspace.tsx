@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { CopyButton } from '@/components/copy-button'
 import { ToggleRow } from '@/components/segmented-control'
 import { Badge } from '@/components/ui/badge'
@@ -14,6 +16,7 @@ import { maxBase, minBase } from '../functions/number-base'
 import { useNumberBase } from '../hooks/use-number-base'
 
 export const NumberBaseWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const numbers = useNumberBase()
 
@@ -59,9 +62,9 @@ export const NumberBaseWorkspace = ({ tool }: WorkspaceProps) => {
           <Card className="border-border/70">
             <CardContent className="space-y-4 p-5">
               <div className="space-y-2">
-                <Label htmlFor="custom-base">{t('任意の基数', 'Custom base')}</Label>
+                <Label htmlFor={`${fieldId}-custom-base`}>{t('任意の基数', 'Custom base')}</Label>
                 <Input
-                  id="custom-base"
+                  id={`${fieldId}-custom-base`}
                   type="number"
                   min={minBase}
                   max={maxBase}
@@ -70,7 +73,7 @@ export const NumberBaseWorkspace = ({ tool }: WorkspaceProps) => {
                 />
               </div>
               <ToggleRow
-                id="group-digits"
+                id={`${fieldId}-group-digits`}
                 label={t('桁を区切って表示', 'Group digits')}
                 checked={numbers.grouped}
                 onChange={numbers.setGrouped}

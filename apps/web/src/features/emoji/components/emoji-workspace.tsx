@@ -1,7 +1,7 @@
 'use client'
 
 import { Dices, ListChecks, Search, Sparkles } from 'lucide-react'
-import { useMemo } from 'react'
+import { useId, useMemo } from 'react'
 import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
 import { SegmentedControl } from '@/components/segmented-control'
@@ -92,6 +92,7 @@ const EmojiTile = ({
 )
 
 export const EmojiWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const { locale } = useLocale()
   const t = useTranslate()
   const emoji = useEmoji()
@@ -125,13 +126,13 @@ export const EmojiWorkspace = ({ tool }: WorkspaceProps) => {
             <CardContent className="min-w-0 space-y-5 p-5 lg:border-r">
               <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_13rem]">
                 <div className="space-y-2">
-                  <Label htmlFor="emoji-search">
+                  <Label htmlFor={`${fieldId}-emoji-search`}>
                     {t('名前・キーワード・絵文字で検索', 'Search by name, keyword, or emoji')}
                   </Label>
                   <div className="relative">
                     <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                     <Input
-                      id="emoji-search"
+                      id={`${fieldId}-emoji-search`}
                       value={emoji.query}
                       onChange={(event) => emoji.setQuery(event.target.value)}
                       placeholder={t('例：犬、rocket、❤️', 'e.g. dog, rocket, ❤️')}
@@ -267,9 +268,11 @@ export const EmojiWorkspace = ({ tool }: WorkspaceProps) => {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="emoji-count">{t('個数（最大30）', 'Count (max 30)')}</Label>
+                  <Label htmlFor={`${fieldId}-emoji-count`}>
+                    {t('個数（最大30）', 'Count (max 30)')}
+                  </Label>
                   <Input
-                    id="emoji-count"
+                    id={`${fieldId}-emoji-count`}
                     type="number"
                     min={1}
                     max={30}

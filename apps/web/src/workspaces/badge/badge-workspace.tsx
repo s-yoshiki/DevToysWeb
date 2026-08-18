@@ -1,6 +1,7 @@
 'use client'
 
 import { ExternalLink } from 'lucide-react'
+import { useId } from 'react'
 import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
 import { SegmentedControl } from '@/components/segmented-control'
@@ -67,6 +68,7 @@ const Output = ({ label, value }: { label: string; value: string }) => (
 )
 
 export const BadgeWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const { dictionary } = useLocale()
   const t = useTranslate()
   const badge = useBadge()
@@ -139,40 +141,40 @@ export const BadgeWorkspace = ({ tool }: WorkspaceProps) => {
 
             <div className="grid gap-4 sm:grid-cols-2">
               <Field
-                id="badge-label"
+                id={`${fieldId}-badge-label`}
                 label={t('ラベル（左）', 'Label (left)')}
                 value={options.label}
                 onChange={(value) => badge.set('label', value)}
               />
               <Field
-                id="badge-message"
+                id={`${fieldId}-badge-message`}
                 label={t('メッセージ（右）', 'Message (right)')}
                 value={options.message}
                 onChange={(value) => badge.set('message', value)}
               />
               <Field
-                id="badge-color"
+                id={`${fieldId}-badge-color`}
                 label={t('メッセージ色', 'Message color')}
                 value={options.color}
                 placeholder="22c55e / brightgreen"
                 onChange={(value) => badge.set('color', value)}
               />
               <Field
-                id="badge-label-color"
+                id={`${fieldId}-badge-label-color`}
                 label={t('ラベル色', 'Label color')}
                 value={options.labelColor}
                 placeholder="555555"
                 onChange={(value) => badge.set('labelColor', value)}
               />
               <Field
-                id="badge-logo"
+                id={`${fieldId}-badge-logo`}
                 label={t('ロゴ名', 'Logo slug')}
                 value={options.logo}
                 placeholder="github"
                 onChange={(value) => badge.set('logo', value)}
               />
               <Field
-                id="badge-logo-color"
+                id={`${fieldId}-badge-logo-color`}
                 label={t('ロゴ色', 'Logo color')}
                 value={options.logoColor}
                 placeholder="white"
@@ -193,7 +195,7 @@ export const BadgeWorkspace = ({ tool }: WorkspaceProps) => {
             )}
 
             <Field
-              id="badge-link"
+              id={`${fieldId}-badge-link`}
               label={t('リンク先（任意）', 'Destination URL (optional)')}
               value={options.link}
               placeholder="https://example.com"

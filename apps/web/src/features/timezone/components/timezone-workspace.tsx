@@ -1,7 +1,7 @@
 'use client'
 
 import { Clock, Plus, X } from 'lucide-react'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { CopyButton } from '@/components/copy-button'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -29,6 +29,7 @@ const ShiftBadge = ({ shift }: { shift: number }) => {
 }
 
 export const TimezoneWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const timezone = useTimezone()
   const [draft, setDraft] = useState('')
@@ -57,9 +58,9 @@ export const TimezoneWorkspace = ({ tool }: WorkspaceProps) => {
           {timezone.error && <ErrorBanner message={timezone.error} />}
           <CardContent className="grid gap-4 p-5 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] sm:items-end">
             <div className="space-y-2">
-              <Label htmlFor="timezone-source">{t('タイムゾーン', 'Time zone')}</Label>
+              <Label htmlFor={`${fieldId}-timezone-source`}>{t('タイムゾーン', 'Time zone')}</Label>
               <Input
-                id="timezone-source"
+                id={`${fieldId}-timezone-source`}
                 list={zoneListId}
                 value={timezone.sourceZone}
                 spellCheck={false}
@@ -68,9 +69,9 @@ export const TimezoneWorkspace = ({ tool }: WorkspaceProps) => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="timezone-value">{t('日時', 'Date and time')}</Label>
+              <Label htmlFor={`${fieldId}-timezone-value`}>{t('日時', 'Date and time')}</Label>
               <Input
-                id="timezone-value"
+                id={`${fieldId}-timezone-value`}
                 type="datetime-local"
                 step={1}
                 value={timezone.wallText}

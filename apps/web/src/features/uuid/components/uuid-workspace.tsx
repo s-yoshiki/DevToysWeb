@@ -1,6 +1,7 @@
 'use client'
 
 import { RefreshCw } from 'lucide-react'
+import { useId } from 'react'
 import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
 import { SegmentedControl, ToggleRow } from '@/components/segmented-control'
@@ -15,6 +16,7 @@ import type { NamedUuidVersion, NamespacePreset, UuidVersion } from '../function
 import { useUuid } from '../hooks/use-uuid'
 
 export const UuidWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const { dictionary } = useLocale()
   const t = useTranslate()
   const uuid = useUuid()
@@ -54,9 +56,9 @@ export const UuidWorkspace = ({ tool }: WorkspaceProps) => {
                 <p className="text-xs text-muted-foreground">{versionHint(uuid.version, t)}</p>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="uuid-count">{t('個数', 'Count')}</Label>
+                <Label htmlFor={`${fieldId}-uuid-count`}>{t('個数', 'Count')}</Label>
                 <Input
-                  id="uuid-count"
+                  id={`${fieldId}-uuid-count`}
                   type="number"
                   min={1}
                   max={1000}
@@ -66,14 +68,14 @@ export const UuidWorkspace = ({ tool }: WorkspaceProps) => {
               </div>
               <div className="flex flex-col justify-end gap-3 pb-1">
                 <ToggleRow
-                  id="uuid-uppercase"
+                  id={`${fieldId}-uuid-uppercase`}
                   label={t('大文字', 'Uppercase')}
                   checked={uuid.uppercase}
                   onChange={uuid.setUppercase}
                 />
                 {!uuid.isUlid && (
                   <ToggleRow
-                    id="uuid-hyphens"
+                    id={`${fieldId}-uuid-hyphens`}
                     label={t('ハイフンを含める', 'Include hyphens')}
                     checked={uuid.hyphens}
                     onChange={uuid.setHyphens}
@@ -142,9 +144,11 @@ export const UuidWorkspace = ({ tool }: WorkspaceProps) => {
             </div>
             {uuid.preset === 'custom' && (
               <div className="space-y-2">
-                <Label htmlFor="uuid-namespace">{t('名前空間 UUID', 'Namespace UUID')}</Label>
+                <Label htmlFor={`${fieldId}-uuid-namespace`}>
+                  {t('名前空間 UUID', 'Namespace UUID')}
+                </Label>
                 <Input
-                  id="uuid-namespace"
+                  id={`${fieldId}-uuid-namespace`}
                   value={uuid.customNamespace}
                   onChange={(event) => uuid.setCustomNamespace(event.target.value)}
                   className="font-mono"
@@ -153,9 +157,9 @@ export const UuidWorkspace = ({ tool }: WorkspaceProps) => {
               </div>
             )}
             <div className="space-y-2">
-              <Label htmlFor="uuid-name">{t('名前', 'Name')}</Label>
+              <Label htmlFor={`${fieldId}-uuid-name`}>{t('名前', 'Name')}</Label>
               <Input
-                id="uuid-name"
+                id={`${fieldId}-uuid-name`}
                 value={uuid.name}
                 onChange={(event) => uuid.setName(event.target.value)}
                 className="font-mono"

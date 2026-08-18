@@ -1,6 +1,7 @@
 'use client'
 
 import { BellRing, CircleAlert, Volume2 } from 'lucide-react'
+import { useId } from 'react'
 import { useLocale } from '@/components/locale-provider'
 import { SegmentedControl, ToggleRow } from '@/components/segmented-control'
 import { Badge } from '@/components/ui/badge'
@@ -15,6 +16,7 @@ import { formatWallClock, type SignalInterval, signalIntervals } from '../functi
 import { type SignalStyle, useTimeSignal } from '../hooks/use-time-signal'
 
 export const TimeSignalWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const { locale } = useLocale()
   const t = useTranslate()
   const signal = useTimeSignal()
@@ -58,7 +60,7 @@ export const TimeSignalWorkspace = ({ tool }: WorkspaceProps) => {
           <Card className="border-border/70">
             <CardContent className="space-y-5 p-5">
               <ToggleRow
-                id="time-signal-enabled"
+                id={`${fieldId}-time-signal-enabled`}
                 label={t('時報を有効にする', 'Enable the time signal')}
                 checked={signal.enabled}
                 onChange={signal.setEnabled}

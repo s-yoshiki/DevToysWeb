@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.5.3/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.5.8/schema.json",
   "root": false,
   "vcs": {
     "enabled": true,
@@ -27,7 +27,23 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "preset": "recommended"
+      "preset": "all"
+    },
+    "domains": {
+      "drizzle": "none",
+      "react": "all",
+      "reactNative": "none",
+      "test": "all",
+      "solid": "none",
+      "next": "all",
+      "qwik": "none",
+      "svelte": "none",
+      "vue": "none",
+      "project": "none",
+      "tailwind": "all",
+      "turborepo": "all",
+      "playwright": "none",
+      "types": "none"
     }
   },
   "javascript": {

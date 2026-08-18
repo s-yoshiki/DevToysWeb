@@ -1,6 +1,7 @@
 'use client'
 
 import { ArrowRight, CalendarClock } from 'lucide-react'
+import { useId } from 'react'
 import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
 import { SegmentedControl } from '@/components/segmented-control'
@@ -54,15 +55,16 @@ type Calc = ReturnType<typeof useDateCalc>
 type T = (ja: string, en: string) => string
 
 const DifferenceView = ({ calc, locale, t }: { calc: Calc; locale: 'ja' | 'en'; t: T }) => {
+  const fieldId = useId()
   const diff = calc.difference?.result
 
   return (
     <div>
       <div className="grid gap-5 border-b bg-muted/20 p-5 sm:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="date-from">{t('開始日時', 'From')}</Label>
+          <Label htmlFor={`${fieldId}-date-from`}>{t('開始日時', 'From')}</Label>
           <Input
-            id="date-from"
+            id={`${fieldId}-date-from`}
             type="datetime-local"
             value={calc.from}
             onChange={(event) => calc.setFrom(event.target.value)}
@@ -70,13 +72,13 @@ const DifferenceView = ({ calc, locale, t }: { calc: Calc; locale: 'ja' | 'en'; 
         </div>
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <Label htmlFor="date-to">{t('終了日時', 'To')}</Label>
+            <Label htmlFor={`${fieldId}-date-to`}>{t('終了日時', 'To')}</Label>
             <Button variant="ghost" size="sm" className="h-6 px-2 text-xs" onClick={calc.setToNow}>
               {t('現在', 'Now')}
             </Button>
           </div>
           <Input
-            id="date-to"
+            id={`${fieldId}-date-to`}
             type="datetime-local"
             value={calc.to}
             onChange={(event) => calc.setTo(event.target.value)}
@@ -110,6 +112,7 @@ const DifferenceView = ({ calc, locale, t }: { calc: Calc; locale: 'ja' | 'en'; 
 }
 
 const AddView = ({ calc, locale, t }: { calc: Calc; locale: 'ja' | 'en'; t: T }) => {
+  const fieldId = useId()
   const fields: { key: keyof DurationParts; label: string }[] = [
     { key: 'years', label: t('年', 'Years') },
     { key: 'months', label: t('月', 'Months') },
@@ -126,7 +129,7 @@ const AddView = ({ calc, locale, t }: { calc: Calc; locale: 'ja' | 'en'; t: T })
       <div className="space-y-5 border-b bg-muted/20 p-5">
         <div className="space-y-2 sm:max-w-sm">
           <div className="flex items-center justify-between">
-            <Label htmlFor="date-base">{t('基準日時', 'Base date')}</Label>
+            <Label htmlFor={`${fieldId}-date-base`}>{t('基準日時', 'Base date')}</Label>
             <Button
               variant="ghost"
               size="sm"
@@ -137,7 +140,7 @@ const AddView = ({ calc, locale, t }: { calc: Calc; locale: 'ja' | 'en'; t: T })
             </Button>
           </div>
           <Input
-            id="date-base"
+            id={`${fieldId}-date-base`}
             type="datetime-local"
             value={calc.base}
             onChange={(event) => calc.setBase(event.target.value)}
@@ -158,11 +161,11 @@ const AddView = ({ calc, locale, t }: { calc: Calc; locale: 'ja' | 'en'; t: T })
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
           {fields.map((field) => (
             <div key={field.key} className="space-y-1.5">
-              <Label htmlFor={`dur-${field.key}`} className="text-xs">
+              <Label htmlFor={`${fieldId}-dur-${field.key}`} className="text-xs">
                 {field.label}
               </Label>
               <Input
-                id={`dur-${field.key}`}
+                id={`${fieldId}-dur-${field.key}`}
                 type="number"
                 value={calc.duration[field.key]}
                 onChange={(event) => calc.setDurationField(field.key, Number(event.target.value))}

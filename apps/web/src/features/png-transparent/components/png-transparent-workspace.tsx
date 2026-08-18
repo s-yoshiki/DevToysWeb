@@ -1,6 +1,7 @@
 'use client'
 
 import { Download, Pipette } from 'lucide-react'
+import { useId } from 'react'
 import { ToggleRow } from '@/components/segmented-control'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -18,6 +19,7 @@ const transparencyPattern =
   'bg-[linear-gradient(45deg,var(--muted)_25%,transparent_25%,transparent_75%,var(--muted)_75%),linear-gradient(45deg,var(--muted)_25%,transparent_25%,transparent_75%,var(--muted)_75%)] bg-[length:16px_16px] bg-[position:0_0,8px_8px]'
 
 export const PngTransparentWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const png = usePngTransparent()
 
@@ -59,9 +61,11 @@ export const PngTransparentWorkspace = ({ tool }: WorkspaceProps) => {
           <Card className="border-border/70">
             <CardContent className="space-y-5 p-5">
               <div className="space-y-2">
-                <Label htmlFor="png-transparent-file">{t('画像ファイル', 'Image file')}</Label>
+                <Label htmlFor={`${fieldId}-png-transparent-file`}>
+                  {t('画像ファイル', 'Image file')}
+                </Label>
                 <Input
-                  id="png-transparent-file"
+                  id={`${fieldId}-png-transparent-file`}
                   type="file"
                   accept="image/*"
                   onChange={(event) => png.load(event.target.files?.[0])}
@@ -69,12 +73,12 @@ export const PngTransparentWorkspace = ({ tool }: WorkspaceProps) => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="png-transparent-color">
+                <Label htmlFor={`${fieldId}-png-transparent-color`}>
                   {t('透明にする色', 'Colour to clear')}
                 </Label>
                 <div className="flex items-center gap-2">
                   <Input
-                    id="png-transparent-color"
+                    id={`${fieldId}-png-transparent-color`}
                     type="color"
                     value={png.color}
                     onChange={(event) => png.setColor(event.target.value)}
@@ -97,11 +101,11 @@ export const PngTransparentWorkspace = ({ tool }: WorkspaceProps) => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="png-transparent-tolerance">
+                <Label htmlFor={`${fieldId}-png-transparent-tolerance`}>
                   {t(`許容差 (${png.tolerance}%)`, `Tolerance (${png.tolerance}%)`)}
                 </Label>
                 <Input
-                  id="png-transparent-tolerance"
+                  id={`${fieldId}-png-transparent-tolerance`}
                   type="range"
                   min={0}
                   max={100}
@@ -111,7 +115,7 @@ export const PngTransparentWorkspace = ({ tool }: WorkspaceProps) => {
               </div>
 
               <ToggleRow
-                id="png-transparent-soften"
+                id={`${fieldId}-png-transparent-soften`}
                 label={t('境界をなめらかにする', 'Soften the edges')}
                 checked={png.soften}
                 onChange={png.setSoften}

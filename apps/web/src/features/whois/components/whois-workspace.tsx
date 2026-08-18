@@ -1,6 +1,7 @@
 'use client'
 
 import { LoaderCircle, Search } from 'lucide-react'
+import { useId } from 'react'
 import { CopyButton } from '@/components/copy-button'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -17,6 +18,7 @@ import { useWhois } from '../hooks/use-whois'
 const summaryOrder = ['registrar', 'createdAt', 'updatedAt', 'expiresAt', 'status'] as const
 
 export const WhoisWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const whois = useWhois()
 
@@ -33,10 +35,10 @@ export const WhoisWorkspace = ({ tool }: WorkspaceProps) => {
       <div className="space-y-4">
         <Card className="border-border/70">
           <CardContent className="space-y-3 p-5">
-            <Label htmlFor="whois-domain">{t('ドメイン名', 'Domain name')}</Label>
+            <Label htmlFor={`${fieldId}-whois-domain`}>{t('ドメイン名', 'Domain name')}</Label>
             <div className="flex gap-2">
               <Input
-                id="whois-domain"
+                id={`${fieldId}-whois-domain`}
                 value={whois.domain}
                 spellCheck={false}
                 placeholder="example.com"

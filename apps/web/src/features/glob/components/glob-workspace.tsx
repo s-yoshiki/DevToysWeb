@@ -1,6 +1,7 @@
 'use client'
 
 import { Check, X } from 'lucide-react'
+import { useId } from 'react'
 import { CodeEditor } from '@/components/code-editor'
 import { CopyButton } from '@/components/copy-button'
 import { Button } from '@/components/ui/button'
@@ -15,6 +16,7 @@ import type { WorkspaceProps } from '@/workspaces/types'
 import { useGlob } from '../hooks/use-glob'
 
 export const GlobWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const glob = useGlob()
 
@@ -51,9 +53,9 @@ export const GlobWorkspace = ({ tool }: WorkspaceProps) => {
         </CardHeader>
         <CardContent className="p-0">
           <div className="border-b bg-muted/20 p-5">
-            <Label htmlFor="glob-pattern">{t('パターン', 'Pattern')}</Label>
+            <Label htmlFor={`${fieldId}-glob-pattern`}>{t('パターン', 'Pattern')}</Label>
             <Input
-              id="glob-pattern"
+              id={`${fieldId}-glob-pattern`}
               value={glob.pattern}
               onChange={(event) => glob.setPattern(event.target.value)}
               className="mt-2 font-mono"

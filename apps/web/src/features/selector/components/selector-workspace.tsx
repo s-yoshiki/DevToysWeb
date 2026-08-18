@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { CopyButton } from '@/components/copy-button'
 import { SegmentedControl } from '@/components/segmented-control'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -18,6 +20,7 @@ const modeOptions: { value: SelectorMode; label: string }[] = [
 ]
 
 export const SelectorWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const selector = useSelector()
 
@@ -37,11 +40,11 @@ export const SelectorWorkspace = ({ tool }: WorkspaceProps) => {
         </CardHeader>
         <CardContent className="p-0">
           <div className="border-b bg-muted/20 p-5">
-            <Label htmlFor="selector-input">
+            <Label htmlFor={`${fieldId}-selector-input`}>
               {selector.mode === 'css' ? 'CSS selector' : 'XPath expression'}
             </Label>
             <Input
-              id="selector-input"
+              id={`${fieldId}-selector-input`}
               value={selector.selector}
               onChange={(event) => selector.setSelector(event.target.value)}
               className="mt-2 font-mono"

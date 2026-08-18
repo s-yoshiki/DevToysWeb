@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { BatchFileList } from '@/components/batch-file-list'
 import { SegmentedControl } from '@/components/segmented-control'
 import { Badge } from '@/components/ui/badge'
@@ -18,6 +20,7 @@ import { useImageFormat } from '../hooks/use-image-format'
 const formatOptions = imageFormats.map((value) => ({ value, label: imageFormatLabels[value] }))
 
 export const ImageFormatWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const images = useImageFormat()
 
@@ -37,14 +40,14 @@ export const ImageFormatWorkspace = ({ tool }: WorkspaceProps) => {
         <CardContent className="p-0">
           <div className="grid gap-5 border-b bg-muted/20 p-5 sm:grid-cols-2 lg:grid-cols-4">
             <div className="space-y-2 sm:col-span-2">
-              <Label htmlFor="image-format-files">
+              <Label htmlFor={`${fieldId}-image-format-files`}>
                 {t(
                   `画像ファイル（最大${maxBatchFiles}件・各15MBまで）`,
                   `Image files (up to ${maxBatchFiles}, 15 MB each)`,
                 )}
               </Label>
               <Input
-                id="image-format-files"
+                id={`${fieldId}-image-format-files`}
                 type="file"
                 accept="image/*"
                 multiple
@@ -61,11 +64,11 @@ export const ImageFormatWorkspace = ({ tool }: WorkspaceProps) => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="image-format-quality">
+              <Label htmlFor={`${fieldId}-image-format-quality`}>
                 {t(`品質 (${images.quality}%)`, `Quality (${images.quality}%)`)}
               </Label>
               <Input
-                id="image-format-quality"
+                id={`${fieldId}-image-format-quality`}
                 type="range"
                 min={10}
                 max={100}

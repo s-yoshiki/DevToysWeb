@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { CopyButton } from '@/components/copy-button'
 import { SegmentedControl } from '@/components/segmented-control'
 import { Card, CardContent } from '@/components/ui/card'
@@ -14,6 +16,7 @@ import { useHmac } from '../hooks/use-hmac'
 const algorithmOptions = hmacAlgorithms.map((value) => ({ value, label: value }))
 
 export const HmacWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const hmac = useHmac()
 
@@ -23,17 +26,17 @@ export const HmacWorkspace = ({ tool }: WorkspaceProps) => {
         <CardContent className="space-y-5 p-5">
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="hmac-message">{t('メッセージ', 'Message')}</Label>
+              <Label htmlFor={`${fieldId}-hmac-message`}>{t('メッセージ', 'Message')}</Label>
               <Textarea
-                id="hmac-message"
+                id={`${fieldId}-hmac-message`}
                 value={hmac.message}
                 onChange={(event) => hmac.setMessage(event.target.value)}
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="hmac-secret">Secret</Label>
+              <Label htmlFor={`${fieldId}-hmac-secret`}>Secret</Label>
               <Textarea
-                id="hmac-secret"
+                id={`${fieldId}-hmac-secret`}
                 value={hmac.secret}
                 onChange={(event) => hmac.setSecret(event.target.value)}
               />

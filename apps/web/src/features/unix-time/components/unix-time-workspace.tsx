@@ -1,6 +1,7 @@
 'use client'
 
 import { Clock } from 'lucide-react'
+import { useId } from 'react'
 import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
 import { Button } from '@/components/ui/button'
@@ -21,6 +22,7 @@ import {
 import { useUnixTime } from '../hooks/use-unix-time'
 
 export const UnixTimeWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const { locale } = useLocale()
   const t = useTranslate()
   const unix = useUnixTime()
@@ -58,11 +60,11 @@ export const UnixTimeWorkspace = ({ tool }: WorkspaceProps) => {
             </div>
           </CardHeader>
           <CardContent className="space-y-2 p-5">
-            <Label htmlFor="unix-input">
+            <Label htmlFor={`${fieldId}-unix-input`}>
               {t('Unix time または日時文字列', 'Unix time or a date string')}
             </Label>
             <Input
-              id="unix-input"
+              id={`${fieldId}-unix-input`}
               value={unix.input}
               onChange={(event) => unix.setInput(event.target.value)}
               className="font-mono text-base"

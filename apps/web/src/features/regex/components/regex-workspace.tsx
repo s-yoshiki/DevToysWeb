@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { CodeEditor } from '@/components/code-editor'
 import { CopyButton } from '@/components/copy-button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -12,6 +14,7 @@ import type { WorkspaceProps } from '@/workspaces/types'
 import { useRegex } from '../hooks/use-regex'
 
 export const RegexWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const regex = useRegex()
 
@@ -26,9 +29,9 @@ export const RegexWorkspace = ({ tool }: WorkspaceProps) => {
         <CardContent className="p-0">
           <div className="grid gap-4 border-b bg-muted/20 p-5 sm:grid-cols-[1fr_10rem]">
             <div className="space-y-2">
-              <Label htmlFor="regex-pattern">{t('パターン', 'Pattern')}</Label>
+              <Label htmlFor={`${fieldId}-regex-pattern`}>{t('パターン', 'Pattern')}</Label>
               <Input
-                id="regex-pattern"
+                id={`${fieldId}-regex-pattern`}
                 value={regex.pattern}
                 onChange={(event) => regex.setPattern(event.target.value)}
                 className="font-mono"
@@ -36,9 +39,9 @@ export const RegexWorkspace = ({ tool }: WorkspaceProps) => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="regex-flags">{t('フラグ', 'Flags')}</Label>
+              <Label htmlFor={`${fieldId}-regex-flags`}>{t('フラグ', 'Flags')}</Label>
               <Input
-                id="regex-flags"
+                id={`${fieldId}-regex-flags`}
                 value={regex.flags}
                 onChange={(event) => regex.setFlags(event.target.value)}
                 className="font-mono"

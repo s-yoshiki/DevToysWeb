@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { DateField, NumberField, SelectField, TextField } from '@/components/search/fields'
 import {
   FiltersCard,
@@ -22,6 +24,7 @@ import {
 import { useGithubSearch } from '../hooks/use-github-search'
 
 export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const { condition, set, query, url, searchType, isIssueSearch, reset } = useGithubSearch()
 
@@ -47,28 +50,28 @@ export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
           <section className="space-y-4">
             <SectionHeading>{t('キーワード', 'Words')}</SectionHeading>
             <TextField
-              id="gh-all-words"
+              id={`${fieldId}-gh-all-words`}
               label={t('次のキーワードをすべて含む', 'All of these words')}
               placeholder={t('例: 静的サイト ジェネレーター', 'e.g. static site generator')}
               value={condition.allWords}
               onChange={(value) => set('allWords', value)}
             />
             <TextField
-              id="gh-exact-phrase"
+              id={`${fieldId}-gh-exact-phrase`}
               label={t('次のフレーズを含む', 'This exact phrase')}
               placeholder={t('例: design system', 'e.g. design system')}
               value={condition.exactPhrase}
               onChange={(value) => set('exactPhrase', value)}
             />
             <TextField
-              id="gh-any-words"
+              id={`${fieldId}-gh-any-words`}
               label={t('次のキーワードのいずれかを含む', 'Any of these words')}
               placeholder={t('例: react vue', 'e.g. react vue')}
               value={condition.anyWords}
               onChange={(value) => set('anyWords', value)}
             />
             <TextField
-              id="gh-none-words"
+              id={`${fieldId}-gh-none-words`}
               label={t('次のキーワードを含まない', 'None of these words')}
               placeholder={t('例: template', 'e.g. template')}
               value={condition.noneWords}
@@ -76,7 +79,7 @@ export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
             />
             {searchType === 'repositories' && (
               <SelectField
-                id="gh-repo-field"
+                id={`${fieldId}-gh-repo-field`}
                 label={t('キーワードの検索範囲', 'Search words in')}
                 value={condition.repoField}
                 options={repoFields}
@@ -95,7 +98,7 @@ export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
                 onChange={(value) => set('ownerKind', value)}
               />
               <TextField
-                id="gh-owner"
+                id={`${fieldId}-gh-owner`}
                 label={t('所有者', 'Owner')}
                 placeholder="vercel"
                 hint={t(
@@ -106,7 +109,7 @@ export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
                 onChange={(value) => set('owner', value)}
               />
               <TextField
-                id="gh-repo"
+                id={`${fieldId}-gh-repo`}
                 label={t('リポジトリ', 'Repository')}
                 placeholder="facebook/react"
                 hint={t(
@@ -118,7 +121,7 @@ export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
               />
               {searchType !== 'discussions' && (
                 <TextField
-                  id="gh-language"
+                  id={`${fieldId}-gh-language`}
                   label={t('言語', 'Language')}
                   placeholder="typescript"
                   value={condition.language}
@@ -132,14 +135,14 @@ export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
               <SectionHeading>{t('リポジトリの条件', 'Repository filters')}</SectionHeading>
               <div className="grid gap-4 sm:grid-cols-2">
                 <NumberField
-                  id="gh-min-stars"
+                  id={`${fieldId}-gh-min-stars`}
                   label={t('スターの最小数', 'Minimum stars')}
                   placeholder="100"
                   value={condition.minStars}
                   onChange={(value) => set('minStars', value)}
                 />
                 <NumberField
-                  id="gh-min-forks"
+                  id={`${fieldId}-gh-min-forks`}
                   label={t('フォークの最小数', 'Minimum forks')}
                   placeholder="10"
                   value={condition.minForks}
@@ -147,21 +150,21 @@ export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
                 />
               </div>
               <TextField
-                id="gh-topic"
+                id={`${fieldId}-gh-topic`}
                 label={t('トピック', 'Topic')}
                 placeholder="design-system"
                 value={condition.topic}
                 onChange={(value) => set('topic', value)}
               />
               <TextField
-                id="gh-license"
+                id={`${fieldId}-gh-license`}
                 label={t('ライセンス', 'License')}
                 placeholder="mit"
                 value={condition.license}
                 onChange={(value) => set('license', value)}
               />
               <DateField
-                id="gh-pushed-after"
+                id={`${fieldId}-gh-pushed-after`}
                 label={t('最終更新がこの日以降', 'Pushed after')}
                 value={condition.pushedAfter}
                 onChange={(value) => set('pushedAfter', value)}
@@ -186,7 +189,7 @@ export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
             <section className="space-y-4">
               <SectionHeading>{t('コードの条件', 'Code filters')}</SectionHeading>
               <TextField
-                id="gh-path"
+                id={`${fieldId}-gh-path`}
                 label={t('パス', 'Path')}
                 placeholder="src/**/*.ts"
                 hint={t(
@@ -197,7 +200,7 @@ export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
                 onChange={(value) => set('path', value)}
               />
               <TextField
-                id="gh-symbol"
+                id={`${fieldId}-gh-symbol`}
                 label={t('シンボル名', 'Symbol')}
                 placeholder="buildQuery"
                 hint={t(
@@ -215,7 +218,7 @@ export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
                 {t('IssueとPRの条件', 'Issue and pull request filters')}
               </SectionHeading>
               <SelectField
-                id="gh-state"
+                id={`${fieldId}-gh-state`}
                 label={t('状態', 'State')}
                 value={condition.state}
                 options={issueStates}
@@ -223,14 +226,14 @@ export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
               />
               <div className="grid gap-4 sm:grid-cols-2">
                 <TextField
-                  id="gh-author"
+                  id={`${fieldId}-gh-author`}
                   label={t('作成者', 'Author')}
                   placeholder="octocat"
                   value={condition.author}
                   onChange={(value) => set('author', value)}
                 />
                 <TextField
-                  id="gh-assignee"
+                  id={`${fieldId}-gh-assignee`}
                   label={t('担当者', 'Assignee')}
                   placeholder="octocat"
                   value={condition.assignee}
@@ -238,28 +241,28 @@ export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
                 />
               </div>
               <TextField
-                id="gh-mentions"
+                id={`${fieldId}-gh-mentions`}
                 label={t('メンションされている', 'Mentions')}
                 placeholder="octocat"
                 value={condition.mentions}
                 onChange={(value) => set('mentions', value)}
               />
               <TextField
-                id="gh-label"
+                id={`${fieldId}-gh-label`}
                 label={t('ラベル', 'Label')}
                 placeholder="good first issue"
                 value={condition.label}
                 onChange={(value) => set('label', value)}
               />
               <TextField
-                id="gh-milestone"
+                id={`${fieldId}-gh-milestone`}
                 label={t('マイルストーン', 'Milestone')}
                 placeholder="v2.0"
                 value={condition.milestone}
                 onChange={(value) => set('milestone', value)}
               />
               <NumberField
-                id="gh-min-comments"
+                id={`${fieldId}-gh-min-comments`}
                 label={t('コメントの最小数', 'Minimum comments')}
                 placeholder="5"
                 value={condition.minComments}
@@ -267,7 +270,7 @@ export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
               />
               {searchType === 'pullrequests' && (
                 <SelectField
-                  id="gh-review"
+                  id={`${fieldId}-gh-review`}
                   label={t('レビュー状態', 'Review state')}
                   value={condition.review}
                   options={reviewStates}
@@ -280,7 +283,7 @@ export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
             <section className="space-y-4">
               <SectionHeading>{t('Discussionの条件', 'Discussion filters')}</SectionHeading>
               <TextField
-                id="gh-discussion-author"
+                id={`${fieldId}-gh-discussion-author`}
                 label={t('作成者', 'Author')}
                 placeholder="octocat"
                 value={condition.author}
@@ -292,21 +295,21 @@ export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
             <section className="space-y-4">
               <SectionHeading>{t('ユーザーの条件', 'User filters')}</SectionHeading>
               <SelectField
-                id="gh-account-type"
+                id={`${fieldId}-gh-account-type`}
                 label={t('アカウントの種類', 'Account type')}
                 value={condition.accountType}
                 options={accountTypes}
                 onChange={(value) => set('accountType', value)}
               />
               <TextField
-                id="gh-user-language"
+                id={`${fieldId}-gh-user-language`}
                 label={t('主な言語', 'Language')}
                 placeholder="typescript"
                 value={condition.language}
                 onChange={(value) => set('language', value)}
               />
               <TextField
-                id="gh-location"
+                id={`${fieldId}-gh-location`}
                 label={t('場所', 'Location')}
                 placeholder="Tokyo"
                 value={condition.location}
@@ -314,14 +317,14 @@ export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
               />
               <div className="grid gap-4 sm:grid-cols-2">
                 <NumberField
-                  id="gh-min-followers"
+                  id={`${fieldId}-gh-min-followers`}
                   label={t('フォロワーの最小数', 'Minimum followers')}
                   placeholder="100"
                   value={condition.minFollowers}
                   onChange={(value) => set('minFollowers', value)}
                 />
                 <NumberField
-                  id="gh-min-repos"
+                  id={`${fieldId}-gh-min-repos`}
                   label={t('リポジトリの最小数', 'Minimum repositories')}
                   placeholder="10"
                   value={condition.minRepos}
@@ -334,13 +337,13 @@ export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
             <SectionHeading>{t('作成日', 'Creation date')}</SectionHeading>
             <div className="grid gap-4 sm:grid-cols-2">
               <DateField
-                id="gh-created-after"
+                id={`${fieldId}-gh-created-after`}
                 label={t('次の日付以降', 'After date')}
                 value={condition.createdAfter}
                 onChange={(value) => set('createdAfter', value)}
               />
               <DateField
-                id="gh-created-before"
+                id={`${fieldId}-gh-created-before`}
                 label={t('次の日付以前', 'Before date')}
                 value={condition.createdBefore}
                 onChange={(value) => set('createdBefore', value)}

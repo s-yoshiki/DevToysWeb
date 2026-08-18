@@ -1,6 +1,7 @@
 'use client'
 
 import { Download, MapPin, ShieldCheck } from 'lucide-react'
+import { useId } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -13,6 +14,7 @@ import { useExif } from '../hooks/use-exif'
 import { ExifTable } from './exif-table'
 
 export const ExifWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const exif = useExif()
 
@@ -25,11 +27,11 @@ export const ExifWorkspace = ({ tool }: WorkspaceProps) => {
         <CardContent className="p-0">
           <div className="grid gap-5 border-b bg-muted/20 p-5 sm:grid-cols-[1fr_auto] sm:items-end">
             <div className="space-y-2">
-              <Label htmlFor="exif-file">
+              <Label htmlFor={`${fieldId}-exif-file`}>
                 {t('JPEG画像（最大15MB）', 'JPEG image (max 15 MB)')}
               </Label>
               <Input
-                id="exif-file"
+                id={`${fieldId}-exif-file`}
                 type="file"
                 accept="image/jpeg,image/jpg"
                 onChange={(event) => exif.loadFile(event.target.files?.[0] ?? null)}

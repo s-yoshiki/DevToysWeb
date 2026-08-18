@@ -1,6 +1,7 @@
 'use client'
 
 import { Search } from 'lucide-react'
+import { useId } from 'react'
 import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
 import { SegmentedControl } from '@/components/segmented-control'
@@ -40,6 +41,7 @@ const classTone: Record<HttpStatusClass, string> = {
 }
 
 export const HttpStatusWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const { locale } = useLocale()
   const t = useTranslate()
   const httpStatus = useHttpStatus()
@@ -65,13 +67,13 @@ export const HttpStatusWorkspace = ({ tool }: WorkspaceProps) => {
         </CardHeader>
         <CardContent className="space-y-5 p-5">
           <div className="space-y-2">
-            <Label htmlFor="http-status-search">
+            <Label htmlFor={`${fieldId}-http-status-search`}>
               {t('コード・名称・説明で検索', 'Search by code, phrase, or description')}
             </Label>
             <div className="relative">
               <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
               <Input
-                id="http-status-search"
+                id={`${fieldId}-http-status-search`}
                 value={httpStatus.query}
                 onChange={(event) => httpStatus.setQuery(event.target.value)}
                 placeholder={t('例：404、rate limit、RFC 9110', 'e.g. 404, rate limit, RFC 9110')}

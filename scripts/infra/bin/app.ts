@@ -40,7 +40,7 @@ const certificateStack = new CertificateStack(app, `${stackPrefix}DevToysCertifi
   tags: { Environment: deployEnvironment, Project: 'DevToysWeb' },
 })
 
-new DevToysStack(app, `${stackPrefix}DevToysStack`, {
+void new DevToysStack(app, `${stackPrefix}DevToysStack`, {
   env: awsEnvironment,
   crossRegionReferences: true,
   certificate: certificateStack.certificate,

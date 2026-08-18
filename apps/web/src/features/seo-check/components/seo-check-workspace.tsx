@@ -1,6 +1,7 @@
 'use client'
 
 import { Check, CircleAlert, LoaderCircle, Play, X } from 'lucide-react'
+import { useId } from 'react'
 import { useLocale } from '@/components/locale-provider'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -24,6 +25,7 @@ const levelIcon: Record<CheckLevel, React.ReactNode> = {
 const groupOrder = ['basics', 'content', 'social', 'technical'] as const
 
 export const SeoCheckWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const { locale } = useLocale()
   const page = usePageReport('SEO check failed')
@@ -44,10 +46,10 @@ export const SeoCheckWorkspace = ({ tool }: WorkspaceProps) => {
       <div className="space-y-4">
         <Card className="border-border/70">
           <CardContent className="space-y-3 p-5">
-            <Label htmlFor="seo-check-url">URL</Label>
+            <Label htmlFor={`${fieldId}-seo-check-url`}>URL</Label>
             <div className="flex gap-2">
               <Input
-                id="seo-check-url"
+                id={`${fieldId}-seo-check-url`}
                 value={page.url}
                 spellCheck={false}
                 onChange={(event) => page.setUrl(event.target.value)}

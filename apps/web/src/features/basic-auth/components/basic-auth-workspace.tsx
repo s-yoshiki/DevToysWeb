@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { CopyButton } from '@/components/copy-button'
 import { SegmentedControl } from '@/components/segmented-control'
 import { Card, CardContent } from '@/components/ui/card'
@@ -12,6 +14,7 @@ import type { WorkspaceProps } from '@/workspaces/types'
 import { type BasicAuthMode, useBasicAuth } from '../hooks/use-basic-auth'
 
 export const BasicAuthWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const auth = useBasicAuth()
 
@@ -31,17 +34,21 @@ export const BasicAuthWorkspace = ({ tool }: WorkspaceProps) => {
           {auth.mode === 'encode' ? (
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="basic-auth-username">{t('ユーザー名', 'Username')}</Label>
+                <Label htmlFor={`${fieldId}-basic-auth-username`}>
+                  {t('ユーザー名', 'Username')}
+                </Label>
                 <Input
-                  id="basic-auth-username"
+                  id={`${fieldId}-basic-auth-username`}
                   value={auth.username}
                   onChange={(event) => auth.setUsername(event.target.value)}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="basic-auth-password">{t('パスワード', 'Password')}</Label>
+                <Label htmlFor={`${fieldId}-basic-auth-password`}>
+                  {t('パスワード', 'Password')}
+                </Label>
                 <Input
-                  id="basic-auth-password"
+                  id={`${fieldId}-basic-auth-password`}
                   value={auth.password}
                   onChange={(event) => auth.setPassword(event.target.value)}
                 />
@@ -49,9 +56,9 @@ export const BasicAuthWorkspace = ({ tool }: WorkspaceProps) => {
             </div>
           ) : (
             <div className="space-y-2">
-              <Label htmlFor="basic-auth-header">Authorization header</Label>
+              <Label htmlFor={`${fieldId}-basic-auth-header`}>Authorization header</Label>
               <Textarea
-                id="basic-auth-header"
+                id={`${fieldId}-basic-auth-header`}
                 value={auth.header}
                 onChange={(event) => auth.setHeader(event.target.value)}
               />

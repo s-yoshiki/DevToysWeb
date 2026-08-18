@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import type { Converter } from '../hooks/use-converter'
@@ -42,25 +44,29 @@ export const GeneratorOptions = ({
 }: {
   converter: Converter
   withLength: boolean
-}) => (
-  <OptionsRow>
-    <NumberOption
-      id="count"
-      label="Count"
-      min={1}
-      max={50}
-      value={converter.options.count}
-      onChange={(count) => converter.updateOptions({ count })}
-    />
-    {withLength && (
+}) => {
+  const fieldId = useId()
+
+  return (
+    <OptionsRow>
       <NumberOption
-        id="length"
-        label="Length"
-        min={8}
-        max={128}
-        value={converter.options.length}
-        onChange={(length) => converter.updateOptions({ length })}
+        id={`${fieldId}-count`}
+        label="Count"
+        min={1}
+        max={50}
+        value={converter.options.count}
+        onChange={(count) => converter.updateOptions({ count })}
       />
-    )}
-  </OptionsRow>
-)
+      {withLength && (
+        <NumberOption
+          id={`${fieldId}-length`}
+          label="Length"
+          min={8}
+          max={128}
+          value={converter.options.length}
+          onChange={(length) => converter.updateOptions({ length })}
+        />
+      )}
+    </OptionsRow>
+  )
+}

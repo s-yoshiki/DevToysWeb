@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { ResultCard } from '@/components/result-card'
 import { SegmentedControl } from '@/components/segmented-control'
 import { Card, CardContent } from '@/components/ui/card'
@@ -17,6 +19,7 @@ const modeOptions: { value: JsonQueryMode; label: string }[] = [
 ]
 
 export const JsonQueryWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const jsonQuery = useJsonQuery()
   const queryLabel = jsonQuery.mode === 'path' ? 'JSONPath' : 'JSON Schema'
@@ -33,26 +36,26 @@ export const JsonQueryWorkspace = ({ tool }: WorkspaceProps) => {
         <Card>
           <CardContent className="grid gap-4 p-5 lg:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="json-query-source">JSON</Label>
+              <Label htmlFor={`${fieldId}-json-query-source`}>JSON</Label>
               <Textarea
-                id="json-query-source"
+                id={`${fieldId}-json-query-source`}
                 value={jsonQuery.json}
                 onChange={(event) => jsonQuery.setJson(event.target.value)}
                 className="min-h-64 font-mono"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="json-query-expression">{queryLabel}</Label>
+              <Label htmlFor={`${fieldId}-json-query-expression`}>{queryLabel}</Label>
               {jsonQuery.mode === 'path' ? (
                 <Input
-                  id="json-query-expression"
+                  id={`${fieldId}-json-query-expression`}
                   value={jsonQuery.query}
                   onChange={(event) => jsonQuery.setQuery(event.target.value)}
                   className="font-mono"
                 />
               ) : (
                 <Textarea
-                  id="json-query-expression"
+                  id={`${fieldId}-json-query-expression`}
                   value={jsonQuery.schema}
                   onChange={(event) => jsonQuery.setSchema(event.target.value)}
                   className="min-h-64 font-mono"

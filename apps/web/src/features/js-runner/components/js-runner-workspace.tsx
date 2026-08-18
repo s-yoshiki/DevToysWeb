@@ -1,6 +1,7 @@
 'use client'
 
 import { Loader2, Play, Square } from 'lucide-react'
+import { useId } from 'react'
 import { CodeEditor } from '@/components/code-editor'
 import { CopyButton } from '@/components/copy-button'
 import { SegmentedControl } from '@/components/segmented-control'
@@ -19,6 +20,7 @@ const languageOptions: { value: RunnerLanguage; label: string }[] = [
 ]
 
 export const JsRunnerWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const runner = useJsRunner()
 
@@ -86,11 +88,11 @@ export const JsRunnerWorkspace = ({ tool }: WorkspaceProps) => {
           <div className="flex flex-col gap-4">
             <Card>
               <CardContent className="space-y-2 p-4">
-                <Label htmlFor="runner-stdin">
+                <Label htmlFor={`${fieldId}-runner-stdin`}>
                   {t('標準入力 (stdin)', 'Standard input (stdin)')}
                 </Label>
                 <Textarea
-                  id="runner-stdin"
+                  id={`${fieldId}-runner-stdin`}
                   value={runner.stdin}
                   onChange={(event) => runner.setStdin(event.target.value)}
                   className="min-h-24 font-mono text-sm"

@@ -1,6 +1,7 @@
 'use client'
 
 import { Pause, Play, RotateCcw, Volume2, VolumeX } from 'lucide-react'
+import { useId } from 'react'
 import { ToggleRow } from '@/components/segmented-control'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -79,6 +80,7 @@ const DurationField = ({
 )
 
 export const TimerWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const timer = useTimer()
   const editing = timer.status === 'idle'
@@ -135,7 +137,7 @@ export const TimerWorkspace = ({ tool }: WorkspaceProps) => {
             <CardContent className="space-y-5 p-5">
               <div className="grid grid-cols-3 gap-3">
                 <DurationField
-                  id="timer-hours"
+                  id={`${fieldId}-timer-hours`}
                   label={t('時', 'Hours')}
                   value={timer.hours}
                   max={99}
@@ -143,7 +145,7 @@ export const TimerWorkspace = ({ tool }: WorkspaceProps) => {
                   onChange={timer.setHours}
                 />
                 <DurationField
-                  id="timer-minutes"
+                  id={`${fieldId}-timer-minutes`}
                   label={t('分', 'Minutes')}
                   value={timer.minutes}
                   max={59}
@@ -151,7 +153,7 @@ export const TimerWorkspace = ({ tool }: WorkspaceProps) => {
                   onChange={timer.setMinutes}
                 />
                 <DurationField
-                  id="timer-seconds"
+                  id={`${fieldId}-timer-seconds`}
                   label={t('秒', 'Seconds')}
                   value={timer.seconds}
                   max={59}
@@ -168,7 +170,7 @@ export const TimerWorkspace = ({ tool }: WorkspaceProps) => {
                 </p>
               )}
               <ToggleRow
-                id="timer-sound"
+                id={`${fieldId}-timer-sound`}
                 label={t('終了時に音を鳴らす', 'Chime when finished')}
                 checked={timer.soundEnabled}
                 onChange={timer.setSoundEnabled}

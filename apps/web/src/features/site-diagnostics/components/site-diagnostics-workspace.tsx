@@ -1,6 +1,7 @@
 'use client'
 
 import { LoaderCircle, Play, ShieldCheck, ShieldX } from 'lucide-react'
+import { useId } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -13,6 +14,7 @@ import { useSiteDiagnostics } from '../hooks/use-site-diagnostics'
 import { type FullSiteReport, isOk, type Settled, type TlsCertificate } from '../types'
 
 export const SiteDiagnosticsWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const diagnostics = useSiteDiagnostics()
   const { report } = diagnostics
@@ -22,10 +24,10 @@ export const SiteDiagnosticsWorkspace = ({ tool }: WorkspaceProps) => {
       <div className="space-y-4">
         <Card className="overflow-hidden border-border/70 shadow-xl shadow-foreground/[0.03]">
           <CardContent className="space-y-2 p-5">
-            <Label htmlFor="diagnostics-url">URL / domain</Label>
+            <Label htmlFor={`${fieldId}-diagnostics-url`}>URL / domain</Label>
             <div className="flex gap-2">
               <Input
-                id="diagnostics-url"
+                id={`${fieldId}-diagnostics-url`}
                 value={diagnostics.url}
                 onChange={(event) => diagnostics.setUrl(event.target.value)}
                 onKeyDown={(event) => {

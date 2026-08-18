@@ -1,6 +1,7 @@
 'use client'
 
 import { Sparkles } from 'lucide-react'
+import { useId } from 'react'
 import { CodeEditor } from '@/components/code-editor'
 import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
@@ -29,6 +30,7 @@ const targetLanguages: Record<JsonTypeTarget, string> = {
 }
 
 export const JsonTypesWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const { dictionary } = useLocale()
   const t = useTranslate()
   const jsonTypes = useJsonTypes()
@@ -52,9 +54,11 @@ export const JsonTypesWorkspace = ({ tool }: WorkspaceProps) => {
         <CardContent className="p-0">
           <div className="flex flex-wrap items-end gap-4 border-b bg-muted/20 p-5">
             <div className="w-full max-w-64 space-y-2">
-              <Label htmlFor="json-types-root">{t('ルート型名', 'Root type name')}</Label>
+              <Label htmlFor={`${fieldId}-json-types-root`}>
+                {t('ルート型名', 'Root type name')}
+              </Label>
               <Input
-                id="json-types-root"
+                id={`${fieldId}-json-types-root`}
                 value={jsonTypes.rootName}
                 onChange={(event) => jsonTypes.setRootName(event.target.value)}
                 placeholder="Root"

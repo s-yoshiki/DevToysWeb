@@ -1,6 +1,7 @@
 'use client'
 
 import { Eye, Search, Sparkles, Trash2 } from 'lucide-react'
+import { useId } from 'react'
 import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
 import { SegmentedControl } from '@/components/segmented-control'
@@ -54,6 +55,7 @@ const CharacterRow = ({
 )
 
 export const InvisibleWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const { locale } = useLocale()
   const t = useTranslate()
   const invisible = useInvisible()
@@ -224,13 +226,13 @@ export const InvisibleWorkspace = ({ tool }: WorkspaceProps) => {
           <div className="space-y-5 p-5">
             <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
               <div className="space-y-2">
-                <Label htmlFor="invisible-search">
+                <Label htmlFor={`${fieldId}-invisible-search`}>
                   {t('名前・Unicode・用途で検索', 'Search by name, Unicode, or purpose')}
                 </Label>
                 <div className="relative">
                   <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
-                    id="invisible-search"
+                    id={`${fieldId}-invisible-search`}
                     value={invisible.query}
                     onChange={(event) => invisible.setQuery(event.target.value)}
                     placeholder={t('例：ゼロ幅、U+200B、BOM', 'e.g. zero width, U+200B, BOM')}

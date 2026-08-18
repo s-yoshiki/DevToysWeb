@@ -1,6 +1,7 @@
 'use client'
 
 import { LoaderCircle, Play } from 'lucide-react'
+import { useId } from 'react'
 import { ApiResult } from '@/components/api-result'
 import { SegmentedControl } from '@/components/segmented-control'
 import { Button } from '@/components/ui/button'
@@ -22,6 +23,7 @@ const keyLabels: Record<KeyMode, string> = {
 const keyOptions = keyModes.map((value) => ({ value, label: keyLabels[value] }))
 
 export const JwtWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const jwt = useJwtVerify()
 
@@ -30,9 +32,9 @@ export const JwtWorkspace = ({ tool }: WorkspaceProps) => {
       <Card>
         <CardContent className="space-y-5 p-5">
           <div className="space-y-2">
-            <Label htmlFor="jwt-token">JWT</Label>
+            <Label htmlFor={`${fieldId}-jwt-token`}>JWT</Label>
             <Textarea
-              id="jwt-token"
+              id={`${fieldId}-jwt-token`}
               value={jwt.token}
               onChange={(event) => jwt.setToken(event.target.value)}
               className="min-h-28 break-all font-mono"
@@ -45,17 +47,17 @@ export const JwtWorkspace = ({ tool }: WorkspaceProps) => {
             label={t('鍵の種類', 'Key material')}
           />
           <div className="space-y-2">
-            <Label htmlFor="jwt-key">{keyLabels[jwt.mode]}</Label>
+            <Label htmlFor={`${fieldId}-jwt-key`}>{keyLabels[jwt.mode]}</Label>
             {jwt.mode === 'publicKey' ? (
               <Textarea
-                id="jwt-key"
+                id={`${fieldId}-jwt-key`}
                 value={jwt.key}
                 onChange={(event) => jwt.setKey(event.target.value)}
                 className="min-h-28 font-mono"
               />
             ) : (
               <Input
-                id="jwt-key"
+                id={`${fieldId}-jwt-key`}
                 type={jwt.mode === 'secret' ? 'password' : 'url'}
                 value={jwt.key}
                 onChange={(event) => jwt.setKey(event.target.value)}
@@ -65,17 +67,17 @@ export const JwtWorkspace = ({ tool }: WorkspaceProps) => {
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="jwt-issuer">Issuer (optional)</Label>
+              <Label htmlFor={`${fieldId}-jwt-issuer`}>Issuer (optional)</Label>
               <Input
-                id="jwt-issuer"
+                id={`${fieldId}-jwt-issuer`}
                 value={jwt.issuer}
                 onChange={(event) => jwt.setIssuer(event.target.value)}
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="jwt-audience">Audience (optional)</Label>
+              <Label htmlFor={`${fieldId}-jwt-audience`}>Audience (optional)</Label>
               <Input
-                id="jwt-audience"
+                id={`${fieldId}-jwt-audience`}
                 value={jwt.audience}
                 onChange={(event) => jwt.setAudience(event.target.value)}
               />

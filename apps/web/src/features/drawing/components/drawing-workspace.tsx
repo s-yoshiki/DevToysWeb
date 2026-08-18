@@ -1,6 +1,7 @@
 'use client'
 
 import { Download, Eraser, Pencil, Redo2, Trash2, Undo2 } from 'lucide-react'
+import { useId } from 'react'
 import { SegmentedControl } from '@/components/segmented-control'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -18,6 +19,7 @@ const transparencyPattern =
   'bg-[linear-gradient(45deg,var(--muted)_25%,transparent_25%,transparent_75%,var(--muted)_75%),linear-gradient(45deg,var(--muted)_25%,transparent_25%,transparent_75%,var(--muted)_75%)] bg-[length:16px_16px] bg-[position:0_0,8px_8px]'
 
 export const DrawingWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const drawing = useDrawing()
 
@@ -60,11 +62,11 @@ export const DrawingWorkspace = ({ tool }: WorkspaceProps) => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="drawing-size">
+                <Label htmlFor={`${fieldId}-drawing-size`}>
                   {t(`太さ (${drawing.size}px)`, `Size (${drawing.size}px)`)}
                 </Label>
                 <Input
-                  id="drawing-size"
+                  id={`${fieldId}-drawing-size`}
                   type="range"
                   min={1}
                   max={72}
@@ -74,7 +76,7 @@ export const DrawingWorkspace = ({ tool }: WorkspaceProps) => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="drawing-color">{t('色', 'Colour')}</Label>
+                <Label htmlFor={`${fieldId}-drawing-color`}>{t('色', 'Colour')}</Label>
                 <div className="flex flex-wrap gap-1.5">
                   {brushColors.map((swatch) => (
                     <button
@@ -97,7 +99,7 @@ export const DrawingWorkspace = ({ tool }: WorkspaceProps) => {
                   ))}
                 </div>
                 <Input
-                  id="drawing-color"
+                  id={`${fieldId}-drawing-color`}
                   type="color"
                   value={drawing.color}
                   onChange={(event) => {

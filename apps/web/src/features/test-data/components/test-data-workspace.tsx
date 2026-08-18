@@ -1,6 +1,7 @@
 'use client'
 
 import { RefreshCw } from 'lucide-react'
+import { useId } from 'react'
 import { CopyButton } from '@/components/copy-button'
 import { useLocale } from '@/components/locale-provider'
 import { SegmentedControl } from '@/components/segmented-control'
@@ -17,6 +18,7 @@ import { FIELD_DEFS, type OutputFormat, type TestDataLocale } from '../functions
 import { useTestData } from '../hooks/use-test-data'
 
 export const TestDataWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const { locale, dictionary } = useLocale()
   const t = useTranslate()
   const data = useTestData()
@@ -63,9 +65,9 @@ export const TestDataWorkspace = ({ tool }: WorkspaceProps) => {
             </div>
             <div className="grid gap-5 sm:grid-cols-3">
               <div className="space-y-2">
-                <Label htmlFor="td-count">{t('行数', 'Rows')}</Label>
+                <Label htmlFor={`${fieldId}-td-count`}>{t('行数', 'Rows')}</Label>
                 <Input
-                  id="td-count"
+                  id={`${fieldId}-td-count`}
                   type="number"
                   min={1}
                   max={1000}

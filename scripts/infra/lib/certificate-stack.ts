@@ -36,7 +36,7 @@ export class CertificateStack extends cdk.Stack {
     // ACM's "certificate in use" error during the replacement.
     this.certificate.applyRemovalPolicy(cdk.RemovalPolicy.RETAIN)
 
-    new cdk.CfnOutput(this, 'CertificateArn', {
+    void new cdk.CfnOutput(this, 'CertificateArn', {
       value: this.certificate.certificateArn,
       description: `ACM certificate for ${props.domainName}`,
     })

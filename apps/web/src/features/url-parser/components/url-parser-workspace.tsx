@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { CopyButton } from '@/components/copy-button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -10,6 +12,7 @@ import type { WorkspaceProps } from '@/workspaces/types'
 import { useUrlParser } from '../hooks/use-url-parser'
 
 export const UrlParserWorkspace = ({ tool }: WorkspaceProps) => {
+  const fieldId = useId()
   const t = useTranslate()
   const parser = useUrlParser()
   const { parts } = parser
@@ -19,9 +22,9 @@ export const UrlParserWorkspace = ({ tool }: WorkspaceProps) => {
       <div className="space-y-4">
         <Card className="overflow-hidden border-border/70 shadow-xl shadow-foreground/[0.03]">
           <CardContent className="space-y-2 p-5">
-            <Label htmlFor="url-input">URL</Label>
+            <Label htmlFor={`${fieldId}-url-input`}>URL</Label>
             <Input
-              id="url-input"
+              id={`${fieldId}-url-input`}
               value={parser.input}
               onChange={(event) => parser.setInput(event.target.value)}
               className="font-mono"
