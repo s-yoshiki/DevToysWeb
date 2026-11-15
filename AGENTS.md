@@ -87,7 +87,7 @@ Run the smallest relevant check during iteration, then the repository-level chec
 hand-off when the scope warrants it.
 
 ```sh
-pnpm verify             # check, typecheck, test, and build in CI order
+pnpm verify             # check and test in CI order
 pnpm typecheck          # all TypeScript packages
 pnpm lint               # Oxlint / Oxfmt lint
 pnpm format:check       # formatting without modifying files

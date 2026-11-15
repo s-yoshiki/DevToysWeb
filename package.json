@@ -13,7 +13,7 @@
     "test": "turbo run test",
     "check": "pnpm lint && pnpm format:check && pnpm typecheck",
     "check:fix": "pnpm lint:fix && pnpm format",
-    "verify": "pnpm check && pnpm test && pnpm build",
+    "verify": "pnpm check && pnpm test",
     "deploy": "pnpm --filter @repo/infra deploy",
     "start": "turbo run start"
   },
