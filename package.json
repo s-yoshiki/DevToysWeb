@@ -4,18 +4,18 @@
   "type": "module",
   "scripts": {
     "build": "turbo run build",
-    "deploy": "pnpm --filter @repo/infra deploy",
     "dev": "turbo run dev",
-    "format": "oxfmt",
-    "format:check": "oxfmt --check",
-    "lint": "oxlint",
-    "check": "pnpm lint && pnpm format:check",
-    "check:fix": "pnpm lint:fix && pnpm format",
-    "check-types": "pnpm typecheck",
-    "start": "turbo run start",
-    "test": "turbo run test",
     "typecheck": "turbo run typecheck",
-    "verify": "pnpm check && pnpm typecheck && pnpm test && pnpm build"
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "test": "turbo run test",
+    "check": "pnpm lint && pnpm format:check && pnpm typecheck",
+    "check:fix": "pnpm lint:fix && pnpm format",
+    "verify": "pnpm check && pnpm test && pnpm build",
+    "deploy": "pnpm --filter @repo/infra deploy",
+    "start": "turbo run start"
   },
   "devDependencies": {
     "esbuild": "^0.25.12",
