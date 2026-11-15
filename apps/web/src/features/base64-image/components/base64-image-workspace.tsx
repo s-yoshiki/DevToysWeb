@@ -1,24 +1,24 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
-import { CopyButton } from '@/components/copy-button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useBase64Image } from '../hooks/use-base64-image'
+import { CopyButton } from '@/components/copy-button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useBase64Image } from '../hooks/use-base64-image';
 
 const checkerboard =
-  'bg-[linear-gradient(45deg,#eee_25%,transparent_25%),linear-gradient(-45deg,#eee_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#eee_75%),linear-gradient(-45deg,transparent_75%,#eee_75%)] bg-[length:20px_20px]'
+  'bg-[linear-gradient(45deg,#eee_25%,transparent_25%),linear-gradient(-45deg,#eee_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#eee_75%),linear-gradient(-45deg,transparent_75%,#eee_75%)] bg-[length:20px_20px]';
 
 export const Base64ImageWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const image = useBase64Image()
+  const fieldId = useId();
+  const t = useTranslate();
+  const image = useBase64Image();
 
   return (
     <WorkspaceShell tool={tool} onClear={image.clear}>
@@ -53,7 +53,7 @@ export const Base64ImageWorkspace = ({ tool }: WorkspaceProps) => {
             className={`flex min-h-96 items-center justify-center rounded-xl border p-6 ${checkerboard}`}
           >
             {image.valid ? (
-              // biome-ignore lint/performance/noImgElement: the source is a client-side data URI
+              // the source is a client-side data URI
               <img src={image.value} alt="Base64 preview" className="max-h-[28rem] max-w-full" />
             ) : (
               <p className="text-sm text-destructive">
@@ -67,5 +67,5 @@ export const Base64ImageWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

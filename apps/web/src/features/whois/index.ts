@@ -1,1 +1,1 @@
-export { WhoisWorkspace } from './components/whois-workspace'
+export { WhoisWorkspace } from './components/whois-workspace';

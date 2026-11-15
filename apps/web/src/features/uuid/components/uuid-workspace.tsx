@@ -1,25 +1,25 @@
-'use client'
+'use client';
 
-import { RefreshCw } from 'lucide-react'
-import { useId } from 'react'
-import { CopyButton } from '@/components/copy-button'
-import { useLocale } from '@/components/locale-provider'
-import { SegmentedControl, ToggleRow } from '@/components/segmented-control'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import type { NamedUuidVersion, NamespacePreset, UuidVersion } from '../functions/uuid'
-import { useUuid } from '../hooks/use-uuid'
+import { RefreshCw } from 'lucide-react';
+import { useId } from 'react';
+import { CopyButton } from '@/components/copy-button';
+import { useLocale } from '@/components/locale-provider';
+import { SegmentedControl, ToggleRow } from '@/components/segmented-control';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import type { NamedUuidVersion, NamespacePreset, UuidVersion } from '../functions/uuid';
+import { useUuid } from '../hooks/use-uuid';
 
 export const UuidWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const { dictionary } = useLocale()
-  const t = useTranslate()
-  const uuid = useUuid()
+  const fieldId = useId();
+  const { dictionary } = useLocale();
+  const t = useTranslate();
+  const uuid = useUuid();
 
   return (
     <WorkspaceShell tool={tool} onClear={uuid.clear}>
@@ -180,8 +180,8 @@ export const UuidWorkspace = ({ tool }: WorkspaceProps) => {
         </Card>
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};
 
 const versionHint = (version: UuidVersion, t: (ja: string, en: string) => string) => {
   switch (version) {
@@ -189,22 +189,22 @@ const versionHint = (version: UuidVersion, t: (ja: string, en: string) => string
       return t(
         'ランダムな122ビット。最も一般的な形式。',
         'Random 122 bits. The most common format.',
-      )
+      );
     case 'v7':
       return t(
         'Unixミリ秒のタイムスタンプ順にソート可能。',
         'Sortable by embedded Unix-millisecond timestamp.',
-      )
+      );
     case 'v1':
-      return t('タイムスタンプとノードに基づく形式。', 'Timestamp and node based.')
+      return t('タイムスタンプとノードに基づく形式。', 'Timestamp and node based.');
     case 'ulid':
       return t(
         '26文字・Crockford Base32。生成順にソート可能。',
         '26-char Crockford Base32, sortable by creation time.',
-      )
+      );
     case 'nil':
-      return t('すべて0の特殊なUUID。', 'The all-zero special UUID.')
+      return t('すべて0の特殊なUUID。', 'The all-zero special UUID.');
     case 'max':
-      return t('すべてfの特殊なUUID。', 'The all-f special UUID.')
+      return t('すべてfの特殊なUUID。', 'The all-f special UUID.');
   }
-}
+};

@@ -1,24 +1,24 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
-import { DateField, NumberField, SelectField, TextField } from '@/components/search/fields'
+import { DateField, NumberField, SelectField, TextField } from '@/components/search/fields';
 import {
   FiltersCard,
   OptionGroup,
   SearchPreview,
   SectionHeading,
-} from '@/components/search/search-layout'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { fileTypes, googleLanguages, timeRanges } from '../functions/constants'
-import { useGoogleSearch } from '../hooks/use-google-search'
+} from '@/components/search/search-layout';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { fileTypes, googleLanguages, timeRanges } from '../functions/constants';
+import { useGoogleSearch } from '../hooks/use-google-search';
 
 export const GoogleSearchWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const { condition, set, query, url, reset } = useGoogleSearch()
+  const fieldId = useId();
+  const t = useTranslate();
+  const { condition, set, query, url, reset } = useGoogleSearch();
 
   return (
     <WorkspaceShell tool={tool} onClear={reset}>
@@ -173,5 +173,5 @@ export const GoogleSearchWorkspace = ({ tool }: WorkspaceProps) => {
         />
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

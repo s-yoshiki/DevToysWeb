@@ -1,9 +1,9 @@
 name: Bug report / バグ報告
 description: Report a reproducible problem / 再現可能な不具合を報告する
-title: "[Bug]: "
+title: '[Bug]: '
 labels:
   - bug
-projects: ["s-yoshiki/1"]
+projects: ['s-yoshiki/1']
 body:
   - type: markdown
     attributes:

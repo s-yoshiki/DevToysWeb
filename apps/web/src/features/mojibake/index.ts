@@ -1,1 +1,1 @@
-export { MojibakeWorkspace } from './components/mojibake-workspace'
+export { MojibakeWorkspace } from './components/mojibake-workspace';

@@ -1,21 +1,21 @@
-import type { ContentPageLinkKey, ContentPageSlug } from '@/features/content/domain/page-slugs'
+import type { ContentPageLinkKey, ContentPageSlug } from '@/features/content/domain/page-slugs';
 
-export const locales = ['ja', 'en'] as const
-export type Locale = (typeof locales)[number]
+export const locales = ['ja', 'en'] as const;
+export type Locale = (typeof locales)[number];
 
 type ContentSection = {
-  heading: string
-  paragraphs?: readonly string[]
-  items?: readonly string[]
-}
+  heading: string;
+  paragraphs?: readonly string[];
+  items?: readonly string[];
+};
 
 type ContentPageCopy = {
-  eyebrow: string
-  title: string
-  description: string
-  sections: readonly ContentSection[]
-  action?: { label: string; href: string }
-}
+  eyebrow: string;
+  title: string;
+  description: string;
+  sections: readonly ContentSection[];
+  action?: { label: string; href: string };
+};
 
 const dictionaries = {
   ja: {
@@ -648,8 +648,8 @@ const dictionaries = {
       device: 'Device',
     },
   },
-} as const
+} as const;
 
-export const getDictionary = (locale: Locale) => dictionaries[locale]
-export type Dictionary = ReturnType<typeof getDictionary>
-export const isLocale = (value: string): value is Locale => locales.includes(value as Locale)
+export const getDictionary = (locale: Locale) => dictionaries[locale];
+export type Dictionary = ReturnType<typeof getDictionary>;
+export const isLocale = (value: string): value is Locale => locales.includes(value as Locale);

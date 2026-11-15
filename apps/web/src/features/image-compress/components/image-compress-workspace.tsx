@@ -1,34 +1,34 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
-import { BatchFileList } from '@/components/batch-file-list'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { maxBatchFiles } from '@/hooks/use-image-batch'
-import { useTranslate } from '@/hooks/use-translate'
-import { formatBytes } from '@/libs/domain/bytes'
-import { imageFormatLabels, imageFormats } from '@/libs/domain/image'
-import type { WorkspaceProps } from '@/workspaces/types'
-import type { CompressTarget } from '../hooks/use-image-compress'
-import { useImageCompress } from '../hooks/use-image-compress'
+import { BatchFileList } from '@/components/batch-file-list';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { maxBatchFiles } from '@/hooks/use-image-batch';
+import { useTranslate } from '@/hooks/use-translate';
+import { formatBytes } from '@/libs/domain/bytes';
+import { imageFormatLabels, imageFormats } from '@/libs/domain/image';
+import type { WorkspaceProps } from '@/workspaces/types';
+import type { CompressTarget } from '../hooks/use-image-compress';
+import { useImageCompress } from '../hooks/use-image-compress';
 
 export const ImageCompressWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const images = useImageCompress()
+  const fieldId = useId();
+  const t = useTranslate();
+  const images = useImageCompress();
 
   const targetOptions: { value: CompressTarget; label: string }[] = [
     { value: 'source', label: t('元の形式', 'Keep format') },
     ...imageFormats.map((value) => ({ value, label: imageFormatLabels[value] })),
-  ]
+  ];
 
-  const lossless = images.target === 'image/png'
+  const lossless = images.target === 'image/png';
 
   return (
     <WorkspaceShell tool={tool} onClear={images.clear}>
@@ -131,5 +131,5 @@ export const ImageCompressWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

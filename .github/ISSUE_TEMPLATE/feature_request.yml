@@ -1,9 +1,9 @@
 name: Feature request / 機能提案
 description: Suggest a new tool or improvement / 新しいツールや改善を提案する
-title: "[Feature]: "
+title: '[Feature]: '
 labels:
   - enhancement
-projects: ["s-yoshiki/1"]
+projects: ['s-yoshiki/1']
 body:
   - type: markdown
     attributes:

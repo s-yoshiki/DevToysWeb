@@ -1,1 +1,1 @@
-export { JsonQueryWorkspace } from './components/json-query-workspace'
+export { JsonQueryWorkspace } from './components/json-query-workspace';

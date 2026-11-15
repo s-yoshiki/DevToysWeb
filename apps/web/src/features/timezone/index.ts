@@ -1,1 +1,1 @@
-export { TimezoneWorkspace } from './components/timezone-workspace'
+export { TimezoneWorkspace } from './components/timezone-workspace';

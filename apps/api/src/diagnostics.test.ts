@@ -1,6 +1,6 @@
-import assert from 'node:assert/strict'
-import { test } from 'node:test'
-import { extractMetadata, extractSignals } from './diagnostics.js'
+import assert from 'node:assert/strict';
+import { test } from 'node:test';
+import { extractMetadata, extractSignals } from './diagnostics.js';
 
 const page = `<!doctype html>
 <html lang="ja">
@@ -22,36 +22,36 @@ const page = `<!doctype html>
   <a href="https://other.example.org/out">outside</a>
   <script>document.querySelector('h1')</script>
 </body>
-</html>`
+</html>`;
 
 test('reads title, meta and canonical with entities decoded', () => {
-  const metadata = extractMetadata(page)
-  assert.equal(metadata.title, 'Example & Co')
-  assert.equal(metadata.description, 'A "short" description')
-  assert.equal(metadata.viewport, 'width=device-width, initial-scale=1')
-  assert.equal(metadata['og:title'], 'OG title')
-  assert.equal(metadata.canonical, 'https://example.com/page')
-})
+  const metadata = extractMetadata(page);
+  assert.equal(metadata.title, 'Example & Co');
+  assert.equal(metadata.description, 'A "short" description');
+  assert.equal(metadata.viewport, 'width=device-width, initial-scale=1');
+  assert.equal(metadata['og:title'], 'OG title');
+  assert.equal(metadata.canonical, 'https://example.com/page');
+});
 
 test('collects the structural signals an SEO audit needs', () => {
-  const signals = extractSignals(page, 'https://example.com/page')
-  assert.equal(signals.lang, 'ja')
-  assert.equal(signals.charset, 'utf-8')
-  assert.deepEqual(signals.h1, ['Only heading'])
-  assert.deepEqual(signals.h2, ['Second'])
-  assert.deepEqual(signals.images, { total: 2, missingAlt: 1 })
-  assert.deepEqual(signals.links, { total: 2, external: 1, internal: 1 })
-})
+  const signals = extractSignals(page, 'https://example.com/page');
+  assert.equal(signals.lang, 'ja');
+  assert.equal(signals.charset, 'utf-8');
+  assert.deepEqual(signals.h1, ['Only heading']);
+  assert.deepEqual(signals.h2, ['Second']);
+  assert.deepEqual(signals.images, { total: 2, missingAlt: 1 });
+  assert.deepEqual(signals.links, { total: 2, external: 1, internal: 1 });
+});
 
 test('ignores markup inside script and style blocks', () => {
-  const signals = extractSignals(page, 'https://example.com/page')
-  assert.equal(signals.h1.length, 1)
-  assert.ok(!signals.textLength.toString().startsWith('0'))
-})
+  const signals = extractSignals(page, 'https://example.com/page');
+  assert.equal(signals.h1.length, 1);
+  assert.ok(!signals.textLength.toString().startsWith('0'));
+});
 
 test('survives a page with no metadata at all', () => {
-  const signals = extractSignals('<html><body></body></html>', 'not a url')
-  assert.equal(signals.lang, null)
-  assert.deepEqual(signals.h1, [])
-  assert.deepEqual(signals.links, { total: 0, external: 0, internal: 0 })
-})
+  const signals = extractSignals('<html><body></body></html>', 'not a url');
+  assert.equal(signals.lang, null);
+  assert.deepEqual(signals.h1, []);
+  assert.deepEqual(signals.links, { total: 0, external: 0, internal: 0 });
+});

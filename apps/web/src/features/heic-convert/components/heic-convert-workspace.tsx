@@ -1,29 +1,29 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
-import { BatchFileList } from '@/components/batch-file-list'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { maxBatchFiles } from '@/hooks/use-image-batch'
-import { useTranslate } from '@/hooks/use-translate'
-import { type ImageFormat, imageFormatLabels } from '@/libs/domain/image'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { heicTargetFormats, useHeicConvert } from '../hooks/use-heic-convert'
+import { BatchFileList } from '@/components/batch-file-list';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { maxBatchFiles } from '@/hooks/use-image-batch';
+import { useTranslate } from '@/hooks/use-translate';
+import { type ImageFormat, imageFormatLabels } from '@/libs/domain/image';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { heicTargetFormats, useHeicConvert } from '../hooks/use-heic-convert';
 
 const formatOptions = heicTargetFormats.map((value) => ({
   value,
   label: imageFormatLabels[value],
-}))
+}));
 
 export const HeicConvertWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const heic = useHeicConvert()
+  const fieldId = useId();
+  const t = useTranslate();
+  const heic = useHeicConvert();
 
   return (
     <WorkspaceShell tool={tool} onClear={heic.clear}>
@@ -98,5 +98,5 @@ export const HeicConvertWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

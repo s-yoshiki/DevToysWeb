@@ -1,25 +1,25 @@
-'use client'
+'use client';
 
-import { ArrowRight, History, LayoutGrid, Search, TrendingUp, X } from 'lucide-react'
-import { useId, useMemo, useState } from 'react'
-import { useLocale } from '@/components/locale-provider'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { useRecentTools } from '@/hooks/use-recent-tools'
-import { categoryOrder as categories, type ToolCategory, tools } from '@/libs/domain/catalog'
-import { cn } from '@/libs/utils'
-import { ToolCard } from './tool-card'
+import { ArrowRight, History, LayoutGrid, Search, TrendingUp, X } from 'lucide-react';
+import { useId, useMemo, useState } from 'react';
+import { useLocale } from '@/components/locale-provider';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useRecentTools } from '@/hooks/use-recent-tools';
+import { categoryOrder as categories, type ToolCategory, tools } from '@/libs/domain/catalog';
+import { cn } from '@/libs/utils';
+import { ToolCard } from './tool-card';
 
-const popularSlugs = ['json-format', 'base64', 'jwt', 'regex', 'text-diff', 'qr-code']
+const popularSlugs = ['json-format', 'base64', 'jwt', 'regex', 'text-diff', 'qr-code'];
 
 const SectionHeading = ({
   icon: Icon,
   children,
   count,
 }: {
-  icon?: typeof History
-  children: React.ReactNode
-  count?: number
+  icon?: typeof History;
+  children: React.ReactNode;
+  count?: number;
 }) => (
   <div className="mb-4 flex items-center gap-2">
     {Icon && <Icon className="size-4 text-muted-foreground" aria-hidden="true" />}
@@ -28,14 +28,14 @@ const SectionHeading = ({
       <span className="text-xs tabular-nums text-muted-foreground">{count}</span>
     )}
   </div>
-)
+);
 
 export const ToolDashboard = () => {
-  const { locale, dictionary } = useLocale()
-  const recent = useRecentTools()
-  const [query, setQuery] = useState('')
-  const [activeCategory, setActiveCategory] = useState<ToolCategory | 'all'>('all')
-  const searchId = useId()
+  const { locale, dictionary } = useLocale();
+  const recent = useRecentTools();
+  const [query, setQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState<ToolCategory | 'all'>('all');
+  const searchId = useId();
 
   const visible = useMemo(
     () =>
@@ -47,16 +47,16 @@ export const ToolDashboard = () => {
             .includes(query.trim().toLowerCase()),
       ),
     [activeCategory, locale, query],
-  )
+  );
   const popular = popularSlugs
     .map((slug) => tools.find((tool) => tool.slug === slug))
-    .filter((tool): tool is (typeof tools)[number] => Boolean(tool))
+    .filter((tool): tool is (typeof tools)[number] => Boolean(tool));
 
-  const isFiltered = Boolean(query) || activeCategory !== 'all'
+  const isFiltered = Boolean(query) || activeCategory !== 'all';
   const resetFilters = () => {
-    setQuery('')
-    setActiveCategory('all')
-  }
+    setQuery('');
+    setActiveCategory('all');
+  };
 
   return (
     <div className="mx-auto max-w-6xl px-3 py-6 sm:px-4 lg:px-6">
@@ -135,11 +135,11 @@ export const ToolDashboard = () => {
          */}
         <fieldset className="flex flex-wrap gap-2" aria-label={dictionary.filterByCategory}>
           {(['all', ...categories] as const).map((category) => {
-            const selected = activeCategory === category
+            const selected = activeCategory === category;
             const count =
               category === 'all'
                 ? tools.length
-                : tools.filter((tool) => tool.category === category).length
+                : tools.filter((tool) => tool.category === category).length;
             return (
               <button
                 key={category}
@@ -156,7 +156,7 @@ export const ToolDashboard = () => {
                 {category === 'all' ? dictionary.allTools : dictionary.categories[category]}
                 <span className="ml-1.5 tabular-nums opacity-70">{count}</span>
               </button>
-            )
+            );
           })}
         </fieldset>
       </section>
@@ -169,8 +169,8 @@ export const ToolDashboard = () => {
 
       <div className="mt-10 space-y-10">
         {categories.map((category) => {
-          const entries = visible.filter((tool) => tool.category === category)
-          if (!entries.length) return null
+          const entries = visible.filter((tool) => tool.category === category);
+          if (!entries.length) return null;
           return (
             <section key={category}>
               <SectionHeading count={entries.length}>
@@ -182,7 +182,7 @@ export const ToolDashboard = () => {
                 ))}
               </div>
             </section>
-          )
+          );
         })}
         {!visible.length && (
           <div className="rounded-xl border border-dashed border-border-strong py-16 text-center">
@@ -196,5 +196,5 @@ export const ToolDashboard = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};

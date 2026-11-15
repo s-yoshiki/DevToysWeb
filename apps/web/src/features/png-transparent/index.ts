@@ -1,1 +1,1 @@
-export { PngTransparentWorkspace } from './components/png-transparent-workspace'
+export { PngTransparentWorkspace } from './components/png-transparent-workspace';

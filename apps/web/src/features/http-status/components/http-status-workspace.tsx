@@ -1,20 +1,20 @@
-'use client'
+'use client';
 
-import { Search } from 'lucide-react'
-import { useId } from 'react'
-import { CopyButton } from '@/components/copy-button'
-import { useLocale } from '@/components/locale-provider'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import type { HttpStatusClass } from '../functions/http-status'
-import { httpStatusClasses } from '../functions/http-status'
-import { useHttpStatus } from '../hooks/use-http-status'
+import { Search } from 'lucide-react';
+import { useId } from 'react';
+import { CopyButton } from '@/components/copy-button';
+import { useLocale } from '@/components/locale-provider';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import type { HttpStatusClass } from '../functions/http-status';
+import { httpStatusClasses } from '../functions/http-status';
+import { useHttpStatus } from '../hooks/use-http-status';
 
 const classLabel = (
   statusClass: HttpStatusClass | 'all',
@@ -27,9 +27,9 @@ const classLabel = (
     '3xx': t('3xx リダイレクト', '3xx Redirection'),
     '4xx': t('4xx クライアントエラー', '4xx Client error'),
     '5xx': t('5xx サーバーエラー', '5xx Server error'),
-  }
-  return labels[statusClass]
-}
+  };
+  return labels[statusClass];
+};
 
 /** Colour carries the class at a glance; the badge text still names it. */
 const classTone: Record<HttpStatusClass, string> = {
@@ -38,13 +38,13 @@ const classTone: Record<HttpStatusClass, string> = {
   '3xx': 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   '4xx': 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
   '5xx': 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
-}
+};
 
 export const HttpStatusWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const { locale } = useLocale()
-  const t = useTranslate()
-  const httpStatus = useHttpStatus()
+  const fieldId = useId();
+  const { locale } = useLocale();
+  const t = useTranslate();
+  const httpStatus = useHttpStatus();
 
   return (
     <WorkspaceShell tool={tool} onClear={httpStatus.clear}>
@@ -146,5 +146,5 @@ export const HttpStatusWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

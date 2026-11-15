@@ -1,27 +1,27 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
-import { CopyButton } from '@/components/copy-button'
-import { useLocale } from '@/components/locale-provider'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import { cn } from '@/libs/utils'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { unitFamilies } from '../functions/units'
-import { useUnitConvert } from '../hooks/use-unit-convert'
+import { useId } from 'react';
+import { CopyButton } from '@/components/copy-button';
+import { useLocale } from '@/components/locale-provider';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import { cn } from '@/libs/utils';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { unitFamilies } from '../functions/units';
+import { useUnitConvert } from '../hooks/use-unit-convert';
 
 export const UnitConvertWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const { locale } = useLocale()
-  const converter = useUnitConvert()
-  const valueId = `${fieldId}-value`
-  const unitId = `${fieldId}-unit`
+  const fieldId = useId();
+  const t = useTranslate();
+  const { locale } = useLocale();
+  const converter = useUnitConvert();
+  const valueId = `${fieldId}-value`;
+  const unitId = `${fieldId}-unit`;
 
   return (
     <WorkspaceShell tool={tool} onClear={converter.clear}>
@@ -119,5 +119,5 @@ export const UnitConvertWorkspace = ({ tool }: WorkspaceProps) => {
         </Card>
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

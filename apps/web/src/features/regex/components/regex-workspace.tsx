@@ -1,22 +1,22 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
-import { CodeEditor } from '@/components/code-editor'
-import { CopyButton } from '@/components/copy-button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useRegex } from '../hooks/use-regex'
+import { CodeEditor } from '@/components/code-editor';
+import { CopyButton } from '@/components/copy-button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useRegex } from '../hooks/use-regex';
 
 export const RegexWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const regex = useRegex()
+  const fieldId = useId();
+  const t = useTranslate();
+  const regex = useRegex();
 
   return (
     <WorkspaceShell tool={tool} onClear={regex.clear}>
@@ -111,5 +111,5 @@ export const RegexWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

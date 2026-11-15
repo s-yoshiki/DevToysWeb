@@ -1,24 +1,24 @@
-'use client'
+'use client';
 
-import { ArrowRight, CalendarClock } from 'lucide-react'
-import { useId } from 'react'
-import { CopyButton } from '@/components/copy-button'
-import { useLocale } from '@/components/locale-provider'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { type DurationParts, dayOfYear, formatLong, isoWeekNumber } from '../functions/date-calc'
-import { type DateCalcMode, useDateCalc } from '../hooks/use-date-calc'
+import { ArrowRight, CalendarClock } from 'lucide-react';
+import { useId } from 'react';
+import { CopyButton } from '@/components/copy-button';
+import { useLocale } from '@/components/locale-provider';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { type DurationParts, dayOfYear, formatLong, isoWeekNumber } from '../functions/date-calc';
+import { type DateCalcMode, useDateCalc } from '../hooks/use-date-calc';
 
 export const DateCalcWorkspace = ({ tool }: WorkspaceProps) => {
-  const { locale } = useLocale()
-  const t = useTranslate()
-  const calc = useDateCalc()
+  const { locale } = useLocale();
+  const t = useTranslate();
+  const calc = useDateCalc();
 
   return (
     <WorkspaceShell tool={tool} onClear={calc.clear}>
@@ -48,15 +48,15 @@ export const DateCalcWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};
 
-type Calc = ReturnType<typeof useDateCalc>
-type T = (ja: string, en: string) => string
+type Calc = ReturnType<typeof useDateCalc>;
+type T = (ja: string, en: string) => string;
 
 const DifferenceView = ({ calc, locale, t }: { calc: Calc; locale: 'ja' | 'en'; t: T }) => {
-  const fieldId = useId()
-  const diff = calc.difference?.result
+  const fieldId = useId();
+  const diff = calc.difference?.result;
 
   return (
     <div>
@@ -108,11 +108,11 @@ const DifferenceView = ({ calc, locale, t }: { calc: Calc; locale: 'ja' | 'en'; 
         <p className="p-5 text-sm text-destructive">{t('日時が不正です', 'Invalid date input')}</p>
       )}
     </div>
-  )
-}
+  );
+};
 
 const AddView = ({ calc, locale, t }: { calc: Calc; locale: 'ja' | 'en'; t: T }) => {
-  const fieldId = useId()
+  const fieldId = useId();
   const fields: { key: keyof DurationParts; label: string }[] = [
     { key: 'years', label: t('年', 'Years') },
     { key: 'months', label: t('月', 'Months') },
@@ -120,9 +120,9 @@ const AddView = ({ calc, locale, t }: { calc: Calc; locale: 'ja' | 'en'; t: T })
     { key: 'days', label: t('日', 'Days') },
     { key: 'hours', label: t('時', 'Hours') },
     { key: 'minutes', label: t('分', 'Minutes') },
-  ]
-  const added = calc.added
-  const result = added?.result
+  ];
+  const added = calc.added;
+  const result = added?.result;
 
   return (
     <div>
@@ -204,22 +204,22 @@ const AddView = ({ calc, locale, t }: { calc: Calc; locale: 'ja' | 'en'; t: T })
         <p className="p-5 text-sm text-destructive">{t('日時が不正です', 'Invalid date input')}</p>
       )}
     </div>
-  )
-}
+  );
+};
 
 const Stat = ({ label, value }: { label: string; value: string }) => (
   <div className="rounded-lg border border-border bg-muted/20 px-4 py-3">
     <p className="text-xs text-muted-foreground">{label}</p>
     <p className="mt-1 font-mono text-lg font-semibold tabular-nums">{value}</p>
   </div>
-)
+);
 
 const formatBreakdown = (
   diff: NonNullable<Calc['difference']>['result'],
   locale: 'ja' | 'en',
   t: T,
 ) => {
-  if (diff.direction === 0) return t('同じ日時', 'Same moment')
+  if (diff.direction === 0) return t('同じ日時', 'Same moment');
   const units =
     locale === 'ja'
       ? [
@@ -231,8 +231,8 @@ const formatBreakdown = (
           [diff.years, diff.years === 1 ? ' year' : ' years'],
           [diff.months, diff.months === 1 ? ' month' : ' months'],
           [diff.days, diff.days === 1 ? ' day' : ' days'],
-        ]
-  const parts = units.filter(([value]) => (value as number) !== 0)
-  const shown = parts.length > 0 ? parts : [units[units.length - 1]]
-  return shown.map(([value, unit]) => `${value}${unit}`).join(locale === 'ja' ? '' : ', ')
-}
+        ];
+  const parts = units.filter(([value]) => (value as number) !== 0);
+  const shown = parts.length > 0 ? parts : [units[units.length - 1]];
+  return shown.map(([value, unit]) => `${value}${unit}`).join(locale === 'ja' ? '' : ', ');
+};

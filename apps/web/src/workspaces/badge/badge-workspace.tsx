@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
-import { ExternalLink } from 'lucide-react'
-import { useId } from 'react'
-import { CopyButton } from '@/components/copy-button'
-import { useLocale } from '@/components/locale-provider'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { ExternalLink } from 'lucide-react';
+import { useId } from 'react';
+import { CopyButton } from '@/components/copy-button';
+import { useLocale } from '@/components/locale-provider';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -16,15 +16,15 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { BadgeStyle } from '@/workspaces/badge/badge'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useBadge } from './use-badge'
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { BadgeStyle } from '@/workspaces/badge/badge';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useBadge } from './use-badge';
 
-const styles: BadgeStyle[] = ['flat', 'flat-square', 'plastic', 'for-the-badge', 'social']
+const styles: BadgeStyle[] = ['flat', 'flat-square', 'plastic', 'for-the-badge', 'social'];
 
 const Field = ({
   id,
@@ -33,11 +33,11 @@ const Field = ({
   placeholder,
   onChange,
 }: {
-  id: string
-  label: string
-  value: string
-  placeholder?: string
-  onChange: (value: string) => void
+  id: string;
+  label: string;
+  value: string;
+  placeholder?: string;
+  onChange: (value: string) => void;
 }) => (
   <div className="space-y-2">
     <Label htmlFor={id}>{label}</Label>
@@ -48,7 +48,7 @@ const Field = ({
       onChange={(event) => onChange(event.target.value)}
     />
   </div>
-)
+);
 
 const Output = ({ label, value }: { label: string; value: string }) => (
   <div className="border-b last:border-b-0">
@@ -65,14 +65,14 @@ const Output = ({ label, value }: { label: string; value: string }) => (
       className="min-h-20 resize-none rounded-none border-x-0 border-b-0 bg-muted/15 px-5 font-mono text-xs shadow-none focus-visible:ring-0"
     />
   </div>
-)
+);
 
 export const BadgeWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const { dictionary } = useLocale()
-  const t = useTranslate()
-  const badge = useBadge()
-  const { options } = badge
+  const fieldId = useId();
+  const { dictionary } = useLocale();
+  const t = useTranslate();
+  const badge = useBadge();
+  const { options } = badge;
 
   const categories = [
     ['language', t('プログラミング言語', 'Programming languages')],
@@ -80,7 +80,7 @@ export const BadgeWorkspace = ({ tool }: WorkspaceProps) => {
     ['database', t('データベース', 'Databases')],
     ['cloud', t('クラウド', 'Cloud')],
     ['tool', t('開発ツール', 'Developer tools')],
-  ] as const
+  ] as const;
 
   return (
     <WorkspaceShell tool={tool} onClear={badge.clear}>
@@ -109,8 +109,8 @@ export const BadgeWorkspace = ({ tool }: WorkspaceProps) => {
               <Label>{t('md-badges 技術プリセット', 'md-badges tech preset')}</Label>
               <Select
                 onValueChange={(value) => {
-                  const preset = badge.presets.find((item) => item.name === value)
-                  if (preset) badge.applyPreset(preset)
+                  const preset = badge.presets.find((item) => item.name === value);
+                  if (preset) badge.applyPreset(preset);
                 }}
               >
                 <SelectTrigger className="w-full">
@@ -211,7 +211,7 @@ export const BadgeWorkspace = ({ tool }: WorkspaceProps) => {
             </CardHeader>
             <CardContent className="flex min-h-36 items-center justify-center p-8">
               {/* The generated URL is user-controlled and intentionally loaded as an image only. */}
-              {/* biome-ignore lint/performance/noImgElement: dynamic third-party SVG dimensions are unknown. */}
+              {/* dynamic third-party SVG dimensions are unknown. */}
               <img src={badge.output.url} alt={options.label || options.message || 'badge'} />
             </CardContent>
           </Card>
@@ -240,5 +240,5 @@ export const BadgeWorkspace = ({ tool }: WorkspaceProps) => {
         </div>
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

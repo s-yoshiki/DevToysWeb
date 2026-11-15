@@ -8,8 +8,9 @@
 - 新しい判断は実装と同じPRで追加し、コード・workflow・ドキュメントの変更理由を残す。
 - PRとActionsの検証入口はルートの pnpm verify とする。
 
-| ID | Decision | Status |
-| --- | --- | --- |
-| [0001](0001-repository-conventions.md) | ex-foundry リポジトリ規約 | Accepted |
+| ID                                     | Decision                                   | Status   |
+| -------------------------------------- | ------------------------------------------ | -------- |
+| [0001](0001-repository-conventions.md) | ex-foundry リポジトリ規約                  | Accepted |
+| [0003](0003-oxlint-oxfmt-toolchain.md) | Oxlint と Oxfmt を lint / formatter に使う | Accepted |
 
 テンプレート: [template.md](template.md)

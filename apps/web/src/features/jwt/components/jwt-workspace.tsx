@@ -1,31 +1,31 @@
-'use client'
+'use client';
 
-import { LoaderCircle, Play } from 'lucide-react'
-import { useId } from 'react'
-import { ApiResult } from '@/components/api-result'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { type KeyMode, keyModes, useJwtVerify } from '../hooks/use-jwt-verify'
+import { LoaderCircle, Play } from 'lucide-react';
+import { useId } from 'react';
+import { ApiResult } from '@/components/api-result';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { type KeyMode, keyModes, useJwtVerify } from '../hooks/use-jwt-verify';
 
 const keyLabels: Record<KeyMode, string> = {
   secret: 'HMAC Secret',
   jwks: 'JWKS URL',
   publicKey: 'PEM public key',
-}
+};
 
-const keyOptions = keyModes.map((value) => ({ value, label: keyLabels[value] }))
+const keyOptions = keyModes.map((value) => ({ value, label: keyLabels[value] }));
 
 export const JwtWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const jwt = useJwtVerify()
+  const fieldId = useId();
+  const t = useTranslate();
+  const jwt = useJwtVerify();
 
   return (
     <WorkspaceShell tool={tool} onClear={jwt.clear}>
@@ -103,5 +103,5 @@ export const JwtWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

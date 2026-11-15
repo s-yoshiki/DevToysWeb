@@ -1,1 +1,1 @@
-export { StringEscapeWorkspace } from './components/string-escape-workspace'
+export { StringEscapeWorkspace } from './components/string-escape-workspace';

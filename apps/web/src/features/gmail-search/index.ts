@@ -1,1 +1,1 @@
-export { GmailSearchWorkspace } from './components/gmail-search-workspace'
+export { GmailSearchWorkspace } from './components/gmail-search-workspace';

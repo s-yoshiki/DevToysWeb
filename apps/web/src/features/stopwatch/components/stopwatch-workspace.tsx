@@ -1,25 +1,25 @@
-'use client'
+'use client';
 
-import { Flag, Pause, Play, RotateCcw } from 'lucide-react'
-import { CopyButton } from '@/components/copy-button'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import { formatPrecise } from '@/libs/domain/duration'
-import { cn } from '@/libs/utils'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useStopwatch } from '../hooks/use-stopwatch'
+import { Flag, Pause, Play, RotateCcw } from 'lucide-react';
+import { CopyButton } from '@/components/copy-button';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import { formatPrecise } from '@/libs/domain/duration';
+import { cn } from '@/libs/utils';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useStopwatch } from '../hooks/use-stopwatch';
 
 export const StopwatchWorkspace = ({ tool }: WorkspaceProps) => {
-  const t = useTranslate()
-  const stopwatch = useStopwatch()
+  const t = useTranslate();
+  const stopwatch = useStopwatch();
 
   const lapsAsText = stopwatch.laps
     .map((lap) => `${lap.index}\t${formatPrecise(lap.split)}\t${formatPrecise(lap.total)}`)
     .reverse()
-    .join('\n')
+    .join('\n');
 
   return (
     <WorkspaceShell tool={tool} onClear={stopwatch.reset}>
@@ -107,5 +107,5 @@ export const StopwatchWorkspace = ({ tool }: WorkspaceProps) => {
         </Card>
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

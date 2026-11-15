@@ -1,28 +1,28 @@
-'use client'
+'use client';
 
-import { Loader2, Play, Square } from 'lucide-react'
-import { useId } from 'react'
-import { CodeEditor } from '@/components/code-editor'
-import { CopyButton } from '@/components/copy-button'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { type RunnerLanguage, useJsRunner } from '../hooks/use-js-runner'
+import { Loader2, Play, Square } from 'lucide-react';
+import { useId } from 'react';
+import { CodeEditor } from '@/components/code-editor';
+import { CopyButton } from '@/components/copy-button';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { type RunnerLanguage, useJsRunner } from '../hooks/use-js-runner';
 
 const languageOptions: { value: RunnerLanguage; label: string }[] = [
   { value: 'javascript', label: 'JavaScript' },
   { value: 'typescript', label: 'TypeScript' },
-]
+];
 
 export const JsRunnerWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const runner = useJsRunner()
+  const fieldId = useId();
+  const t = useTranslate();
+  const runner = useJsRunner();
 
   return (
     <WorkspaceShell tool={tool} onClear={runner.clear}>
@@ -130,5 +130,5 @@ export const JsRunnerWorkspace = ({ tool }: WorkspaceProps) => {
         </div>
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

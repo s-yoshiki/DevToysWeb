@@ -1,22 +1,22 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
-import { CopyButton } from '@/components/copy-button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import { cn } from '@/libs/utils'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useSubnet } from '../hooks/use-subnet'
+import { CopyButton } from '@/components/copy-button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import { cn } from '@/libs/utils';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useSubnet } from '../hooks/use-subnet';
 
 export const SubnetWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const subnet = useSubnet()
-  const { summary } = subnet
+  const fieldId = useId();
+  const t = useTranslate();
+  const subnet = useSubnet();
+  const { summary } = subnet;
 
   return (
     <WorkspaceShell tool={tool} onClear={subnet.clear}>
@@ -75,8 +75,8 @@ export const SubnetWorkspace = ({ tool }: WorkspaceProps) => {
         )}
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};
 
 const Row = ({ label, value }: { label: string; value: string }) => (
   <div className={cn('flex items-center justify-between gap-3 bg-card px-5 py-3')}>
@@ -86,4 +86,4 @@ const Row = ({ label, value }: { label: string; value: string }) => (
       <CopyButton value={value} />
     </div>
   </div>
-)
+);

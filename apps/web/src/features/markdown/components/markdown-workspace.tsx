@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
-import { CodeEditor } from '@/components/code-editor'
-import { CopyButton } from '@/components/copy-button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Pane, PaneHeader } from '@/components/workspace-panes'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useMarkdownPreview } from '../hooks/use-markdown-preview'
+import { CodeEditor } from '@/components/code-editor';
+import { CopyButton } from '@/components/copy-button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Pane, PaneHeader } from '@/components/workspace-panes';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useMarkdownPreview } from '../hooks/use-markdown-preview';
 
 export const MarkdownWorkspace = ({ tool }: WorkspaceProps) => {
-  const t = useTranslate()
-  const markdown = useMarkdownPreview()
+  const t = useTranslate();
+  const markdown = useMarkdownPreview();
 
   return (
     <WorkspaceShell tool={tool} onClear={markdown.clear}>
@@ -34,12 +34,12 @@ export const MarkdownWorkspace = ({ tool }: WorkspaceProps) => {
             />
             <article
               className="prose prose-neutral max-w-none flex-1 overflow-auto p-6 dark:prose-invert"
-              // biome-ignore lint/security/noDangerouslySetInnerHtml: useMarkdownPreview runs every string through DOMPurify
+              // useMarkdownPreview runs every string through DOMPurify
               dangerouslySetInnerHTML={{ __html: markdown.html }}
             />
           </Pane>
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

@@ -1,9 +1,9 @@
-import type { ContentPageSlug } from '@/features/content/domain/page-slugs'
-import { getDictionary, type Locale } from '@/i18n/dictionaries'
-import { type ToolDefinition, tools } from '@/libs/domain/catalog'
-import { getToolPath } from '@/libs/domain/tool-path'
-import { toolDescription } from './metadata'
-import { absoluteUrl, siteName, siteUrl } from './site'
+import type { ContentPageSlug } from '@/features/content/domain/page-slugs';
+import { getDictionary, type Locale } from '@/i18n/dictionaries';
+import { type ToolDefinition, tools } from '@/libs/domain/catalog';
+import { getToolPath } from '@/libs/domain/tool-path';
+import { toolDescription } from './metadata';
+import { absoluteUrl, siteName, siteUrl } from './site';
 
 // Every tool is free and runs in the browser, so the same offer and platform
 // apply to all of them.
@@ -12,10 +12,10 @@ const freeBrowserApp = {
   operatingSystem: 'Any',
   browserRequirements: 'Requires JavaScript',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-}
+};
 
 export const websiteJsonLd = (locale: Locale) => {
-  const { tagline, heroDescription } = getDictionary(locale)
+  const { tagline, heroDescription } = getDictionary(locale);
 
   return {
     '@context': 'https://schema.org',
@@ -26,8 +26,8 @@ export const websiteJsonLd = (locale: Locale) => {
     url: absoluteUrl(locale),
     description: heroDescription,
     inLanguage: locale,
-  }
-}
+  };
+};
 
 export const toolListJsonLd = (locale: Locale) => ({
   '@context': 'https://schema.org',
@@ -40,7 +40,7 @@ export const toolListJsonLd = (locale: Locale) => ({
     name: tool.title[locale],
     url: `${siteUrl}${getToolPath(locale, tool)}`,
   })),
-})
+});
 
 export const toolJsonLd = (tool: ToolDefinition, locale: Locale) => ({
   '@context': 'https://schema.org',
@@ -51,10 +51,10 @@ export const toolJsonLd = (tool: ToolDefinition, locale: Locale) => ({
   url: `${siteUrl}${getToolPath(locale, tool)}`,
   inLanguage: locale,
   isPartOf: { '@id': `${siteUrl}/#website` },
-})
+});
 
 export const contentPageJsonLd = (slug: ContentPageSlug, locale: Locale) => {
-  const page = getDictionary(locale).contentPages[slug]
+  const page = getDictionary(locale).contentPages[slug];
 
   return {
     '@context': 'https://schema.org',
@@ -64,8 +64,8 @@ export const contentPageJsonLd = (slug: ContentPageSlug, locale: Locale) => {
     url: `${siteUrl}/${locale}/${slug}/`,
     inLanguage: locale,
     isPartOf: { '@id': `${siteUrl}/#website` },
-  }
-}
+  };
+};
 
 // Categories have no route of their own, so the trail stays home → tool rather
 // than emitting a breadcrumb entry without a resolvable `item`.
@@ -81,4 +81,4 @@ export const breadcrumbJsonLd = (tool: ToolDefinition, locale: Locale) => ({
       item: `${siteUrl}${getToolPath(locale, tool)}`,
     },
   ],
-})
+});

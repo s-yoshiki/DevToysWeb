@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
-import { CircleAlert } from 'lucide-react'
-import { Textarea } from '@/components/ui/textarea'
-import { useTranslate } from '@/hooks/use-translate'
-import { CopyButton } from './copy-button'
+import { CircleAlert } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
+import { useTranslate } from '@/hooks/use-translate';
+import { CopyButton } from './copy-button';
 
 /** Response body plus failure notice for the workspaces backed by the API. */
 export const ApiResult = ({ value, error }: { value: string; error: string }) => {
-  const t = useTranslate()
+  const t = useTranslate();
   return (
     <>
       {error && (
@@ -29,5 +29,5 @@ export const ApiResult = ({ value, error }: { value: string; error: string }) =>
         className="min-h-[30rem] font-mono text-xs"
       />
     </>
-  )
-}
+  );
+};

@@ -1,20 +1,20 @@
-'use client'
+'use client';
 
-import { Type } from 'lucide-react'
-import { CopyButton } from '@/components/copy-button'
-import { useLocale } from '@/components/locale-provider'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Textarea } from '@/components/ui/textarea'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useFancyText } from '../hooks/use-fancy-text'
+import { Type } from 'lucide-react';
+import { CopyButton } from '@/components/copy-button';
+import { useLocale } from '@/components/locale-provider';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Textarea } from '@/components/ui/textarea';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useFancyText } from '../hooks/use-fancy-text';
 
 export const FancyTextWorkspace = ({ tool }: WorkspaceProps) => {
-  const { locale } = useLocale()
-  const t = useTranslate()
-  const fancyText = useFancyText()
+  const { locale } = useLocale();
+  const t = useTranslate();
+  const fancyText = useFancyText();
 
   return (
     <WorkspaceShell tool={tool} onClear={fancyText.clear}>
@@ -77,5 +77,5 @@ export const FancyTextWorkspace = ({ tool }: WorkspaceProps) => {
         </p>
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

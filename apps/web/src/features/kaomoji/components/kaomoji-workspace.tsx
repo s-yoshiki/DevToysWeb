@@ -1,45 +1,45 @@
-'use client'
+'use client';
 
-import { Check, Dices, Search, Smile } from 'lucide-react'
-import { useId } from 'react'
-import { CopyButton } from '@/components/copy-button'
-import { useLocale } from '@/components/locale-provider'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { Check, Dices, Search, Smile } from 'lucide-react';
+import { useId } from 'react';
+import { CopyButton } from '@/components/copy-button';
+import { useLocale } from '@/components/locale-provider';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { Locale } from '@/i18n/dictionaries'
-import type { WorkspaceProps } from '@/workspaces/types'
-import type { KaomojiCategory, KaomojiEntry } from '../functions/kaomoji'
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { Locale } from '@/i18n/dictionaries';
+import type { WorkspaceProps } from '@/workspaces/types';
+import type { KaomojiCategory, KaomojiEntry } from '../functions/kaomoji';
 import {
   getKaomojiCodePoints,
   getKaomojiDisplayWidth,
   getKaomojiHtml,
   getKaomojiUnicodeEscape,
   kaomojiCategories,
-} from '../functions/kaomoji'
-import type { PairPart, SinglePart } from '../functions/kaomoji-parts'
+} from '../functions/kaomoji';
+import type { PairPart, SinglePart } from '../functions/kaomoji-parts';
 import {
   kaomojiArms,
   kaomojiBrackets,
   kaomojiDecorations,
   kaomojiEyes,
   kaomojiMouths,
-} from '../functions/kaomoji-parts'
-import { type KaomojiMode, useKaomoji } from '../hooks/use-kaomoji'
-import { useKaomojiGrid } from '../hooks/use-kaomoji-grid'
+} from '../functions/kaomoji-parts';
+import { type KaomojiMode, useKaomoji } from '../hooks/use-kaomoji';
+import { useKaomojiGrid } from '../hooks/use-kaomoji-grid';
 
 const categoryLabel = (
   category: KaomojiCategory | 'all',
@@ -58,9 +58,9 @@ const categoryLabel = (
     action: t('動作・リアクション', 'Actions & reactions'),
     animal: t('動物', 'Animals'),
     misc: t('その他・装飾', 'Misc & decorated'),
-  }
-  return labels[category]
-}
+  };
+  return labels[category];
+};
 
 const OutputRow = ({ label, value }: { label: string; value: string }) => (
   <div className="border-b last:border-b-0">
@@ -77,7 +77,7 @@ const OutputRow = ({ label, value }: { label: string; value: string }) => (
       className="min-h-14 resize-none rounded-none border-x-0 border-b-0 bg-muted/15 px-4 py-3 font-mono text-xs shadow-none focus-visible:ring-0"
     />
   </div>
-)
+);
 
 /*
  * Kaomoji range from 3 to over 25 columns wide. Rather than clip the art, wide
@@ -86,11 +86,11 @@ const OutputRow = ({ label, value }: { label: string; value: string }) => (
  * of full-width glyphs is far wider than the same number of ASCII ones.
  */
 const tileLayout = (kaomoji: string) => {
-  const width = getKaomojiDisplayWidth(kaomoji)
-  if (width > 16) return { span: 'col-span-2', font: 'text-xs' }
-  if (width > 10) return { span: '', font: 'text-sm' }
-  return { span: '', font: 'text-base' }
-}
+  const width = getKaomojiDisplayWidth(kaomoji);
+  if (width > 16) return { span: 'col-span-2', font: 'text-xs' };
+  if (width > 10) return { span: '', font: 'text-sm' };
+  return { span: '', font: 'text-base' };
+};
 
 const KaomojiTile = ({
   item,
@@ -104,18 +104,18 @@ const KaomojiTile = ({
   locale,
   copiedLabel,
 }: {
-  item: KaomojiEntry
-  index: number
-  focused: boolean
-  registerRef: (element: HTMLButtonElement | null) => void
-  onFocus: (index: number) => void
-  selected: boolean
-  copied: boolean
-  onPick: (item: KaomojiEntry) => void
-  locale: Locale
-  copiedLabel: string
+  item: KaomojiEntry;
+  index: number;
+  focused: boolean;
+  registerRef: (element: HTMLButtonElement | null) => void;
+  onFocus: (index: number) => void;
+  selected: boolean;
+  copied: boolean;
+  onPick: (item: KaomojiEntry) => void;
+  locale: Locale;
+  copiedLabel: string;
 }) => {
-  const { span, font } = tileLayout(item.kaomoji)
+  const { span, font } = tileLayout(item.kaomoji);
   return (
     <button
       type="button"
@@ -138,8 +138,8 @@ const KaomojiTile = ({
         </span>
       )}
     </button>
-  )
-}
+  );
+};
 
 const PartSelect = <Part extends PairPart | SinglePart>({
   id,
@@ -149,14 +149,14 @@ const PartSelect = <Part extends PairPart | SinglePart>({
   onChange,
   locale,
 }: {
-  id: string
-  label: string
-  parts: readonly Part[]
-  value: string
-  onChange: (value: string) => void
-  locale: Locale
+  id: string;
+  label: string;
+  parts: readonly Part[];
+  value: string;
+  onChange: (value: string) => void;
+  locale: Locale;
 }) => {
-  const active = parts.find((part) => part.id === value) ?? parts[0]
+  const active = parts.find((part) => part.id === value) ?? parts[0];
   return (
     <div className="space-y-2">
       <Label htmlFor={id}>{label}</Label>
@@ -173,22 +173,22 @@ const PartSelect = <Part extends PairPart | SinglePart>({
         </SelectContent>
       </Select>
     </div>
-  )
-}
+  );
+};
 
 export const KaomojiWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const { locale } = useLocale()
-  const t = useTranslate()
-  const kaomoji = useKaomoji()
-  const grid = useKaomojiGrid(kaomoji.results.length)
+  const fieldId = useId();
+  const { locale } = useLocale();
+  const t = useTranslate();
+  const kaomoji = useKaomoji();
+  const grid = useKaomojiGrid(kaomoji.results.length);
 
   const modeOptions: { value: KaomojiMode; label: string }[] = [
     { value: 'list', label: t('一覧・検索', 'Browse & search') },
     { value: 'build', label: t('パーツ組み立て', 'Parts builder') },
-  ]
+  ];
 
-  const copiedLabel = t('コピーしました', 'Copied')
+  const copiedLabel = t('コピーしました', 'Copied');
 
   return (
     <WorkspaceShell tool={tool} onClear={kaomoji.clear}>
@@ -242,8 +242,8 @@ export const KaomojiWorkspace = ({ tool }: WorkspaceProps) => {
                 <p className="text-sm font-medium">{t('カテゴリ', 'Category')}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {kaomojiCategories.map((category) => {
-                    const count = kaomoji.counts.get(category) ?? 0
-                    const active = category === kaomoji.category
+                    const count = kaomoji.counts.get(category) ?? 0;
+                    const active = category === kaomoji.category;
                     return (
                       <button
                         key={category}
@@ -266,7 +266,7 @@ export const KaomojiWorkspace = ({ tool }: WorkspaceProps) => {
                           {count}
                         </span>
                       </button>
-                    )
+                    );
                   })}
                 </div>
               </div>
@@ -450,5 +450,5 @@ export const KaomojiWorkspace = ({ tool }: WorkspaceProps) => {
         )}
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

@@ -1,19 +1,19 @@
-import type { Locale } from '@/i18n/dictionaries'
-import type { SiteReport } from '@/libs/api/diagnostics-client'
+import type { Locale } from '@/i18n/dictionaries';
+import type { SiteReport } from '@/libs/api/diagnostics-client';
 
-export type CheckLevel = 'pass' | 'warn' | 'fail'
+export type CheckLevel = 'pass' | 'warn' | 'fail';
 
 export type SeoCheck = {
-  id: string
-  group: 'basics' | 'content' | 'social' | 'technical'
-  label: Record<Locale, string>
-  level: CheckLevel
-  detail: string
-}
+  id: string;
+  group: 'basics' | 'content' | 'social' | 'technical';
+  label: Record<Locale, string>;
+  level: CheckLevel;
+  detail: string;
+};
 
 /** Recommended title length in characters, beyond which search results truncate. */
-export const titleRange = { min: 10, max: 60 }
-export const descriptionRange = { min: 50, max: 160 }
+export const titleRange = { min: 10, max: 60 };
+export const descriptionRange = { min: 50, max: 160 };
 
 const check = (
   id: string,
@@ -22,23 +22,23 @@ const check = (
   en: string,
   level: CheckLevel,
   detail: string,
-): SeoCheck => ({ id, group, label: { ja, en }, level, detail })
+): SeoCheck => ({ id, group, label: { ja, en }, level, detail });
 
 const lengthLevel = (value: string, { min, max }: { min: number; max: number }): CheckLevel =>
-  value.length >= min && value.length <= max ? 'pass' : 'warn'
+  value.length >= min && value.length <= max ? 'pass' : 'warn';
 
 /**
  * The on-page checks that can be answered from a single fetch. Everything here
  * is derived from the diagnose response — no extra requests, no crawling.
  */
 export const auditSeo = (report: SiteReport): SeoCheck[] => {
-  const { page, signals, http } = report
-  const title = page.title ?? ''
-  const description = page.description ?? ''
-  const robots = page.robots ?? ''
-  const noindex = /noindex/i.test(robots)
-  const finalUrl = http.finalUrl || report.target
-  const secure = finalUrl.startsWith('https://')
+  const { page, signals, http } = report;
+  const title = page.title ?? '';
+  const description = page.description ?? '';
+  const robots = page.robots ?? '';
+  const noindex = /noindex/i.test(robots);
+  const finalUrl = http.finalUrl || report.target;
+  const secure = finalUrl.startsWith('https://');
 
   return [
     check(
@@ -163,20 +163,20 @@ export const auditSeo = (report: SiteReport): SeoCheck[] => {
       http.securityHeaders['strict-transport-security'] ? 'pass' : 'warn',
       http.securityHeaders['strict-transport-security'] ?? 'No Strict-Transport-Security header',
     ),
-  ]
-}
+  ];
+};
 
 export const scoreOf = (checks: SeoCheck[]) => {
-  if (!checks.length) return 0
+  if (!checks.length) return 0;
   const points = checks.reduce(
     (total, item) => total + (item.level === 'pass' ? 1 : item.level === 'warn' ? 0.5 : 0),
     0,
-  )
-  return Math.round((points / checks.length) * 100)
-}
+  );
+  return Math.round((points / checks.length) * 100);
+};
 
 export const countByLevel = (checks: SeoCheck[]) => ({
   pass: checks.filter((item) => item.level === 'pass').length,
   warn: checks.filter((item) => item.level === 'warn').length,
   fail: checks.filter((item) => item.level === 'fail').length,
-})
+});

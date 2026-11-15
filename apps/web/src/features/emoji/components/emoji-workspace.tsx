@@ -1,27 +1,27 @@
-'use client'
+'use client';
 
-import { Dices, ListChecks, Search, Sparkles } from 'lucide-react'
-import { useId, useMemo } from 'react'
-import { CopyButton } from '@/components/copy-button'
-import { useLocale } from '@/components/locale-provider'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { Dices, ListChecks, Search, Sparkles } from 'lucide-react';
+import { useId, useMemo } from 'react';
+import { CopyButton } from '@/components/copy-button';
+import { useLocale } from '@/components/locale-provider';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import type { EmojiCategory, EmojiEntry } from '../functions/emoji'
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import type { EmojiCategory, EmojiEntry } from '../functions/emoji';
 import {
   emojiCategories,
   formatEmojiList,
@@ -29,8 +29,8 @@ import {
   getEmojiHtml,
   getEmojiHtmlDecimal,
   isZwjSequence,
-} from '../functions/emoji'
-import { type EmojiMode, useEmoji } from '../hooks/use-emoji'
+} from '../functions/emoji';
+import { type EmojiMode, useEmoji } from '../hooks/use-emoji';
 
 const categoryLabel = (category: EmojiCategory | 'all', t: (ja: string, en: string) => string) => {
   const labels: Record<EmojiCategory | 'all', string> = {
@@ -44,9 +44,9 @@ const categoryLabel = (category: EmojiCategory | 'all', t: (ja: string, en: stri
     objects: t('物', 'Objects'),
     symbols: t('記号', 'Symbols'),
     flags: t('旗', 'Flags'),
-  }
-  return labels[category]
-}
+  };
+  return labels[category];
+};
 
 const OutputRow = ({ label, value }: { label: string; value: string }) => (
   <div className="border-b last:border-b-0">
@@ -63,7 +63,7 @@ const OutputRow = ({ label, value }: { label: string; value: string }) => (
       className="min-h-14 resize-none rounded-none border-x-0 border-b-0 bg-muted/15 px-4 py-3 font-mono text-xs shadow-none focus-visible:ring-0"
     />
   </div>
-)
+);
 
 const EmojiTile = ({
   item,
@@ -71,10 +71,10 @@ const EmojiTile = ({
   onSelect,
   locale,
 }: {
-  item: EmojiEntry
-  selected: boolean
-  onSelect: (item: EmojiEntry) => void
-  locale: 'ja' | 'en'
+  item: EmojiEntry;
+  selected: boolean;
+  onSelect: (item: EmojiEntry) => void;
+  locale: 'ja' | 'en';
 }) => (
   <button
     type="button"
@@ -89,19 +89,22 @@ const EmojiTile = ({
       {item.name[locale]}
     </span>
   </button>
-)
+);
 
 export const EmojiWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const { locale } = useLocale()
-  const t = useTranslate()
-  const emoji = useEmoji()
-  const resultsList = useMemo(() => formatEmojiList(emoji.results, locale), [emoji.results, locale])
+  const fieldId = useId();
+  const { locale } = useLocale();
+  const t = useTranslate();
+  const emoji = useEmoji();
+  const resultsList = useMemo(
+    () => formatEmojiList(emoji.results, locale),
+    [emoji.results, locale],
+  );
 
   const modeOptions: { value: EmojiMode; label: string }[] = [
     { value: 'list', label: t('一覧・検索', 'Browse & search') },
     { value: 'generate', label: t('ランダム生成', 'Random generate') },
-  ]
+  ];
 
   return (
     <WorkspaceShell tool={tool} onClear={emoji.clear}>
@@ -334,5 +337,5 @@ export const EmojiWorkspace = ({ tool }: WorkspaceProps) => {
         )}
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

@@ -1,1 +1,1 @@
-export { CameraWorkspace } from './components/camera-workspace'
+export { CameraWorkspace } from './components/camera-workspace';

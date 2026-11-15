@@ -1,16 +1,16 @@
-'use client'
+'use client';
 
-import { Clock } from 'lucide-react'
-import { useId } from 'react'
-import { CopyButton } from '@/components/copy-button'
-import { useLocale } from '@/components/locale-provider'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
+import { Clock } from 'lucide-react';
+import { useId } from 'react';
+import { CopyButton } from '@/components/copy-button';
+import { useLocale } from '@/components/locale-provider';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
 import {
   dayOfYear,
   isoWeek,
@@ -18,17 +18,17 @@ import {
   relativeTime,
   toLocalIso,
   weekday,
-} from '../functions/unix-time'
-import { useUnixTime } from '../hooks/use-unix-time'
+} from '../functions/unix-time';
+import { useUnixTime } from '../hooks/use-unix-time';
 
 export const UnixTimeWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const { locale } = useLocale()
-  const t = useTranslate()
-  const unix = useUnixTime()
-  const { date } = unix
+  const fieldId = useId();
+  const { locale } = useLocale();
+  const t = useTranslate();
+  const unix = useUnixTime();
+  const { date } = unix;
 
-  const ms = date.getTime()
+  const ms = date.getTime();
   const rows: { label: string; value: string; mono?: boolean }[] = [
     { label: t('Unix秒', 'Unix seconds'), value: String(Math.floor(ms / 1000)) },
     { label: t('Unixミリ秒', 'Unix milliseconds'), value: String(ms) },
@@ -42,7 +42,7 @@ export const UnixTimeWorkspace = ({ tool }: WorkspaceProps) => {
     { label: t('曜日', 'Weekday'), value: weekday(date, locale), mono: false },
     { label: t('通算日', 'Day of year'), value: String(dayOfYear(date)) },
     { label: t('ISO週番号', 'ISO week'), value: String(isoWeek(date)) },
-  ]
+  ];
 
   return (
     <WorkspaceShell tool={tool} onClear={unix.clear}>
@@ -125,8 +125,8 @@ export const UnixTimeWorkspace = ({ tool }: WorkspaceProps) => {
         </Card>
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};
 
 const interpretationLabel = (
   interpretation: 'seconds' | 'milliseconds' | 'date-string' | undefined,
@@ -134,12 +134,12 @@ const interpretationLabel = (
 ) => {
   switch (interpretation) {
     case 'seconds':
-      return t('Unix秒として解釈', 'Interpreted as Unix seconds')
+      return t('Unix秒として解釈', 'Interpreted as Unix seconds');
     case 'milliseconds':
-      return t('Unixミリ秒として解釈', 'Interpreted as Unix milliseconds')
+      return t('Unixミリ秒として解釈', 'Interpreted as Unix milliseconds');
     case 'date-string':
-      return t('日時文字列として解釈', 'Interpreted as a date string')
+      return t('日時文字列として解釈', 'Interpreted as a date string');
     default:
-      return ''
+      return '';
   }
-}
+};

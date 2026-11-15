@@ -1,1 +1,1 @@
-export { ExifWorkspace } from './components/exif-workspace'
+export { ExifWorkspace } from './components/exif-workspace';

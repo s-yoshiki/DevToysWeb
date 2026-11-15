@@ -1,1 +1,1 @@
-export { SvgWorkspace } from './components/svg-workspace'
+export { SvgWorkspace } from './components/svg-workspace';

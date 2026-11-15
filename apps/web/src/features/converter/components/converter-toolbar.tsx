@@ -1,15 +1,15 @@
-'use client'
+'use client';
 
-import { ArrowRight, Play } from 'lucide-react'
-import { useLocale } from '@/components/locale-provider'
-import { Button } from '@/components/ui/button'
-import { CardHeader, CardTitle } from '@/components/ui/card'
-import { useTranslate } from '@/hooks/use-translate'
-import type { Converter } from '../hooks/use-converter'
+import { ArrowRight, Play } from 'lucide-react';
+import { useLocale } from '@/components/locale-provider';
+import { Button } from '@/components/ui/button';
+import { CardHeader, CardTitle } from '@/components/ui/card';
+import { useTranslate } from '@/hooks/use-translate';
+import type { Converter } from '../hooks/use-converter';
 
 const DirectionSwitch = ({ converter }: { converter: Converter }) => {
-  const t = useTranslate()
-  const [from, to] = converter.formats
+  const t = useTranslate();
+  const [from, to] = converter.formats;
   return (
     <fieldset
       className="flex rounded-lg border bg-background p-1"
@@ -32,13 +32,13 @@ const DirectionSwitch = ({ converter }: { converter: Converter }) => {
         {to} <ArrowRight className="size-3" /> {from}
       </Button>
     </fieldset>
-  )
-}
+  );
+};
 
 /** Card header: what the workspace does, plus its direction or run control. */
 export const ConverterToolbar = ({ converter }: { converter: Converter }) => {
-  const { dictionary } = useLocale()
-  const t = useTranslate()
+  const { dictionary } = useLocale();
+  const t = useTranslate();
   return (
     <CardHeader className="border-b bg-muted/30 py-4">
       <div className="flex flex-wrap items-center justify-between gap-4">
@@ -66,5 +66,5 @@ export const ConverterToolbar = ({ converter }: { converter: Converter }) => {
         </div>
       </div>
     </CardHeader>
-  )
-}
+  );
+};

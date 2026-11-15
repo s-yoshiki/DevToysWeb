@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import { CircleAlert, Download, Loader2 } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import type { BatchItem } from '@/hooks/use-image-batch'
-import { useTranslate } from '@/hooks/use-translate'
-import { formatBytes } from '@/libs/domain/bytes'
+import { CircleAlert, Download, Loader2 } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import type { BatchItem } from '@/hooks/use-image-batch';
+import { useTranslate } from '@/hooks/use-translate';
+import { formatBytes } from '@/libs/domain/bytes';
 
 /** Per-file outcome list shared by the batch image tools. */
 export const BatchFileList = ({
@@ -13,19 +13,19 @@ export const BatchFileList = ({
   rejected,
   emptyMessage,
 }: {
-  items: BatchItem[]
-  rejected: { name: string; reason: string }[]
-  emptyMessage: string
+  items: BatchItem[];
+  rejected: { name: string; reason: string }[];
+  emptyMessage: string;
 }) => {
-  const t = useTranslate()
+  const t = useTranslate();
 
   if (!items.length && !rejected.length)
-    return <p className="px-5 py-10 text-center text-sm text-muted-foreground">{emptyMessage}</p>
+    return <p className="px-5 py-10 text-center text-sm text-muted-foreground">{emptyMessage}</p>;
 
   return (
     <ul className="divide-y">
       {items.map((item) => {
-        const saved = item.result ? item.file.size - item.result.size : 0
+        const saved = item.result ? item.file.size - item.result.size : 0;
         return (
           <li
             key={item.id}
@@ -63,7 +63,7 @@ export const BatchFileList = ({
               )}
             </div>
           </li>
-        )
+        );
       })}
       {rejected.map((entry) => (
         <li key={entry.name} className="flex items-center gap-3 px-5 py-3">
@@ -75,5 +75,5 @@ export const BatchFileList = ({
         </li>
       ))}
     </ul>
-  )
-}
+  );
+};

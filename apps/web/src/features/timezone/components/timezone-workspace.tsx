@@ -1,44 +1,44 @@
-'use client'
+'use client';
 
-import { Clock, Plus, X } from 'lucide-react'
-import { useId, useState } from 'react'
-import { CopyButton } from '@/components/copy-button'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { ErrorBanner } from '@/components/workspace-panes'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { listTimeZones } from '../functions/timezone'
-import { useTimezone } from '../hooks/use-timezone'
+import { Clock, Plus, X } from 'lucide-react';
+import { useId, useState } from 'react';
+import { CopyButton } from '@/components/copy-button';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { ErrorBanner } from '@/components/workspace-panes';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { listTimeZones } from '../functions/timezone';
+import { useTimezone } from '../hooks/use-timezone';
 
-const zoneListId = 'timezone-options'
+const zoneListId = 'timezone-options';
 
 const ShiftBadge = ({ shift }: { shift: number }) => {
-  const t = useTranslate()
-  if (!shift) return null
-  const sign = shift > 0 ? '+' : '−'
+  const t = useTranslate();
+  if (!shift) return null;
+  const sign = shift > 0 ? '+' : '−';
   return (
     <Badge variant="secondary" className="font-mono text-[11px]">
       {t(`${sign}${Math.abs(shift)}日`, `${sign}${Math.abs(shift)} day`)}
     </Badge>
-  )
-}
+  );
+};
 
 export const TimezoneWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const timezone = useTimezone()
-  const [draft, setDraft] = useState('')
+  const fieldId = useId();
+  const t = useTranslate();
+  const timezone = useTimezone();
+  const [draft, setDraft] = useState('');
 
-  const zones = listTimeZones()
+  const zones = listTimeZones();
 
   const submitDraft = () => {
-    if (timezone.addTarget(draft.trim())) setDraft('')
-  }
+    if (timezone.addTarget(draft.trim())) setDraft('');
+  };
 
   return (
     <WorkspaceShell tool={tool} onClear={timezone.clear}>
@@ -98,9 +98,9 @@ export const TimezoneWorkspace = ({ tool }: WorkspaceProps) => {
                 spellCheck={false}
                 onChange={(event) => setDraft(event.target.value)}
                 onKeyDown={(event) => {
-                  if (event.key !== 'Enter') return
-                  event.preventDefault()
-                  submitDraft()
+                  if (event.key !== 'Enter') return;
+                  event.preventDefault();
+                  submitDraft();
                 }}
                 className="h-8 w-full max-w-56 font-mono text-xs"
               />
@@ -180,5 +180,5 @@ export const TimezoneWorkspace = ({ tool }: WorkspaceProps) => {
         </Card>
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

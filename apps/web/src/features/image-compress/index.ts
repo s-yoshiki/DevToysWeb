@@ -1,1 +1,1 @@
-export { ImageCompressWorkspace } from './components/image-compress-workspace'
+export { ImageCompressWorkspace } from './components/image-compress-workspace';

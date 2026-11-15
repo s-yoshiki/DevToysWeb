@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { useMemo, useState } from 'react'
-import { generateTypeDefinitions, type JsonTypeTarget } from '../functions/json-types'
+import { useMemo, useState } from 'react';
+import { generateTypeDefinitions, type JsonTypeTarget } from '../functions/json-types';
 
 const SAMPLE = JSON.stringify(
   {
@@ -18,27 +18,27 @@ const SAMPLE = JSON.stringify(
   },
   null,
   2,
-)
+);
 
-const DEFAULT_ROOT_NAME = 'Root'
+const DEFAULT_ROOT_NAME = 'Root';
 
 export const useJsonTypes = () => {
-  const [input, setInput] = useState('')
-  const [target, setTarget] = useState<JsonTypeTarget>('typescript')
-  const [rootName, setRootName] = useState(DEFAULT_ROOT_NAME)
+  const [input, setInput] = useState('');
+  const [target, setTarget] = useState<JsonTypeTarget>('typescript');
+  const [rootName, setRootName] = useState(DEFAULT_ROOT_NAME);
 
   const result = useMemo(
     () => generateTypeDefinitions(input, target, rootName),
     [input, rootName, target],
-  )
+  );
 
-  const loadSample = () => setInput(SAMPLE)
+  const loadSample = () => setInput(SAMPLE);
 
   const clear = () => {
-    setInput('')
-    setTarget('typescript')
-    setRootName(DEFAULT_ROOT_NAME)
-  }
+    setInput('');
+    setTarget('typescript');
+    setRootName(DEFAULT_ROOT_NAME);
+  };
 
   return {
     input,
@@ -51,5 +51,5 @@ export const useJsonTypes = () => {
     error: result.error,
     loadSample,
     clear,
-  }
-}
+  };
+};

@@ -74,7 +74,7 @@ secret material, or server-side trust boundaries in the API.
   runtime server, such as server actions, middleware, or dynamic server rendering.
 - Routes must remain compatible with static output and `trailingSlash: true`.
 - Imports within `apps/web` may use the `@/` alias.
-- Follow the existing Biome style: two spaces, single quotes, no semicolons, 100 columns.
+- Follow the existing Oxlint / Oxfmt style: two spaces, single quotes, no semicolons, 100 columns.
 - Use the existing shadcn/Base UI components and Tailwind tokens before adding dependencies
   or custom primitives.
 - User-facing shared text must be supplied in both Japanese and English.
@@ -89,7 +89,7 @@ hand-off when the scope warrants it.
 ```sh
 pnpm verify             # check, typecheck, test, and build in CI order
 pnpm typecheck          # all TypeScript packages
-pnpm lint               # Biome lint
+pnpm lint               # Oxlint / Oxfmt lint
 pnpm format:check       # formatting without modifying files
 pnpm test               # repository tests
 pnpm build              # production build and static export
@@ -136,7 +136,7 @@ pnpm --filter @repo/web dev:mock   # next dev with the service worker enabled
 
 - Add or update focused tests for pure logic and API security boundaries.
 - Place API tests beside the source as `*.test.ts`; the package's `tsx` runner executes them.
-- Avoid broad formatting churn. Run `pnpm exec biome check --write <changed-files>` for
+- Avoid broad formatting churn. Run `pnpm exec Oxlint / Oxfmt check --write <changed-files>` for
   targeted fixes when useful.
 - Do not commit generated build output or local environment files.
 - Summarize changed behavior and list the validation commands actually run.

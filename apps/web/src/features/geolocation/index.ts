@@ -1,1 +1,1 @@
-export { GeolocationWorkspace } from './components/geolocation-workspace'
+export { GeolocationWorkspace } from './components/geolocation-workspace';

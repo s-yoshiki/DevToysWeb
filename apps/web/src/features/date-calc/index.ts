@@ -1,1 +1,1 @@
-export { DateCalcWorkspace } from './components/date-calc-workspace'
+export { DateCalcWorkspace } from './components/date-calc-workspace';

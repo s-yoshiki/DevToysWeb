@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
-import { useLocale } from '@/components/locale-provider'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { useLocale } from '@/components/locale-provider';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Switch } from '@/components/ui/switch'
-import type { Bilingual } from './types'
+} from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
+import type { Bilingual } from './types';
 
 const Field = ({
   id,
@@ -19,17 +19,17 @@ const Field = ({
   hint,
   children,
 }: {
-  id: string
-  label: string
-  hint?: string
-  children: React.ReactNode
+  id: string;
+  label: string;
+  hint?: string;
+  children: React.ReactNode;
 }) => (
   <div className="space-y-2">
     <Label htmlFor={id}>{label}</Label>
     {children}
     {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
   </div>
-)
+);
 
 export const TextField = ({
   id,
@@ -39,12 +39,12 @@ export const TextField = ({
   value,
   onChange,
 }: {
-  id: string
-  label: string
-  placeholder?: string
-  hint?: string
-  value: string
-  onChange: (value: string) => void
+  id: string;
+  label: string;
+  placeholder?: string;
+  hint?: string;
+  value: string;
+  onChange: (value: string) => void;
 }) => (
   <Field id={id} label={label} hint={hint}>
     <Input
@@ -54,7 +54,7 @@ export const TextField = ({
       onChange={(event) => onChange(event.target.value)}
     />
   </Field>
-)
+);
 
 export const NumberField = ({
   id,
@@ -63,11 +63,11 @@ export const NumberField = ({
   value,
   onChange,
 }: {
-  id: string
-  label: string
-  placeholder?: string
-  value: string
-  onChange: (value: string) => void
+  id: string;
+  label: string;
+  placeholder?: string;
+  value: string;
+  onChange: (value: string) => void;
 }) => (
   <Field id={id} label={label}>
     <Input
@@ -78,7 +78,7 @@ export const NumberField = ({
       onChange={(event) => onChange(event.target.value)}
     />
   </Field>
-)
+);
 
 export const DateField = ({
   id,
@@ -86,15 +86,15 @@ export const DateField = ({
   value,
   onChange,
 }: {
-  id: string
-  label: string
-  value: string
-  onChange: (value: string) => void
+  id: string;
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
 }) => (
   <Field id={id} label={label}>
     <Input id={id} type="date" value={value} onChange={(event) => onChange(event.target.value)} />
   </Field>
-)
+);
 
 export const SwitchField = ({
   id,
@@ -102,10 +102,10 @@ export const SwitchField = ({
   checked,
   onChange,
 }: {
-  id: string
-  label: string
-  checked: boolean
-  onChange: (checked: boolean) => void
+  id: string;
+  label: string;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
 }) => (
   <div className="flex items-center justify-between gap-3">
     <Label htmlFor={id} className="text-sm font-normal">
@@ -113,7 +113,7 @@ export const SwitchField = ({
     </Label>
     <Switch id={id} checked={checked} onCheckedChange={onChange} />
   </div>
-)
+);
 
 export const SelectField = <Value extends string>({
   id,
@@ -122,13 +122,13 @@ export const SelectField = <Value extends string>({
   options,
   onChange,
 }: {
-  id: string
-  label: string
-  value: Value
-  options: { value: Value; label: Bilingual }[]
-  onChange: (value: Value) => void
+  id: string;
+  label: string;
+  value: Value;
+  options: { value: Value; label: Bilingual }[];
+  onChange: (value: Value) => void;
 }) => {
-  const { locale } = useLocale()
+  const { locale } = useLocale();
   return (
     <Field id={id} label={label}>
       <Select
@@ -148,5 +148,5 @@ export const SelectField = <Value extends string>({
         </SelectContent>
       </Select>
     </Field>
-  )
-}
+  );
+};

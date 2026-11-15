@@ -1,2 +1,2 @@
 /** A label that ships in both supported locales. */
-export type Bilingual = { ja: string; en: string }
+export type Bilingual = { ja: string; en: string };

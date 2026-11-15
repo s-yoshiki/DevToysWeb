@@ -1,1 +1,1 @@
-export { RegexWorkspace } from './components/regex-workspace'
+export { RegexWorkspace } from './components/regex-workspace';

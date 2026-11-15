@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import { Separator as SeparatorPrimitive } from '@base-ui/react/separator'
+import { Separator as SeparatorPrimitive } from '@base-ui/react/separator';
 
-import { cn } from '@/libs/utils'
+import { cn } from '@/libs/utils';
 
 const Separator = ({
   className,
@@ -19,7 +19,7 @@ const Separator = ({
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Separator }
+export { Separator };

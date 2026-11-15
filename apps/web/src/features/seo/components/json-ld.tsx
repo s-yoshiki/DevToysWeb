@@ -6,9 +6,9 @@
 export const JsonLd = ({ data }: { data: Record<string, unknown>[] }) => (
   <script
     type="application/ld+json"
-    // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD has no other injection point
+    // JSON-LD has no other injection point
     dangerouslySetInnerHTML={{
       __html: JSON.stringify(data.length === 1 ? data[0] : data).replace(/</g, '\\u003c'),
     }}
   />
-)
+);

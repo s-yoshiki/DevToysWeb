@@ -1,32 +1,32 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
-export type InfoRow = { label: { ja: string; en: string }; value: string }
-export type InfoGroup = { title: { ja: string; en: string }; rows: InfoRow[] }
+export type InfoRow = { label: { ja: string; en: string }; value: string };
+export type InfoGroup = { title: { ja: string; en: string }; rows: InfoRow[] };
 
 type BatteryLike = {
-  level: number
-  charging: boolean
-  addEventListener: (type: string, listener: () => void) => void
-  removeEventListener: (type: string, listener: () => void) => void
-}
+  level: number;
+  charging: boolean;
+  addEventListener: (type: string, listener: () => void) => void;
+  removeEventListener: (type: string, listener: () => void) => void;
+};
 
 type ConnectionLike = {
-  effectiveType?: string
-  downlink?: number
-  rtt?: number
-  saveData?: boolean
-}
+  effectiveType?: string;
+  downlink?: number;
+  rtt?: number;
+  saveData?: boolean;
+};
 
-const yesNo = (value: boolean) => (value ? 'Yes' : 'No')
+const yesNo = (value: boolean) => (value ? 'Yes' : 'No');
 
 const collect = (battery: BatteryLike | null): InfoGroup[] => {
   const nav = navigator as Navigator & {
-    deviceMemory?: number
-    connection?: ConnectionLike
-  }
-  const connection = nav.connection
+    deviceMemory?: number;
+    connection?: ConnectionLike;
+  };
+  const connection = nav.connection;
 
   const groups: InfoGroup[] = [
     {
@@ -88,7 +88,7 @@ const collect = (battery: BatteryLike | null): InfoGroup[] => {
         { label: { ja: 'User Agent', en: 'User agent' }, value: navigator.userAgent },
       ],
     },
-  ]
+  ];
 
   if (connection) {
     groups.push({
@@ -108,7 +108,7 @@ const collect = (battery: BatteryLike | null): InfoGroup[] => {
           value: yesNo(connection.saveData ?? false),
         },
       ],
-    })
+    });
   }
 
   if (battery) {
@@ -121,56 +121,56 @@ const collect = (battery: BatteryLike | null): InfoGroup[] => {
         },
         { label: { ja: '充電中', en: 'Charging' }, value: yesNo(battery.charging) },
       ],
-    })
+    });
   }
 
-  return groups
-}
+  return groups;
+};
 
 export const useDeviceInfo = () => {
-  const [groups, setGroups] = useState<InfoGroup[]>([])
+  const [groups, setGroups] = useState<InfoGroup[]>([]);
 
   useEffect(() => {
-    let active = true
-    let battery: BatteryLike | null = null
-    let onChange: (() => void) | null = null
+    let active = true;
+    let battery: BatteryLike | null = null;
+    let onChange: (() => void) | null = null;
 
     const refresh = () => {
-      if (active) setGroups(collect(battery))
-    }
+      if (active) setGroups(collect(battery));
+    };
 
-    const nav = navigator as Navigator & { getBattery?: () => Promise<BatteryLike> }
+    const nav = navigator as Navigator & { getBattery?: () => Promise<BatteryLike> };
     if (nav.getBattery) {
       nav
         .getBattery()
         .then((result) => {
-          if (!active) return
-          battery = result
-          onChange = refresh
-          result.addEventListener('levelchange', onChange)
-          result.addEventListener('chargingchange', onChange)
-          refresh()
+          if (!active) return;
+          battery = result;
+          onChange = refresh;
+          result.addEventListener('levelchange', onChange);
+          result.addEventListener('chargingchange', onChange);
+          refresh();
         })
-        .catch(refresh)
+        .catch(refresh);
     } else {
-      refresh()
+      refresh();
     }
 
-    window.addEventListener('resize', refresh)
-    window.addEventListener('online', refresh)
-    window.addEventListener('offline', refresh)
+    window.addEventListener('resize', refresh);
+    window.addEventListener('online', refresh);
+    window.addEventListener('offline', refresh);
 
     return () => {
-      active = false
-      window.removeEventListener('resize', refresh)
-      window.removeEventListener('online', refresh)
-      window.removeEventListener('offline', refresh)
+      active = false;
+      window.removeEventListener('resize', refresh);
+      window.removeEventListener('online', refresh);
+      window.removeEventListener('offline', refresh);
       if (battery && onChange) {
-        battery.removeEventListener('levelchange', onChange)
-        battery.removeEventListener('chargingchange', onChange)
+        battery.removeEventListener('levelchange', onChange);
+        battery.removeEventListener('chargingchange', onChange);
       }
-    }
-  }, [])
+    };
+  }, []);
 
-  return groups
-}
+  return groups;
+};

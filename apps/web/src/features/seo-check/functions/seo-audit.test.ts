@@ -1,7 +1,7 @@
-import assert from 'node:assert/strict'
-import { describe, it } from 'node:test'
-import type { SiteReport } from '@/libs/api/diagnostics-client'
-import { auditSeo, countByLevel, type SeoCheck, scoreOf } from './seo-audit'
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
+import type { SiteReport } from '@/libs/api/diagnostics-client';
+import { auditSeo, countByLevel, type SeoCheck, scoreOf } from './seo-audit';
 
 const report = (overrides: Partial<SiteReport> = {}): SiteReport => ({
   target: 'https://example.com/',
@@ -33,54 +33,54 @@ const report = (overrides: Partial<SiteReport> = {}): SiteReport => ({
     textLength: 1200,
   },
   ...overrides,
-})
+});
 
 const find = (checks: SeoCheck[], id: string) => {
-  const match = checks.find((item) => item.id === id)
-  assert.ok(match, `missing check: ${id}`)
-  return match
-}
+  const match = checks.find((item) => item.id === id);
+  assert.ok(match, `missing check: ${id}`);
+  return match;
+};
 
 describe('auditSeo', () => {
   it('passes every check for a well-formed page', () => {
-    const checks = auditSeo(report())
-    assert.deepEqual(countByLevel(checks), { pass: checks.length, warn: 0, fail: 0 })
-    assert.equal(scoreOf(checks), 100)
-  })
+    const checks = auditSeo(report());
+    assert.deepEqual(countByLevel(checks), { pass: checks.length, warn: 0, fail: 0 });
+    assert.equal(scoreOf(checks), 100);
+  });
 
   it('fails when the essentials are absent', () => {
-    const checks = auditSeo(report({ page: {} }))
-    assert.equal(find(checks, 'title').level, 'fail')
-    assert.equal(find(checks, 'description').level, 'fail')
-    assert.equal(find(checks, 'viewport').level, 'fail')
-    assert.equal(find(checks, 'canonical').level, 'warn')
-  })
+    const checks = auditSeo(report({ page: {} }));
+    assert.equal(find(checks, 'title').level, 'fail');
+    assert.equal(find(checks, 'description').level, 'fail');
+    assert.equal(find(checks, 'viewport').level, 'fail');
+    assert.equal(find(checks, 'canonical').level, 'warn');
+  });
 
   it('warns on a title outside the recommended length', () => {
-    const short = auditSeo(report({ page: { ...report().page, title: 'Hi' } }))
-    assert.equal(find(short, 'title').level, 'warn')
-  })
+    const short = auditSeo(report({ page: { ...report().page, title: 'Hi' } }));
+    assert.equal(find(short, 'title').level, 'warn');
+  });
 
   it('treats noindex as a failure', () => {
-    const checks = auditSeo(report({ page: { ...report().page, robots: 'noindex, nofollow' } }))
-    assert.equal(find(checks, 'robots').level, 'fail')
-  })
+    const checks = auditSeo(report({ page: { ...report().page, robots: 'noindex, nofollow' } }));
+    assert.equal(find(checks, 'robots').level, 'fail');
+  });
 
   it('flags a missing and a duplicated H1 differently', () => {
-    const none = auditSeo(report({ signals: { ...report().signals, h1: [] } }))
-    const many = auditSeo(report({ signals: { ...report().signals, h1: ['a', 'b'] } }))
-    assert.equal(find(none, 'h1').level, 'fail')
-    assert.equal(find(many, 'h1').level, 'warn')
-  })
+    const none = auditSeo(report({ signals: { ...report().signals, h1: [] } }));
+    const many = auditSeo(report({ signals: { ...report().signals, h1: ['a', 'b'] } }));
+    assert.equal(find(none, 'h1').level, 'fail');
+    assert.equal(find(many, 'h1').level, 'warn');
+  });
 
   it('reports images without alt text', () => {
     const checks = auditSeo(
       report({ signals: { ...report().signals, images: { total: 4, missingAlt: 3 } } }),
-    )
-    const alt = find(checks, 'image-alt')
-    assert.equal(alt.level, 'warn')
-    assert.match(alt.detail, /3 of 4/)
-  })
+    );
+    const alt = find(checks, 'image-alt');
+    assert.equal(alt.level, 'warn');
+    assert.match(alt.detail, /3 of 4/);
+  });
 
   it('fails plain HTTP and non-2xx responses', () => {
     const checks = auditSeo(
@@ -88,19 +88,19 @@ describe('auditSeo', () => {
         target: 'http://example.com/',
         http: { ...report().http, finalUrl: 'http://example.com/', status: 404 },
       }),
-    )
-    assert.equal(find(checks, 'https').level, 'fail')
-    assert.equal(find(checks, 'status').level, 'fail')
-  })
-})
+    );
+    assert.equal(find(checks, 'https').level, 'fail');
+    assert.equal(find(checks, 'status').level, 'fail');
+  });
+});
 
 describe('scoreOf', () => {
   it('gives half credit for warnings', () => {
-    const checks = auditSeo(report({ page: {} }))
-    assert.ok(scoreOf(checks) > 0 && scoreOf(checks) < 100)
-  })
+    const checks = auditSeo(report({ page: {} }));
+    assert.ok(scoreOf(checks) > 0 && scoreOf(checks) < 100);
+  });
 
   it('returns zero for an empty audit', () => {
-    assert.equal(scoreOf([]), 0)
-  })
-})
+    assert.equal(scoreOf([]), 0);
+  });
+});

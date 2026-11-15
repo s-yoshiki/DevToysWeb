@@ -1,27 +1,27 @@
-'use client'
+'use client';
 
-import { Braces, Languages, Menu, Search } from 'lucide-react'
-import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import { GithubIcon } from '@/components/icons/github-icon'
-import { useLocale } from '@/components/locale-provider'
-import { ThemeToggle } from '@/components/theme-toggle'
-import { Button } from '@/components/ui/button'
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import { categoryOrder as categories, type ToolDefinition, tools } from '@/libs/domain/catalog'
-import { getToolPath, isSamePath } from '@/libs/domain/tool-path'
-import { cn } from '@/libs/utils'
-import { CommandPalette, useCommandPalette } from './command-palette'
+import { Braces, Languages, Menu, Search } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { GithubIcon } from '@/components/icons/github-icon';
+import { useLocale } from '@/components/locale-provider';
+import { ThemeToggle } from '@/components/theme-toggle';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { categoryOrder as categories, type ToolDefinition, tools } from '@/libs/domain/catalog';
+import { getToolPath, isSamePath } from '@/libs/domain/tool-path';
+import { cn } from '@/libs/utils';
+import { CommandPalette, useCommandPalette } from './command-palette';
 
 /** Rendered after mount so the static export never ships a platform-specific hint. */
 const useShortcutHint = () => {
-  const [hint, setHint] = useState('')
+  const [hint, setHint] = useState('');
   useEffect(() => {
-    setHint(/mac|iphone|ipad/i.test(navigator.userAgent) ? '⌘K' : 'Ctrl K')
-  }, [])
-  return hint
-}
+    setHint(/mac|iphone|ipad/i.test(navigator.userAgent) ? '⌘K' : 'Ctrl K');
+  }, []);
+  return hint;
+};
 
 /**
  * Tool list for the mobile drawer. It mirrors the desktop sidebar's category
@@ -29,9 +29,9 @@ const useShortcutHint = () => {
  * the drawer on selection so the destination is not left hidden behind it.
  */
 const MobileNav = ({ onNavigate }: { onNavigate: () => void }) => {
-  const { locale, dictionary } = useLocale()
-  const pathname = usePathname()
-  const isActive = (tool: ToolDefinition) => isSamePath(pathname, getToolPath(locale, tool))
+  const { locale, dictionary } = useLocale();
+  const pathname = usePathname();
+  const isActive = (tool: ToolDefinition) => isSamePath(pathname, getToolPath(locale, tool));
 
   return (
     <nav className="space-y-5" aria-label={dictionary.mainNavigation}>
@@ -67,18 +67,18 @@ const MobileNav = ({ onNavigate }: { onNavigate: () => void }) => {
         </section>
       ))}
     </nav>
-  )
-}
+  );
+};
 
 export const AppHeader = () => {
-  const { locale, dictionary } = useLocale()
-  const pathname = usePathname()
-  const router = useRouter()
-  const palette = useCommandPalette()
-  const shortcutHint = useShortcutHint()
-  const [menuOpen, setMenuOpen] = useState(false)
+  const { locale, dictionary } = useLocale();
+  const pathname = usePathname();
+  const router = useRouter();
+  const palette = useCommandPalette();
+  const shortcutHint = useShortcutHint();
+  const [menuOpen, setMenuOpen] = useState(false);
   const toggleLocale = () =>
-    router.push(pathname.replace(`/${locale}`, locale === 'ja' ? '/en' : '/ja'))
+    router.push(pathname.replace(`/${locale}`, locale === 'ja' ? '/en' : '/ja'));
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur-md">
@@ -177,5 +177,5 @@ export const AppHeader = () => {
         </div>
       </div>
     </header>
-  )
-}
+  );
+};

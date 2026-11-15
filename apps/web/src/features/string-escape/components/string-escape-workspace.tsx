@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
-import { CodeEditor } from '@/components/code-editor'
-import { languageForFormat } from '@/components/code-editor-language'
-import { CopyButton } from '@/components/copy-button'
-import { useLocale } from '@/components/locale-provider'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import { type EscapeTarget, escapeTargets } from '@/libs/domain/text-tools'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useStringEscape } from '../hooks/use-string-escape'
+import { CodeEditor } from '@/components/code-editor';
+import { languageForFormat } from '@/components/code-editor-language';
+import { CopyButton } from '@/components/copy-button';
+import { useLocale } from '@/components/locale-provider';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import { type EscapeTarget, escapeTargets } from '@/libs/domain/text-tools';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useStringEscape } from '../hooks/use-string-escape';
 
 const escapeLabels: Record<EscapeTarget, string> = {
   json: 'JSON',
@@ -20,12 +20,12 @@ const escapeLabels: Record<EscapeTarget, string> = {
   regex: 'RegExp',
   shell: 'Shell',
   csv: 'CSV',
-}
+};
 
 export const StringEscapeWorkspace = ({ tool }: WorkspaceProps) => {
-  const { dictionary } = useLocale()
-  const t = useTranslate()
-  const escaper = useStringEscape()
+  const { dictionary } = useLocale();
+  const t = useTranslate();
+  const escaper = useStringEscape();
 
   return (
     <WorkspaceShell tool={tool} onClear={escaper.clear}>
@@ -86,5 +86,5 @@ export const StringEscapeWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

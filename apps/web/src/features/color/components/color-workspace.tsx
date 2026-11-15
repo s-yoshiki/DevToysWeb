@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
-import { CopyButton } from '@/components/copy-button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { toHex, toHslString, toOklchString, toRgbString } from '@/features/color/functions/color'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useColor } from '../hooks/use-color'
-import { ContrastCard } from './contrast-card'
+import { CopyButton } from '@/components/copy-button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { toHex, toHslString, toOklchString, toRgbString } from '@/features/color/functions/color';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useColor } from '../hooks/use-color';
+import { ContrastCard } from './contrast-card';
 
 const ColorRow = ({ format, value }: { format: string; value: string }) => (
   <div className="flex items-center gap-3 border-b px-5 py-3 last:border-b-0">
@@ -21,12 +21,12 @@ const ColorRow = ({ format, value }: { format: string; value: string }) => (
     <code className="min-w-0 flex-1 truncate font-mono text-sm">{value}</code>
     <CopyButton value={value} />
   </div>
-)
+);
 
 export const ColorWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const color = useColor()
+  const fieldId = useId();
+  const t = useTranslate();
+  const color = useColor();
 
   return (
     <WorkspaceShell tool={tool} onClear={color.clear}>
@@ -77,5 +77,5 @@ export const ColorWorkspace = ({ tool }: WorkspaceProps) => {
         <ContrastCard color={color} />
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

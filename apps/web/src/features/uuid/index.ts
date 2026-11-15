@@ -1,1 +1,1 @@
-export { UuidWorkspace } from './components/uuid-workspace'
+export { UuidWorkspace } from './components/uuid-workspace';

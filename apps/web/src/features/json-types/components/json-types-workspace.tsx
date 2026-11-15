@@ -1,39 +1,39 @@
-'use client'
+'use client';
 
-import { Sparkles } from 'lucide-react'
-import { useId } from 'react'
-import { CodeEditor } from '@/components/code-editor'
-import { CopyButton } from '@/components/copy-button'
-import { useLocale } from '@/components/locale-provider'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { ErrorBanner, Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { type JsonTypeTarget, jsonTypeTargets } from '../functions/json-types'
-import { useJsonTypes } from '../hooks/use-json-types'
+import { Sparkles } from 'lucide-react';
+import { useId } from 'react';
+import { CodeEditor } from '@/components/code-editor';
+import { CopyButton } from '@/components/copy-button';
+import { useLocale } from '@/components/locale-provider';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { ErrorBanner, Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { type JsonTypeTarget, jsonTypeTargets } from '../functions/json-types';
+import { useJsonTypes } from '../hooks/use-json-types';
 
 const targetLabels: Record<JsonTypeTarget, string> = {
   typescript: 'TypeScript',
   go: 'Go',
   python: 'Python',
-}
+};
 
 const targetLanguages: Record<JsonTypeTarget, string> = {
   typescript: 'typescript',
   go: 'go',
   python: 'python',
-}
+};
 
 export const JsonTypesWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const { dictionary } = useLocale()
-  const t = useTranslate()
-  const jsonTypes = useJsonTypes()
+  const fieldId = useId();
+  const { dictionary } = useLocale();
+  const t = useTranslate();
+  const jsonTypes = useJsonTypes();
 
   return (
     <WorkspaceShell tool={tool} onClear={jsonTypes.clear}>
@@ -112,5 +112,5 @@ export const JsonTypesWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

@@ -66,8 +66,8 @@ import {
   TimerReset,
   Type,
   Wand2,
-} from 'lucide-react'
-import type { Locale } from '@/i18n/dictionaries'
+} from 'lucide-react';
+import type { Locale } from '@/i18n/dictionaries';
 
 export type ToolCategory =
   | 'converters'
@@ -81,16 +81,16 @@ export type ToolCategory =
   | 'text'
   | 'images'
   | 'network'
-  | 'device'
+  | 'device';
 export type ToolDefinition = {
-  slug: string
-  pathSlug: string
-  emoji: string
-  category: ToolCategory
-  icon: LucideIcon
-  title: Record<Locale, string>
-  description: Record<Locale, string>
-  mode: 'convert' | 'generate' | 'inspect'
+  slug: string;
+  pathSlug: string;
+  emoji: string;
+  category: ToolCategory;
+  icon: LucideIcon;
+  title: Record<Locale, string>;
+  description: Record<Locale, string>;
+  mode: 'convert' | 'generate' | 'inspect';
   workspace?:
     | 'default'
     | 'calculator'
@@ -158,8 +158,8 @@ export type ToolDefinition = {
     | 'char-width'
     | 'json-types'
     | 'fancy-text'
-    | 'http-status'
-}
+    | 'http-status';
+};
 
 export const tools: ToolDefinition[] = [
   {
@@ -1242,7 +1242,7 @@ export const tools: ToolDefinition[] = [
     mode: 'inspect',
     workspace: 'device-info',
   },
-]
+];
 
 /** Display order for every surface that lists categories. */
 export const categoryOrder: ToolCategory[] = [
@@ -1258,10 +1258,10 @@ export const categoryOrder: ToolCategory[] = [
   'images',
   'network',
   'device',
-]
+];
 
-export const findTool = (slug: string) => tools.find((tool) => tool.slug === slug)
+export const findTool = (slug: string) => tools.find((tool) => tool.slug === slug);
 export const findToolByPath = (category: string, pathSlug: string) =>
-  tools.find((tool) => tool.category === category && tool.pathSlug === pathSlug)
+  tools.find((tool) => tool.category === category && tool.pathSlug === pathSlug);
 export const toolsByCategory = (category: ToolCategory) =>
-  tools.filter((tool) => tool.category === category)
+  tools.filter((tool) => tool.category === category);

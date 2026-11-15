@@ -1,26 +1,26 @@
-'use client'
+'use client';
 
-import { ArrowLeftRight, FileInput, FileOutput } from 'lucide-react'
-import { CodeEditor } from '@/components/code-editor'
-import { languageForFormat } from '@/components/code-editor-language'
-import { CopyButton } from '@/components/copy-button'
-import { useLocale } from '@/components/locale-provider'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Pane } from '@/components/workspace-panes'
-import { useTranslate } from '@/hooks/use-translate'
-import type { Converter } from '../hooks/use-converter'
+import { ArrowLeftRight, FileInput, FileOutput } from 'lucide-react';
+import { CodeEditor } from '@/components/code-editor';
+import { languageForFormat } from '@/components/code-editor-language';
+import { CopyButton } from '@/components/copy-button';
+import { useLocale } from '@/components/locale-provider';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Pane } from '@/components/workspace-panes';
+import { useTranslate } from '@/hooks/use-translate';
+import type { Converter } from '../hooks/use-converter';
 
 const PaneTitle = ({ icon: Icon, label }: { icon: typeof FileInput; label: string }) => (
   <div className="flex items-center gap-2">
     <Icon className="size-4 text-primary" />
     <span className="text-sm font-semibold">{label}</span>
   </div>
-)
+);
 
 export const InputPane = ({ converter }: { converter: Converter }) => {
-  const { dictionary } = useLocale()
-  const t = useTranslate()
+  const { dictionary } = useLocale();
+  const t = useTranslate();
   return (
     <Pane>
       <div className="flex h-14 items-center justify-between border-b bg-background/60 px-5">
@@ -37,12 +37,12 @@ export const InputPane = ({ converter }: { converter: Converter }) => {
         placeholder={`${converter.inputFormat} ${t('を入力または貼り付け', '— type or paste here')}…`}
       />
     </Pane>
-  )
-}
+  );
+};
 
 export const OutputPane = ({ converter, label }: { converter: Converter; label: string }) => {
-  const { dictionary } = useLocale()
-  const t = useTranslate()
+  const { dictionary } = useLocale();
+  const t = useTranslate();
   return (
     <Pane variant="result">
       <div className="flex h-14 items-center justify-between border-b bg-muted/30 px-5">
@@ -75,5 +75,5 @@ export const OutputPane = ({ converter, label }: { converter: Converter; label: 
         placeholder={t('変換結果がここに表示されます', 'The result will appear here')}
       />
     </Pane>
-  )
-}
+  );
+};

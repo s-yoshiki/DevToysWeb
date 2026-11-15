@@ -1,1 +1,1 @@
-export { SiteDiagnosticsWorkspace } from './components/site-diagnostics-workspace'
+export { SiteDiagnosticsWorkspace } from './components/site-diagnostics-workspace';

@@ -1,21 +1,21 @@
-'use client'
+'use client';
 
-import { CalendarClock, Info } from 'lucide-react'
-import { useId } from 'react'
-import { CopyButton } from '@/components/copy-button'
-import { useLocale } from '@/components/locale-provider'
-import { ToggleRow } from '@/components/segmented-control'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { ErrorBanner } from '@/components/workspace-panes'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { cronFieldValues } from '../functions/cron'
-import { listTimeZones, useCron } from '../hooks/use-cron'
-import { CronFieldBuilder } from './cron-field-builder'
+import { CalendarClock, Info } from 'lucide-react';
+import { useId } from 'react';
+import { CopyButton } from '@/components/copy-button';
+import { useLocale } from '@/components/locale-provider';
+import { ToggleRow } from '@/components/segmented-control';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { ErrorBanner } from '@/components/workspace-panes';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { cronFieldValues } from '../functions/cron';
+import { listTimeZones, useCron } from '../hooks/use-cron';
+import { CronFieldBuilder } from './cron-field-builder';
 
 const presets = [
   { expression: '* * * * *', ja: '毎分', en: 'Every minute' },
@@ -26,15 +26,15 @@ const presets = [
   { expression: '0 0 1 * *', ja: '毎月1日', en: 'Monthly' },
   { expression: '0 0 L * *', ja: '月末', en: 'Last day of month' },
   { expression: '@daily', ja: '@daily', en: '@daily' },
-]
+];
 
 export const CronWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const { locale } = useLocale()
-  const cron = useCron()
-  const { analysis } = cron
-  const zoneListId = `${fieldId}-timezone-options`
+  const fieldId = useId();
+  const t = useTranslate();
+  const { locale } = useLocale();
+  const cron = useCron();
+  const { analysis } = cron;
+  const zoneListId = `${fieldId}-timezone-options`;
 
   return (
     <WorkspaceShell tool={tool} onClear={cron.clear}>
@@ -219,5 +219,5 @@ export const CronWorkspace = ({ tool }: WorkspaceProps) => {
         </Card>
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

@@ -1,1 +1,1 @@
-export { JsonTypesWorkspace } from './components/json-types-workspace'
+export { JsonTypesWorkspace } from './components/json-types-workspace';

@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
+import { useState } from 'react';
 
 /**
  * Runs a one-shot API call and exposes the JSON result, failure text, and
@@ -10,26 +10,26 @@ export const useApiRequest = <Request>(
   send: (request: Request) => Promise<unknown>,
   fallbackMessage: string,
 ) => {
-  const [output, setOutput] = useState('')
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [output, setOutput] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const run = async (request: Request) => {
-    setLoading(true)
-    setError('')
+    setLoading(true);
+    setError('');
     try {
-      setOutput(JSON.stringify(await send(request), null, 2))
+      setOutput(JSON.stringify(await send(request), null, 2));
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : fallbackMessage)
+      setError(reason instanceof Error ? reason.message : fallbackMessage);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const reset = () => {
-    setOutput('')
-    setError('')
-  }
+    setOutput('');
+    setError('');
+  };
 
-  return { output, error, loading, run, reset }
-}
+  return { output, error, loading, run, reset };
+};

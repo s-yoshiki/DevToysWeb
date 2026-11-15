@@ -7,11 +7,11 @@ export type EmojiCategory =
   | 'activities'
   | 'objects'
   | 'symbols'
-  | 'flags'
+  | 'flags';
 
 export type EmojiEntry = {
-  emoji: string
-  name: { ja: string; en: string }
-  keywords: string[]
-  category: EmojiCategory
-}
+  emoji: string;
+  name: { ja: string; en: string };
+  keywords: string[];
+  category: EmojiCategory;
+};

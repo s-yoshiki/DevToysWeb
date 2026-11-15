@@ -1,1 +1,1 @@
-export { GlobWorkspace } from './components/glob-workspace'
+export { GlobWorkspace } from './components/glob-workspace';

@@ -1,18 +1,18 @@
-'use client'
+'use client';
 
-import { useMemo, useState } from 'react'
-import { analyzeMojibake } from '../functions/mojibake'
+import { useMemo, useState } from 'react';
+import { analyzeMojibake } from '../functions/mojibake';
 
-const SAMPLE = 'æ—¥æœ¬èªžãŒæ–‡å­—åŒ–ã‘ã—ã¾ã—ãŸ'
+const SAMPLE = 'æ—¥æœ¬èªžãŒæ–‡å­—åŒ–ã‘ã—ã¾ã—ãŸ';
 
 export const useMojibake = () => {
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState('');
 
-  const candidates = useMemo(() => analyzeMojibake(input), [input])
-  const best = candidates[0] ?? null
+  const candidates = useMemo(() => analyzeMojibake(input), [input]);
+  const best = candidates[0] ?? null;
 
-  const clear = () => setInput('')
-  const loadSample = () => setInput(SAMPLE)
+  const clear = () => setInput('');
+  const loadSample = () => setInput(SAMPLE);
 
-  return { input, setInput, candidates, best, clear, loadSample }
-}
+  return { input, setInput, candidates, best, clear, loadSample };
+};

@@ -1,12 +1,12 @@
-'use client'
+'use client';
 
-import { Camera, Play, Square, SwitchCamera } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useCamera } from '../hooks/use-camera'
+import { Camera, Play, Square, SwitchCamera } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useCamera } from '../hooks/use-camera';
 
 const errorMessages: Record<string, { ja: string; en: string }> = {
   'no-api': {
@@ -26,11 +26,11 @@ const errorMessages: Record<string, { ja: string; en: string }> = {
     en: 'Could not start the camera. It may be in use by another app.',
   },
   unknown: { ja: 'カメラの起動に失敗しました。', en: 'Failed to start the camera.' },
-}
+};
 
 export const CameraWorkspace = ({ tool }: WorkspaceProps) => {
-  const t = useTranslate()
-  const cam = useCamera()
+  const t = useTranslate();
+  const cam = useCamera();
 
   return (
     <WorkspaceShell tool={tool} onClear={cam.clear}>
@@ -90,7 +90,7 @@ export const CameraWorkspace = ({ tool }: WorkspaceProps) => {
           <div className="space-y-3">
             <div className="flex aspect-video items-center justify-center overflow-hidden rounded-xl border bg-muted/40">
               {cam.photo ? (
-                // biome-ignore lint/performance/noImgElement: the source is a client-side data URI
+                // the source is a client-side data URI
                 <img
                   src={cam.photo}
                   alt={t('撮影した写真', 'Captured photo')}
@@ -111,5 +111,5 @@ export const CameraWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

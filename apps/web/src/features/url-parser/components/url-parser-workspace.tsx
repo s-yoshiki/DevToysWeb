@@ -1,21 +1,21 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
-import { CopyButton } from '@/components/copy-button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useUrlParser } from '../hooks/use-url-parser'
+import { CopyButton } from '@/components/copy-button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useUrlParser } from '../hooks/use-url-parser';
 
 export const UrlParserWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const parser = useUrlParser()
-  const { parts } = parser
+  const fieldId = useId();
+  const t = useTranslate();
+  const parser = useUrlParser();
+  const { parts } = parser;
 
   return (
     <WorkspaceShell tool={tool} onClear={parser.clear}>
@@ -112,8 +112,8 @@ export const UrlParserWorkspace = ({ tool }: WorkspaceProps) => {
         )}
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};
 
 const Row = ({ label, value }: { label: string; value: string }) => (
   <div className="flex items-center justify-between gap-3 bg-card px-5 py-2.5">
@@ -123,4 +123,4 @@ const Row = ({ label, value }: { label: string; value: string }) => (
       {value && <CopyButton value={value} />}
     </div>
   </div>
-)
+);

@@ -1,1 +1,1 @@
-export { SeoCheckWorkspace } from './components/seo-check-workspace'
+export { SeoCheckWorkspace } from './components/seo-check-workspace';

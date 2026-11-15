@@ -24,7 +24,7 @@ const FORMAT_TO_LANGUAGE: Record<string, string> = {
   bash: 'shell',
   python: 'python',
   go: 'go',
-}
+};
 
 export const languageForFormat = (format: string): string =>
-  FORMAT_TO_LANGUAGE[format.trim().toLowerCase()] ?? 'plaintext'
+  FORMAT_TO_LANGUAGE[format.trim().toLowerCase()] ?? 'plaintext';

@@ -1,18 +1,18 @@
-'use client'
+'use client';
 
-import { RefreshCw, Wifi, WifiOff } from 'lucide-react'
-import { CopyButton } from '@/components/copy-button'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import { cn } from '@/libs/utils'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { type ConnectionInfo, useConnectionInfo } from '../hooks/use-connection-info'
+import { RefreshCw, Wifi, WifiOff } from 'lucide-react';
+import { CopyButton } from '@/components/copy-button';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import { cn } from '@/libs/utils';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { type ConnectionInfo, useConnectionInfo } from '../hooks/use-connection-info';
 
 export const ConnectionInfoWorkspace = ({ tool }: WorkspaceProps) => {
-  const t = useTranslate()
-  const { info, refresh } = useConnectionInfo()
+  const t = useTranslate();
+  const { info, refresh } = useConnectionInfo();
 
   return (
     <WorkspaceShell tool={tool} onClear={refresh}>
@@ -114,10 +114,10 @@ export const ConnectionInfoWorkspace = ({ tool }: WorkspaceProps) => {
         </Card>
       )}
     </WorkspaceShell>
-  )
-}
+  );
+};
 
-const toJson = (info: ConnectionInfo) => JSON.stringify(info, null, 2)
+const toJson = (info: ConnectionInfo) => JSON.stringify(info, null, 2);
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <Card className="overflow-hidden border-border/70 shadow-xl shadow-foreground/[0.03]">
@@ -126,11 +126,11 @@ const Section = ({ title, children }: { title: string; children: React.ReactNode
     </CardHeader>
     <CardContent className="grid gap-px bg-border/60 p-0">{children}</CardContent>
   </Card>
-)
+);
 
 const KV = ({ label, value }: { label: string; value: string }) => (
   <div className="flex items-start justify-between gap-3 bg-card px-5 py-3">
     <span className="shrink-0 text-sm text-muted-foreground">{label}</span>
     <span className="max-w-[65%] break-words text-right text-sm font-medium">{value}</span>
   </div>
-)
+);

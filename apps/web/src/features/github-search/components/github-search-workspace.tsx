@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
-import { DateField, NumberField, SelectField, TextField } from '@/components/search/fields'
+import { DateField, NumberField, SelectField, TextField } from '@/components/search/fields';
 import {
   FiltersCard,
   OptionGroup,
   SearchPreview,
   SectionHeading,
-} from '@/components/search/search-layout'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
+} from '@/components/search/search-layout';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
 import {
   accountTypes,
   inclusions,
@@ -20,13 +20,13 @@ import {
   repoFields,
   reviewStates,
   searchTypes,
-} from '../functions/constants'
-import { useGithubSearch } from '../hooks/use-github-search'
+} from '../functions/constants';
+import { useGithubSearch } from '../hooks/use-github-search';
 
 export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const { condition, set, query, url, searchType, isIssueSearch, reset } = useGithubSearch()
+  const fieldId = useId();
+  const t = useTranslate();
+  const { condition, set, query, url, searchType, isIssueSearch, reset } = useGithubSearch();
 
   return (
     <WorkspaceShell tool={tool} onClear={reset}>
@@ -359,5 +359,5 @@ export const GithubSearchWorkspace = ({ tool }: WorkspaceProps) => {
         />
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

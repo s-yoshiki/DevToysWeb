@@ -1,26 +1,26 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { toRgbString, wcagLevels } from '@/features/color/functions/color'
-import { useTranslate } from '@/hooks/use-translate'
-import { cn } from '@/libs/utils'
-import type { useColor } from '../hooks/use-color'
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { toRgbString, wcagLevels } from '@/features/color/functions/color';
+import { useTranslate } from '@/hooks/use-translate';
+import { cn } from '@/libs/utils';
+import type { useColor } from '../hooks/use-color';
 
 /** WCAG pass/fail badges for the four text-size and level combinations. */
 const ContrastLevels = ({ ratio }: { ratio: number }) => {
-  const t = useTranslate()
-  const levels = wcagLevels(ratio)
+  const t = useTranslate();
+  const levels = wcagLevels(ratio);
   const badges = [
     { label: t('AA 通常', 'AA normal'), pass: levels.aaNormal },
     { label: t('AA 大', 'AA large'), pass: levels.aaLarge },
     { label: t('AAA 通常', 'AAA normal'), pass: levels.aaaNormal },
     { label: t('AAA 大', 'AAA large'), pass: levels.aaaLarge },
-  ]
+  ];
   return (
     <div className="grid grid-cols-2 gap-2">
       {badges.map((level) => (
@@ -36,12 +36,12 @@ const ContrastLevels = ({ ratio }: { ratio: number }) => {
         </Badge>
       ))}
     </div>
-  )
-}
+  );
+};
 
 export const ContrastCard = ({ color }: { color: ReturnType<typeof useColor> }) => {
-  const fieldId = useId()
-  const t = useTranslate()
+  const fieldId = useId();
+  const t = useTranslate();
   return (
     <Card className="h-fit overflow-hidden border-border/70">
       <CardHeader className="border-b bg-muted/30 py-4">
@@ -82,5 +82,5 @@ export const ContrastCard = ({ color }: { color: ReturnType<typeof useColor> }) 
         )}
       </CardContent>
     </Card>
-  )
-}
+  );
+};

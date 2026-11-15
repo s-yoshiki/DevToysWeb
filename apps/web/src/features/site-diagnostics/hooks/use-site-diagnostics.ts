@@ -1,34 +1,34 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { diagnoseSite } from '@/libs/api/diagnostics-client'
-import type { FullSiteReport } from '../types'
+import { useState } from 'react';
+import { diagnoseSite } from '@/libs/api/diagnostics-client';
+import type { FullSiteReport } from '../types';
 
 export const useSiteDiagnostics = () => {
-  const [url, setUrl] = useState('https://example.com')
-  const [report, setReport] = useState<FullSiteReport | null>(null)
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [url, setUrl] = useState('https://example.com');
+  const [report, setReport] = useState<FullSiteReport | null>(null);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const run = async () => {
-    if (!url.trim()) return
-    setLoading(true)
-    setError('')
+    if (!url.trim()) return;
+    setLoading(true);
+    setError('');
     try {
-      setReport((await diagnoseSite(url)) as FullSiteReport)
+      setReport((await diagnoseSite(url)) as FullSiteReport);
     } catch (reason) {
-      setReport(null)
-      setError(reason instanceof Error ? reason.message : 'Diagnostics failed')
+      setReport(null);
+      setError(reason instanceof Error ? reason.message : 'Diagnostics failed');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const clear = () => {
-    setUrl('')
-    setReport(null)
-    setError('')
-  }
+    setUrl('');
+    setReport(null);
+    setError('');
+  };
 
-  return { url, setUrl, report, error, loading, run, clear }
-}
+  return { url, setUrl, report, error, loading, run, clear };
+};

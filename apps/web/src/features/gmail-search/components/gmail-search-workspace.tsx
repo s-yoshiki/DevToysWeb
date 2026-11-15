@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
 import {
   DateField,
@@ -8,18 +8,23 @@ import {
   SelectField,
   SwitchField,
   TextField,
-} from '@/components/search/fields'
-import { FiltersCard, SearchPreview, SectionHeading } from '@/components/search/search-layout'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { gmailAgeUnits, gmailCategories, gmailLocations, gmailStates } from '../functions/constants'
-import { useGmailSearch } from '../hooks/use-gmail-search'
+} from '@/components/search/fields';
+import { FiltersCard, SearchPreview, SectionHeading } from '@/components/search/search-layout';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import {
+  gmailAgeUnits,
+  gmailCategories,
+  gmailLocations,
+  gmailStates,
+} from '../functions/constants';
+import { useGmailSearch } from '../hooks/use-gmail-search';
 
 export const GmailSearchWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const { condition, set, query, url, reset } = useGmailSearch()
+  const fieldId = useId();
+  const t = useTranslate();
+  const { condition, set, query, url, reset } = useGmailSearch();
 
   return (
     <WorkspaceShell tool={tool} onClear={reset}>
@@ -247,5 +252,5 @@ export const GmailSearchWorkspace = ({ tool }: WorkspaceProps) => {
         />
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

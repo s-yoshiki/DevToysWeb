@@ -1,4 +1,4 @@
-import type { Locale } from '@/i18n/dictionaries'
+import type { Locale } from '@/i18n/dictionaries';
 
 /**
  * Per-tool "how to use" steps and cautionary notes shown in the collapsible
@@ -6,9 +6,9 @@ import type { Locale } from '@/i18n/dictionaries'
  * compact index; a tool without an entry simply renders no guide panel.
  */
 export type ToolGuide = {
-  usage: Record<Locale, string[]>
-  notes: Record<Locale, string[]>
-}
+  usage: Record<Locale, string[]>;
+  notes: Record<Locale, string[]>;
+};
 
 export const toolGuides: Record<string, ToolGuide> = {
   drawing: {
@@ -1942,7 +1942,7 @@ export const toolGuides: Record<string, ToolGuide> = {
       ],
     },
   },
-}
+};
 
 /** Returns the guide for a tool slug, or undefined when the tool has none. */
-export const findToolGuide = (slug: string): ToolGuide | undefined => toolGuides[slug]
+export const findToolGuide = (slug: string): ToolGuide | undefined => toolGuides[slug];

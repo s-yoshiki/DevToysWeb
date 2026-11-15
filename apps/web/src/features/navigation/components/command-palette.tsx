@@ -1,14 +1,14 @@
-'use client'
+'use client';
 
-import { CornerDownLeft, History, Search } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
-import { useLocale } from '@/components/locale-provider'
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
-import { useRecentTools } from '@/hooks/use-recent-tools'
-import { type ToolDefinition, tools } from '@/libs/domain/catalog'
-import { getToolPath } from '@/libs/domain/tool-path'
-import { cn } from '@/libs/utils'
+import { CornerDownLeft, History, Search } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useLocale } from '@/components/locale-provider';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+import { useRecentTools } from '@/hooks/use-recent-tools';
+import { type ToolDefinition, tools } from '@/libs/domain/catalog';
+import { getToolPath } from '@/libs/domain/tool-path';
+import { cn } from '@/libs/utils';
 
 /** Every string a tool can reasonably be searched by, in both locales. */
 const haystack = (tool: ToolDefinition) =>
@@ -22,70 +22,70 @@ const haystack = (tool: ToolDefinition) =>
     tool.description.en,
   ]
     .join(' ')
-    .toLowerCase()
+    .toLowerCase();
 
 export const CommandPalette = ({
   open,
   onOpenChange,
 }: {
-  open: boolean
-  onOpenChange: (open: boolean) => void
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }) => {
-  const router = useRouter()
-  const { locale, dictionary } = useLocale()
-  const recent = useRecentTools()
-  const [query, setQuery] = useState('')
-  const [active, setActive] = useState(0)
-  const listRef = useRef<HTMLDivElement>(null)
-  const listId = useId()
+  const router = useRouter();
+  const { locale, dictionary } = useLocale();
+  const recent = useRecentTools();
+  const [query, setQuery] = useState('');
+  const [active, setActive] = useState(0);
+  const listRef = useRef<HTMLDivElement>(null);
+  const listId = useId();
 
-  const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean)
+  const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
   const results = useMemo(() => {
-    if (!terms.length) return recent.length ? recent : tools.slice(0, 8)
+    if (!terms.length) return recent.length ? recent : tools.slice(0, 8);
     return tools.filter((tool) => {
-      const text = haystack(tool)
-      return terms.every((term) => text.includes(term))
-    })
-  }, [recent, terms])
-  const showingRecent = !terms.length && recent.length > 0
+      const text = haystack(tool);
+      return terms.every((term) => text.includes(term));
+    });
+  }, [recent, terms]);
+  const showingRecent = !terms.length && recent.length > 0;
 
   // Reset the transient state each time the palette is summoned.
   useEffect(() => {
     if (open) {
-      setQuery('')
-      setActive(0)
+      setQuery('');
+      setActive(0);
     }
-  }, [open])
+  }, [open]);
 
-  const activeSlug = results[active]?.slug
+  const activeSlug = results[active]?.slug;
   useEffect(() => {
-    if (!activeSlug) return
+    if (!activeSlug) return;
     listRef.current?.querySelector(`[data-slug="${activeSlug}"]`)?.scrollIntoView({
       block: 'nearest',
-    })
-  }, [activeSlug])
+    });
+  }, [activeSlug]);
 
   const select = useCallback(
     (tool: ToolDefinition | undefined) => {
-      if (!tool) return
-      onOpenChange(false)
-      router.push(getToolPath(locale, tool))
+      if (!tool) return;
+      onOpenChange(false);
+      router.push(getToolPath(locale, tool));
     },
     [locale, onOpenChange, router],
-  )
+  );
 
   const onKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'ArrowDown') {
-      event.preventDefault()
-      setActive((index) => (results.length ? (index + 1) % results.length : 0))
+      event.preventDefault();
+      setActive((index) => (results.length ? (index + 1) % results.length : 0));
     } else if (event.key === 'ArrowUp') {
-      event.preventDefault()
-      setActive((index) => (results.length ? (index - 1 + results.length) % results.length : 0))
+      event.preventDefault();
+      setActive((index) => (results.length ? (index - 1 + results.length) % results.length : 0));
     } else if (event.key === 'Enter') {
-      event.preventDefault()
-      select(results[active])
+      event.preventDefault();
+      select(results[active]);
     }
-  }
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -97,8 +97,8 @@ export const CommandPalette = ({
             autoFocus
             value={query}
             onChange={(event) => {
-              setQuery(event.target.value)
-              setActive(0)
+              setQuery(event.target.value);
+              setActive(0);
             }}
             placeholder={dictionary.commandPalettePlaceholder}
             aria-label={dictionary.commandPalettePlaceholder}
@@ -161,23 +161,23 @@ export const CommandPalette = ({
         </div>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
 /** Binds ⌘K / Ctrl+K globally and returns the palette's open state. */
 export const useCommandPalette = () => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key.toLowerCase() === 'k' && (event.metaKey || event.ctrlKey)) {
-        event.preventDefault()
-        setOpen((previous) => !previous)
+        event.preventDefault();
+        setOpen((previous) => !previous);
       }
-    }
-    window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [])
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
 
-  return { open, setOpen }
-}
+  return { open, setOpen };
+};

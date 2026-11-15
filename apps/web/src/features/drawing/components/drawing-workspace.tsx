@@ -1,27 +1,27 @@
-'use client'
+'use client';
 
-import { Download, Eraser, Pencil, Redo2, Trash2, Undo2 } from 'lucide-react'
-import { useId } from 'react'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import { cn } from '@/libs/utils'
-import type { WorkspaceProps } from '@/workspaces/types'
-import type { Background } from '../functions/canvas'
-import { brushColors, useDrawing } from '../hooks/use-drawing'
+import { Download, Eraser, Pencil, Redo2, Trash2, Undo2 } from 'lucide-react';
+import { useId } from 'react';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import { cn } from '@/libs/utils';
+import type { WorkspaceProps } from '@/workspaces/types';
+import type { Background } from '../functions/canvas';
+import { brushColors, useDrawing } from '../hooks/use-drawing';
 
 /** Checkerboard so a transparent canvas reads as transparent, not as white. */
 const transparencyPattern =
-  'bg-[linear-gradient(45deg,var(--muted)_25%,transparent_25%,transparent_75%,var(--muted)_75%),linear-gradient(45deg,var(--muted)_25%,transparent_25%,transparent_75%,var(--muted)_75%)] bg-[length:16px_16px] bg-[position:0_0,8px_8px]'
+  'bg-[linear-gradient(45deg,var(--muted)_25%,transparent_25%,transparent_75%,var(--muted)_75%),linear-gradient(45deg,var(--muted)_25%,transparent_25%,transparent_75%,var(--muted)_75%)] bg-[length:16px_16px] bg-[position:0_0,8px_8px]';
 
 export const DrawingWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const drawing = useDrawing()
+  const fieldId = useId();
+  const t = useTranslate();
+  const drawing = useDrawing();
 
   return (
     <WorkspaceShell tool={tool} onClear={drawing.clear}>
@@ -83,8 +83,8 @@ export const DrawingWorkspace = ({ tool }: WorkspaceProps) => {
                       key={swatch}
                       type="button"
                       onClick={() => {
-                        drawing.setColor(swatch)
-                        drawing.setErasing(false)
+                        drawing.setColor(swatch);
+                        drawing.setErasing(false);
                       }}
                       aria-label={swatch}
                       aria-pressed={!drawing.erasing && drawing.color === swatch}
@@ -103,8 +103,8 @@ export const DrawingWorkspace = ({ tool }: WorkspaceProps) => {
                   type="color"
                   value={drawing.color}
                   onChange={(event) => {
-                    drawing.setColor(event.target.value)
-                    drawing.setErasing(false)
+                    drawing.setColor(event.target.value);
+                    drawing.setErasing(false);
                   }}
                   className="h-9 w-full p-1"
                 />
@@ -176,5 +176,5 @@ export const DrawingWorkspace = ({ tool }: WorkspaceProps) => {
         </div>
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

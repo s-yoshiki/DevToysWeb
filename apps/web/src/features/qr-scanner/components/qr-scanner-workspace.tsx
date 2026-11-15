@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
-import { Play, ScanLine, Square } from 'lucide-react'
-import { CopyButton } from '@/components/copy-button'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useQrScanner } from '../hooks/use-qr-scanner'
+import { Play, ScanLine, Square } from 'lucide-react';
+import { CopyButton } from '@/components/copy-button';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useQrScanner } from '../hooks/use-qr-scanner';
 
 const errorMessages: Record<string, { ja: string; en: string }> = {
   'no-detector': {
@@ -27,13 +27,13 @@ const errorMessages: Record<string, { ja: string; en: string }> = {
     en: 'No camera device was found.',
   },
   unknown: { ja: 'スキャナーの起動に失敗しました。', en: 'Failed to start the scanner.' },
-}
+};
 
-const isLink = (value: string) => /^https?:\/\//i.test(value)
+const isLink = (value: string) => /^https?:\/\//i.test(value);
 
 export const QrScannerWorkspace = ({ tool }: WorkspaceProps) => {
-  const t = useTranslate()
-  const scanner = useQrScanner()
+  const t = useTranslate();
+  const scanner = useQrScanner();
 
   return (
     <WorkspaceShell tool={tool} onClear={scanner.clear}>
@@ -131,5 +131,5 @@ export const QrScannerWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

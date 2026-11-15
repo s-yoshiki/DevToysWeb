@@ -1,6 +1,6 @@
-import assert from 'node:assert/strict'
-import { describe, it } from 'node:test'
-import { analyzeMojibake } from './mojibake'
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
+import { analyzeMojibake } from './mojibake';
 
 /** CP1252 rendering of raw bytes — how mojibake usually reaches a user's screen. */
 const CP1252_HIGH: Record<number, number> = {
@@ -31,34 +31,34 @@ const CP1252_HIGH: Record<number, number> = {
   156: 0x153,
   158: 0x17e,
   159: 0x178,
-}
+};
 
 const utf8AsCp1252 = (text: string) =>
   Array.from(new TextEncoder().encode(text))
     .map((b) => String.fromCodePoint(b >= 0x80 && b <= 0x9f && CP1252_HIGH[b] ? CP1252_HIGH[b] : b))
-    .join('')
+    .join('');
 
 describe('analyzeMojibake', () => {
   it('restores UTF-8 Japanese text seen through a CP1252 pipeline', () => {
-    const cases = ['日本語が文字化けしました', '文字化けを直す', 'こんにちは、世界！']
+    const cases = ['日本語が文字化けしました', '文字化けを直す', 'こんにちは、世界！'];
     for (const original of cases) {
-      const best = analyzeMojibake(utf8AsCp1252(original))[0]
-      assert.equal(best?.text, original)
+      const best = analyzeMojibake(utf8AsCp1252(original))[0];
+      assert.equal(best?.text, original);
     }
-  })
+  });
 
   it('restores Western accented text without over-correcting', () => {
-    assert.equal(analyzeMojibake(utf8AsCp1252('café'))[0]?.text, 'café')
-    assert.equal(analyzeMojibake(utf8AsCp1252('価格€100'))[0]?.text, '価格€100')
-  })
+    assert.equal(analyzeMojibake(utf8AsCp1252('café'))[0]?.text, 'café');
+    assert.equal(analyzeMojibake(utf8AsCp1252('価格€100'))[0]?.text, '価格€100');
+  });
 
   it('unwinds doubly-encoded text', () => {
-    const doubled = utf8AsCp1252(utf8AsCp1252('£100'))
-    assert.equal(analyzeMojibake(doubled)[0]?.text, '£100')
-  })
+    const doubled = utf8AsCp1252(utf8AsCp1252('£100'));
+    assert.equal(analyzeMojibake(doubled)[0]?.text, '£100');
+  });
 
   it('returns nothing for text that is not byte-recoverable mojibake', () => {
-    assert.deepEqual(analyzeMojibake('普通の日本語テキスト'), [])
-    assert.deepEqual(analyzeMojibake(''), [])
-  })
-})
+    assert.deepEqual(analyzeMojibake('普通の日本語テキスト'), []);
+    assert.deepEqual(analyzeMojibake(''), []);
+  });
+});

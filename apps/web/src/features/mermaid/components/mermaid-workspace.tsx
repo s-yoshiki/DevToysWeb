@@ -1,16 +1,16 @@
-'use client'
+'use client';
 
-import { CodeEditor } from '@/components/code-editor'
-import { Card, CardContent } from '@/components/ui/card'
-import { ErrorBanner, Pane, PaneHeader } from '@/components/workspace-panes'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useMermaid } from '../hooks/use-mermaid'
+import { CodeEditor } from '@/components/code-editor';
+import { Card, CardContent } from '@/components/ui/card';
+import { ErrorBanner, Pane, PaneHeader } from '@/components/workspace-panes';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useMermaid } from '../hooks/use-mermaid';
 
 export const MermaidWorkspace = ({ tool }: WorkspaceProps) => {
-  const t = useTranslate()
-  const mermaid = useMermaid()
+  const t = useTranslate();
+  const mermaid = useMermaid();
 
   return (
     <WorkspaceShell tool={tool} onClear={mermaid.clear}>
@@ -36,7 +36,7 @@ export const MermaidWorkspace = ({ tool }: WorkspaceProps) => {
             >
               {mermaid.svg ? (
                 <div
-                  // biome-ignore lint/security/noDangerouslySetInnerHtml: Mermaid uses strict security mode for generated SVG
+                  // Mermaid uses strict security mode for generated SVG
                   dangerouslySetInnerHTML={{ __html: mermaid.svg }}
                 />
               ) : (
@@ -51,5 +51,5 @@ export const MermaidWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

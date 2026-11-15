@@ -1,70 +1,70 @@
-'use client'
+'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useLocale } from '@/components/locale-provider'
-import { generate, transform } from '@/features/converter/transformers'
-import type { ToolDefinition } from '@/libs/domain/catalog'
-import { formatNames, reversibleSlugs, sampleInputs } from '../functions/constants'
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useLocale } from '@/components/locale-provider';
+import { generate, transform } from '@/features/converter/transformers';
+import type { ToolDefinition } from '@/libs/domain/catalog';
+import { formatNames, reversibleSlugs, sampleInputs } from '../functions/constants';
 
-export type ConverterOptions = { count: number; length: number }
+export type ConverterOptions = { count: number; length: number };
 
-const defaultOptions: ConverterOptions = { count: 5, length: 20 }
+const defaultOptions: ConverterOptions = { count: 5, length: 20 };
 
 /** `hash` is catalogued as a generator but behaves like a one-way conversion. */
-const isGeneratorTool = (tool: ToolDefinition) => tool.mode === 'generate' && tool.slug !== 'hash'
+const isGeneratorTool = (tool: ToolDefinition) => tool.mode === 'generate' && tool.slug !== 'hash';
 
 /**
  * Drives the generic input → output workspace: transformation, generator
  * settings, and which format sits on each side of the arrow.
  */
 export const useConverter = (tool: ToolDefinition) => {
-  const { dictionary } = useLocale()
-  const isGenerator = isGeneratorTool(tool)
+  const { dictionary } = useLocale();
+  const isGenerator = isGeneratorTool(tool);
 
-  const [input, setInput] = useState(sampleInputs[tool.slug] ?? '')
-  const [output, setOutput] = useState(() => (isGenerator ? generate(tool.slug, 5, 20) : ''))
-  const [reverse, setReverse] = useState(false)
-  const [error, setError] = useState('')
-  const [options, setOptions] = useState<ConverterOptions>(defaultOptions)
+  const [input, setInput] = useState(sampleInputs[tool.slug] ?? '');
+  const [output, setOutput] = useState(() => (isGenerator ? generate(tool.slug, 5, 20) : ''));
+  const [reverse, setReverse] = useState(false);
+  const [error, setError] = useState('');
+  const [options, setOptions] = useState<ConverterOptions>(defaultOptions);
 
   const run = useCallback(() => {
     try {
-      setError('')
+      setError('');
       setOutput(
         isGenerator
           ? generate(tool.slug, options.count, options.length)
           : transform(tool.slug, input, reverse),
-      )
+      );
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : 'Invalid input')
-      setOutput('')
+      setError(reason instanceof Error ? reason.message : 'Invalid input');
+      setOutput('');
     }
-  }, [input, isGenerator, options, reverse, tool.slug])
+  }, [input, isGenerator, options, reverse, tool.slug]);
 
   useEffect(() => {
-    if (tool.mode !== 'generate' && input) run()
-  }, [run, tool.mode, input])
+    if (tool.mode !== 'generate' && input) run();
+  }, [run, tool.mode, input]);
 
   const formats = useMemo<[string, string]>(
     () => formatNames[tool.slug] ?? [dictionary.input, dictionary.output],
     [dictionary.input, dictionary.output, tool.slug],
-  )
+  );
 
   /** Moving the result back into the input makes the round trip verifiable. */
   const changeDirection = (nextReverse: boolean) => {
-    if (nextReverse === reverse) return
-    if (output) setInput(output)
-    setReverse(nextReverse)
-  }
+    if (nextReverse === reverse) return;
+    if (output) setInput(output);
+    setReverse(nextReverse);
+  };
 
   const clear = () => {
-    setInput('')
-    setOutput('')
-    setError('')
-  }
+    setInput('');
+    setOutput('');
+    setError('');
+  };
 
   const updateOptions = (patch: Partial<ConverterOptions>) =>
-    setOptions((previous) => ({ ...previous, ...patch }))
+    setOptions((previous) => ({ ...previous, ...patch }));
 
   return {
     input,
@@ -82,7 +82,7 @@ export const useConverter = (tool: ToolDefinition) => {
     inputFormat: reverse ? formats[1] : formats[0],
     outputFormat: reverse ? formats[0] : formats[1],
     changeDirection,
-  }
-}
+  };
+};
 
-export type Converter = ReturnType<typeof useConverter>
+export type Converter = ReturnType<typeof useConverter>;

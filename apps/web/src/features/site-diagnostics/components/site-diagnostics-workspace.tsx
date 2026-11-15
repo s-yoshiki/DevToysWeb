@@ -1,23 +1,23 @@
-'use client'
+'use client';
 
-import { LoaderCircle, Play, ShieldCheck, ShieldX } from 'lucide-react'
-import { useId } from 'react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import { cn } from '@/libs/utils'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useSiteDiagnostics } from '../hooks/use-site-diagnostics'
-import { type FullSiteReport, isOk, type Settled, type TlsCertificate } from '../types'
+import { LoaderCircle, Play, ShieldCheck, ShieldX } from 'lucide-react';
+import { useId } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import { cn } from '@/libs/utils';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useSiteDiagnostics } from '../hooks/use-site-diagnostics';
+import { type FullSiteReport, isOk, type Settled, type TlsCertificate } from '../types';
 
 export const SiteDiagnosticsWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const diagnostics = useSiteDiagnostics()
-  const { report } = diagnostics
+  const fieldId = useId();
+  const t = useTranslate();
+  const diagnostics = useSiteDiagnostics();
+  const { report } = diagnostics;
 
   return (
     <WorkspaceShell tool={tool} onClear={diagnostics.clear}>
@@ -31,7 +31,7 @@ export const SiteDiagnosticsWorkspace = ({ tool }: WorkspaceProps) => {
                 value={diagnostics.url}
                 onChange={(event) => diagnostics.setUrl(event.target.value)}
                 onKeyDown={(event) => {
-                  if (event.key === 'Enter') diagnostics.run()
+                  if (event.key === 'Enter') diagnostics.run();
                 }}
                 className="font-mono"
                 placeholder="https://example.com"
@@ -63,10 +63,10 @@ export const SiteDiagnosticsWorkspace = ({ tool }: WorkspaceProps) => {
         {report && <Report report={report} t={t} />}
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};
 
-type T = (ja: string, en: string) => string
+type T = (ja: string, en: string) => string;
 
 const Report = ({ report, t }: { report: FullSiteReport; t: T }) => (
   <>
@@ -156,7 +156,7 @@ const Report = ({ report, t }: { report: FullSiteReport; t: T }) => (
       />
     </Section>
   </>
-)
+);
 
 const StatusPill = ({ status }: { status: number }) => {
   const tone =
@@ -164,11 +164,11 @@ const StatusPill = ({ status }: { status: number }) => {
       ? 'bg-success/15 text-success'
       : status >= 300 && status < 400
         ? 'bg-primary/15 text-primary'
-        : 'bg-destructive/15 text-destructive'
+        : 'bg-destructive/15 text-destructive';
   return (
     <span className={cn('rounded px-2 py-0.5 font-mono text-sm font-medium', tone)}>{status}</span>
-  )
-}
+  );
+};
 
 const TlsSection = ({ tls, t }: { tls: Settled<TlsCertificate | null>; t: T }) => {
   if (!isOk(tls)) {
@@ -176,7 +176,7 @@ const TlsSection = ({ tls, t }: { tls: Settled<TlsCertificate | null>; t: T }) =
       <Section title="TLS">
         <p className="bg-card px-5 py-3 text-sm text-destructive">{tls.error}</p>
       </Section>
-    )
+    );
   }
   if (tls.value === null) {
     return (
@@ -188,10 +188,10 @@ const TlsSection = ({ tls, t }: { tls: Settled<TlsCertificate | null>; t: T }) =
           )}
         </p>
       </Section>
-    )
+    );
   }
-  const cert = tls.value
-  const daysLeft = Math.floor((new Date(cert.validTo).getTime() - Date.now()) / 86_400_000)
+  const cert = tls.value;
+  const daysLeft = Math.floor((new Date(cert.validTo).getTime() - Date.now()) / 86_400_000);
   return (
     <Section title="TLS">
       <KV label={t('発行者', 'Issuer')} value={cert.issuer.O ?? cert.issuer.CN ?? '—'} />
@@ -211,24 +211,24 @@ const TlsSection = ({ tls, t }: { tls: Settled<TlsCertificate | null>; t: T }) =
         </span>
       </div>
     </Section>
-  )
-}
+  );
+};
 
 // The page-metadata section deliberately omits Open Graph / X (Twitter) card
 // tags — those live in the dedicated OGP checker tool.
 const PageSection = ({ page, t }: { page: Record<string, string>; t: T }) => {
   const entries = Object.entries(page).filter(
     ([key]) => !key.startsWith('og:') && !key.startsWith('twitter:'),
-  )
-  if (entries.length === 0) return null
+  );
+  if (entries.length === 0) return null;
   return (
     <Section title={t('ページ情報', 'Page metadata')}>
       {entries.map(([key, value]) => (
         <KV key={key} label={key} value={value} />
       ))}
     </Section>
-  )
-}
+  );
+};
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <Card className="overflow-hidden border-border/70 shadow-xl shadow-foreground/[0.03]">
@@ -237,23 +237,23 @@ const Section = ({ title, children }: { title: string; children: React.ReactNode
     </CardHeader>
     <CardContent className="grid gap-px bg-border/60 p-0">{children}</CardContent>
   </Card>
-)
+);
 
 const KV = ({ label, value }: { label: string; value: string }) => (
   <div className="flex items-start justify-between gap-3 bg-card px-5 py-3">
     <span className="shrink-0 text-sm text-muted-foreground">{label}</span>
     <span className="max-w-[65%] break-words text-right text-sm font-medium">{value}</span>
   </div>
-)
+);
 
 function DnsRow<T>({
   label,
   record,
   render,
 }: {
-  label: string
-  record: Settled<T[]>
-  render: (value: T[]) => string[]
+  label: string;
+  record: Settled<T[]>;
+  render: (value: T[]) => string[];
 }) {
   return (
     <div className="flex items-start justify-between gap-3 bg-card px-5 py-3">
@@ -274,5 +274,5 @@ function DnsRow<T>({
         )}
       </div>
     </div>
-  )
+  );
 }

@@ -1,24 +1,24 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
-import { DateField, NumberField, SelectField, TextField } from '@/components/search/fields'
+import { DateField, NumberField, SelectField, TextField } from '@/components/search/fields';
 import {
   FiltersCard,
   OptionGroup,
   SearchPreview,
   SectionHeading,
-} from '@/components/search/search-layout'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { filterModes, resultTabs, xLanguages } from '../functions/constants'
-import { useXSearch } from '../hooks/use-x-search'
+} from '@/components/search/search-layout';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { filterModes, resultTabs, xLanguages } from '../functions/constants';
+import { useXSearch } from '../hooks/use-x-search';
 
 export const XSearchWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const { condition, set, tab, setTab, query, url, reset } = useXSearch()
+  const fieldId = useId();
+  const t = useTranslate();
+  const { condition, set, tab, setTab, query, url, reset } = useXSearch();
 
   return (
     <WorkspaceShell tool={tool} onClear={reset}>
@@ -173,5 +173,5 @@ export const XSearchWorkspace = ({ tool }: WorkspaceProps) => {
         </SearchPreview>
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

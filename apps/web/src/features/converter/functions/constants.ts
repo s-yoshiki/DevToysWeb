@@ -14,7 +14,7 @@ export const formatNames: Record<string, [string, string]> = {
   'css-format': ['CSS', 'Formatted CSS'],
   'html-format': ['HTML', 'Formatted HTML'],
   hash: ['Text', 'SHA-256'],
-}
+};
 
 /** Tools whose transformation can also run backwards. */
 export const reversibleSlugs = [
@@ -25,7 +25,7 @@ export const reversibleSlugs = [
   'base64',
   'url',
   'html',
-]
+];
 
 export const sampleInputs: Record<string, string> = {
   'yaml-json': `name: DevToys
@@ -63,4 +63,4 @@ enabled: true`,
     '.hero{color:#fff;background:#111}.hero h1{font-size:2rem;margin:0 0 1rem}@media (width>=48rem){.hero{padding:4rem}}',
   'html-format':
     '<section class="hero"><h1>DevToys</h1><p>Web tools</p><img src="a.png" alt=""><ul><li>one</li><li>two</li></ul></section>',
-}
+};

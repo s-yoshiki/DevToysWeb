@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react';
 import {
   type BadgeOptions,
   type BadgePreset,
@@ -8,7 +8,7 @@ import {
   type BadgeStyle,
   badgePresets,
   buildBadgeOutputs,
-} from './badge'
+} from './badge';
 
 const initialOptions: BadgeOptions = {
   provider: 'shields',
@@ -20,14 +20,14 @@ const initialOptions: BadgeOptions = {
   logoColor: 'white',
   style: 'flat',
   link: '',
-}
+};
 
 export const useBadge = () => {
-  const [options, setOptions] = useState(initialOptions)
-  const output = useMemo(() => buildBadgeOutputs(options), [options])
+  const [options, setOptions] = useState(initialOptions);
+  const output = useMemo(() => buildBadgeOutputs(options), [options]);
 
   const set = <Key extends keyof BadgeOptions>(key: Key, value: BadgeOptions[Key]) =>
-    setOptions((current) => ({ ...current, [key]: value }))
+    setOptions((current) => ({ ...current, [key]: value }));
 
   const applyPreset = (preset: BadgePreset) =>
     setOptions((current) => ({
@@ -37,7 +37,7 @@ export const useBadge = () => {
       color: preset.color,
       logo: preset.logo,
       logoColor: preset.logoColor,
-    }))
+    }));
 
   return {
     options,
@@ -48,5 +48,5 @@ export const useBadge = () => {
     setStyle: (style: BadgeStyle) => set('style', style),
     applyPreset,
     clear: () => setOptions(initialOptions),
-  }
-}
+  };
+};

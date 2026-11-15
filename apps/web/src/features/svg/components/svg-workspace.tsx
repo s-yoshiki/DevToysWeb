@@ -1,24 +1,24 @@
-'use client'
+'use client';
 
-import { CodeEditor } from '@/components/code-editor'
-import { CopyButton } from '@/components/copy-button'
-import { useLocale } from '@/components/locale-provider'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Pane, PaneHeader } from '@/components/workspace-panes'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import { formatBytes } from '@/libs/domain/bytes'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useSvgOptimizer } from '../hooks/use-svg-optimizer'
+import { CodeEditor } from '@/components/code-editor';
+import { CopyButton } from '@/components/copy-button';
+import { useLocale } from '@/components/locale-provider';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Pane, PaneHeader } from '@/components/workspace-panes';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import { formatBytes } from '@/libs/domain/bytes';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useSvgOptimizer } from '../hooks/use-svg-optimizer';
 
 const checkerboard =
-  'bg-[linear-gradient(45deg,#eee_25%,transparent_25%),linear-gradient(-45deg,#eee_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#eee_75%),linear-gradient(-45deg,transparent_75%,#eee_75%)] bg-[length:20px_20px]'
+  'bg-[linear-gradient(45deg,#eee_25%,transparent_25%),linear-gradient(-45deg,#eee_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#eee_75%),linear-gradient(-45deg,transparent_75%,#eee_75%)] bg-[length:20px_20px]';
 
 export const SvgWorkspace = ({ tool }: WorkspaceProps) => {
-  const { dictionary } = useLocale()
-  const t = useTranslate()
-  const svg = useSvgOptimizer()
+  const { dictionary } = useLocale();
+  const t = useTranslate();
+  const svg = useSvgOptimizer();
 
   return (
     <WorkspaceShell tool={tool} onClear={svg.clear}>
@@ -57,7 +57,7 @@ export const SvgWorkspace = ({ tool }: WorkspaceProps) => {
               className={`flex min-h-[320px] items-center justify-center border-b p-6 lg:border-b-0 ${checkerboard}`}
             >
               {svg.dataUri && (
-                // biome-ignore lint/performance/noImgElement: the source is a client-side data URI
+                // the source is a client-side data URI
                 <img
                   src={svg.dataUri}
                   alt={t('SVGプレビュー', 'SVG preview')}
@@ -97,5 +97,5 @@ export const SvgWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

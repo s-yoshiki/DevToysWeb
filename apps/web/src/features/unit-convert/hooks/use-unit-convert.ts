@@ -1,27 +1,27 @@
-'use client'
+'use client';
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react';
 import {
   convertUnit,
   findFamily,
   findUnit,
   formatUnitValue,
   type UnitFamilyId,
-} from '../functions/units'
+} from '../functions/units';
 
 /**
  * One value in, every unit of the family out — the comparison table is the whole
  * point of the tool, so there is no "target unit" to pick.
  */
 export const useUnitConvert = () => {
-  const [familyId, setFamilyId] = useState<UnitFamilyId>('length')
-  const [unitId, setUnitId] = useState('m')
-  const [input, setInput] = useState('1')
+  const [familyId, setFamilyId] = useState<UnitFamilyId>('length');
+  const [unitId, setUnitId] = useState('m');
+  const [input, setInput] = useState('1');
 
-  const family = findFamily(familyId)
-  const unit = findUnit(family, unitId)
-  const amount = Number(input.replace(/[,\s]/g, ''))
-  const valid = input.trim() !== '' && Number.isFinite(amount)
+  const family = findFamily(familyId);
+  const unit = findUnit(family, unitId);
+  const amount = Number(input.replace(/[,\s]/g, ''));
+  const valid = input.trim() !== '' && Number.isFinite(amount);
 
   const rows = useMemo(
     () =>
@@ -32,16 +32,16 @@ export const useUnitConvert = () => {
         current: target.id === unit.id,
       })),
     [amount, family, unit, valid],
-  )
+  );
 
   const selectFamily = (next: UnitFamilyId) => {
-    setFamilyId(next)
-    setUnitId(findFamily(next).defaultUnit)
-  }
+    setFamilyId(next);
+    setUnitId(findFamily(next).defaultUnit);
+  };
 
   const clear = () => {
-    setInput('')
-  }
+    setInput('');
+  };
 
   return {
     familyId,
@@ -54,5 +54,5 @@ export const useUnitConvert = () => {
     valid,
     rows,
     clear,
-  }
-}
+  };
+};

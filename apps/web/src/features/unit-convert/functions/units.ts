@@ -1,4 +1,4 @@
-import type { Locale } from '@/i18n/dictionaries'
+import type { Locale } from '@/i18n/dictionaries';
 
 /**
  * Every unit is described by how it maps to its family's base unit, so a
@@ -6,12 +6,12 @@ import type { Locale } from '@/i18n/dictionaries'
  * offset, which is why the mapping is a pair of functions rather than a factor.
  */
 export type Unit = {
-  id: string
-  symbol: string
-  name: Record<Locale, string>
-  toBase: (value: number) => number
-  fromBase: (value: number) => number
-}
+  id: string;
+  symbol: string;
+  name: Record<Locale, string>;
+  toBase: (value: number) => number;
+  fromBase: (value: number) => number;
+};
 
 export type UnitFamilyId =
   | 'length'
@@ -23,15 +23,15 @@ export type UnitFamilyId =
   | 'speed'
   | 'time'
   | 'pressure'
-  | 'angle'
+  | 'angle';
 
 export type UnitFamily = {
-  id: UnitFamilyId
-  name: Record<Locale, string>
+  id: UnitFamilyId;
+  name: Record<Locale, string>;
   /** Unit selected when the family is opened. */
-  defaultUnit: string
-  units: Unit[]
-}
+  defaultUnit: string;
+  units: Unit[];
+};
 
 const scaled = (id: string, symbol: string, ja: string, en: string, factor: number): Unit => ({
   id,
@@ -39,9 +39,9 @@ const scaled = (id: string, symbol: string, ja: string, en: string, factor: numb
   name: { ja, en },
   toBase: (value) => value * factor,
   fromBase: (value) => value / factor,
-})
+});
 
-const KIB = 1024
+const KIB = 1024;
 
 export const unitFamilies: UnitFamily[] = [
   {
@@ -240,29 +240,30 @@ export const unitFamilies: UnitFamily[] = [
       scaled('turn', 'turn', '回転', 'Turn', 360),
     ],
   },
-]
+];
 
 export const findFamily = (id: UnitFamilyId) =>
-  unitFamilies.find((family) => family.id === id) ?? unitFamilies[0]
+  unitFamilies.find((family) => family.id === id) ?? unitFamilies[0];
 
 export const findUnit = (family: UnitFamily, unitId: string) =>
-  family.units.find((unit) => unit.id === unitId) ?? family.units[0]
+  family.units.find((unit) => unit.id === unitId) ?? family.units[0];
 
 /** Converts through the family's base unit. */
-export const convertUnit = (value: number, from: Unit, to: Unit) => to.fromBase(from.toBase(value))
+export const convertUnit = (value: number, from: Unit, to: Unit) => to.fromBase(from.toBase(value));
 
 /**
  * Readable across the ~30 orders of magnitude the data and length families span:
  * exponential notation at the extremes, trimmed fixed notation in between.
  */
 export const formatUnitValue = (value: number) => {
-  if (!Number.isFinite(value)) return '—'
-  if (value === 0) return '0'
-  const magnitude = Math.abs(value)
-  if (magnitude >= 1e15 || magnitude < 1e-6) return value.toExponential(6).replace(/e([+-])/, 'e$1')
-  const decimals = magnitude >= 100 ? 4 : magnitude >= 1 ? 6 : 10
+  if (!Number.isFinite(value)) return '—';
+  if (value === 0) return '0';
+  const magnitude = Math.abs(value);
+  if (magnitude >= 1e15 || magnitude < 1e-6)
+    return value.toExponential(6).replace(/e([+-])/, 'e$1');
+  const decimals = magnitude >= 100 ? 4 : magnitude >= 1 ? 6 : 10;
   return value
     .toFixed(decimals)
     .replace(/\.?0+$/, '')
-    .replace(/^-0$/, '0')
-}
+    .replace(/^-0$/, '0');
+};

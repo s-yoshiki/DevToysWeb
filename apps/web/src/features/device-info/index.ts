@@ -1,1 +1,1 @@
-export { DeviceInfoWorkspace } from './components/device-info-workspace'
+export { DeviceInfoWorkspace } from './components/device-info-workspace';

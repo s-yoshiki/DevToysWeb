@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
-import { AlertTriangle, ChevronDown, ListChecks } from 'lucide-react'
-import { useLocale } from '@/components/locale-provider'
-import type { ToolDefinition } from '@/libs/domain/catalog'
-import { findToolGuide } from '@/libs/domain/tool-guides'
+import { AlertTriangle, ChevronDown, ListChecks } from 'lucide-react';
+import { useLocale } from '@/components/locale-provider';
+import type { ToolDefinition } from '@/libs/domain/catalog';
+import { findToolGuide } from '@/libs/domain/tool-guides';
 
 /**
  * Collapsible "how to use" / "notes" panel shown below every workspace. Renders
@@ -11,11 +11,11 @@ import { findToolGuide } from '@/libs/domain/tool-guides'
  * adding `usage` and/or `notes` to their definition.
  */
 export const WorkspaceGuide = ({ tool }: { tool: ToolDefinition }) => {
-  const { locale, dictionary } = useLocale()
-  const guide = findToolGuide(tool.slug)
-  const usage = guide?.usage[locale] ?? []
-  const notes = guide?.notes[locale] ?? []
-  if (usage.length === 0 && notes.length === 0) return null
+  const { locale, dictionary } = useLocale();
+  const guide = findToolGuide(tool.slug);
+  const usage = guide?.usage[locale] ?? [];
+  const notes = guide?.notes[locale] ?? [];
+  if (usage.length === 0 && notes.length === 0) return null;
 
   return (
     <details className="group mt-6 rounded-xl border border-border bg-card text-sm">
@@ -63,5 +63,5 @@ export const WorkspaceGuide = ({ tool }: { tool: ToolDefinition }) => {
         )}
       </div>
     </details>
-  )
-}
+  );
+};

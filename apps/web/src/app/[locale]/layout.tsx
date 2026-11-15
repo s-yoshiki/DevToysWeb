@@ -1,22 +1,22 @@
-import Link from 'next/link'
-import { notFound } from 'next/navigation'
-import { LocaleProvider } from '@/components/locale-provider'
-import { contentPageLinks } from '@/features/content/domain/page-slugs'
-import { AppHeader } from '@/features/navigation/components/app-header'
-import { AppSidebar } from '@/features/navigation/components/app-sidebar'
-import { getDictionary, isLocale, locales } from '@/i18n/dictionaries'
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { LocaleProvider } from '@/components/locale-provider';
+import { contentPageLinks } from '@/features/content/domain/page-slugs';
+import { AppHeader } from '@/features/navigation/components/app-header';
+import { AppSidebar } from '@/features/navigation/components/app-sidebar';
+import { getDictionary, isLocale, locales } from '@/i18n/dictionaries';
 
-export const generateStaticParams = () => locales.map((locale) => ({ locale }))
+export const generateStaticParams = () => locales.map((locale) => ({ locale }));
 const LocaleLayout = async ({
   children,
   params,
 }: {
-  children: React.ReactNode
-  params: Promise<{ locale: string }>
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) => {
-  const { locale } = await params
-  if (!isLocale(locale)) notFound()
-  const dictionary = getDictionary(locale)
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+  const dictionary = getDictionary(locale);
   return (
     <LocaleProvider locale={locale} dictionary={dictionary}>
       <div data-app-chrome="header">
@@ -27,7 +27,7 @@ const LocaleLayout = async ({
           <AppSidebar />
         </div>
         <div className="flex min-w-0 flex-1 flex-col">
-          {/* biome-ignore lint/correctness/useUniqueElementIds: the document has one main landmark by design. */}
+          {/* the document has one main landmark by design. */}
           <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
             {children}
           </main>
@@ -58,7 +58,7 @@ const LocaleLayout = async ({
         </div>
       </div>
     </LocaleProvider>
-  )
-}
+  );
+};
 
-export default LocaleLayout
+export default LocaleLayout;

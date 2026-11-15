@@ -1,1 +1,1 @@
-export { FancyTextWorkspace } from './components/fancy-text-workspace'
+export { FancyTextWorkspace } from './components/fancy-text-workspace';

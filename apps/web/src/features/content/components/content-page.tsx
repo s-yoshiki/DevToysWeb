@@ -1,11 +1,11 @@
-import { ArrowUpRight, Braces, ChevronRight } from 'lucide-react'
-import Link from 'next/link'
-import { getDictionary, type Locale } from '@/i18n/dictionaries'
-import { type ContentPageSlug, contentPageLinks } from '../domain/page-slugs'
+import { ArrowUpRight, Braces, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import { getDictionary, type Locale } from '@/i18n/dictionaries';
+import { type ContentPageSlug, contentPageLinks } from '../domain/page-slugs';
 
 export const ContentPage = ({ locale, slug }: { locale: Locale; slug: ContentPageSlug }) => {
-  const dictionary = getDictionary(locale)
-  const page = dictionary.contentPages[slug]
+  const dictionary = getDictionary(locale);
+  const page = dictionary.contentPages[slug];
 
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
@@ -103,5 +103,5 @@ export const ContentPage = ({ locale, slug }: { locale: Locale; slug: ContentPag
         </ul>
       </nav>
     </div>
-  )
-}
+  );
+};

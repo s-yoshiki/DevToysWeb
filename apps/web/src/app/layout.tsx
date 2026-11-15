@@ -1,9 +1,9 @@
-import type { Metadata } from 'next'
-import Script from 'next/script'
-import './globals.css'
-import { ThemeProvider } from '@/components/theme-provider'
-import { ogImage, siteName, siteUrl } from '@/features/seo/domain/site'
-import { ApiMockProvider } from '@/mocks/api-mock-provider'
+import type { Metadata } from 'next';
+import Script from 'next/script';
+import './globals.css';
+import { ThemeProvider } from '@/components/theme-provider';
+import { ogImage, siteName, siteUrl } from '@/features/seo/domain/site';
+import { ApiMockProvider } from '@/mocks/api-mock-provider';
 
 export const metadata: Metadata = {
   // Lets every page declare canonical and Open Graph URLs as relative paths.
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: { type: 'website', siteName, images: [ogImage] },
   twitter: { card: 'summary_large_image', images: [ogImage] },
   formatDetection: { telephone: false, email: false, address: false },
-}
+};
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
@@ -40,7 +40,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           src="https://www.googletagmanager.com/gtag/js?id=G-YCXXYP9PZH"
           strategy="afterInteractive"
         />
-        {/* biome-ignore lint/correctness/useUniqueElementIds: Next uses this stable id to deduplicate the analytics script. */}
+        {/* Next uses this stable id to deduplicate the analytics script. */}
         <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
@@ -54,7 +54,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         </ThemeProvider>
       </body>
     </html>
-  )
-}
+  );
+};
 
-export default RootLayout
+export default RootLayout;

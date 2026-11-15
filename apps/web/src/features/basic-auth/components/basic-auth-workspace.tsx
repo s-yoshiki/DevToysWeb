@@ -1,22 +1,22 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
-import { CopyButton } from '@/components/copy-button'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Card, CardContent } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { type BasicAuthMode, useBasicAuth } from '../hooks/use-basic-auth'
+import { CopyButton } from '@/components/copy-button';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { type BasicAuthMode, useBasicAuth } from '../hooks/use-basic-auth';
 
 export const BasicAuthWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const auth = useBasicAuth()
+  const fieldId = useId();
+  const t = useTranslate();
+  const auth = useBasicAuth();
 
   return (
     <WorkspaceShell tool={tool} onClear={auth.clear}>
@@ -76,5 +76,5 @@ export const BasicAuthWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};
