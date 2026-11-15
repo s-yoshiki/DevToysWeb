@@ -1,15 +1,15 @@
-'use client'
+'use client';
 
-import { Card, CardContent } from '@/components/ui/card'
-import { CodeArea, Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useTextDiff } from '../hooks/use-text-diff'
+import { Card, CardContent } from '@/components/ui/card';
+import { CodeArea, Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useTextDiff } from '../hooks/use-text-diff';
 
 export const TextDiffWorkspace = ({ tool }: WorkspaceProps) => {
-  const t = useTranslate()
-  const diff = useTextDiff()
+  const t = useTranslate();
+  const diff = useTextDiff();
 
   return (
     <WorkspaceShell tool={tool} onClear={diff.clear}>
@@ -49,7 +49,7 @@ export const TextDiffWorkspace = ({ tool }: WorkspaceProps) => {
             <pre className="whitespace-pre-wrap break-words rounded-xl border border-border bg-muted/40 p-5 font-mono text-sm">
               {diff.changes.map((part, index) => (
                 <span
-                  // biome-ignore lint/suspicious/noArrayIndexKey: diff parts have no identity beyond their position
+                  // diff parts have no identity beyond their position
                   key={`${index}-${part.value}`}
                   className={
                     part.added
@@ -67,5 +67,5 @@ export const TextDiffWorkspace = ({ tool }: WorkspaceProps) => {
         </Card>
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

@@ -1,29 +1,29 @@
-'use client'
+'use client';
 
-import { SegmentedControl } from '@/components/segmented-control'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import type { AngleMode } from '@/features/calculator/expression'
-import { constantNames, functionNames } from '@/features/calculator/expression'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { basicKeys, scientificKeys } from '../functions/keypads'
-import { useCalculator } from '../hooks/use-calculator'
-import { CalculatorDisplay, CalculatorHistory, CalculatorKeypad } from './calculator-panels'
+import { SegmentedControl } from '@/components/segmented-control';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import type { AngleMode } from '@/features/calculator/expression';
+import { constantNames, functionNames } from '@/features/calculator/expression';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { basicKeys, scientificKeys } from '../functions/keypads';
+import { useCalculator } from '../hooks/use-calculator';
+import { CalculatorDisplay, CalculatorHistory, CalculatorKeypad } from './calculator-panels';
 
 const memoryKeys = [
   { label: 'MC', mode: 'clear' as const },
   { label: 'MR', mode: 'recall' as const },
   { label: 'M+', mode: 'add' as const },
   { label: 'M−', mode: 'subtract' as const },
-]
+];
 
 export const ScientificCalculatorWorkspace = ({ tool }: WorkspaceProps) => {
-  const t = useTranslate()
-  const calculator = useCalculator()
+  const t = useTranslate();
+  const calculator = useCalculator();
 
   return (
     <WorkspaceShell tool={tool} onClear={calculator.clearAll}>
@@ -86,5 +86,5 @@ export const ScientificCalculatorWorkspace = ({ tool }: WorkspaceProps) => {
         </div>
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

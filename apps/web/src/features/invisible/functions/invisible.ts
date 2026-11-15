@@ -1,21 +1,21 @@
-export type InvisibleCategory = 'whitespace' | 'format' | 'blank'
+export type InvisibleCategory = 'whitespace' | 'format' | 'blank';
 
 export type InvisibleCharacter = {
-  character: string
-  codePoint: number
-  unicode: string
-  javascript: string
-  marker: string
-  category: InvisibleCategory
-  name: { ja: string; en: string }
-  description: { ja: string; en: string }
-}
+  character: string;
+  codePoint: number;
+  unicode: string;
+  javascript: string;
+  marker: string;
+  category: InvisibleCategory;
+  name: { ja: string; en: string };
+  description: { ja: string; en: string };
+};
 
 export type InvisibleOccurrence = InvisibleCharacter & {
-  index: number
-  line: number
-  column: number
-}
+  index: number;
+  line: number;
+  column: number;
+};
 
 const createCharacter = (
   codePoint: number,
@@ -26,9 +26,9 @@ const createCharacter = (
   descriptionJa: string,
   descriptionEn: string,
 ): InvisibleCharacter => {
-  const character = String.fromCodePoint(codePoint)
-  const hex = codePoint.toString(16).toUpperCase().padStart(4, '0')
-  const javascript = codePoint <= 0xffff ? `\\u${hex}` : `\\u{${codePoint.toString(16)}}`
+  const character = String.fromCodePoint(codePoint);
+  const hex = codePoint.toString(16).toUpperCase().padStart(4, '0');
+  const javascript = codePoint <= 0xffff ? `\\u${hex}` : `\\u{${codePoint.toString(16)}}`;
   return {
     character,
     codePoint,
@@ -38,8 +38,8 @@ const createCharacter = (
     category,
     name: { ja, en },
     description: { ja: descriptionJa, en: descriptionEn },
-  }
-}
+  };
+};
 
 const whitespace = (
   codePoint: number,
@@ -48,7 +48,7 @@ const whitespace = (
   en: string,
   descriptionJa: string,
   descriptionEn: string,
-) => createCharacter(codePoint, 'whitespace', marker, ja, en, descriptionJa, descriptionEn)
+) => createCharacter(codePoint, 'whitespace', marker, ja, en, descriptionJa, descriptionEn);
 
 const format = (
   codePoint: number,
@@ -57,7 +57,7 @@ const format = (
   en: string,
   descriptionJa: string,
   descriptionEn: string,
-) => createCharacter(codePoint, 'format', marker, ja, en, descriptionJa, descriptionEn)
+) => createCharacter(codePoint, 'format', marker, ja, en, descriptionJa, descriptionEn);
 
 const blank = (
   codePoint: number,
@@ -66,7 +66,7 @@ const blank = (
   en: string,
   descriptionJa: string,
   descriptionEn: string,
-) => createCharacter(codePoint, 'blank', marker, ja, en, descriptionJa, descriptionEn)
+) => createCharacter(codePoint, 'blank', marker, ja, en, descriptionJa, descriptionEn);
 
 /**
  * Unicode 17.0's White_Space characters plus commonly confusing invisible
@@ -334,43 +334,43 @@ export const invisibleCharacters: readonly InvisibleCharacter[] = [
     '文字カテゴリはLetter',
     'classified as a letter',
   ),
-]
+];
 
-const byCharacter = new Map(invisibleCharacters.map((item) => [item.character, item]))
+const byCharacter = new Map(invisibleCharacters.map((item) => [item.character, item]));
 
-export const findInvisibleCharacter = (character: string) => byCharacter.get(character)
+export const findInvisibleCharacter = (character: string) => byCharacter.get(character);
 
 export const inspectInvisibleText = (text: string): InvisibleOccurrence[] => {
-  let line = 1
-  let column = 1
+  let line = 1;
+  let column = 1;
   return Array.from(text).flatMap((character, index) => {
-    const item = findInvisibleCharacter(character)
-    const occurrence = item ? [{ ...item, index, line, column }] : []
+    const item = findInvisibleCharacter(character);
+    const occurrence = item ? [{ ...item, index, line, column }] : [];
     if (character === '\n') {
-      line += 1
-      column = 1
+      line += 1;
+      column = 1;
     } else {
-      column += 1
+      column += 1;
     }
-    return occurrence
-  })
-}
+    return occurrence;
+  });
+};
 
 export const visualizeInvisibleText = (text: string) =>
   Array.from(text)
     .map((character) => findInvisibleCharacter(character)?.marker ?? character)
-    .join('')
+    .join('');
 
 export const removeInvisibleCharacters = (text: string) =>
   Array.from(text)
     .filter((character) => !findInvisibleCharacter(character))
-    .join('')
+    .join('');
 
 export const filterInvisibleCharacters = (query: string, category: InvisibleCategory | 'all') => {
-  const normalizedQuery = query.normalize('NFKC').toLocaleLowerCase().trim()
+  const normalizedQuery = query.normalize('NFKC').toLocaleLowerCase().trim();
   return invisibleCharacters.filter((item) => {
-    if (category !== 'all' && item.category !== category) return false
-    if (!normalizedQuery) return true
+    if (category !== 'all' && item.category !== category) return false;
+    if (!normalizedQuery) return true;
     const searchable = [
       item.unicode,
       item.javascript,
@@ -381,7 +381,7 @@ export const filterInvisibleCharacters = (query: string, category: InvisibleCate
       item.description.en,
     ]
       .join(' ')
-      .toLocaleLowerCase()
-    return searchable.includes(normalizedQuery)
-  })
-}
+      .toLocaleLowerCase();
+    return searchable.includes(normalizedQuery);
+  });
+};

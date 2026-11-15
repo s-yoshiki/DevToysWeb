@@ -1,1 +1,1 @@
-export { BasicAuthWorkspace } from './components/basic-auth-workspace'
+export { BasicAuthWorkspace } from './components/basic-auth-workspace';

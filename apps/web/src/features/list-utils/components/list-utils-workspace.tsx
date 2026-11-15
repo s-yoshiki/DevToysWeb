@@ -1,19 +1,19 @@
-'use client'
+'use client';
 
-import { CopyButton } from '@/components/copy-button'
-import { useLocale } from '@/components/locale-provider'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { CodeArea, Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useListUtils } from '../hooks/use-list-utils'
-import { ListOptionsPanel } from './list-options-panel'
+import { CopyButton } from '@/components/copy-button';
+import { useLocale } from '@/components/locale-provider';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { CodeArea, Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useListUtils } from '../hooks/use-list-utils';
+import { ListOptionsPanel } from './list-options-panel';
 
 export const ListUtilsWorkspace = ({ tool }: WorkspaceProps) => {
-  const { dictionary } = useLocale()
-  const t = useTranslate()
-  const list = useListUtils()
+  const { dictionary } = useLocale();
+  const t = useTranslate();
+  const list = useListUtils();
 
   return (
     <WorkspaceShell tool={tool} onClear={list.clear}>
@@ -45,5 +45,5 @@ export const ListUtilsWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

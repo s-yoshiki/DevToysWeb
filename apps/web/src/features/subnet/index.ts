@@ -1,1 +1,1 @@
-export { SubnetWorkspace } from './components/subnet-workspace'
+export { SubnetWorkspace } from './components/subnet-workspace';

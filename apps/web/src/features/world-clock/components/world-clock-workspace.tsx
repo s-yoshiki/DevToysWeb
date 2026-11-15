@@ -1,41 +1,41 @@
-'use client'
+'use client';
 
-import { Moon, Plus, Sun, X } from 'lucide-react'
-import { useState } from 'react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { listTimeZones } from '@/features/timezone/functions/timezone'
-import { useTranslate } from '@/hooks/use-translate'
-import { cn } from '@/libs/utils'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useWorldClock } from '../hooks/use-world-clock'
+import { Moon, Plus, Sun, X } from 'lucide-react';
+import { useState } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { listTimeZones } from '@/features/timezone/functions/timezone';
+import { useTranslate } from '@/hooks/use-translate';
+import { cn } from '@/libs/utils';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useWorldClock } from '../hooks/use-world-clock';
 
-const zoneListId = 'world-clock-options'
+const zoneListId = 'world-clock-options';
 
 const ShiftBadge = ({ shift }: { shift: number }) => {
-  const t = useTranslate()
-  if (!shift) return null
-  const sign = shift > 0 ? '+' : '−'
+  const t = useTranslate();
+  if (!shift) return null;
+  const sign = shift > 0 ? '+' : '−';
   return (
     <Badge variant="secondary" className="font-mono text-[11px]">
       {t(`${sign}${Math.abs(shift)}日`, `${sign}${Math.abs(shift)} day`)}
     </Badge>
-  )
-}
+  );
+};
 
 export const WorldClockWorkspace = ({ tool }: WorkspaceProps) => {
-  const t = useTranslate()
-  const clock = useWorldClock()
-  const [draft, setDraft] = useState('')
+  const t = useTranslate();
+  const clock = useWorldClock();
+  const [draft, setDraft] = useState('');
 
-  const zones = listTimeZones()
+  const zones = listTimeZones();
 
   const submitDraft = () => {
-    if (clock.addZone(draft)) setDraft('')
-  }
+    if (clock.addZone(draft)) setDraft('');
+  };
 
   return (
     <WorkspaceShell tool={tool} onClear={clock.clear}>
@@ -61,9 +61,9 @@ export const WorldClockWorkspace = ({ tool }: WorkspaceProps) => {
               spellCheck={false}
               onChange={(event) => setDraft(event.target.value)}
               onKeyDown={(event) => {
-                if (event.key !== 'Enter') return
-                event.preventDefault()
-                submitDraft()
+                if (event.key !== 'Enter') return;
+                event.preventDefault();
+                submitDraft();
               }}
               className="h-8 w-full max-w-56 font-mono text-xs"
             />
@@ -132,5 +132,5 @@ export const WorldClockWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

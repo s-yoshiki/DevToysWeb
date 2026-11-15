@@ -1,22 +1,22 @@
-'use client'
+'use client';
 
-import { Download, MapPin, ShieldCheck } from 'lucide-react'
-import { useId } from 'react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import { formatBytes } from '@/libs/domain/bytes'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useExif } from '../hooks/use-exif'
-import { ExifTable } from './exif-table'
+import { Download, MapPin, ShieldCheck } from 'lucide-react';
+import { useId } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import { formatBytes } from '@/libs/domain/bytes';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useExif } from '../hooks/use-exif';
+import { ExifTable } from './exif-table';
 
 export const ExifWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const exif = useExif()
+  const fieldId = useId();
+  const t = useTranslate();
+  const exif = useExif();
 
   return (
     <WorkspaceShell tool={tool} onClear={exif.clear}>
@@ -84,5 +84,5 @@ export const ExifWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

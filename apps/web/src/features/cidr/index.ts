@@ -1,1 +1,1 @@
-export { CidrWorkspace } from './components/cidr-workspace'
+export { CidrWorkspace } from './components/cidr-workspace';

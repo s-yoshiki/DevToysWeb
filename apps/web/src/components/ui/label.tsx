@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import type * as React from 'react'
+import type * as React from 'react';
 
-import { cn } from '@/libs/utils'
+import { cn } from '@/libs/utils';
 
 const Label = ({ className, ...props }: React.ComponentProps<'label'>) => {
   return (
@@ -14,7 +14,7 @@ const Label = ({ className, ...props }: React.ComponentProps<'label'>) => {
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Label }
+export { Label };

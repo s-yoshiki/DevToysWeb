@@ -1,1 +1,1 @@
-export { ConnectionInfoWorkspace } from './components/connection-info-workspace'
+export { ConnectionInfoWorkspace } from './components/connection-info-workspace';

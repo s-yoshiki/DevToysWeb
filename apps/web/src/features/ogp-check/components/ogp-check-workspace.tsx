@@ -1,32 +1,32 @@
-'use client'
+'use client';
 
-import { Check, ImageOff, LoaderCircle, Minus, Play, X } from 'lucide-react'
-import { useId } from 'react'
-import { CopyButton } from '@/components/copy-button'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { ErrorBanner } from '@/components/workspace-panes'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { usePageReport } from '@/hooks/use-page-report'
-import { useTranslate } from '@/hooks/use-translate'
-import { cn } from '@/libs/utils'
-import type { WorkspaceProps } from '@/workspaces/types'
+import { Check, ImageOff, LoaderCircle, Minus, Play, X } from 'lucide-react';
+import { useId } from 'react';
+import { CopyButton } from '@/components/copy-button';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { ErrorBanner } from '@/components/workspace-panes';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { usePageReport } from '@/hooks/use-page-report';
+import { useTranslate } from '@/hooks/use-translate';
+import { cn } from '@/libs/utils';
+import type { WorkspaceProps } from '@/workspaces/types';
 import {
   cardFields,
   type OgpField,
   openGraphFields,
   resolveAgainst,
   sharePreview,
-} from '../functions/ogp'
+} from '../functions/ogp';
 
 const statusIcon = {
   ok: <Check className="size-3.5 text-success" />,
   missing: <X className="size-3.5 text-destructive" />,
   optional: <Minus className="size-3.5 text-muted-foreground" />,
-}
+};
 
 const FieldTable = ({ title, fields }: { title: string; fields: OgpField[] }) => (
   <Card className="overflow-hidden border-border/70">
@@ -55,19 +55,19 @@ const FieldTable = ({ title, fields }: { title: string; fields: OgpField[] }) =>
       </ul>
     </CardContent>
   </Card>
-)
+);
 
 export const OgpCheckWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const page = usePageReport('OGP check failed')
+  const fieldId = useId();
+  const t = useTranslate();
+  const page = usePageReport('OGP check failed');
 
-  const metadata = page.report?.page ?? {}
-  const preview = sharePreview(metadata)
-  const base = page.report?.http.finalUrl ?? page.report?.target ?? ''
-  const imageUrl = resolveAgainst(preview.image, base)
-  const missing = openGraphFields(metadata).filter((field) => field.status === 'missing')
-  const hostname = URL.canParse(base) ? new URL(base).hostname : base
+  const metadata = page.report?.page ?? {};
+  const preview = sharePreview(metadata);
+  const base = page.report?.http.finalUrl ?? page.report?.target ?? '';
+  const imageUrl = resolveAgainst(preview.image, base);
+  const missing = openGraphFields(metadata).filter((field) => field.status === 'missing');
+  const hostname = URL.canParse(base) ? new URL(base).hostname : base;
 
   return (
     <WorkspaceShell tool={tool} onClear={page.clear}>
@@ -82,7 +82,7 @@ export const OgpCheckWorkspace = ({ tool }: WorkspaceProps) => {
                 spellCheck={false}
                 onChange={(event) => page.setUrl(event.target.value)}
                 onKeyDown={(event) => {
-                  if (event.key === 'Enter') page.run()
+                  if (event.key === 'Enter') page.run();
                 }}
               />
               <Button onClick={page.run} disabled={page.loading || !page.url.trim()}>
@@ -129,7 +129,7 @@ export const OgpCheckWorkspace = ({ tool }: WorkspaceProps) => {
                 <div className="mx-auto max-w-xl overflow-hidden rounded-xl border bg-card">
                   <div className="flex aspect-[1.91/1] items-center justify-center bg-muted/40">
                     {imageUrl ? (
-                      // biome-ignore lint/performance/noImgElement: the preview must load a remote image exactly as a scraper would
+                      // the preview must load a remote image exactly as a scraper would
                       <img
                         src={imageUrl}
                         alt={metadata['og:image:alt'] ?? ''}
@@ -168,5 +168,5 @@ export const OgpCheckWorkspace = ({ tool }: WorkspaceProps) => {
         )}
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

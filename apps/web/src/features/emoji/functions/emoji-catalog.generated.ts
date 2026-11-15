@@ -3,7 +3,7 @@
 //   https://unicode.org/Public/emoji/latest/emoji-test.txt
 //   https://github.com/unicode-org/cldr (common/annotations(Derived)/ja.xml)
 // Generated: 2026-08-07, 1914 entries.
-import type { EmojiCategory, EmojiEntry } from './emoji-types'
+import type { EmojiCategory, EmojiEntry } from './emoji-types';
 
 // A typed factory (rather than raw object literals) keeps each entry a plain
 // `EmojiEntry`, not a fresh literal type — with ~2,000 entries, TypeScript's
@@ -14,7 +14,7 @@ const mk = (
   en: string,
   category: EmojiCategory,
   keywords: string[],
-): EmojiEntry => ({ emoji, name: { ja, en }, category, keywords })
+): EmojiEntry => ({ emoji, name: { ja, en }, category, keywords });
 
 export const generatedEmojiCatalog: readonly EmojiEntry[] = [
   mk('😀', 'にっこり笑う', 'grinning face', 'smileys', [
@@ -1781,14 +1781,7 @@ export const generatedEmojiCatalog: readonly EmojiEntry[] = [
     'ZWJ',
     'ゼロ幅接合子',
   ]),
-  mk('🧑‍🏫', '教師', 'teacher', 'people', [
-    '先生',
-    '担任',
-    '教授',
-    'teacher',
-    'ZWJ',
-    'ゼロ幅接合子',
-  ]),
+  mk('🧑‍🏫', '教師', 'teacher', 'people', ['先生', '担任', '教授', 'teacher', 'ZWJ', 'ゼロ幅接合子']),
   mk('👨‍🏫', '男性の教師', 'man teacher', 'people', [
     '先生',
     '教師',
@@ -2484,14 +2477,7 @@ export const generatedEmojiCatalog: readonly EmojiEntry[] = [
     'ゼロ幅接合子',
   ]),
   mk('🧜', '人魚', 'merperson', 'people', ['おとぎ話', 'サイレン', 'マーメイド', 'merperson']),
-  mk('🧜‍♂️', 'マーマン', 'merman', 'people', [
-    '人魚',
-    '男',
-    '男性',
-    'merman',
-    'ZWJ',
-    'ゼロ幅接合子',
-  ]),
+  mk('🧜‍♂️', 'マーマン', 'merman', 'people', ['人魚', '男', '男性', 'merman', 'ZWJ', 'ゼロ幅接合子']),
   mk('🧜‍♀️', 'マーメイド', 'mermaid', 'people', [
     '人魚',
     '女',
@@ -6046,7 +6032,13 @@ export const generatedEmojiCatalog: readonly EmojiEntry[] = [
   mk('🏷️', '荷札', 'label', 'objects', ['タグ', 'ラベル', 'label']),
   mk('🪙', 'コイン', 'coin', 'objects', ['お金', '小銭', '硬貨', 'coin']),
   mk('💰', 'ドル袋', 'money bag', 'objects', ['お金', 'キャッシュ', 'ドル', 'money', 'bag']),
-  mk('🪎', '宝箱', 'treasure chest', 'objects', ['お宝', 'お金', 'ジュエリー', 'treasure', 'chest']),
+  mk('🪎', '宝箱', 'treasure chest', 'objects', [
+    'お宝',
+    'お金',
+    'ジュエリー',
+    'treasure',
+    'chest',
+  ]),
   mk('💴', '円札', 'yen banknote', 'objects', ['お札', 'お金', '円', 'yen', 'banknote']),
   mk('💵', 'ドル札', 'dollar banknote', 'objects', ['お札', 'お金', 'ドル', 'dollar', 'banknote']),
   mk('💶', 'ユーロ札', 'euro banknote', 'objects', ['お札', 'お金', 'ユーロ', 'euro', 'banknote']),
@@ -6298,7 +6290,13 @@ export const generatedEmojiCatalog: readonly EmojiEntry[] = [
     'wrench',
   ]),
   mk('🗡️', '短刀', 'dagger', 'objects', ['ダガー', 'ナイフ', '武器', 'dagger']),
-  mk('⚔️', 'クロスした剣', 'crossed swords', 'objects', ['つるぎ', '刀', '剣', 'crossed', 'swords']),
+  mk('⚔️', 'クロスした剣', 'crossed swords', 'objects', [
+    'つるぎ',
+    '刀',
+    '剣',
+    'crossed',
+    'swords',
+  ]),
   mk('💣', '爆弾', 'bomb', 'objects', ['危険', '爆発', 'bomb']),
   mk('🪃', 'ブーメラン', 'boomerang', 'objects', ['オーストラリア', '武器', '玩具', 'boomerang']),
   mk('🏹', '弓矢', 'bow and arrow', 'objects', ['射手', '射手座', '弓', 'bow', 'arrow']),
@@ -6660,7 +6658,12 @@ export const generatedEmojiCatalog: readonly EmojiEntry[] = [
     'star',
     'crescent',
   ]),
-  mk('☮️', 'ピースマーク', 'peace symbol', 'symbols', ['平和', '平和のシンボル', 'peace', 'symbol']),
+  mk('☮️', 'ピースマーク', 'peace symbol', 'symbols', [
+    '平和',
+    '平和のシンボル',
+    'peace',
+    'symbol',
+  ]),
   mk('🕎', 'メノーラー', 'menorah', 'symbols', ['ハヌカー', 'メノラー', 'ユダヤ教', 'menorah']),
   mk('🔯', '六芒星', 'dotted six-pointed star', 'symbols', [
     'ダビデ',
@@ -6779,7 +6782,13 @@ export const generatedEmojiCatalog: readonly EmojiEntry[] = [
     'pause',
     'button',
   ]),
-  mk('⏹️', '停止ボタン', 'stop button', 'symbols', ['ストップ', 'ボタン', '停止', 'stop', 'button']),
+  mk('⏹️', '停止ボタン', 'stop button', 'symbols', [
+    'ストップ',
+    'ボタン',
+    '停止',
+    'stop',
+    'button',
+  ]),
   mk('⏺️', '録音録画ボタン', 'record button', 'symbols', [
     'ボタン',
     '丸',
@@ -7032,7 +7041,12 @@ export const generatedEmojiCatalog: readonly EmojiEntry[] = [
     '著作権',
     'copyright',
   ]),
-  mk('®️', '登録商標マーク', 'registered', 'symbols', ['Rマーク', '登録商標', '記号', 'registered']),
+  mk('®️', '登録商標マーク', 'registered', 'symbols', [
+    'Rマーク',
+    '登録商標',
+    '記号',
+    'registered',
+  ]),
   mk('™️', '商標マーク', 'trade mark', 'symbols', [
     'TMマーク',
     'トレードマーク',
@@ -8046,4 +8060,4 @@ export const generatedEmojiCatalog: readonly EmojiEntry[] = [
   mk('🏴󠁧󠁢󠁥󠁮󠁧󠁿', '旗: イングランド', 'flag: England', 'flags', ['旗', 'flag:', 'england']),
   mk('🏴󠁧󠁢󠁳󠁣󠁴󠁿', '旗: スコットランド', 'flag: Scotland', 'flags', ['旗', 'flag:', 'scotland']),
   mk('🏴󠁧󠁢󠁷󠁬󠁳󠁿', '旗: ウェールズ', 'flag: Wales', 'flags', ['旗', 'flag:', 'wales']),
-]
+];

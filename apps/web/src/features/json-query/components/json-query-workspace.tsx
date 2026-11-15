@@ -1,28 +1,28 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
-import { ResultCard } from '@/components/result-card'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Card, CardContent } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { type JsonQueryMode, useJsonQuery } from '../hooks/use-json-query'
+import { ResultCard } from '@/components/result-card';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { type JsonQueryMode, useJsonQuery } from '../hooks/use-json-query';
 
 const modeOptions: { value: JsonQueryMode; label: string }[] = [
   { value: 'path', label: 'JSONPath' },
   { value: 'schema', label: 'JSON Schema' },
-]
+];
 
 export const JsonQueryWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const jsonQuery = useJsonQuery()
-  const queryLabel = jsonQuery.mode === 'path' ? 'JSONPath' : 'JSON Schema'
+  const fieldId = useId();
+  const t = useTranslate();
+  const jsonQuery = useJsonQuery();
+  const queryLabel = jsonQuery.mode === 'path' ? 'JSONPath' : 'JSON Schema';
 
   return (
     <WorkspaceShell tool={tool} onClear={jsonQuery.clear}>
@@ -67,5 +67,5 @@ export const JsonQueryWorkspace = ({ tool }: WorkspaceProps) => {
         <ResultCard title={t('結果', 'Result')} value={jsonQuery.value} error={jsonQuery.error} />
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

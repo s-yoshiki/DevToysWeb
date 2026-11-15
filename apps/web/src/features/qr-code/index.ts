@@ -1,1 +1,1 @@
-export { QrCodeWorkspace } from './components/qr-code-workspace'
+export { QrCodeWorkspace } from './components/qr-code-workspace';

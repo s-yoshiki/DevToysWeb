@@ -1,9 +1,6 @@
 {
   "name": "@repo/infra",
   "private": true,
-  "engines": {
-    "node": ">=26.0.0"
-  },
   "scripts": {
     "build": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
@@ -15,15 +12,18 @@
     "deploy:prd": "cdk deploy PrdDevToysCertificateStack PrdDevToysStack --context environment=prd --require-approval never --concurrency 2"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.207.0",
-    "constructs": "^10.4.2"
+    "aws-cdk-lib": "catalog:",
+    "constructs": "catalog:"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "^26.1.1",
-    "aws-cdk": "^2.1024.0",
+    "@types/node": "catalog:",
+    "aws-cdk": "catalog:",
     "esbuild": "^0.25.8",
     "tsx": "^4.20.3",
-    "typescript": "^7.0.2"
+    "typescript": "catalog:"
+  },
+  "engines": {
+    "node": ">=26.0.0"
   }
 }

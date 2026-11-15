@@ -19,8 +19,7 @@ pnpm verify
 ## Guides
 
 | Document |
-| --- |
-
+| -------- |
 
 ## Writing rules
 

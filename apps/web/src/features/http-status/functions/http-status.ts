@@ -1,15 +1,15 @@
-export type HttpStatusClass = '1xx' | '2xx' | '3xx' | '4xx' | '5xx'
+export type HttpStatusClass = '1xx' | '2xx' | '3xx' | '4xx' | '5xx';
 
 export type HttpStatusEntry = {
-  code: number
-  phrase: string
-  summary: { ja: string; en: string }
+  code: number;
+  phrase: string;
+  summary: { ja: string; en: string };
   /** Defining document, e.g. `RFC 9110 §15.5.1`. */
-  reference: string
+  reference: string;
   /** Response bodies for these codes are not cacheable or not allowed. */
-  bodyless?: boolean
-  deprecated?: boolean
-}
+  bodyless?: boolean;
+  deprecated?: boolean;
+};
 
 const entry = (
   code: number,
@@ -18,7 +18,7 @@ const entry = (
   en: string,
   reference: string,
   flags: { bodyless?: boolean; deprecated?: boolean } = {},
-): HttpStatusEntry => ({ code, phrase, summary: { ja, en }, reference, ...flags })
+): HttpStatusEntry => ({ code, phrase, summary: { ja, en }, reference, ...flags });
 
 /**
  * Registered HTTP status codes as maintained by IANA, with the section of the
@@ -465,7 +465,7 @@ export const httpStatuses: readonly HttpStatusEntry[] = [
     'Network access requires authentication, as behind a captive portal.',
     'RFC 6585 §6',
   ),
-]
+];
 
 export const httpStatusClasses: readonly (HttpStatusClass | 'all')[] = [
   'all',
@@ -474,22 +474,22 @@ export const httpStatusClasses: readonly (HttpStatusClass | 'all')[] = [
   '3xx',
   '4xx',
   '5xx',
-]
+];
 
 export const statusClassOf = (code: number): HttpStatusClass =>
-  `${Math.floor(code / 100)}xx` as HttpStatusClass
+  `${Math.floor(code / 100)}xx` as HttpStatusClass;
 
-const normalize = (value: string) => value.toLocaleLowerCase().trim()
+const normalize = (value: string) => value.toLocaleLowerCase().trim();
 
 export const filterHttpStatuses = (
   entries: readonly HttpStatusEntry[],
   query: string,
   statusClass: HttpStatusClass | 'all',
 ) => {
-  const normalizedQuery = normalize(query)
+  const normalizedQuery = normalize(query);
   return entries.filter((item) => {
-    if (statusClass !== 'all' && statusClassOf(item.code) !== statusClass) return false
-    if (!normalizedQuery) return true
+    if (statusClass !== 'all' && statusClassOf(item.code) !== statusClass) return false;
+    if (!normalizedQuery) return true;
     const searchable = [
       String(item.code),
       item.phrase,
@@ -498,9 +498,9 @@ export const filterHttpStatuses = (
       item.reference,
     ]
       .map(normalize)
-      .join(' ')
-    return searchable.includes(normalizedQuery)
-  })
-}
+      .join(' ');
+    return searchable.includes(normalizedQuery);
+  });
+};
 
-export const findHttpStatus = (code: number) => httpStatuses.find((status) => status.code === code)
+export const findHttpStatus = (code: number) => httpStatuses.find((status) => status.code === code);

@@ -1,24 +1,24 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
-import { CopyButton } from '@/components/copy-button'
-import { ToggleRow } from '@/components/segmented-control'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { ErrorBanner } from '@/components/workspace-panes'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { maxBase, minBase } from '../functions/number-base'
-import { useNumberBase } from '../hooks/use-number-base'
+import { CopyButton } from '@/components/copy-button';
+import { ToggleRow } from '@/components/segmented-control';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { ErrorBanner } from '@/components/workspace-panes';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { maxBase, minBase } from '../functions/number-base';
+import { useNumberBase } from '../hooks/use-number-base';
 
 export const NumberBaseWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const numbers = useNumberBase()
+  const fieldId = useId();
+  const t = useTranslate();
+  const numbers = useNumberBase();
 
   return (
     <WorkspaceShell tool={tool} onClear={numbers.clear}>
@@ -113,5 +113,5 @@ export const NumberBaseWorkspace = ({ tool }: WorkspaceProps) => {
         </div>
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

@@ -1,1 +1,1 @@
-export { TextDiffWorkspace } from './components/text-diff-workspace'
+export { TextDiffWorkspace } from './components/text-diff-workspace';

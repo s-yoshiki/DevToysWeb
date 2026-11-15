@@ -4,19 +4,19 @@
  * come with feeding user text to either one.
  */
 
-export type AngleMode = 'deg' | 'rad'
+export type AngleMode = 'deg' | 'rad';
 
 type Token =
   | { kind: 'number'; value: number }
   | { kind: 'name'; value: string }
-  | { kind: 'symbol'; value: string }
+  | { kind: 'symbol'; value: string };
 
 const constants: Record<string, number> = {
   pi: Math.PI,
   e: Math.E,
   tau: Math.PI * 2,
   phi: (1 + Math.sqrt(5)) / 2,
-}
+};
 
 /** Aliases for the glyphs the keypads print, so display text stays parseable. */
 const replacements: [RegExp, string][] = [
@@ -27,89 +27,89 @@ const replacements: [RegExp, string][] = [
   [/√/g, 'sqrt'],
   [/\*\*/g, '^'],
   [/,/g, ','],
-]
+];
 
 export const normalizeExpression = (input: string) =>
-  replacements.reduce((value, [pattern, to]) => value.replace(pattern, to), input)
+  replacements.reduce((value, [pattern, to]) => value.replace(pattern, to), input);
 
-const isDigit = (char: string) => char >= '0' && char <= '9'
-const isNameStart = (char: string) => /[A-Za-z]/.test(char)
-const isNameChar = (char: string) => /[A-Za-z0-9]/.test(char)
+const isDigit = (char: string) => char >= '0' && char <= '9';
+const isNameStart = (char: string) => /[A-Za-z]/.test(char);
+const isNameChar = (char: string) => /[A-Za-z0-9]/.test(char);
 
 const tokenize = (input: string): Token[] => {
-  const tokens: Token[] = []
-  let index = 0
+  const tokens: Token[] = [];
+  let index = 0;
 
   while (index < input.length) {
-    const char = input[index]
+    const char = input[index];
     if (char === ' ' || char === '\t' || char === '\n' || char === '_') {
-      index += 1
-      continue
+      index += 1;
+      continue;
     }
 
     if (isDigit(char) || (char === '.' && isDigit(input[index + 1] ?? ''))) {
-      const start = index
-      while (isDigit(input[index] ?? '')) index += 1
+      const start = index;
+      while (isDigit(input[index] ?? '')) index += 1;
       if (input[index] === '.') {
-        index += 1
-        while (isDigit(input[index] ?? '')) index += 1
+        index += 1;
+        while (isDigit(input[index] ?? '')) index += 1;
       }
       if (input[index] === 'e' || input[index] === 'E') {
-        const exponent = index + (input[index + 1] === '+' || input[index + 1] === '-' ? 2 : 1)
+        const exponent = index + (input[index + 1] === '+' || input[index + 1] === '-' ? 2 : 1);
         // Only consume the `e` when real digits follow; otherwise it is Euler's number.
         if (isDigit(input[exponent] ?? '')) {
-          index = exponent
-          while (isDigit(input[index] ?? '')) index += 1
+          index = exponent;
+          while (isDigit(input[index] ?? '')) index += 1;
         }
       }
-      tokens.push({ kind: 'number', value: Number(input.slice(start, index)) })
-      continue
+      tokens.push({ kind: 'number', value: Number(input.slice(start, index)) });
+      continue;
     }
 
     if (isNameStart(char)) {
-      const start = index
-      while (isNameChar(input[index] ?? '')) index += 1
-      tokens.push({ kind: 'name', value: input.slice(start, index).toLowerCase() })
-      continue
+      const start = index;
+      while (isNameChar(input[index] ?? '')) index += 1;
+      tokens.push({ kind: 'name', value: input.slice(start, index).toLowerCase() });
+      continue;
     }
 
     if ('+-*/%^()!,'.includes(char)) {
-      tokens.push({ kind: 'symbol', value: char })
-      index += 1
-      continue
+      tokens.push({ kind: 'symbol', value: char });
+      index += 1;
+      continue;
     }
 
-    throw new Error(`Unexpected character "${char}"`)
+    throw new Error(`Unexpected character "${char}"`);
   }
 
-  return tokens
-}
+  return tokens;
+};
 
 const factorial = (value: number) => {
   if (!Number.isInteger(value) || value < 0)
-    throw new Error('Factorial expects a non-negative integer')
-  if (value > 170) throw new Error('Factorial is only defined up to 170 here')
-  let result = 1
-  for (let step = 2; step <= value; step += 1) result *= step
-  return result
-}
+    throw new Error('Factorial expects a non-negative integer');
+  if (value > 170) throw new Error('Factorial is only defined up to 170 here');
+  let result = 1;
+  for (let step = 2; step <= value; step += 1) result *= step;
+  return result;
+};
 
 const toRadians = (value: number, mode: AngleMode) =>
-  mode === 'deg' ? (value * Math.PI) / 180 : value
+  mode === 'deg' ? (value * Math.PI) / 180 : value;
 const fromRadians = (value: number, mode: AngleMode) =>
-  mode === 'deg' ? (value * 180) / Math.PI : value
+  mode === 'deg' ? (value * 180) / Math.PI : value;
 
-const logBase = (value: number, base: number) => Math.log(value) / Math.log(base)
+const logBase = (value: number, base: number) => Math.log(value) / Math.log(base);
 
 type FunctionSpec = {
-  arity: number | 'variadic'
-  apply: (args: number[], mode: AngleMode) => number
-}
+  arity: number | 'variadic';
+  apply: (args: number[], mode: AngleMode) => number;
+};
 
 const unary = (apply: (value: number, mode: AngleMode) => number): FunctionSpec => ({
   arity: 1,
   apply: (args, mode) => apply(args[0], mode),
-})
+});
 
 const functions: Record<string, FunctionSpec> = {
   sin: unary((value, mode) => Math.sin(toRadians(value, mode))),
@@ -142,157 +142,157 @@ const functions: Record<string, FunctionSpec> = {
   mod: { arity: 2, apply: ([left, right]) => left % right },
   min: { arity: 'variadic', apply: (args) => Math.min(...args) },
   max: { arity: 'variadic', apply: (args) => Math.max(...args) },
-}
+};
 
-export const functionNames = Object.keys(functions).sort()
-export const constantNames = Object.keys(constants).sort()
+export const functionNames = Object.keys(functions).sort();
+export const constantNames = Object.keys(constants).sort();
 
 /**
  * Recursive descent over the token list. Grammar, loosest binding first:
  * sum → product → power (right associative) → unary → postfix → primary.
  */
 const parse = (tokens: Token[], angleMode: AngleMode) => {
-  let position = 0
+  let position = 0;
 
-  const peek = () => tokens[position]
+  const peek = () => tokens[position];
   const symbolAhead = (...values: string[]) => {
-    const token = peek()
-    return token?.kind === 'symbol' && values.includes(token.value)
-  }
+    const token = peek();
+    return token?.kind === 'symbol' && values.includes(token.value);
+  };
   const expect = (value: string) => {
-    if (!symbolAhead(value)) throw new Error(`Expected "${value}"`)
-    position += 1
-  }
+    if (!symbolAhead(value)) throw new Error(`Expected "${value}"`);
+    position += 1;
+  };
 
   /** A primary can follow a value directly, which reads as multiplication. */
   const startsPrimary = () => {
-    const token = peek()
-    if (!token) return false
-    if (token.kind === 'number' || token.kind === 'name') return true
-    return token.kind === 'symbol' && token.value === '('
-  }
+    const token = peek();
+    if (!token) return false;
+    if (token.kind === 'number' || token.kind === 'name') return true;
+    return token.kind === 'symbol' && token.value === '(';
+  };
 
   const parsePrimary = (): number => {
-    const token = peek()
-    if (!token) throw new Error('Unexpected end of expression')
+    const token = peek();
+    if (!token) throw new Error('Unexpected end of expression');
 
     if (token.kind === 'number') {
-      position += 1
-      return token.value
+      position += 1;
+      return token.value;
     }
 
     if (token.kind === 'name') {
-      position += 1
-      const spec = functions[token.value]
+      position += 1;
+      const spec = functions[token.value];
       if (spec) {
-        expect('(')
-        const args: number[] = []
+        expect('(');
+        const args: number[] = [];
         if (!symbolAhead(')')) {
-          args.push(parseSum())
+          args.push(parseSum());
           while (symbolAhead(',')) {
-            position += 1
-            args.push(parseSum())
+            position += 1;
+            args.push(parseSum());
           }
         }
-        expect(')')
+        expect(')');
         if (spec.arity === 'variadic') {
-          if (!args.length) throw new Error(`${token.value}() needs at least one argument`)
+          if (!args.length) throw new Error(`${token.value}() needs at least one argument`);
         } else if (args.length !== spec.arity) {
-          throw new Error(`${token.value}() takes ${spec.arity} argument(s), got ${args.length}`)
+          throw new Error(`${token.value}() takes ${spec.arity} argument(s), got ${args.length}`);
         }
-        return spec.apply(args, angleMode)
+        return spec.apply(args, angleMode);
       }
-      const constant = constants[token.value]
-      if (constant !== undefined) return constant
-      throw new Error(`Unknown name "${token.value}"`)
+      const constant = constants[token.value];
+      if (constant !== undefined) return constant;
+      throw new Error(`Unknown name "${token.value}"`);
     }
 
     if (token.value === '(') {
-      position += 1
-      const value = parseSum()
-      expect(')')
-      return value
+      position += 1;
+      const value = parseSum();
+      expect(')');
+      return value;
     }
 
-    throw new Error(`Unexpected token "${token.value}"`)
-  }
+    throw new Error(`Unexpected token "${token.value}"`);
+  };
 
   const parsePostfix = (): number => {
-    let value = parsePrimary()
+    let value = parsePrimary();
     while (symbolAhead('!')) {
-      position += 1
-      value = factorial(value)
+      position += 1;
+      value = factorial(value);
     }
-    return value
-  }
+    return value;
+  };
 
   // Sign binds looser than `^`, so `-2^2` is -(2^2) as in ordinary notation.
   const parseUnary = (): number => {
     if (symbolAhead('-')) {
-      position += 1
-      return -parseUnary()
+      position += 1;
+      return -parseUnary();
     }
     if (symbolAhead('+')) {
-      position += 1
-      return parseUnary()
+      position += 1;
+      return parseUnary();
     }
-    return parsePower()
-  }
+    return parsePower();
+  };
 
   // Right associative, so `2^3^2` is 2^(3^2) and `2^-3` reads as expected.
   const parsePower = (): number => {
-    const base = parsePostfix()
-    if (!symbolAhead('^')) return base
-    position += 1
-    return base ** parseUnary()
-  }
+    const base = parsePostfix();
+    if (!symbolAhead('^')) return base;
+    position += 1;
+    return base ** parseUnary();
+  };
 
   const parseProduct = (): number => {
-    let value = parseUnary()
+    let value = parseUnary();
     for (;;) {
       if (symbolAhead('*', '/', '%')) {
-        const operator = (peek() as { value: string }).value
-        position += 1
-        const right = parseUnary()
-        if (operator === '*') value *= right
-        else if (operator === '/') value /= right
-        else value %= right
-        continue
+        const operator = (peek() as { value: string }).value;
+        position += 1;
+        const right = parseUnary();
+        if (operator === '*') value *= right;
+        else if (operator === '/') value /= right;
+        else value %= right;
+        continue;
       }
       // Implicit multiplication: `2pi`, `3(4+1)`, `2sqrt(9)`.
       if (startsPrimary()) {
-        value *= parseUnary()
-        continue
+        value *= parseUnary();
+        continue;
       }
-      return value
+      return value;
     }
-  }
+  };
 
   const parseSum = (): number => {
-    let value = parseProduct()
+    let value = parseProduct();
     while (symbolAhead('+', '-')) {
-      const operator = (peek() as { value: string }).value
-      position += 1
-      const right = parseProduct()
-      value = operator === '+' ? value + right : value - right
+      const operator = (peek() as { value: string }).value;
+      position += 1;
+      const right = parseProduct();
+      value = operator === '+' ? value + right : value - right;
     }
-    return value
-  }
+    return value;
+  };
 
-  const result = parseSum()
-  if (position < tokens.length) throw new Error('Unexpected trailing input')
-  return result
-}
+  const result = parseSum();
+  if (position < tokens.length) throw new Error('Unexpected trailing input');
+  return result;
+};
 
 /** Evaluates an arithmetic expression, throwing a readable error when it cannot. */
 export const evaluateExpression = (input: string, angleMode: AngleMode = 'rad') => {
-  const tokens = tokenize(normalizeExpression(input))
-  if (!tokens.length) throw new Error('Enter an expression')
-  const result = parse(tokens, angleMode)
-  if (Number.isNaN(result)) throw new Error('The result is not a number')
-  if (!Number.isFinite(result)) throw new Error('The result is not finite')
-  return result
-}
+  const tokens = tokenize(normalizeExpression(input));
+  if (!tokens.length) throw new Error('Enter an expression');
+  const result = parse(tokens, angleMode);
+  if (Number.isNaN(result)) throw new Error('The result is not a number');
+  if (!Number.isFinite(result)) throw new Error('The result is not finite');
+  return result;
+};
 
 /**
  * Trims binary floating point noise (`0.1 + 0.2`) without rewriting values that
@@ -300,6 +300,6 @@ export const evaluateExpression = (input: string, angleMode: AngleMode = 'rad') 
  * back to the shortest representation of its 12 significant digits.
  */
 export const formatResult = (value: number) => {
-  if (Number.isInteger(value) && Math.abs(value) < 1e21) return String(value)
-  return String(Number(value.toPrecision(12)))
-}
+  if (Number.isInteger(value) && Math.abs(value) < 1e21) return String(value);
+  return String(Number(value.toPrecision(12)));
+};

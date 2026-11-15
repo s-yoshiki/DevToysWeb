@@ -1,1 +1,1 @@
-export { JwtWorkspace } from './components/jwt-workspace'
+export { JwtWorkspace } from './components/jwt-workspace';

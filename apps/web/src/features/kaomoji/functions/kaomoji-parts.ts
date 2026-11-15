@@ -5,30 +5,30 @@
  */
 
 export type PairPart = {
-  id: string
-  label: { ja: string; en: string }
-  left: string
-  right: string
-}
+  id: string;
+  label: { ja: string; en: string };
+  left: string;
+  right: string;
+};
 
 export type SinglePart = {
-  id: string
-  label: { ja: string; en: string }
-  value: string
-}
+  id: string;
+  label: { ja: string; en: string };
+  value: string;
+};
 
 const pair = (id: string, ja: string, en: string, left: string, right: string): PairPart => ({
   id,
   label: { ja, en },
   left,
   right,
-})
+});
 
 const single = (id: string, ja: string, en: string, value: string): SinglePart => ({
   id,
   label: { ja, en },
   value,
-})
+});
 
 export const kaomojiBrackets: readonly PairPart[] = [
   pair('none', 'なし', 'None', '', ''),
@@ -41,7 +41,7 @@ export const kaomojiBrackets: readonly PairPart[] = [
   pair('angle', '山括弧', 'Angle', '〈', '〉'),
   pair('cheek', 'ほっぺ付き', 'With cheeks', '(๑', '๑)'),
   pair('fluffy', 'ふんわり', 'Fluffy', '( ˘', '˘ )'),
-]
+];
 
 export const kaomojiEyes: readonly PairPart[] = [
   pair('caret', 'にっこり', 'Smiling', '^', '^'),
@@ -60,7 +60,7 @@ export const kaomojiEyes: readonly PairPart[] = [
   pair('bead', 'つぶら', 'Beady', 'ㆁ', 'ㆁ'),
   pair('sharp', 'つり目', 'Sharp', '｀', '´'),
   pair('dead', 'ばつ目', 'Crossed out', '×', '×'),
-]
+];
 
 export const kaomojiMouths: readonly SinglePart[] = [
   single('none', 'なし', 'None', ''),
@@ -79,7 +79,7 @@ export const kaomojiMouths: readonly SinglePart[] = [
   single('teeth', '歯を見せる', 'Bared teeth', '皿'),
   single('drool', 'よだれ口', 'Drooling', 'ڡ'),
   single('triangle', '三角口', 'Triangle', '△'),
-]
+];
 
 export const kaomojiArms: readonly PairPart[] = [
   pair('none', 'なし', 'None', '', ''),
@@ -93,7 +93,7 @@ export const kaomojiArms: readonly PairPart[] = [
   pair('flex', '気合', 'Flexing', '٩', '۶'),
   pair('hold', '両手を添える', 'Cupping', 'o', 'o'),
   pair('paw', '肉球', 'Paws', 'ฅ', 'ฅ'),
-]
+];
 
 export const kaomojiDecorations: readonly PairPart[] = [
   pair('none', 'なし', 'None', '', ''),
@@ -106,15 +106,15 @@ export const kaomojiDecorations: readonly PairPart[] = [
   pair('bang', 'ビックリマーク', 'Exclamation', '', '！'),
   pair('hand', '振る手', 'Waving hand', '', 'ﾉ'),
   pair('flower', '花', 'Flowers', '✿', '✿'),
-]
+];
 
 export type KaomojiPartSelection = {
-  brackets: string
-  eyes: string
-  mouth: string
-  arms: string
-  decoration: string
-}
+  brackets: string;
+  eyes: string;
+  mouth: string;
+  arms: string;
+  decoration: string;
+};
 
 export const defaultKaomojiParts: KaomojiPartSelection = {
   brackets: 'round',
@@ -122,35 +122,35 @@ export const defaultKaomojiParts: KaomojiPartSelection = {
   mouth: 'under',
   arms: 'none',
   decoration: 'none',
-}
+};
 
 const findPair = (parts: readonly PairPart[], id: string) =>
-  parts.find((part) => part.id === id) ?? parts[0]
+  parts.find((part) => part.id === id) ?? parts[0];
 
 const findSingle = (parts: readonly SinglePart[], id: string) =>
-  parts.find((part) => part.id === id) ?? parts[0]
+  parts.find((part) => part.id === id) ?? parts[0];
 
 export const buildKaomoji = (selection: KaomojiPartSelection) => {
-  const brackets = findPair(kaomojiBrackets, selection.brackets)
-  const eyes = findPair(kaomojiEyes, selection.eyes)
-  const mouth = findSingle(kaomojiMouths, selection.mouth)
-  const arms = findPair(kaomojiArms, selection.arms)
-  const decoration = findPair(kaomojiDecorations, selection.decoration)
+  const brackets = findPair(kaomojiBrackets, selection.brackets);
+  const eyes = findPair(kaomojiEyes, selection.eyes);
+  const mouth = findSingle(kaomojiMouths, selection.mouth);
+  const arms = findPair(kaomojiArms, selection.arms);
+  const decoration = findPair(kaomojiDecorations, selection.decoration);
 
-  const face = `${eyes.left}${mouth.value}${eyes.right}`
-  const bracketed = `${brackets.left}${face}${brackets.right}`
-  const armed = `${arms.left}${bracketed}${arms.right}`
-  return `${decoration.left}${armed}${decoration.right}`
-}
+  const face = `${eyes.left}${mouth.value}${eyes.right}`;
+  const bracketed = `${brackets.left}${face}${brackets.right}`;
+  const armed = `${arms.left}${bracketed}${arms.right}`;
+  return `${decoration.left}${armed}${decoration.right}`;
+};
 
 export const randomKaomojiParts = (random: () => number = Math.random): KaomojiPartSelection => {
   const pick = <Part extends { id: string }>(parts: readonly Part[]) =>
-    parts[Math.floor(random() * parts.length)].id
+    parts[Math.floor(random() * parts.length)].id;
   return {
     brackets: pick(kaomojiBrackets),
     eyes: pick(kaomojiEyes),
     mouth: pick(kaomojiMouths),
     arms: pick(kaomojiArms),
     decoration: pick(kaomojiDecorations),
-  }
-}
+  };
+};

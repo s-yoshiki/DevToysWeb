@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Textarea } from '@/components/ui/textarea'
-import { cn } from '@/libs/utils'
-import { CopyButton } from './copy-button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/libs/utils';
+import { CopyButton } from './copy-button';
 
 /** Read-only result panel with a copy action, used by the single-output tools. */
 export const ResultCard = ({
@@ -11,9 +11,9 @@ export const ResultCard = ({
   value,
   error = false,
 }: {
-  title: string
-  value: string
-  error?: boolean
+  title: string;
+  value: string;
+  error?: boolean;
 }) => (
   <Card className="overflow-hidden">
     <CardHeader className="flex flex-row items-center justify-between border-b border-border bg-muted/50 py-3">
@@ -32,4 +32,4 @@ export const ResultCard = ({
       />
     </CardContent>
   </Card>
-)
+);

@@ -1,30 +1,30 @@
-'use client'
+'use client';
 
-import { CopyButton } from '@/components/copy-button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useTextAnalyzer } from '../hooks/use-text-analyzer'
+import { CopyButton } from '@/components/copy-button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useTextAnalyzer } from '../hooks/use-text-analyzer';
 
 const StatTile = ({ label, value }: { label: string; value: number }) => (
   <div className="rounded-xl border bg-muted/20 p-4">
     <div className="text-xs text-muted-foreground">{label}</div>
     <div className="mt-1 text-2xl font-semibold">{value}</div>
   </div>
-)
+);
 
 export const TextAnalyzerWorkspace = ({ tool }: WorkspaceProps) => {
-  const t = useTranslate()
-  const analyzer = useTextAnalyzer()
+  const t = useTranslate();
+  const analyzer = useTextAnalyzer();
   const tiles = [
     { label: t('文字数', 'Characters'), value: analyzer.stats.characters },
     { label: t('単語数', 'Words'), value: analyzer.stats.words },
     { label: t('行数', 'Lines'), value: analyzer.stats.lines },
     { label: t('UTF-8バイト', 'UTF-8 bytes'), value: analyzer.stats.bytes },
-  ]
+  ];
 
   return (
     <WorkspaceShell tool={tool} onClear={analyzer.clear}>
@@ -55,5 +55,5 @@ export const TextAnalyzerWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

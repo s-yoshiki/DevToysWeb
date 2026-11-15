@@ -1,1 +1,1 @@
-export { CharWidthWorkspace } from './components/char-width-workspace'
+export { CharWidthWorkspace } from './components/char-width-workspace';

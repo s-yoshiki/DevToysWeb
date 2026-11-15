@@ -1,1 +1,1 @@
-export { GithubSearchWorkspace } from './components/github-search-workspace'
+export { GithubSearchWorkspace } from './components/github-search-workspace';

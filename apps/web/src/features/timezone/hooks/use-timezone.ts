@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { useEffect, useMemo, useState } from 'react'
-import { useLocale } from '@/components/locale-provider'
+import { useEffect, useMemo, useState } from 'react';
+import { useLocale } from '@/components/locale-provider';
 import {
   dayShift,
   formatOffset,
@@ -12,23 +12,23 @@ import {
   wallTimeToInstant,
   zoneAbbreviation,
   zoneOffsetMinutes,
-} from '../functions/timezone'
+} from '../functions/timezone';
 
-const localZone = () => Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'
+const localZone = () => Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
 
-const defaultTargets = ['UTC', 'America/Los_Angeles', 'Europe/London', 'Asia/Tokyo']
+const defaultTargets = ['UTC', 'America/Los_Angeles', 'Europe/London', 'Asia/Tokyo'];
 
 const withoutDuplicates = (zones: string[]) =>
-  zones.filter((zone, index, all) => all.indexOf(zone) === index)
+  zones.filter((zone, index, all) => all.indexOf(zone) === index);
 
 export type ZoneRow = {
-  zone: string
-  date: string
-  time: string
-  offset: string
-  abbreviation: string
-  shift: number
-}
+  zone: string;
+  date: string;
+  time: string;
+  offset: string;
+  abbreviation: string;
+  shift: number;
+};
 
 /**
  * A wall clock reading in one zone, resolved to an instant and then shown in
@@ -37,31 +37,31 @@ export type ZoneRow = {
  * export that produced the markup.
  */
 export const useTimezone = () => {
-  const { locale } = useLocale()
-  const [sourceZone, setSourceZone] = useState('UTC')
-  const [wallText, setWallText] = useState('')
-  const [targets, setTargets] = useState(defaultTargets)
+  const { locale } = useLocale();
+  const [sourceZone, setSourceZone] = useState('UTC');
+  const [wallText, setWallText] = useState('');
+  const [targets, setTargets] = useState(defaultTargets);
 
   useEffect(() => {
-    const zone = localZone()
-    setSourceZone(zone)
-    setWallText(formatWallTime(instantToWallTime(new Date(), zone)))
-    setTargets((previous) => withoutDuplicates([zone, ...previous]))
-  }, [])
+    const zone = localZone();
+    setSourceZone(zone);
+    setWallText(formatWallTime(instantToWallTime(new Date(), zone)));
+    setTargets((previous) => withoutDuplicates([zone, ...previous]));
+  }, []);
 
   const resolved = useMemo(() => {
-    if (!wallText) return { instant: null, error: '' }
+    if (!wallText) return { instant: null, error: '' };
     if (!isValidTimeZone(sourceZone))
-      return { instant: null, error: `Unknown time zone: ${sourceZone}` }
-    const wall = parseWallTime(wallText)
-    if (!wall) return { instant: null, error: 'Enter a date and time as YYYY-MM-DDTHH:mm' }
-    return { instant: wallTimeToInstant(wall, sourceZone), error: '' }
-  }, [sourceZone, wallText])
+      return { instant: null, error: `Unknown time zone: ${sourceZone}` };
+    const wall = parseWallTime(wallText);
+    if (!wall) return { instant: null, error: 'Enter a date and time as YYYY-MM-DDTHH:mm' };
+    return { instant: wallTimeToInstant(wall, sourceZone), error: '' };
+  }, [sourceZone, wallText]);
 
   const rows = useMemo<ZoneRow[]>(() => {
-    const instant = resolved.instant
-    if (!instant) return []
-    const sourceWall = instantToWallTime(instant, sourceZone)
+    const instant = resolved.instant;
+    if (!instant) return [];
+    const sourceWall = instantToWallTime(instant, sourceZone);
 
     return targets.filter(isValidTimeZone).map((zone) => ({
       zone,
@@ -77,8 +77,8 @@ export const useTimezone = () => {
       offset: formatOffset(zoneOffsetMinutes(instant, zone)),
       abbreviation: zoneAbbreviation(instant, zone),
       shift: dayShift(sourceWall, instantToWallTime(instant, zone)),
-    }))
-  }, [locale, resolved.instant, sourceZone, targets])
+    }));
+  }, [locale, resolved.instant, sourceZone, targets]);
 
   return {
     sourceZone,
@@ -93,17 +93,17 @@ export const useTimezone = () => {
     setNow: () => setWallText(formatWallTime(instantToWallTime(new Date(), sourceZone))),
     /** Reports back so the field can keep an unknown zone visible for editing. */
     addTarget: (zone: string) => {
-      if (!isValidTimeZone(zone)) return false
-      setTargets((previous) => withoutDuplicates([...previous, zone]))
-      return true
+      if (!isValidTimeZone(zone)) return false;
+      setTargets((previous) => withoutDuplicates([...previous, zone]));
+      return true;
     },
     removeTarget: (zone: string) =>
       setTargets((previous) => previous.filter((entry) => entry !== zone)),
     clear: () => {
-      const zone = localZone()
-      setSourceZone(zone)
-      setWallText(formatWallTime(instantToWallTime(new Date(), zone)))
-      setTargets(withoutDuplicates([zone, ...defaultTargets]))
+      const zone = localZone();
+      setSourceZone(zone);
+      setWallText(formatWallTime(instantToWallTime(new Date(), zone)));
+      setTargets(withoutDuplicates([zone, ...defaultTargets]));
     },
-  }
-}
+  };
+};

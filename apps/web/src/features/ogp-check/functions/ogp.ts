@@ -1,11 +1,11 @@
-export type OgpFieldStatus = 'ok' | 'missing' | 'optional'
+export type OgpFieldStatus = 'ok' | 'missing' | 'optional';
 
 export type OgpField = {
-  key: string
-  value: string | null
-  required: boolean
-  status: OgpFieldStatus
-}
+  key: string;
+  value: string | null;
+  required: boolean;
+  status: OgpFieldStatus;
+};
 
 const openGraphKeys = [
   { key: 'og:title', required: true },
@@ -16,7 +16,7 @@ const openGraphKeys = [
   { key: 'og:site_name', required: false },
   { key: 'og:locale', required: false },
   { key: 'og:image:alt', required: false },
-]
+];
 
 const cardKeys = [
   { key: 'twitter:card', required: true },
@@ -25,21 +25,21 @@ const cardKeys = [
   { key: 'twitter:image', required: false },
   { key: 'twitter:site', required: false },
   { key: 'twitter:creator', required: false },
-]
+];
 
 const toFields = (page: Record<string, string>, keys: typeof openGraphKeys): OgpField[] =>
   keys.map(({ key, required }) => {
-    const value = page[key] ?? null
+    const value = page[key] ?? null;
     return {
       key,
       value,
       required,
       status: value ? 'ok' : required ? 'missing' : 'optional',
-    }
-  })
+    };
+  });
 
-export const openGraphFields = (page: Record<string, string>) => toFields(page, openGraphKeys)
-export const cardFields = (page: Record<string, string>) => toFields(page, cardKeys)
+export const openGraphFields = (page: Record<string, string>) => toFields(page, openGraphKeys);
+export const cardFields = (page: Record<string, string>) => toFields(page, cardKeys);
 
 /**
  * What a social scraper would actually show, with the documented fallbacks:
@@ -52,14 +52,14 @@ export const sharePreview = (page: Record<string, string>) => ({
   siteName: page['og:site_name'] ?? null,
   url: page['og:url'] ?? page.canonical ?? null,
   card: page['twitter:card'] ?? null,
-})
+});
 
 /** Absolute form of a possibly relative metadata URL, or null when unusable. */
 export const resolveAgainst = (value: string | null, base: string) => {
-  if (!value) return null
+  if (!value) return null;
   try {
-    return new URL(value, base).toString()
+    return new URL(value, base).toString();
   } catch {
-    return null
+    return null;
   }
-}
+};

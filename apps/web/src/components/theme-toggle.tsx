@@ -1,19 +1,19 @@
-'use client'
+'use client';
 
-import { Moon, Sun } from 'lucide-react'
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
-import { useLocale } from '@/components/locale-provider'
-import { Button } from '@/components/ui/button'
+import { Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
+import { useLocale } from '@/components/locale-provider';
+import { Button } from '@/components/ui/button';
 
 export const ThemeToggle = () => {
-  const { resolvedTheme, setTheme } = useTheme()
-  const { dictionary } = useLocale()
+  const { resolvedTheme, setTheme } = useTheme();
+  const { dictionary } = useLocale();
   // The theme is only known on the client, so the label — unlike the icons —
   // cannot be resolved until after hydration.
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
-  const isDark = mounted && resolvedTheme === 'dark'
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const isDark = mounted && resolvedTheme === 'dark';
 
   return (
     <Button
@@ -29,5 +29,5 @@ export const ThemeToggle = () => {
       <Sun className="hidden size-4 dark:block" />
       <Moon className="size-4 dark:hidden" />
     </Button>
-  )
-}
+  );
+};

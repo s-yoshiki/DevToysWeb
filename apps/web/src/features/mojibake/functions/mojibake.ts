@@ -8,11 +8,11 @@
  */
 
 export type MojibakeCandidate = {
-  encoding: string
-  label: string
-  text: string
-  score: number
-}
+  encoding: string;
+  label: string;
+  text: string;
+  score: number;
+};
 
 // Windows-1252 printable characters in the 0x80–0x9F range, mapped back to their
 // source byte so we can reverse a cp1252 decode losslessly.
@@ -44,7 +44,7 @@ const CP1252_REVERSE: Record<number, number> = {
   339: 0x9c,
   382: 0x9e,
   376: 0x9f,
-}
+};
 
 const CANDIDATES: { encoding: string; label: string }[] = [
   { encoding: 'utf-8', label: 'UTF-8' },
@@ -55,25 +55,25 @@ const CANDIDATES: { encoding: string; label: string }[] = [
   { encoding: 'big5', label: 'Big5 (繁体字)' },
   { encoding: 'euc-kr', label: 'EUC-KR (한글)' },
   { encoding: 'windows-1251', label: 'Windows-1251 (Cyrillic)' },
-]
+];
 
 /** Map a mojibake string back to the byte sequence it most likely came from. */
 const toSourceBytes = (input: string): Uint8Array | null => {
-  const bytes: number[] = []
+  const bytes: number[] = [];
   for (const char of input) {
-    const code = char.codePointAt(0) ?? 0
+    const code = char.codePointAt(0) ?? 0;
     if (code <= 0xff) {
-      bytes.push(code)
+      bytes.push(code);
     } else if (CP1252_REVERSE[code] !== undefined) {
-      bytes.push(CP1252_REVERSE[code])
+      bytes.push(CP1252_REVERSE[code]);
     } else {
       // A character outside the single-byte range means this isn't the kind of
       // mojibake we can reverse by re-reading bytes.
-      return null
+      return null;
     }
   }
-  return new Uint8Array(bytes)
-}
+  return new Uint8Array(bytes);
+};
 
 /**
  * Higher is better. The weights matter because any lenient multi-byte legacy
@@ -83,60 +83,49 @@ const toSourceBytes = (input: string): Uint8Array | null => {
  * (half-width katakana, stray controls, replacement characters).
  */
 const scoreText = (text: string): number => {
-  if (!text) return -Infinity
-  let score = 0
+  if (!text) return -Infinity;
+  let score = 0;
   for (const char of text) {
-    const code = char.codePointAt(0) ?? 0
-    if (code === 0xfffd)
-      score -= 20 // replacement character — decode failed here
-    else if (code < 0x20 && code !== 0x09 && code !== 0x0a && code !== 0x0d) score -= 12
-    else if (code >= 0x80 && code <= 0x9f)
-      score -= 10 // stray C1 controls
-    else if (code >= 0x3040 && code <= 0x309f)
-      score += 5 // hiragana — strong signal
-    else if (code >= 0x30a0 && code <= 0x30ff)
-      score += 4 // full-width katakana
-    else if (code >= 0xff61 && code <= 0xff9f)
-      score -= 3 // half-width katakana — artifact
-    else if (code >= 0xff01 && code <= 0xff60)
-      score -= 1 // full-width ASCII forms — often artifact
-    else if (code >= 0x4e00 && code <= 0x9fff)
-      score += 1 // CJK ideographs — weak signal
-    else if (code >= 0x3400 && code <= 0x4dbf)
-      score -= 1 // rare CJK ext A — likely garbage
-    else if (code >= 0xac00 && code <= 0xd7a3)
-      score += 2 // hangul
-    else if (code >= 0x20 && code <= 0x7e)
-      score += 1 // printable ASCII
-    else if (code === 0x0a || code === 0x0d || code === 0x09) score += 0
-    else if (code >= 0xa0 && code <= 0x24f)
-      score += 1 // Latin-1 / Latin extended
-    else score -= 2
+    const code = char.codePointAt(0) ?? 0;
+    if (code === 0xfffd) score -= 20; // replacement character — decode failed here
+    else if (code < 0x20 && code !== 0x09 && code !== 0x0a && code !== 0x0d) score -= 12;
+    else if (code >= 0x80 && code <= 0x9f) score -= 10; // stray C1 controls
+    else if (code >= 0x3040 && code <= 0x309f) score += 5; // hiragana — strong signal
+    else if (code >= 0x30a0 && code <= 0x30ff) score += 4; // full-width katakana
+    else if (code >= 0xff61 && code <= 0xff9f) score -= 3; // half-width katakana — artifact
+    else if (code >= 0xff01 && code <= 0xff60) score -= 1; // full-width ASCII forms — often artifact
+    else if (code >= 0x4e00 && code <= 0x9fff) score += 1; // CJK ideographs — weak signal
+    else if (code >= 0x3400 && code <= 0x4dbf) score -= 1; // rare CJK ext A — likely garbage
+    else if (code >= 0xac00 && code <= 0xd7a3) score += 2; // hangul
+    else if (code >= 0x20 && code <= 0x7e) score += 1; // printable ASCII
+    else if (code === 0x0a || code === 0x0d || code === 0x09) score += 0;
+    else if (code >= 0xa0 && code <= 0x24f) score += 1; // Latin-1 / Latin extended
+    else score -= 2;
   }
-  return score
-}
+  return score;
+};
 
 /** True when the byte sequence is well-formed UTF-8 (a near-certain restore). */
 const isValidUtf8 = (bytes: Uint8Array): boolean => {
   try {
-    new TextDecoder('utf-8', { fatal: true }).decode(bytes)
-    return true
+    new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+    return true;
   } catch {
-    return false
+    return false;
   }
-}
+};
 
 const decode = (bytes: Uint8Array, encoding: string): string | null => {
   try {
-    return new TextDecoder(encoding, { fatal: false }).decode(bytes)
+    return new TextDecoder(encoding, { fatal: false }).decode(bytes);
   } catch {
-    return null
+    return null;
   }
-}
+};
 
 // A clean UTF-8 decode of the recovered bytes is overwhelmingly likely to be the
 // real answer, so it should out-rank any lenient legacy-encoding guess.
-const UTF8_VALID_BONUS = 1_000_000
+const UTF8_VALID_BONUS = 1_000_000;
 
 /**
  * Iteratively undo repeated UTF-8-through-Latin1 encoding (e.g. "Ã‚Â£" → "£").
@@ -145,57 +134,57 @@ const UTF8_VALID_BONUS = 1_000_000
  * "café" re-encodes to invalid UTF-8, so it is never over-corrected.
  */
 const restoreUtf8Chain = (input: string): { text: string; valid: boolean } => {
-  let current = input
-  let valid = false
+  let current = input;
+  let valid = false;
   for (let i = 0; i < 4; i++) {
-    const bytes = toSourceBytes(current)
-    if (!bytes || !isValidUtf8(bytes)) break
-    const decoded = decode(bytes, 'utf-8')
-    if (decoded === null || decoded === current) break
-    current = decoded
-    valid = true
+    const bytes = toSourceBytes(current);
+    if (!bytes || !isValidUtf8(bytes)) break;
+    const decoded = decode(bytes, 'utf-8');
+    if (decoded === null || decoded === current) break;
+    current = decoded;
+    valid = true;
   }
-  return { text: current, valid }
-}
+  return { text: current, valid };
+};
 
 /** Rank restoration candidates for the given (assumed garbled) text. */
 export const analyzeMojibake = (input: string): MojibakeCandidate[] => {
-  if (!input) return []
-  const bytes = toSourceBytes(input)
-  const baseline = scoreText(input)
-  const seen = new Map<string, MojibakeCandidate>()
+  if (!input) return [];
+  const bytes = toSourceBytes(input);
+  const baseline = scoreText(input);
+  const seen = new Map<string, MojibakeCandidate>();
 
   const consider = (encoding: string, label: string, text: string | null, bonus = 0) => {
-    if (text === null || text === '' || text === input) return
-    const score = scoreText(text) + bonus
-    const existing = seen.get(text)
-    if (!existing || score > existing.score) seen.set(text, { encoding, label, text, score })
-  }
+    if (text === null || text === '' || text === input) return;
+    const score = scoreText(text) + bonus;
+    const existing = seen.get(text);
+    if (!existing || score > existing.score) seen.set(text, { encoding, label, text, score });
+  };
 
-  let singlePassUtf8: string | null = null
+  let singlePassUtf8: string | null = null;
   if (bytes) {
-    const utf8Valid = isValidUtf8(bytes)
+    const utf8Valid = isValidUtf8(bytes);
     for (const { encoding, label } of CANDIDATES) {
-      const decoded = decode(bytes, encoding)
-      if (encoding === 'utf-8') singlePassUtf8 = decoded
-      consider(encoding, label, decoded, encoding === 'utf-8' && utf8Valid ? UTF8_VALID_BONUS : 0)
+      const decoded = decode(bytes, encoding);
+      if (encoding === 'utf-8') singlePassUtf8 = decoded;
+      consider(encoding, label, decoded, encoding === 'utf-8' && utf8Valid ? UTF8_VALID_BONUS : 0);
     }
   }
 
   // The chain fully unwinds repeated encodings; only surface it when it peeled
   // further than the single pass, so it can outrank that partial result.
-  const chained = restoreUtf8Chain(input)
+  const chained = restoreUtf8Chain(input);
   if (chained.text !== input && chained.text !== singlePassUtf8) {
     consider(
       'utf-8',
       'UTF-8 (multi-pass)',
       chained.text,
       chained.valid ? UTF8_VALID_BONUS + 1000 : 0,
-    )
+    );
   }
 
   return Array.from(seen.values())
     .filter((candidate) => candidate.score > baseline)
     .sort((a, b) => b.score - a.score)
-    .slice(0, 6)
-}
+    .slice(0, 6);
+};

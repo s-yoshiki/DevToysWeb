@@ -1,1 +1,1 @@
-export { LoremWorkspace } from './components/lorem-workspace'
+export { LoremWorkspace } from './components/lorem-workspace';

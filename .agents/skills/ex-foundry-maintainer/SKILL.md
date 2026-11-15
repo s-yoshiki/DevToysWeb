@@ -15,7 +15,7 @@ description: Maintain an ex-foundry service repository with its shared configs, 
 
 ## Repository conventions
 
-- Keep the real Biome configuration in `configs/biome/biome.json`; keep the root `biome.json` as the entry point that extends it.
+- Keep shared lint and format settings in `configs/oxlint/` and `configs/oxfmt/`, with root `oxlint.config.ts` and `oxfmt.config.ts` entry points.
 - Keep shared TypeScript configurations in `configs/tsconfig/`, published inside the workspace as `@repo/typescript-config`. Put application-specific paths, includes, and compiler overrides in the consuming `tsconfig.json`.
 - Use these root command names when available: `pnpm check`, `pnpm check:fix`, `pnpm format`, `pnpm format:check`, `pnpm lint`, `pnpm typecheck`, `pnpm check-types`, `pnpm test`, `pnpm test:coverage`, `pnpm build`, `pnpm verify`, and `pnpm deploy`. GitHub Actions should call `pnpm verify` for repository validation.
 - Treat `pnpm deploy`, CDK deploy/bootstrap/destroy, and cloud or GitHub mutations as externally state-changing operations. Do not run them without an explicit user request and a confirmed target.

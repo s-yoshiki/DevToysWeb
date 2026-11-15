@@ -1,25 +1,25 @@
-export type BadgeProvider = 'shields' | 'badgen'
-export type BadgeStyle = 'flat' | 'flat-square' | 'plastic' | 'for-the-badge' | 'social'
+export type BadgeProvider = 'shields' | 'badgen';
+export type BadgeStyle = 'flat' | 'flat-square' | 'plastic' | 'for-the-badge' | 'social';
 
 export type BadgeOptions = {
-  provider: BadgeProvider
-  label: string
-  message: string
-  color: string
-  labelColor: string
-  logo: string
-  logoColor: string
-  style: BadgeStyle
-  link: string
-}
+  provider: BadgeProvider;
+  label: string;
+  message: string;
+  color: string;
+  labelColor: string;
+  logo: string;
+  logoColor: string;
+  style: BadgeStyle;
+  link: string;
+};
 
 export type BadgePreset = {
-  name: string
-  category: 'language' | 'framework' | 'database' | 'cloud' | 'tool'
-  color: string
-  logo: string
-  logoColor: string
-}
+  name: string;
+  category: 'language' | 'framework' | 'database' | 'cloud' | 'tool';
+  color: string;
+  logo: string;
+  logoColor: string;
+};
 
 /**
  * Brand `color`, `logo` (Simple Icons slug) and `logoColor` values are sourced
@@ -217,54 +217,56 @@ export const badgePresets: BadgePreset[] = [
   { name: 'Cypress', category: 'tool', color: '69D3A7', logo: 'cypress', logoColor: 'black' },
   { name: 'Linux', category: 'tool', color: 'FCC624', logo: 'linux', logoColor: 'black' },
   { name: 'Ubuntu', category: 'tool', color: 'E95420', logo: 'ubuntu', logoColor: 'white' },
-]
+];
 
-const normalizeColor = (color: string) => color.trim().replace(/^#/, '')
+const normalizeColor = (color: string) => color.trim().replace(/^#/, '');
 
 /** Shields uses double dashes to escape a literal dash in badge path segments. */
 const encodeShieldsSegment = (value: string) =>
-  encodeURIComponent(value.trim()).replaceAll('-', '--')
+  encodeURIComponent(value.trim()).replaceAll('-', '--');
 
 const addQuery = (url: string, values: Record<string, string>) => {
-  const query = new URLSearchParams()
+  const query = new URLSearchParams();
   for (const [key, value] of Object.entries(values)) {
-    if (value) query.set(key, value)
+    if (value) query.set(key, value);
   }
-  const suffix = query.toString()
-  return suffix ? `${url}?${suffix}` : url
-}
+  const suffix = query.toString();
+  return suffix ? `${url}?${suffix}` : url;
+};
 
 export const buildBadgeUrl = (options: BadgeOptions) => {
-  const color = normalizeColor(options.color) || 'blue'
+  const color = normalizeColor(options.color) || 'blue';
 
   if (options.provider === 'badgen') {
-    const label = encodeURIComponent(options.label.trim() || 'badge')
-    const message = encodeURIComponent(options.message.trim() || 'value')
-    const url = `https://badgen.net/badge/${label}/${message}/${encodeURIComponent(color)}`
+    const label = encodeURIComponent(options.label.trim() || 'badge');
+    const message = encodeURIComponent(options.message.trim() || 'value');
+    const url = `https://badgen.net/badge/${label}/${message}/${encodeURIComponent(color)}`;
     return addQuery(url, {
       icon: options.logo.trim(),
       labelColor: normalizeColor(options.labelColor),
-    })
+    });
   }
 
-  const label = encodeShieldsSegment(options.label)
-  const message = encodeShieldsSegment(options.message)
-  const content = [label, message, color].filter(Boolean).join('-')
+  const label = encodeShieldsSegment(options.label);
+  const message = encodeShieldsSegment(options.message);
+  const content = [label, message, color].filter(Boolean).join('-');
   return addQuery(`https://img.shields.io/badge/${content}`, {
     style: options.style === 'flat' ? '' : options.style,
     logo: options.logo.trim(),
     logoColor: options.logoColor.trim(),
     labelColor: normalizeColor(options.labelColor),
-  })
-}
+  });
+};
 
 export const buildBadgeOutputs = (options: BadgeOptions) => {
-  const url = buildBadgeUrl(options)
-  const alt = options.label.trim() || options.message.trim() || 'badge'
-  const image = `![${alt}](${url})`
-  const markdown = options.link.trim() ? `[${image}](${options.link.trim()})` : image
-  const htmlImage = `<img src="${url}" alt="${alt}" />`
-  const html = options.link.trim() ? `<a href="${options.link.trim()}">${htmlImage}</a>` : htmlImage
+  const url = buildBadgeUrl(options);
+  const alt = options.label.trim() || options.message.trim() || 'badge';
+  const image = `![${alt}](${url})`;
+  const markdown = options.link.trim() ? `[${image}](${options.link.trim()})` : image;
+  const htmlImage = `<img src="${url}" alt="${alt}" />`;
+  const html = options.link.trim()
+    ? `<a href="${options.link.trim()}">${htmlImage}</a>`
+    : htmlImage;
 
-  return { url, markdown, html }
-}
+  return { url, markdown, html };
+};

@@ -12,7 +12,7 @@
 
 ## Description
 
-- [DevToys](https://github.com/veler/DevToys) 
+- [DevToys](https://github.com/veler/DevToys)
 - [DevToysMac](https://github.com/ObuchiYuki/DevToysMac)
 - [DevBox](https://www.dev-box.app/)
 - [DevUtils](https://devutils.app/)
@@ -38,7 +38,7 @@ $ pnpm dev
 $ pnpm build
 $ pnpm start
 
-# lint and format with Biome
+# lint and format with Oxlint / Oxfmt
 $ pnpm check
 $ pnpm format
 ```
@@ -57,13 +57,13 @@ pnpm --filter @repo/web dev:mock
 ハンドラーは `apps/web/src/mocks/handlers.ts`、フィクスチャーは
 `apps/web/src/mocks/fixtures.ts` にあります。次のホスト名で分岐を確認できます。
 
-| 入力 | 挙動 |
-| --- | --- |
-| 任意のURL / ドメイン | 正常なページレポート |
-| `sloppy.example.com` | メタタグ・見出し欠落。SEO/OGPチェックが警告と失敗を返す |
-| `unreachable.example.com` | 取得失敗。エラーバナーを表示 |
-| `redirected.example.com` | リダイレクト後に404 |
-| `localhost` / `10.0.0.1` など | SSRFガードのエラーメッセージ |
+| 入力                          | 挙動                                                    |
+| ----------------------------- | ------------------------------------------------------- |
+| 任意のURL / ドメイン          | 正常なページレポート                                    |
+| `sloppy.example.com`          | メタタグ・見出し欠落。SEO/OGPチェックが警告と失敗を返す |
+| `unreachable.example.com`     | 取得失敗。エラーバナーを表示                            |
+| `redirected.example.com`      | リダイレクト後に404                                     |
+| `localhost` / `10.0.0.1` など | SSRFガードのエラーメッセージ                            |
 
 `pnpm --filter @repo/web test` はNode側の同じハンドラーを使い、APIクライアントの
 リクエスト内容とエラー処理を検証します。モックは `NEXT_PUBLIC_API_MOCKS=enabled`

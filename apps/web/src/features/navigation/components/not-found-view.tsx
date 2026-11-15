@@ -1,15 +1,15 @@
-'use client'
+'use client';
 
-import { ArrowLeft, Braces, Compass, Home } from 'lucide-react'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { contentPageLinks } from '@/features/content/domain/page-slugs'
-import { getDictionary, isLocale, type Locale } from '@/i18n/dictionaries'
-import { findTool } from '@/libs/domain/catalog'
-import { getToolPath } from '@/libs/domain/tool-path'
+import { ArrowLeft, Braces, Compass, Home } from 'lucide-react';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { contentPageLinks } from '@/features/content/domain/page-slugs';
+import { getDictionary, isLocale, type Locale } from '@/i18n/dictionaries';
+import { findTool } from '@/libs/domain/catalog';
+import { getToolPath } from '@/libs/domain/tool-path';
 
-const suggestions = ['json-format', 'base64', 'unit-convert', 'timer', 'qr-code', 'text-diff']
+const suggestions = ['json-format', 'base64', 'unit-convert', 'timer', 'qr-code', 'text-diff'];
 
 /**
  * Rendered by the static `404.html`, which CloudFront serves for any unmatched
@@ -17,20 +17,20 @@ const suggestions = ['json-format', 'base64', 'unit-convert', 'timer', 'qr-code'
  * after mount instead. Japanese is the default, matching `/`.
  */
 const useUrlLocale = (): Locale => {
-  const [locale, setLocale] = useState<Locale>('ja')
+  const [locale, setLocale] = useState<Locale>('ja');
 
   useEffect(() => {
-    const segment = window.location.pathname.split('/').filter(Boolean)[0] ?? ''
-    if (isLocale(segment)) setLocale(segment)
-  }, [])
+    const segment = window.location.pathname.split('/').filter(Boolean)[0] ?? '';
+    if (isLocale(segment)) setLocale(segment);
+  }, []);
 
-  return locale
-}
+  return locale;
+};
 
 export const NotFoundView = () => {
-  const locale = useUrlLocale()
-  const dictionary = getDictionary(locale)
-  const tools = suggestions.map(findTool).filter((tool) => tool !== undefined)
+  const locale = useUrlLocale();
+  const dictionary = getDictionary(locale);
+  const tools = suggestions.map(findTool).filter((tool) => tool !== undefined);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -125,5 +125,5 @@ export const NotFoundView = () => {
         </p>
       </footer>
     </div>
-  )
-}
+  );
+};

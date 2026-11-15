@@ -1,1 +1,1 @@
-export { ImageFormatWorkspace } from './components/image-format-workspace'
+export { ImageFormatWorkspace } from './components/image-format-workspace';

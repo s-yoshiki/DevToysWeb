@@ -1,16 +1,16 @@
-import { generatedEmojiCatalog } from './emoji-catalog.generated'
-import type { EmojiCategory, EmojiEntry } from './emoji-types'
+import { generatedEmojiCatalog } from './emoji-catalog.generated';
+import type { EmojiCategory, EmojiEntry } from './emoji-types';
 
-export type { EmojiCategory, EmojiEntry }
+export type { EmojiCategory, EmojiEntry };
 
-export const ZERO_WIDTH_JOINER = '\u200d'
+export const ZERO_WIDTH_JOINER = '\u200d';
 
 /**
  * Every base emoji from the current Unicode emoji standard (one entry per
  * emoji, skin-tone variants excluded), with Japanese names sourced from
  * CLDR's short annotations. See scripts/generate-emoji-catalog.mjs.
  */
-export const emojiCatalog: readonly EmojiEntry[] = generatedEmojiCatalog
+export const emojiCatalog: readonly EmojiEntry[] = generatedEmojiCatalog;
 
 export const emojiCategories: readonly (EmojiCategory | 'all')[] = [
   'all',
@@ -23,19 +23,19 @@ export const emojiCategories: readonly (EmojiCategory | 'all')[] = [
   'objects',
   'symbols',
   'flags',
-]
+];
 
-const normalize = (value: string) => value.normalize('NFKC').toLocaleLowerCase().trim()
+const normalize = (value: string) => value.normalize('NFKC').toLocaleLowerCase().trim();
 
 export const filterEmojis = (
   entries: readonly EmojiEntry[],
   query: string,
   category: EmojiCategory | 'all',
 ) => {
-  const normalizedQuery = normalize(query)
+  const normalizedQuery = normalize(query);
   return entries.filter((item) => {
-    if (category !== 'all' && item.category !== category) return false
-    if (!normalizedQuery) return true
+    if (category !== 'all' && item.category !== category) return false;
+    if (!normalizedQuery) return true;
     const searchable = [
       item.emoji,
       item.name.ja,
@@ -46,27 +46,27 @@ export const filterEmojis = (
       ...item.keywords,
     ]
       .map(normalize)
-      .join(' ')
-    return searchable.includes(normalizedQuery)
-  })
-}
+      .join(' ');
+    return searchable.includes(normalizedQuery);
+  });
+};
 
 export const getEmojiCodePoints = (value: string) =>
   Array.from(value)
     .map((character) => `U+${character.codePointAt(0)?.toString(16).toUpperCase()}`)
-    .join(' ')
+    .join(' ');
 
-export const isZwjSequence = (value: string) => value.includes(ZERO_WIDTH_JOINER)
+export const isZwjSequence = (value: string) => value.includes(ZERO_WIDTH_JOINER);
 
 export const getEmojiHtml = (value: string) =>
   Array.from(value)
     .map((character) => `&#x${character.codePointAt(0)?.toString(16)};`)
-    .join('')
+    .join('');
 
 export const getEmojiHtmlDecimal = (value: string) =>
   Array.from(value)
     .map((character) => `&#${character.codePointAt(0)};`)
-    .join('')
+    .join('');
 
 export const formatEmojiList = (entries: readonly EmojiEntry[], locale: 'ja' | 'en') =>
   entries
@@ -78,14 +78,14 @@ export const formatEmojiList = (entries: readonly EmojiEntry[], locale: 'ja' | '
         getEmojiHtml(item.emoji),
       ].join('\t'),
     )
-    .join('\n')
+    .join('\n');
 
 export const generateEmojis = (
   entries: readonly EmojiEntry[],
   count: number,
   random: () => number = Math.random,
 ) => {
-  const total = Math.max(1, Math.min(30, Math.floor(count) || 1))
-  if (entries.length === 0) return []
-  return Array.from({ length: total }, () => entries[Math.floor(random() * entries.length)])
-}
+  const total = Math.max(1, Math.min(30, Math.floor(count) || 1));
+  if (entries.length === 0) return [];
+  return Array.from({ length: total }, () => entries[Math.floor(random() * entries.length)]);
+};

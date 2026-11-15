@@ -16,58 +16,58 @@ export type FancyStyleId =
   | 'upsideDown'
   | 'strikethrough'
   | 'underline'
-  | 'reversed'
+  | 'reversed';
 
 export type FancyStyle = {
-  id: FancyStyleId
-  name: { ja: string; en: string }
-  transform: (value: string) => string
-}
+  id: FancyStyleId;
+  name: { ja: string; en: string };
+  transform: (value: string) => string;
+};
 
 /** Latin letters and digits are the only ranges these Unicode blocks cover. */
 type AlphabetRange = {
-  upper?: number
-  lower?: number
-  digit?: number
+  upper?: number;
+  lower?: number;
+  digit?: number;
   /** Code points the block reserves because the glyph lives in Letterlike Symbols. */
-  exceptions?: Record<string, string>
-}
+  exceptions?: Record<string, string>;
+};
 
-const UPPER_A = 0x41
-const UPPER_Z = 0x5a
-const LOWER_A = 0x61
-const LOWER_Z = 0x7a
-const DIGIT_0 = 0x30
-const DIGIT_9 = 0x39
+const UPPER_A = 0x41;
+const UPPER_Z = 0x5a;
+const LOWER_A = 0x61;
+const LOWER_Z = 0x7a;
+const DIGIT_0 = 0x30;
+const DIGIT_9 = 0x39;
 
 const mapAlphabet = (value: string, range: AlphabetRange) =>
   Array.from(value, (character) => {
-    const replacement = range.exceptions?.[character]
-    if (replacement) return replacement
-    const code = character.codePointAt(0) ?? 0
+    const replacement = range.exceptions?.[character];
+    if (replacement) return replacement;
+    const code = character.codePointAt(0) ?? 0;
     if (range.upper !== undefined && code >= UPPER_A && code <= UPPER_Z)
-      return String.fromCodePoint(range.upper + code - UPPER_A)
+      return String.fromCodePoint(range.upper + code - UPPER_A);
     if (range.lower !== undefined && code >= LOWER_A && code <= LOWER_Z)
-      return String.fromCodePoint(range.lower + code - LOWER_A)
+      return String.fromCodePoint(range.lower + code - LOWER_A);
     if (range.digit !== undefined && code >= DIGIT_0 && code <= DIGIT_9)
-      return String.fromCodePoint(range.digit + code - DIGIT_0)
-    return character
-  }).join('')
+      return String.fromCodePoint(range.digit + code - DIGIT_0);
+    return character;
+  }).join('');
 
 const pairTable = (from: string, to: string): Record<string, string> => {
-  const targets = Array.from(to)
-  return Object.fromEntries(Array.from(from, (character, index) => [character, targets[index]]))
-}
+  const targets = Array.from(to);
+  return Object.fromEntries(Array.from(from, (character, index) => [character, targets[index]]));
+};
 
-const ASCII_UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-const ASCII_LOWER = 'abcdefghijklmnopqrstuvwxyz'
-const ASCII_DIGITS = '0123456789'
+const ASCII_UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const ASCII_LOWER = 'abcdefghijklmnopqrstuvwxyz';
+const ASCII_DIGITS = '0123456789';
 
 const mapTable = (value: string, table: Record<string, string>) =>
-  Array.from(value, (character) => table[character] ?? character).join('')
+  Array.from(value, (character) => table[character] ?? character).join('');
 
 const combine = (value: string, mark: string) =>
-  Array.from(value, (character) => `${character}${mark}`).join('')
+  Array.from(value, (character) => `${character}${mark}`).join('');
 
 const SCRIPT_EXCEPTIONS: Record<string, string> = {
   B: 'ℬ',
@@ -81,7 +81,7 @@ const SCRIPT_EXCEPTIONS: Record<string, string> = {
   e: 'ℯ',
   g: 'ℊ',
   o: 'ℴ',
-}
+};
 
 const FRAKTUR_EXCEPTIONS: Record<string, string> = {
   C: 'ℭ',
@@ -89,7 +89,7 @@ const FRAKTUR_EXCEPTIONS: Record<string, string> = {
   I: 'ℑ',
   R: 'ℜ',
   Z: 'ℨ',
-}
+};
 
 const DOUBLE_STRUCK_EXCEPTIONS: Record<string, string> = {
   C: 'ℂ',
@@ -99,9 +99,9 @@ const DOUBLE_STRUCK_EXCEPTIONS: Record<string, string> = {
   Q: 'ℚ',
   R: 'ℝ',
   Z: 'ℤ',
-}
+};
 
-const SMALL_CAPS = pairTable(ASCII_LOWER, 'ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘqʀꜱᴛᴜᴠᴡxʏᴢ')
+const SMALL_CAPS = pairTable(ASCII_LOWER, 'ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘqʀꜱᴛᴜᴠᴡxʏᴢ');
 
 const SUPERSCRIPT = {
   ...pairTable(ASCII_LOWER, 'ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖqʳˢᵗᵘᵛʷˣʸᶻ'),
@@ -111,7 +111,7 @@ const SUPERSCRIPT = {
   '=': '⁼',
   '(': '⁽',
   ')': '⁾',
-}
+};
 
 const UPSIDE_DOWN = {
   ...pairTable(ASCII_LOWER, 'ɐqɔpǝɟƃɥıɾʞlɯuodbɹsʇnʌʍxʎz'),
@@ -131,10 +131,10 @@ const UPSIDE_DOWN = {
   '}': '{',
   '<': '>',
   '>': '<',
-}
+};
 
-const STRIKETHROUGH_MARK = '̶'
-const UNDERLINE_MARK = '̲'
+const STRIKETHROUGH_MARK = '̶';
+const UNDERLINE_MARK = '̲';
 
 export const fancyStyles: readonly FancyStyle[] = [
   {
@@ -239,12 +239,12 @@ export const fancyStyles: readonly FancyStyle[] = [
     name: { ja: '逆順', en: 'Reversed' },
     transform: (value) => Array.from(value).reverse().join(''),
   },
-]
+];
 
 export const applyFancyStyle = (value: string, id: FancyStyleId) =>
-  fancyStyles.find((style) => style.id === id)?.transform(value) ?? value
+  fancyStyles.find((style) => style.id === id)?.transform(value) ?? value;
 
-export type FancyResult = { id: FancyStyleId; name: { ja: string; en: string }; output: string }
+export type FancyResult = { id: FancyStyleId; name: { ja: string; en: string }; output: string };
 
 export const renderFancyStyles = (value: string): FancyResult[] =>
-  fancyStyles.map((style) => ({ id: style.id, name: style.name, output: style.transform(value) }))
+  fancyStyles.map((style) => ({ id: style.id, name: style.name, output: style.transform(value) }));

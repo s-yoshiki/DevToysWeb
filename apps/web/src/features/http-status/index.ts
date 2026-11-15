@@ -1,1 +1,1 @@
-export { HttpStatusWorkspace } from './components/http-status-workspace'
+export { HttpStatusWorkspace } from './components/http-status-workspace';

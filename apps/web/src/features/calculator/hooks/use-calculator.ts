@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import { useMemo, useState } from 'react'
-import { type AngleMode, evaluateExpression, formatResult } from '@/features/calculator/expression'
+import { useMemo, useState } from 'react';
+import { type AngleMode, evaluateExpression, formatResult } from '@/features/calculator/expression';
 
-export type HistoryEntry = { id: string; expression: string; result: string }
+export type HistoryEntry = { id: string; expression: string; result: string };
 
-const historyLimit = 20
+const historyLimit = 20;
 
 /**
  * Shared by the basic and scientific calculators: one expression string that
@@ -13,51 +13,51 @@ const historyLimit = 20
  * result is a preview until `commit` moves it into the history.
  */
 export const useCalculator = (initialExpression = '') => {
-  const [expression, setExpression] = useState(initialExpression)
-  const [angleMode, setAngleMode] = useState<AngleMode>('deg')
-  const [history, setHistory] = useState<HistoryEntry[]>([])
-  const [memory, setMemory] = useState<number | null>(null)
+  const [expression, setExpression] = useState(initialExpression);
+  const [angleMode, setAngleMode] = useState<AngleMode>('deg');
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const [memory, setMemory] = useState<number | null>(null);
 
   const evaluation = useMemo(() => {
-    if (!expression.trim()) return { result: '', error: '' }
+    if (!expression.trim()) return { result: '', error: '' };
     try {
-      return { result: formatResult(evaluateExpression(expression, angleMode)), error: '' }
+      return { result: formatResult(evaluateExpression(expression, angleMode)), error: '' };
     } catch (reason) {
-      return { result: '', error: reason instanceof Error ? reason.message : 'Invalid expression' }
+      return { result: '', error: reason instanceof Error ? reason.message : 'Invalid expression' };
     }
-  }, [angleMode, expression])
+  }, [angleMode, expression]);
 
-  const insert = (text: string) => setExpression((previous) => previous + text)
-  const backspace = () => setExpression((previous) => previous.slice(0, -1))
+  const insert = (text: string) => setExpression((previous) => previous + text);
+  const backspace = () => setExpression((previous) => previous.slice(0, -1));
 
   /** Keeps the result as the next input so calculations can be chained. */
   const commit = () => {
-    if (!evaluation.result) return
+    if (!evaluation.result) return;
     setHistory((previous) =>
       [{ id: crypto.randomUUID(), expression, result: evaluation.result }, ...previous].slice(
         0,
         historyLimit,
       ),
-    )
-    setExpression(evaluation.result)
-  }
+    );
+    setExpression(evaluation.result);
+  };
 
-  const clear = () => setExpression('')
+  const clear = () => setExpression('');
 
   const clearAll = () => {
-    setExpression('')
-    setHistory([])
-    setMemory(null)
-  }
+    setExpression('');
+    setHistory([]);
+    setMemory(null);
+  };
 
   /** `M+` and `M−` fold the current result into the stored value. */
   const applyMemory = (mode: 'add' | 'subtract' | 'recall' | 'clear') => {
-    if (mode === 'clear') return setMemory(null)
-    if (mode === 'recall') return memory === null ? undefined : insert(formatResult(memory))
-    if (!evaluation.result) return
-    const value = Number(evaluation.result)
-    setMemory((previous) => (previous ?? 0) + (mode === 'add' ? value : -value))
-  }
+    if (mode === 'clear') return setMemory(null);
+    if (mode === 'recall') return memory === null ? undefined : insert(formatResult(memory));
+    if (!evaluation.result) return;
+    const value = Number(evaluation.result);
+    setMemory((previous) => (previous ?? 0) + (mode === 'add' ? value : -value));
+  };
 
   return {
     expression,
@@ -74,7 +74,7 @@ export const useCalculator = (initialExpression = '') => {
     clear,
     clearAll,
     applyMemory,
-  }
-}
+  };
+};
 
-export type Calculator = ReturnType<typeof useCalculator>
+export type Calculator = ReturnType<typeof useCalculator>;

@@ -1,19 +1,19 @@
-'use client'
+'use client';
 
-import { Sparkles } from 'lucide-react'
-import { CopyButton } from '@/components/copy-button'
-import { useLocale } from '@/components/locale-provider'
-import { SegmentedControl, ToggleRow } from '@/components/segmented-control'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
-import { CodeArea, Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import type { KanaConversion, WidthDirection, WidthTarget } from '../functions/char-width'
-import { widthTargets } from '../functions/char-width'
-import { useCharWidth } from '../hooks/use-char-width'
+import { Sparkles } from 'lucide-react';
+import { CopyButton } from '@/components/copy-button';
+import { useLocale } from '@/components/locale-provider';
+import { SegmentedControl, ToggleRow } from '@/components/segmented-control';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { CodeArea, Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import type { KanaConversion, WidthDirection, WidthTarget } from '../functions/char-width';
+import { widthTargets } from '../functions/char-width';
+import { useCharWidth } from '../hooks/use-char-width';
 
 const targetLabel = (target: WidthTarget, t: (ja: string, en: string) => string) => {
   const labels: Record<WidthTarget, string> = {
@@ -21,25 +21,25 @@ const targetLabel = (target: WidthTarget, t: (ja: string, en: string) => string)
     symbol: t('記号', 'Symbols'),
     katakana: t('カタカナ', 'Katakana'),
     space: t('スペース', 'Space'),
-  }
-  return labels[target]
-}
+  };
+  return labels[target];
+};
 
 export const CharWidthWorkspace = ({ tool }: WorkspaceProps) => {
-  const { dictionary } = useLocale()
-  const t = useTranslate()
-  const charWidth = useCharWidth()
+  const { dictionary } = useLocale();
+  const t = useTranslate();
+  const charWidth = useCharWidth();
 
   const directionOptions: { value: WidthDirection; label: string }[] = [
     { value: 'toHalfWidth', label: t('全角 → 半角', 'Full → half') },
     { value: 'toFullWidth', label: t('半角 → 全角', 'Half → full') },
-  ]
+  ];
 
   const kanaOptions: { value: KanaConversion; label: string }[] = [
     { value: 'none', label: t('変換しない', 'Keep') },
     { value: 'toKatakana', label: t('カタカナへ', 'To katakana') },
     { value: 'toHiragana', label: t('ひらがなへ', 'To hiragana') },
-  ]
+  ];
 
   return (
     <WorkspaceShell tool={tool} onClear={charWidth.clear}>
@@ -127,5 +127,5 @@ export const CharWidthWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

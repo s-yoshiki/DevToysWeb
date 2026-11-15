@@ -1,4 +1,4 @@
-import { toSearchableKana } from '@/libs/domain/kana'
+import { toSearchableKana } from '@/libs/domain/kana';
 
 export type KaomojiCategory =
   | 'joy'
@@ -11,14 +11,14 @@ export type KaomojiCategory =
   | 'trouble'
   | 'action'
   | 'animal'
-  | 'misc'
+  | 'misc';
 
 export type KaomojiEntry = {
-  kaomoji: string
-  name: { ja: string; en: string }
-  keywords: string[]
-  category: KaomojiCategory
-}
+  kaomoji: string;
+  name: { ja: string; en: string };
+  keywords: string[];
+  category: KaomojiCategory;
+};
 
 const entry = (
   kaomoji: string,
@@ -26,7 +26,7 @@ const entry = (
   en: string,
   category: KaomojiCategory,
   ...keywords: string[]
-): KaomojiEntry => ({ kaomoji, name: { ja, en }, keywords, category })
+): KaomojiEntry => ({ kaomoji, name: { ja, en }, keywords, category });
 
 /**
  * A curated, browser-local kaomoji (Japanese emoticon) catalog. Unlike emoji,
@@ -307,7 +307,7 @@ export const kaomojiCatalog: readonly KaomojiEntry[] = [
   entry('ლ(´ڡ`ლ)', '食いしん坊', 'greedy for food', 'misc', '食事', 'hungry'),
   entry('(ﾉ≧∀≦)ﾉ', '飛びつく', 'pouncing', 'misc', '動作', 'pounce'),
   entry('⊂((・▽・))⊃', '大きく広げる', 'arms wide open', 'misc', '動作', 'open arms'),
-]
+];
 
 export const kaomojiCategories: readonly (KaomojiCategory | 'all')[] = [
   'all',
@@ -322,7 +322,7 @@ export const kaomojiCategories: readonly (KaomojiCategory | 'all')[] = [
   'action',
   'animal',
   'misc',
-]
+];
 
 export const filterKaomoji = (
   entries: readonly KaomojiEntry[],
@@ -330,16 +330,16 @@ export const filterKaomoji = (
   category: KaomojiCategory | 'all',
 ) => {
   // Folding both sides to hiragana lets ネコ, ﾈｺ, and ねこ find the same entry.
-  const normalizedQuery = toSearchableKana(query)
+  const normalizedQuery = toSearchableKana(query);
   return entries.filter((item) => {
-    if (category !== 'all' && item.category !== category) return false
-    if (!normalizedQuery) return true
+    if (category !== 'all' && item.category !== category) return false;
+    if (!normalizedQuery) return true;
     const searchable = [item.kaomoji, item.name.ja, item.name.en, ...item.keywords]
       .map(toSearchableKana)
-      .join(' ')
-    return searchable.includes(normalizedQuery)
-  })
-}
+      .join(' ');
+    return searchable.includes(normalizedQuery);
+  });
+};
 
 /**
  * Code point ranges a CJK font renders two columns wide. East Asian Ambiguous
@@ -363,7 +363,7 @@ const WIDE_RANGES: readonly (readonly [number, number])[] = [
   [0xfe30, 0xfe6f],
   [0xff00, 0xff60],
   [0xffe0, 0xffe6],
-]
+];
 
 /**
  * Approximate column count rather than character count, so a short string of
@@ -371,10 +371,10 @@ const WIDE_RANGES: readonly (readonly [number, number])[] = [
  */
 export const getKaomojiDisplayWidth = (value: string) =>
   Array.from(value).reduce((total, character) => {
-    const point = character.codePointAt(0) ?? 0
-    const wide = WIDE_RANGES.some(([start, end]) => point >= start && point <= end)
-    return total + (wide ? 2 : 1)
-  }, 0)
+    const point = character.codePointAt(0) ?? 0;
+    const wide = WIDE_RANGES.some(([start, end]) => point >= start && point <= end);
+    return total + (wide ? 2 : 1);
+  }, 0);
 
 /** Code points, so surrogate pairs read as one entry rather than two halves. */
 export const getKaomojiCodePoints = (value: string) =>
@@ -382,15 +382,15 @@ export const getKaomojiCodePoints = (value: string) =>
     .map(
       (character) => `U+${character.codePointAt(0)?.toString(16).toUpperCase().padStart(4, '0')}`,
     )
-    .join(' ')
+    .join(' ');
 
 export const getKaomojiHtml = (value: string) =>
   Array.from(value)
     .map((character) => {
-      const point = character.codePointAt(0) ?? 0
-      return point < 0x80 ? character : `&#${point};`
+      const point = character.codePointAt(0) ?? 0;
+      return point < 0x80 ? character : `&#${point};`;
     })
-    .join('')
+    .join('');
 
 /**
  * `\uXXXX` escapes over UTF-16 code units, which is what a JavaScript, JSON, or
@@ -398,8 +398,8 @@ export const getKaomojiHtml = (value: string) =>
  */
 export const getKaomojiUnicodeEscape = (value: string) =>
   Array.from({ length: value.length }, (_unused, index) => {
-    const unit = value.charCodeAt(index)
-    if (unit < 0x20 || unit > 0x7e) return `\\u${unit.toString(16).toUpperCase().padStart(4, '0')}`
-    const character = value[index]
-    return character === '\\' || character === "'" ? `\\${character}` : character
-  }).join('')
+    const unit = value.charCodeAt(index);
+    if (unit < 0x20 || unit > 0x7e) return `\\u${unit.toString(16).toUpperCase().padStart(4, '0')}`;
+    const character = value[index];
+    return character === '\\' || character === "'" ? `\\${character}` : character;
+  }).join('');

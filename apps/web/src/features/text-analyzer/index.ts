@@ -1,1 +1,1 @@
-export { TextAnalyzerWorkspace } from './components/text-analyzer-workspace'
+export { TextAnalyzerWorkspace } from './components/text-analyzer-workspace';

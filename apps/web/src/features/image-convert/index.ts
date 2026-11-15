@@ -1,1 +1,1 @@
-export { ImageConvertWorkspace } from './components/image-convert-workspace'
+export { ImageConvertWorkspace } from './components/image-convert-workspace';

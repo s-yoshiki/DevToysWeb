@@ -1,32 +1,32 @@
-'use client'
+'use client';
 
-import { History } from 'lucide-react'
-import { CopyButton } from '@/components/copy-button'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { useTranslate } from '@/hooks/use-translate'
-import { cn } from '@/libs/utils'
-import type { CalculatorKey } from '../functions/keypads'
-import type { Calculator } from '../hooks/use-calculator'
+import { History } from 'lucide-react';
+import { CopyButton } from '@/components/copy-button';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useTranslate } from '@/hooks/use-translate';
+import { cn } from '@/libs/utils';
+import type { CalculatorKey } from '../functions/keypads';
+import type { Calculator } from '../hooks/use-calculator';
 
 const toneClasses: Record<NonNullable<CalculatorKey['tone']>, string> = {
   digit: 'bg-background hover:bg-muted',
   operator: 'bg-muted/60 font-semibold hover:bg-muted',
   control: 'bg-destructive/10 text-destructive hover:bg-destructive/20',
   equals: 'bg-primary text-primary-foreground hover:bg-primary/85',
-}
+};
 
 /** The expression line, its live result, and any parse failure. */
 export const CalculatorDisplay = ({
   calculator,
   inputId,
 }: {
-  calculator: Calculator
-  inputId: string
+  calculator: Calculator;
+  inputId: string;
 }) => {
-  const t = useTranslate()
+  const t = useTranslate();
   return (
     <Card className="overflow-hidden border-border/70">
       <CardContent className="space-y-3 p-5">
@@ -45,9 +45,9 @@ export const CalculatorDisplay = ({
           placeholder="12 * (3 + 4)"
           onChange={(event) => calculator.setExpression(event.target.value)}
           onKeyDown={(event) => {
-            if (event.key !== 'Enter') return
-            event.preventDefault()
-            calculator.commit()
+            if (event.key !== 'Enter') return;
+            event.preventDefault();
+            calculator.commit();
           }}
           className="h-14 rounded-xl font-mono text-lg"
         />
@@ -63,8 +63,8 @@ export const CalculatorDisplay = ({
         </div>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
 export const CalculatorKeypad = ({
   calculator,
@@ -72,10 +72,10 @@ export const CalculatorKeypad = ({
   columns,
   className,
 }: {
-  calculator: Calculator
-  keys: CalculatorKey[]
-  columns: 4 | 5
-  className?: string
+  calculator: Calculator;
+  keys: CalculatorKey[];
+  columns: 4 | 5;
+  className?: string;
 }) => (
   <div
     className={cn(
@@ -89,10 +89,10 @@ export const CalculatorKeypad = ({
         key={key.label}
         variant="outline"
         onClick={() => {
-          if (key.action === 'clear') return calculator.clear()
-          if (key.action === 'backspace') return calculator.backspace()
-          if (key.action === 'equals') return calculator.commit()
-          if (key.insert) calculator.insert(key.insert)
+          if (key.action === 'clear') return calculator.clear();
+          if (key.action === 'backspace') return calculator.backspace();
+          if (key.action === 'equals') return calculator.commit();
+          if (key.insert) calculator.insert(key.insert);
         }}
         className={cn(
           'h-12 text-base',
@@ -104,11 +104,11 @@ export const CalculatorKeypad = ({
       </Button>
     ))}
   </div>
-)
+);
 
 /** Past evaluations, newest first; selecting one puts it back in the input. */
 export const CalculatorHistory = ({ calculator }: { calculator: Calculator }) => {
-  const t = useTranslate()
+  const t = useTranslate();
   return (
     <Card className="overflow-hidden border-border/70">
       <CardHeader className="flex flex-row items-center justify-between border-b bg-muted/30 py-3">
@@ -144,5 +144,5 @@ export const CalculatorHistory = ({ calculator }: { calculator: Calculator }) =>
         )}
       </CardContent>
     </Card>
-  )
-}
+  );
+};

@@ -1,6 +1,6 @@
-import type * as React from 'react'
+import type * as React from 'react';
 
-import { cn } from '@/libs/utils'
+import { cn } from '@/libs/utils';
 
 const Card = ({
   className,
@@ -17,8 +17,8 @@ const Card = ({
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
 const CardHeader = ({ className, ...props }: React.ComponentProps<'div'>) => {
   return (
@@ -30,8 +30,8 @@ const CardHeader = ({ className, ...props }: React.ComponentProps<'div'>) => {
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
 const CardTitle = ({ className, ...props }: React.ComponentProps<'div'>) => {
   return (
@@ -43,8 +43,8 @@ const CardTitle = ({ className, ...props }: React.ComponentProps<'div'>) => {
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
 const CardDescription = ({ className, ...props }: React.ComponentProps<'div'>) => {
   return (
@@ -53,8 +53,8 @@ const CardDescription = ({ className, ...props }: React.ComponentProps<'div'>) =
       className={cn('text-sm text-muted-foreground', className)}
       {...props}
     />
-  )
-}
+  );
+};
 
 const CardAction = ({ className, ...props }: React.ComponentProps<'div'>) => {
   return (
@@ -63,14 +63,14 @@ const CardAction = ({ className, ...props }: React.ComponentProps<'div'>) => {
       className={cn('col-start-2 row-span-2 row-start-1 self-start justify-self-end', className)}
       {...props}
     />
-  )
-}
+  );
+};
 
 const CardContent = ({ className, ...props }: React.ComponentProps<'div'>) => {
   return (
     <div data-slot="card-content" className={cn('px-(--card-spacing)', className)} {...props} />
-  )
-}
+  );
+};
 
 const CardFooter = ({ className, ...props }: React.ComponentProps<'div'>) => {
   return (
@@ -82,7 +82,7 @@ const CardFooter = ({ className, ...props }: React.ComponentProps<'div'>) => {
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
+export { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle };

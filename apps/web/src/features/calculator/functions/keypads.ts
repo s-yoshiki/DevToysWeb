@@ -4,20 +4,20 @@
  * normalises back (`×` → `*`, `√` → `sqrt(`).
  */
 export type CalculatorKey = {
-  label: string
+  label: string;
   /** Appended to the expression. Omitted for keys that run an `action`. */
-  insert?: string
-  action?: 'clear' | 'backspace' | 'equals'
-  tone?: 'digit' | 'operator' | 'control' | 'equals'
-  span?: 2
-}
+  insert?: string;
+  action?: 'clear' | 'backspace' | 'equals';
+  tone?: 'digit' | 'operator' | 'control' | 'equals';
+  span?: 2;
+};
 
-const digit = (label: string): CalculatorKey => ({ label, insert: label, tone: 'digit' })
+const digit = (label: string): CalculatorKey => ({ label, insert: label, tone: 'digit' });
 const operator = (label: string, insert = label): CalculatorKey => ({
   label,
   insert,
   tone: 'operator',
-})
+});
 
 /** 4 columns; the equals key spans the final pair. */
 export const basicKeys: CalculatorKey[] = [
@@ -42,7 +42,7 @@ export const basicKeys: CalculatorKey[] = [
   operator('%'),
   operator('+'),
   { label: '=', action: 'equals', tone: 'equals', span: 2 },
-]
+];
 
 /** 5 columns of scientific functions, shown above the shared basic pad. */
 export const scientificKeys: CalculatorKey[] = [
@@ -66,4 +66,4 @@ export const scientificKeys: CalculatorKey[] = [
   operator('mod', 'mod('),
   operator(',', ','),
   operator('1/x', '^-1'),
-]
+];

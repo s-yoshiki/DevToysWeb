@@ -1,37 +1,37 @@
-'use client'
+'use client';
 
-import { Eye, Search, Sparkles, Trash2 } from 'lucide-react'
-import { useId } from 'react'
-import { CopyButton } from '@/components/copy-button'
-import { useLocale } from '@/components/locale-provider'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import type { InvisibleCharacter } from '../functions/invisible'
-import { type InvisibleMode, useInvisible } from '../hooks/use-invisible'
+import { Eye, Search, Sparkles, Trash2 } from 'lucide-react';
+import { useId } from 'react';
+import { CopyButton } from '@/components/copy-button';
+import { useLocale } from '@/components/locale-provider';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import type { InvisibleCharacter } from '../functions/invisible';
+import { type InvisibleMode, useInvisible } from '../hooks/use-invisible';
 
 const StatTile = ({ label, value }: { label: string; value: number }) => (
   <div className="rounded-xl border bg-muted/20 p-4">
     <div className="text-xs text-muted-foreground">{label}</div>
     <div className="mt-1 text-2xl font-semibold">{value}</div>
   </div>
-)
+);
 
 const CharacterRow = ({
   item,
   locale,
   t,
 }: {
-  item: InvisibleCharacter
-  locale: 'ja' | 'en'
-  t: (ja: string, en: string) => string
+  item: InvisibleCharacter;
+  locale: 'ja' | 'en';
+  t: (ja: string, en: string) => string;
 }) => (
   <div className="grid gap-3 px-5 py-4 sm:grid-cols-[5rem_8.5rem_minmax(12rem,1fr)_minmax(12rem,1fr)_auto] sm:items-center">
     <div className="flex items-center gap-2">
@@ -52,17 +52,17 @@ const CharacterRow = ({
     </div>
     <CopyButton value={item.character} />
   </div>
-)
+);
 
 export const InvisibleWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const { locale } = useLocale()
-  const t = useTranslate()
-  const invisible = useInvisible()
+  const fieldId = useId();
+  const { locale } = useLocale();
+  const t = useTranslate();
+  const invisible = useInvisible();
   const modeOptions: { value: InvisibleMode; label: string }[] = [
     { value: 'inspect', label: t('検出・可視化', 'Inspect & visualize') },
     { value: 'catalog', label: t('文字一覧', 'Character catalog') },
-  ]
+  ];
 
   return (
     <WorkspaceShell tool={tool} onClear={invisible.clear}>
@@ -278,5 +278,5 @@ export const InvisibleWorkspace = ({ tool }: WorkspaceProps) => {
         )}
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

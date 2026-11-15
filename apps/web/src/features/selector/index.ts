@@ -1,1 +1,1 @@
-export { SelectorWorkspace } from './components/selector-workspace'
+export { SelectorWorkspace } from './components/selector-workspace';

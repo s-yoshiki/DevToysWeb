@@ -1,16 +1,16 @@
-'use client'
+'use client';
 
-import { useLocale } from '@/components/locale-provider'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useDeviceInfo } from '../hooks/use-device-info'
+import { useLocale } from '@/components/locale-provider';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useDeviceInfo } from '../hooks/use-device-info';
 
 export const DeviceInfoWorkspace = ({ tool }: WorkspaceProps) => {
-  const t = useTranslate()
-  const { locale } = useLocale()
-  const groups = useDeviceInfo()
+  const t = useTranslate();
+  const { locale } = useLocale();
+  const groups = useDeviceInfo();
 
   return (
     <WorkspaceShell tool={tool} onClear={() => {}}>
@@ -47,5 +47,5 @@ export const DeviceInfoWorkspace = ({ tool }: WorkspaceProps) => {
         </div>
       )}
     </WorkspaceShell>
-  )
-}
+  );
+};

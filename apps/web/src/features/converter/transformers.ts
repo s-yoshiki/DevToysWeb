@@ -1,139 +1,139 @@
-import CryptoJS from 'crypto-js'
-import { XMLBuilder, XMLParser } from 'fast-xml-parser'
-import { dump, load } from 'js-yaml'
-import { parse as parseToml, stringify as stringifyToml } from 'smol-toml'
-import { format as formatSql } from 'sql-formatter'
-import xmlFormatter from 'xml-formatter'
-import { formatCss, formatHtml } from '@/features/svg/source-formatters'
+import CryptoJS from 'crypto-js';
+import { XMLBuilder, XMLParser } from 'fast-xml-parser';
+import { dump, load } from 'js-yaml';
+import { parse as parseToml, stringify as stringifyToml } from 'smol-toml';
+import { format as formatSql } from 'sql-formatter';
+import xmlFormatter from 'xml-formatter';
+import { formatCss, formatHtml } from '@/features/svg/source-formatters';
 
 const escapeHtml = (value: string) =>
   value.replace(
     /[&<>'"]/g,
     (char) =>
       ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char] ?? char,
-  )
+  );
 const unescapeHtml = (value: string) =>
   value.replace(
     /&(amp|lt|gt|#39|quot);/g,
     (entity) =>
       ({ '&amp;': '&', '&lt;': '<', '&gt;': '>', '&#39;': "'", '&quot;': '"' })[entity] ?? entity,
-  )
-const utf8ToBase64 = (value: string) => btoa(unescape(encodeURIComponent(value)))
-const base64ToUtf8 = (value: string) => decodeURIComponent(escape(atob(value)))
+  );
+const utf8ToBase64 = (value: string) => btoa(unescape(encodeURIComponent(value)));
+const base64ToUtf8 = (value: string) => decodeURIComponent(escape(atob(value)));
 
 const escapeCsvCell = (value: unknown) => {
   const text =
-    value == null ? '' : typeof value === 'object' ? JSON.stringify(value) : String(value)
-  return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text
-}
+    value == null ? '' : typeof value === 'object' ? JSON.stringify(value) : String(value);
+  return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+};
 
 export const jsonToCsv = (value: string) => {
-  const parsed: unknown = JSON.parse(value)
-  if (!Array.isArray(parsed)) throw new Error('JSON input must be an array')
-  if (!parsed.length) return ''
+  const parsed: unknown = JSON.parse(value);
+  if (!Array.isArray(parsed)) throw new Error('JSON input must be an array');
+  if (!parsed.length) return '';
   if (parsed.some((row) => !row || typeof row !== 'object' || Array.isArray(row)))
-    throw new Error('Each JSON array item must be an object')
+    throw new Error('Each JSON array item must be an object');
 
-  const records = parsed as Record<string, unknown>[]
-  const headers = [...new Set(records.flatMap((record) => Object.keys(record)))]
+  const records = parsed as Record<string, unknown>[];
+  const headers = [...new Set(records.flatMap((record) => Object.keys(record)))];
   return [
     headers.map(escapeCsvCell).join(','),
     ...records.map((record) => headers.map((header) => escapeCsvCell(record[header])).join(',')),
-  ].join('\n')
-}
+  ].join('\n');
+};
 
 const parseCsvRows = (value: string) => {
-  const rows: string[][] = []
-  let row: string[] = []
-  let cell = ''
-  let quoted = false
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let cell = '';
+  let quoted = false;
 
   for (let index = 0; index < value.length; index += 1) {
-    const char = value[index]
+    const char = value[index];
     if (quoted) {
       if (char === '"' && value[index + 1] === '"') {
-        cell += '"'
-        index += 1
-      } else if (char === '"') quoted = false
-      else cell += char
-    } else if (char === '"' && cell === '') quoted = true
+        cell += '"';
+        index += 1;
+      } else if (char === '"') quoted = false;
+      else cell += char;
+    } else if (char === '"' && cell === '') quoted = true;
     else if (char === ',') {
-      row.push(cell)
-      cell = ''
+      row.push(cell);
+      cell = '';
     } else if (char === '\n' || char === '\r') {
-      if (char === '\r' && value[index + 1] === '\n') index += 1
-      row.push(cell)
-      rows.push(row)
-      row = []
-      cell = ''
-    } else cell += char
+      if (char === '\r' && value[index + 1] === '\n') index += 1;
+      row.push(cell);
+      rows.push(row);
+      row = [];
+      cell = '';
+    } else cell += char;
   }
-  if (quoted) throw new Error('CSV contains an unclosed quoted field')
+  if (quoted) throw new Error('CSV contains an unclosed quoted field');
   if (cell || row.length) {
-    row.push(cell)
-    rows.push(row)
+    row.push(cell);
+    rows.push(row);
   }
-  return rows
-}
+  return rows;
+};
 
 export const csvToJson = (value: string) => {
-  const rows = parseCsvRows(value)
-  if (!rows.length) return '[]'
-  const [headers, ...records] = rows
-  if (headers.some((header) => !header)) throw new Error('CSV headers cannot be empty')
-  if (new Set(headers).size !== headers.length) throw new Error('CSV headers must be unique')
+  const rows = parseCsvRows(value);
+  if (!rows.length) return '[]';
+  const [headers, ...records] = rows;
+  if (headers.some((header) => !header)) throw new Error('CSV headers cannot be empty');
+  if (new Set(headers).size !== headers.length) throw new Error('CSV headers must be unique');
   if (records.some((row) => row.length !== headers.length))
-    throw new Error('Every CSV row must contain the same number of columns as the header')
+    throw new Error('Every CSV row must contain the same number of columns as the header');
   return JSON.stringify(
     records.map((row) => Object.fromEntries(headers.map((header, index) => [header, row[index]]))),
     null,
     2,
-  )
-}
+  );
+};
 
 /** Shared by both XML directions so a round trip keeps attributes and text nodes stable. */
 const xmlOptions = {
   ignoreAttributes: false,
   attributeNamePrefix: '@',
   textNodeName: '#text',
-}
+};
 
 const jsonToXml = (value: string) =>
-  new XMLBuilder({ ...xmlOptions, format: true, indentBy: '  ' }).build(JSON.parse(value)).trim()
+  new XMLBuilder({ ...xmlOptions, format: true, indentBy: '  ' }).build(JSON.parse(value)).trim();
 
 const xmlToJson = (value: string) => {
-  const parser = new XMLParser(xmlOptions)
-  return JSON.stringify(parser.parse(value), null, 2)
-}
+  const parser = new XMLParser(xmlOptions);
+  return JSON.stringify(parser.parse(value), null, 2);
+};
 
 /**
  * TOML has no top-level array or scalar form, so reject those before `stringify`
  * throws something less actionable.
  */
 const jsonToToml = (value: string) => {
-  const parsed: unknown = JSON.parse(value)
+  const parsed: unknown = JSON.parse(value);
   if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed))
-    throw new Error('TOML output requires a JSON object at the top level')
-  return stringifyToml(parsed as Record<string, unknown>)
-}
+    throw new Error('TOML output requires a JSON object at the top level');
+  return stringifyToml(parsed as Record<string, unknown>);
+};
 
 export const transform = (slug: string, value: string, reverse = false) => {
-  if (!value) return ''
+  if (!value) return '';
   switch (slug) {
     case 'yaml-json':
-      return reverse ? dump(JSON.parse(value)) : JSON.stringify(load(value), null, 2)
+      return reverse ? dump(JSON.parse(value)) : JSON.stringify(load(value), null, 2);
     case 'json-csv':
-      return reverse ? csvToJson(value) : jsonToCsv(value)
+      return reverse ? csvToJson(value) : jsonToCsv(value);
     case 'json-toml':
-      return reverse ? JSON.stringify(parseToml(value), null, 2) : jsonToToml(value)
+      return reverse ? JSON.stringify(parseToml(value), null, 2) : jsonToToml(value);
     case 'json-xml':
-      return reverse ? xmlToJson(value) : jsonToXml(value)
+      return reverse ? xmlToJson(value) : jsonToXml(value);
     case 'base64':
-      return reverse ? base64ToUtf8(value) : utf8ToBase64(value)
+      return reverse ? base64ToUtf8(value) : utf8ToBase64(value);
     case 'url':
-      return reverse ? decodeURIComponent(value) : encodeURIComponent(value)
+      return reverse ? decodeURIComponent(value) : encodeURIComponent(value);
     case 'html':
-      return reverse ? unescapeHtml(value) : escapeHtml(value)
+      return reverse ? unescapeHtml(value) : escapeHtml(value);
     case 'jwt':
       return JSON.stringify(
         JSON.parse(
@@ -141,35 +141,35 @@ export const transform = (slug: string, value: string, reverse = false) => {
         ),
         null,
         2,
-      )
+      );
     case 'json-format':
-      return JSON.stringify(JSON.parse(value), null, 2)
+      return JSON.stringify(JSON.parse(value), null, 2);
     case 'sql-format':
-      return formatSql(value, { language: 'sql', tabWidth: 2 })
+      return formatSql(value, { language: 'sql', tabWidth: 2 });
     case 'xml-format':
-      return xmlFormatter(value, { indentation: '  ', collapseContent: true })
+      return xmlFormatter(value, { indentation: '  ', collapseContent: true });
     case 'yaml-format':
-      return dump(load(value), { indent: 2, lineWidth: 100, sortKeys: false })
+      return dump(load(value), { indent: 2, lineWidth: 100, sortKeys: false });
     case 'css-format':
-      return formatCss(value)
+      return formatCss(value);
     case 'html-format':
-      return formatHtml(value)
+      return formatHtml(value);
     case 'hash':
-      return CryptoJS.SHA256(value).toString()
+      return CryptoJS.SHA256(value).toString();
     default:
-      return value
+      return value;
   }
-}
+};
 
-const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%&*?'
+const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%&*?';
 export const generate = (slug: string, count = 5, length = 20) => {
-  if (slug === 'uuid') return Array.from({ length: count }, () => crypto.randomUUID()).join('\n')
+  if (slug === 'uuid') return Array.from({ length: count }, () => crypto.randomUUID()).join('\n');
   if (slug === 'password')
     return Array.from({ length: count }, () =>
       Array.from(
         { length },
         () => alphabet[crypto.getRandomValues(new Uint32Array(1))[0] % alphabet.length],
       ).join(''),
-    ).join('\n')
-  return ''
-}
+    ).join('\n');
+  return '';
+};

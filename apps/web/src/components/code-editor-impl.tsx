@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import Editor, { loader, type OnMount } from '@monaco-editor/react'
-import * as monaco from 'monaco-editor'
-import { useTheme } from 'next-themes'
-import { useEffect, useRef } from 'react'
-import { cn } from '@/libs/utils'
-import type { CodeEditorProps } from './code-editor-types'
+import Editor, { loader, type OnMount } from '@monaco-editor/react';
+import * as monaco from 'monaco-editor';
+import { useTheme } from 'next-themes';
+import { useEffect, useRef } from 'react';
+import { cn } from '@/libs/utils';
+import type { CodeEditorProps } from './code-editor-types';
 
 /*
  * Self-hosted Monaco. `output: 'export'` ships to CloudFront under a strict CSP,
@@ -22,35 +22,35 @@ if (typeof window !== 'undefined') {
         case 'json':
           return new Worker(
             new URL('monaco-editor/esm/vs/language/json/json.worker.js', import.meta.url),
-          )
+          );
         case 'css':
         case 'scss':
         case 'less':
           return new Worker(
             new URL('monaco-editor/esm/vs/language/css/css.worker.js', import.meta.url),
-          )
+          );
         case 'html':
         case 'handlebars':
         case 'razor':
           return new Worker(
             new URL('monaco-editor/esm/vs/language/html/html.worker.js', import.meta.url),
-          )
+          );
         case 'typescript':
         case 'javascript':
           return new Worker(
             new URL('monaco-editor/esm/vs/language/typescript/ts.worker.js', import.meta.url),
-          )
+          );
         default:
           return new Worker(
             new URL('monaco-editor/esm/vs/editor/editor.worker.js', import.meta.url),
-          )
+          );
       }
     },
-  }
-  ;(window as typeof window & { MonacoEnvironment: monaco.Environment }).MonacoEnvironment =
-    monacoEnvironment
+  };
+  (window as typeof window & { MonacoEnvironment: monaco.Environment }).MonacoEnvironment =
+    monacoEnvironment;
   // Register the bundled instance so the loader never reaches for the CDN copy.
-  loader.config({ monaco })
+  loader.config({ monaco });
 }
 
 const CodeEditorImpl = ({
@@ -63,17 +63,17 @@ const CodeEditorImpl = ({
   wordWrap = false,
   className,
 }: CodeEditorProps) => {
-  const { resolvedTheme } = useTheme()
-  const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null)
+  const { resolvedTheme } = useTheme();
+  const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
 
   const handleMount: OnMount = (editor) => {
-    editorRef.current = editor
-    if (ariaLabel) editor.updateOptions({ ariaLabel })
-  }
+    editorRef.current = editor;
+    if (ariaLabel) editor.updateOptions({ ariaLabel });
+  };
 
   useEffect(() => {
-    if (ariaLabel) editorRef.current?.updateOptions({ ariaLabel })
-  }, [ariaLabel])
+    if (ariaLabel) editorRef.current?.updateOptions({ ariaLabel });
+  }, [ariaLabel]);
 
   return (
     <div className={cn('min-h-0 flex-1', className)}>
@@ -103,7 +103,7 @@ const CodeEditorImpl = ({
         }}
       />
     </div>
-  )
-}
+  );
+};
 
-export default CodeEditorImpl
+export default CodeEditorImpl;

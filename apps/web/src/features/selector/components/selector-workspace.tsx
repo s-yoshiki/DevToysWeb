@@ -1,28 +1,28 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
-import { CopyButton } from '@/components/copy-button'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { CodeArea, Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import type { SelectorMode } from '@/features/selector/functions/selector'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useSelector } from '../hooks/use-selector'
+import { CopyButton } from '@/components/copy-button';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { CodeArea, Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import type { SelectorMode } from '@/features/selector/functions/selector';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useSelector } from '../hooks/use-selector';
 
 const modeOptions: { value: SelectorMode; label: string }[] = [
   { value: 'css', label: 'CSS' },
   { value: 'xpath', label: 'XPath' },
-]
+];
 
 export const SelectorWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const selector = useSelector()
+  const fieldId = useId();
+  const t = useTranslate();
+  const selector = useSelector();
 
   return (
     <WorkspaceShell tool={tool} onClear={selector.clear}>
@@ -79,5 +79,5 @@ export const SelectorWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

@@ -1,16 +1,16 @@
-'use client'
+'use client';
 
-import { Card, CardContent } from '@/components/ui/card'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { basicKeys } from '../functions/keypads'
-import { useCalculator } from '../hooks/use-calculator'
-import { CalculatorDisplay, CalculatorHistory, CalculatorKeypad } from './calculator-panels'
+import { Card, CardContent } from '@/components/ui/card';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { basicKeys } from '../functions/keypads';
+import { useCalculator } from '../hooks/use-calculator';
+import { CalculatorDisplay, CalculatorHistory, CalculatorKeypad } from './calculator-panels';
 
 export const CalculatorWorkspace = ({ tool }: WorkspaceProps) => {
-  const t = useTranslate()
-  const calculator = useCalculator()
+  const t = useTranslate();
+  const calculator = useCalculator();
 
   return (
     <WorkspaceShell tool={tool} onClear={calculator.clearAll}>
@@ -32,5 +32,5 @@ export const CalculatorWorkspace = ({ tool }: WorkspaceProps) => {
         <CalculatorHistory calculator={calculator} />
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

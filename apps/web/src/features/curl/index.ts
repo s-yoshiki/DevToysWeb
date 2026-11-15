@@ -1,1 +1,1 @@
-export { CurlWorkspace } from './components/curl-workspace'
+export { CurlWorkspace } from './components/curl-workspace';

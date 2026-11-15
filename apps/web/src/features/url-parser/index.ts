@@ -1,1 +1,1 @@
-export { UrlParserWorkspace } from './components/url-parser-workspace'
+export { UrlParserWorkspace } from './components/url-parser-workspace';

@@ -1,1 +1,1 @@
-export { EmojiWorkspace } from './components/emoji-workspace'
+export { EmojiWorkspace } from './components/emoji-workspace';

@@ -1,24 +1,24 @@
-'use client'
+'use client';
 
-import { Pause, Play, RotateCcw, Volume2, VolumeX } from 'lucide-react'
-import { useId } from 'react'
-import { ToggleRow } from '@/components/segmented-control'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import { formatClock } from '@/libs/domain/duration'
-import { cn } from '@/libs/utils'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useTimer } from '../hooks/use-timer'
+import { Pause, Play, RotateCcw, Volume2, VolumeX } from 'lucide-react';
+import { useId } from 'react';
+import { ToggleRow } from '@/components/segmented-control';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import { formatClock } from '@/libs/domain/duration';
+import { cn } from '@/libs/utils';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useTimer } from '../hooks/use-timer';
 
-const presets = [60, 180, 300, 600, 900, 1800]
+const presets = [60, 180, 300, 600, 900, 1800];
 
-const radius = 132
-const circumference = 2 * Math.PI * radius
+const radius = 132;
+const circumference = 2 * Math.PI * radius;
 
 const ProgressRing = ({ progress, active }: { progress: number; active: boolean }) => (
   <svg viewBox="0 0 300 300" className="size-full -rotate-90" aria-hidden="true">
@@ -45,7 +45,7 @@ const ProgressRing = ({ progress, active }: { progress: number; active: boolean 
       )}
     />
   </svg>
-)
+);
 
 const DurationField = ({
   id,
@@ -55,12 +55,12 @@ const DurationField = ({
   disabled,
   onChange,
 }: {
-  id: string
-  label: string
-  value: number
-  max: number
-  disabled: boolean
-  onChange: (value: number) => void
+  id: string;
+  label: string;
+  value: number;
+  max: number;
+  disabled: boolean;
+  onChange: (value: number) => void;
 }) => (
   <div className="space-y-2">
     <Label htmlFor={id}>{label}</Label>
@@ -77,14 +77,14 @@ const DurationField = ({
       className="text-center font-mono tabular-nums"
     />
   </div>
-)
+);
 
 export const TimerWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const timer = useTimer()
-  const editing = timer.status === 'idle'
-  const finished = timer.status === 'finished'
+  const fieldId = useId();
+  const t = useTranslate();
+  const timer = useTimer();
+  const editing = timer.status === 'idle';
+  const finished = timer.status === 'finished';
 
   return (
     <WorkspaceShell tool={tool} onClear={timer.clear}>
@@ -211,5 +211,5 @@ export const TimerWorkspace = ({ tool }: WorkspaceProps) => {
         </div>
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

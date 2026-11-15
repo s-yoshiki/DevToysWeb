@@ -1,32 +1,32 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { useApiRequest } from '@/hooks/use-api-request'
-import { type JwtVerifyRequest, verifyJwt } from '@/libs/api/diagnostics-client'
+import { useState } from 'react';
+import { useApiRequest } from '@/hooks/use-api-request';
+import { type JwtVerifyRequest, verifyJwt } from '@/libs/api/diagnostics-client';
 
-export const keyModes = ['jwks', 'publicKey', 'secret'] as const
-export type KeyMode = (typeof keyModes)[number]
+export const keyModes = ['jwks', 'publicKey', 'secret'] as const;
+export type KeyMode = (typeof keyModes)[number];
 
 /** The API names the JWKS field `jwksUrl`; the UI mode stays `jwks`. */
 const requestField: Record<KeyMode, keyof JwtVerifyRequest> = {
   jwks: 'jwksUrl',
   publicKey: 'publicKey',
   secret: 'secret',
-}
+};
 
 export const useJwtVerify = () => {
-  const [token, setToken] = useState('')
-  const [mode, setMode] = useState<KeyMode>('jwks')
-  const [key, setKey] = useState('')
-  const [issuer, setIssuer] = useState('')
-  const [audience, setAudience] = useState('')
-  const request = useApiRequest(verifyJwt, 'JWT verification failed')
+  const [token, setToken] = useState('');
+  const [mode, setMode] = useState<KeyMode>('jwks');
+  const [key, setKey] = useState('');
+  const [issuer, setIssuer] = useState('');
+  const [audience, setAudience] = useState('');
+  const request = useApiRequest(verifyJwt, 'JWT verification failed');
 
   /** Switching the key material invalidates whatever was typed for the old one. */
   const changeMode = (next: KeyMode) => {
-    setMode(next)
-    setKey('')
-  }
+    setMode(next);
+    setKey('');
+  };
 
   const run = () =>
     void request.run({
@@ -34,15 +34,15 @@ export const useJwtVerify = () => {
       issuer: issuer || undefined,
       audience: audience || undefined,
       [requestField[mode]]: key,
-    })
+    });
 
   const clear = () => {
-    setToken('')
-    setKey('')
-    setIssuer('')
-    setAudience('')
-    request.reset()
-  }
+    setToken('');
+    setKey('');
+    setIssuer('');
+    setAudience('');
+    request.reset();
+  };
 
   return {
     token,
@@ -59,5 +59,5 @@ export const useJwtVerify = () => {
     run,
     clear,
     canSubmit: Boolean(token.trim() && key.trim()),
-  }
-}
+  };
+};

@@ -1,21 +1,21 @@
-'use client'
+'use client';
 
-import { ExternalLink } from 'lucide-react'
-import { useLocale } from '@/components/locale-provider'
-import { Button, buttonVariants } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { useTranslate } from '@/hooks/use-translate'
-import { cn } from '@/libs/utils'
-import { CopyButton } from '../copy-button'
-import type { Bilingual } from './types'
+import { ExternalLink } from 'lucide-react';
+import { useLocale } from '@/components/locale-provider';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { useTranslate } from '@/hooks/use-translate';
+import { cn } from '@/libs/utils';
+import { CopyButton } from '../copy-button';
+import type { Bilingual } from './types';
 
 export const SectionHeading = ({ children }: { children: React.ReactNode }) => (
   <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
     {children}
   </h2>
-)
+);
 
 /** Segmented control for a small, fixed set of choices such as filters and tabs. */
 export const OptionGroup = <Value extends string>({
@@ -25,13 +25,13 @@ export const OptionGroup = <Value extends string>({
   inline,
   onChange,
 }: {
-  label: string
-  value: Value
-  options: { value: Value; label: Bilingual }[]
-  inline?: boolean
-  onChange: (value: Value) => void
+  label: string;
+  value: Value;
+  options: { value: Value; label: Bilingual }[];
+  inline?: boolean;
+  onChange: (value: Value) => void;
 }) => {
-  const { locale } = useLocale()
+  const { locale } = useLocale();
   return (
     <div className={cn(inline ? 'flex flex-wrap items-center justify-between gap-2' : 'space-y-2')}>
       <span className="text-sm font-medium">{label}</span>
@@ -52,11 +52,11 @@ export const OptionGroup = <Value extends string>({
         ))}
       </fieldset>
     </div>
-  )
-}
+  );
+};
 
 export const FiltersCard = ({ children }: { children: React.ReactNode }) => {
-  const t = useTranslate()
+  const t = useTranslate();
   return (
     <Card className="overflow-hidden border-border/70 shadow-xl shadow-foreground/[0.03] lg:col-span-3">
       <CardHeader className="border-b bg-muted/30 py-4">
@@ -64,8 +64,8 @@ export const FiltersCard = ({ children }: { children: React.ReactNode }) => {
       </CardHeader>
       <CardContent className="space-y-8 p-5">{children}</CardContent>
     </Card>
-  )
-}
+  );
+};
 
 /** Query preview, target URL and the button that leaves for the search engine. */
 export const SearchPreview = ({
@@ -75,13 +75,13 @@ export const SearchPreview = ({
   actionLabel,
   children,
 }: {
-  query: string
-  url: string
-  queryId: string
-  actionLabel: string
-  children?: React.ReactNode
+  query: string;
+  url: string;
+  queryId: string;
+  actionLabel: string;
+  children?: React.ReactNode;
 }) => {
-  const t = useTranslate()
+  const t = useTranslate();
   return (
     <Card className="overflow-hidden border-border/70 shadow-xl shadow-foreground/[0.03] lg:sticky lg:top-6 lg:col-span-2">
       <CardHeader className="border-b bg-muted/30 py-4">
@@ -132,5 +132,5 @@ export const SearchPreview = ({
         )}
       </CardContent>
     </Card>
-  )
-}
+  );
+};

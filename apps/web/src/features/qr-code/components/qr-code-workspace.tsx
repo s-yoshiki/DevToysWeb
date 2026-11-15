@@ -1,25 +1,25 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
-import { SegmentedControl } from '@/components/segmented-control'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useQrCode } from '../hooks/use-qr-code'
-import { type CorrectionLevel, correctionLevels } from '../types/qr-code'
+import { SegmentedControl } from '@/components/segmented-control';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useQrCode } from '../hooks/use-qr-code';
+import { type CorrectionLevel, correctionLevels } from '../types/qr-code';
 
-const levelOptions = correctionLevels.map((value) => ({ value, label: value }))
+const levelOptions = correctionLevels.map((value) => ({ value, label: value }));
 
 export const QrCodeWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const qr = useQrCode()
+  const fieldId = useId();
+  const t = useTranslate();
+  const qr = useQrCode();
 
   return (
     <WorkspaceShell tool={tool} onClear={qr.clear}>
@@ -66,7 +66,7 @@ export const QrCodeWorkspace = ({ tool }: WorkspaceProps) => {
           </div>
           <div className="flex min-h-80 items-center justify-center rounded-xl border bg-white p-6">
             {qr.dataUrl && (
-              // biome-ignore lint/performance/noImgElement: the source is a client-side data URI
+              // the source is a client-side data URI
               <img
                 src={qr.dataUrl}
                 alt={t('生成されたQRコード', 'Generated QR code')}
@@ -79,5 +79,5 @@ export const QrCodeWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

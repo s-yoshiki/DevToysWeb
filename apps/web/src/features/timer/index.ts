@@ -1,1 +1,1 @@
-export { TimerWorkspace } from './components/timer-workspace'
+export { TimerWorkspace } from './components/timer-workspace';

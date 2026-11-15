@@ -1,1 +1,1 @@
-export { OgpCheckWorkspace } from './components/ogp-check-workspace'
+export { OgpCheckWorkspace } from './components/ogp-check-workspace';

@@ -1,19 +1,19 @@
-'use client'
+'use client';
 
-import { Dialog as DialogPrimitive } from '@base-ui/react/dialog'
-import { cn } from '@/libs/utils'
+import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
+import { cn } from '@/libs/utils';
 
 const Dialog = ({ ...props }: DialogPrimitive.Root.Props) => {
-  return <DialogPrimitive.Root data-slot="dialog" {...props} />
-}
+  return <DialogPrimitive.Root data-slot="dialog" {...props} />;
+};
 
 const DialogTrigger = ({ ...props }: DialogPrimitive.Trigger.Props) => {
-  return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />
-}
+  return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />;
+};
 
 const DialogClose = ({ ...props }: DialogPrimitive.Close.Props) => {
-  return <DialogPrimitive.Close data-slot="dialog-close" {...props} />
-}
+  return <DialogPrimitive.Close data-slot="dialog-close" {...props} />;
+};
 
 const DialogOverlay = ({ className, ...props }: DialogPrimitive.Backdrop.Props) => {
   return (
@@ -25,8 +25,8 @@ const DialogOverlay = ({ className, ...props }: DialogPrimitive.Backdrop.Props) 
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
 const DialogContent = ({ className, children, ...props }: DialogPrimitive.Popup.Props) => {
   return (
@@ -43,8 +43,8 @@ const DialogContent = ({ className, children, ...props }: DialogPrimitive.Popup.
         {children}
       </DialogPrimitive.Popup>
     </DialogPrimitive.Portal>
-  )
-}
+  );
+};
 
 const DialogTitle = ({ className, ...props }: DialogPrimitive.Title.Props) => {
   return (
@@ -53,8 +53,8 @@ const DialogTitle = ({ className, ...props }: DialogPrimitive.Title.Props) => {
       className={cn('font-heading text-base font-medium text-foreground', className)}
       {...props}
     />
-  )
-}
+  );
+};
 
 const DialogDescription = ({ className, ...props }: DialogPrimitive.Description.Props) => {
   return (
@@ -63,8 +63,8 @@ const DialogDescription = ({ className, ...props }: DialogPrimitive.Description.
       className={cn('text-sm text-muted-foreground', className)}
       {...props}
     />
-  )
-}
+  );
+};
 
 export {
   Dialog,
@@ -74,4 +74,4 @@ export {
   DialogOverlay,
   DialogTitle,
   DialogTrigger,
-}
+};

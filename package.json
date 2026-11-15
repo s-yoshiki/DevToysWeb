@@ -1,28 +1,30 @@
 {
   "name": "devtoys-web",
   "private": true,
-  "packageManager": "pnpm@11.15.0",
-  "engines": {
-    "node": ">=26.0.0"
-  },
+  "type": "module",
   "scripts": {
     "build": "turbo run build",
-    "deploy": "pnpm --filter @repo/infra deploy",
     "dev": "turbo run dev",
-    "format": "biome format --write .",
-    "format:check": "biome format .",
-    "lint": "biome lint .",
-    "check": "biome check .",
-    "check:fix": "biome check --write .",
-    "check-types": "pnpm typecheck",
-    "start": "turbo run start",
-    "test": "turbo run test",
     "typecheck": "turbo run typecheck",
-    "verify": "pnpm check && pnpm typecheck && pnpm test && pnpm build"
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "test": "turbo run test",
+    "check": "pnpm lint && pnpm format:check && pnpm typecheck",
+    "check:fix": "pnpm lint:fix && pnpm format",
+    "verify": "pnpm check && pnpm test && pnpm build",
+    "deploy": "pnpm --filter @repo/infra deploy",
+    "start": "turbo run start"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.8",
     "esbuild": "^0.25.12",
-    "turbo": "^2.10.5"
-  }
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "turbo": "catalog:"
+  },
+  "engines": {
+    "node": ">=26.0.0 <27.0.0"
+  },
+  "packageManager": "pnpm@12.20.0"
 }

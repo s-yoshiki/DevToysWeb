@@ -1,1 +1,1 @@
-export { ColorWorkspace } from './components/color-workspace'
+export { ColorWorkspace } from './components/color-workspace';

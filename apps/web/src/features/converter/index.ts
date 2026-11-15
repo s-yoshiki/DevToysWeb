@@ -1,1 +1,1 @@
-export { ConverterWorkspace } from './components/converter-workspace'
+export { ConverterWorkspace } from './components/converter-workspace';

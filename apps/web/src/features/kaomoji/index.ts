@@ -1,1 +1,1 @@
-export { KaomojiWorkspace } from './components/kaomoji-workspace'
+export { KaomojiWorkspace } from './components/kaomoji-workspace';

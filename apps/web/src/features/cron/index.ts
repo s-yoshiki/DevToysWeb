@@ -1,1 +1,1 @@
-export { CronWorkspace } from './components/cron-workspace'
+export { CronWorkspace } from './components/cron-workspace';

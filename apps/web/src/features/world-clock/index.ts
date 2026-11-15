@@ -1,1 +1,1 @@
-export { WorldClockWorkspace } from './components/world-clock-workspace'
+export { WorldClockWorkspace } from './components/world-clock-workspace';

@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
-import dynamic from 'next/dynamic'
-import type { CodeEditorProps } from './code-editor-types'
+import dynamic from 'next/dynamic';
+import type { CodeEditorProps } from './code-editor-types';
 
-export type { CodeEditorProps }
+export type { CodeEditorProps };
 
 /*
  * Monaco pulls in `window`/`self`, so it must never load during the Node
@@ -14,7 +14,7 @@ export type { CodeEditorProps }
 const CodeEditorImpl = dynamic(() => import('./code-editor-impl'), {
   ssr: false,
   loading: () => <div className="min-h-0 flex-1 bg-transparent" />,
-})
+});
 
 /** Monaco-backed editor used by the code-oriented tool workspaces. */
-export const CodeEditor = (props: CodeEditorProps) => <CodeEditorImpl {...props} />
+export const CodeEditor = (props: CodeEditorProps) => <CodeEditorImpl {...props} />;

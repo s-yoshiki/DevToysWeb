@@ -1,1 +1,1 @@
-export { InvisibleWorkspace } from './components/invisible-workspace'
+export { InvisibleWorkspace } from './components/invisible-workspace';

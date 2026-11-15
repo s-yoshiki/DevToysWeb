@@ -1,27 +1,27 @@
-'use client'
+'use client';
 
-import { Download } from 'lucide-react'
-import { useId } from 'react'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import { formatBytes } from '@/libs/domain/bytes'
-import { type ImageFormat, imageFormatLabels, imageFormats } from '@/libs/domain/image'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useImageConvert } from '../hooks/use-image-convert'
+import { Download } from 'lucide-react';
+import { useId } from 'react';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import { formatBytes } from '@/libs/domain/bytes';
+import { type ImageFormat, imageFormatLabels, imageFormats } from '@/libs/domain/image';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useImageConvert } from '../hooks/use-image-convert';
 
-const formatOptions = imageFormats.map((value) => ({ value, label: imageFormatLabels[value] }))
+const formatOptions = imageFormats.map((value) => ({ value, label: imageFormatLabels[value] }));
 
 export const ImageConvertWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const image = useImageConvert()
+  const fieldId = useId();
+  const t = useTranslate();
+  const image = useImageConvert();
 
   return (
     <WorkspaceShell tool={tool} onClear={image.clear}>
@@ -105,7 +105,7 @@ export const ImageConvertWorkspace = ({ tool }: WorkspaceProps) => {
               />
               <div className="flex flex-1 items-center justify-center p-6">
                 {image.source ? (
-                  // biome-ignore lint/performance/noImgElement: the source is a local object URL
+                  // the source is a local object URL
                   <img
                     src={image.source.url}
                     alt={t('元画像', 'Original image')}
@@ -149,7 +149,7 @@ export const ImageConvertWorkspace = ({ tool }: WorkspaceProps) => {
               />
               <div className="flex flex-1 items-center justify-center p-6">
                 {image.result ? (
-                  // biome-ignore lint/performance/noImgElement: the source is a local object URL
+                  // the source is a local object URL
                   <img
                     src={image.result.url}
                     alt={t('変換後の画像', 'Converted image')}
@@ -166,5 +166,5 @@ export const ImageConvertWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

@@ -1,18 +1,18 @@
-'use client'
+'use client';
 
-import { Sparkles, Wand2 } from 'lucide-react'
-import { CopyButton } from '@/components/copy-button'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Textarea } from '@/components/ui/textarea'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useMojibake } from '../hooks/use-mojibake'
+import { Sparkles, Wand2 } from 'lucide-react';
+import { CopyButton } from '@/components/copy-button';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Textarea } from '@/components/ui/textarea';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useMojibake } from '../hooks/use-mojibake';
 
 export const MojibakeWorkspace = ({ tool }: WorkspaceProps) => {
-  const t = useTranslate()
-  const mojibake = useMojibake()
+  const t = useTranslate();
+  const mojibake = useMojibake();
 
   return (
     <WorkspaceShell tool={tool} onClear={mojibake.clear}>
@@ -98,5 +98,5 @@ export const MojibakeWorkspace = ({ tool }: WorkspaceProps) => {
         )}
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

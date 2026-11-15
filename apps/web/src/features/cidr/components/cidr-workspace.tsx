@@ -1,22 +1,22 @@
-'use client'
+'use client';
 
-import { Check, X } from 'lucide-react'
-import { useId } from 'react'
-import { CopyButton } from '@/components/copy-button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import { cn } from '@/libs/utils'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useCidr } from '../hooks/use-cidr'
+import { Check, X } from 'lucide-react';
+import { useId } from 'react';
+import { CopyButton } from '@/components/copy-button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import { cn } from '@/libs/utils';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useCidr } from '../hooks/use-cidr';
 
 export const CidrWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const cidr = useCidr()
-  const { result } = cidr
+  const fieldId = useId();
+  const t = useTranslate();
+  const cidr = useCidr();
+  const { result } = cidr;
 
   return (
     <WorkspaceShell tool={tool} onClear={cidr.clear}>
@@ -164,12 +164,12 @@ export const CidrWorkspace = ({ tool }: WorkspaceProps) => {
         )}
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};
 
 const Row = ({ label, value, mono = true }: { label: string; value: string; mono?: boolean }) => (
   <div className="flex items-center justify-between gap-3 bg-card px-5 py-3">
     <span className="text-sm text-muted-foreground">{label}</span>
     <span className={cn('truncate text-sm font-medium', mono && 'font-mono')}>{value}</span>
   </div>
-)
+);

@@ -1,1 +1,1 @@
-export { MarkdownWorkspace } from './components/markdown-workspace'
+export { MarkdownWorkspace } from './components/markdown-workspace';

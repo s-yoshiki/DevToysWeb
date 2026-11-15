@@ -1,1 +1,1 @@
-export { HmacWorkspace } from './components/hmac-workspace'
+export { HmacWorkspace } from './components/hmac-workspace';

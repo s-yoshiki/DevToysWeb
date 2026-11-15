@@ -1,1 +1,1 @@
-export { DrawingWorkspace } from './components/drawing-workspace'
+export { DrawingWorkspace } from './components/drawing-workspace';

@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import { SegmentedControl } from '@/components/segmented-control'
-import { Input } from '@/components/ui/input'
-import { useTranslate } from '@/hooks/use-translate'
-import { type CronFieldName, cronFieldSpec } from '../functions/cron'
-import type { CronFieldMode, CronFieldSpec } from '../functions/cron-builder'
-import type { CronBuilderField } from '../hooks/use-cron'
+import { SegmentedControl } from '@/components/segmented-control';
+import { Input } from '@/components/ui/input';
+import { useTranslate } from '@/hooks/use-translate';
+import { type CronFieldName, cronFieldSpec } from '../functions/cron';
+import type { CronFieldMode, CronFieldSpec } from '../functions/cron-builder';
+import type { CronBuilderField } from '../hooks/use-cron';
 
 const modeLabels: Record<CronFieldMode, { ja: string; en: string }> = {
   every: { ja: '毎回', en: 'Every' },
@@ -15,14 +15,14 @@ const modeLabels: Record<CronFieldMode, { ja: string; en: string }> = {
   list: { ja: 'リスト', en: 'List' },
   blank: { ja: '指定なし', en: 'Blank' },
   advanced: { ja: '自由入力', en: 'Raw' },
-}
+};
 
 /** `?` only means anything in the two day fields, so hide it elsewhere. */
 const modesFor = (name: CronFieldName): CronFieldMode[] => {
-  const base: CronFieldMode[] = ['every', 'specific', 'step', 'range', 'list']
-  const days = name === 'dayOfMonth' || name === 'dayOfWeek'
-  return days ? [...base, 'blank', 'advanced'] : [...base, 'advanced']
-}
+  const base: CronFieldMode[] = ['every', 'specific', 'step', 'range', 'list'];
+  const days = name === 'dayOfMonth' || name === 'dayOfWeek';
+  return days ? [...base, 'blank', 'advanced'] : [...base, 'advanced'];
+};
 
 const NumberBox = ({
   label,
@@ -31,11 +31,11 @@ const NumberBox = ({
   min,
   max,
 }: {
-  label: string
-  value: string
-  onChange: (value: string) => void
-  min: number
-  max: number
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  min: number;
+  max: number;
 }) => (
   <Input
     aria-label={label}
@@ -46,20 +46,20 @@ const NumberBox = ({
     onChange={(event) => onChange(event.target.value)}
     className="h-8 w-20 font-mono text-xs"
   />
-)
+);
 
 export const CronFieldBuilder = ({
   field,
   onChange,
 }: {
-  field: CronBuilderField
-  onChange: (name: CronFieldName, spec: CronFieldSpec) => void
+  field: CronBuilderField;
+  onChange: (name: CronFieldName, spec: CronFieldSpec) => void;
 }) => {
-  const t = useTranslate()
-  const bounds = cronFieldSpec(field.name)
-  const { spec } = field
+  const t = useTranslate();
+  const bounds = cronFieldSpec(field.name);
+  const { spec } = field;
 
-  const update = (patch: Partial<CronFieldSpec>) => onChange(field.name, { ...spec, ...patch })
+  const update = (patch: Partial<CronFieldSpec>) => onChange(field.name, { ...spec, ...patch });
 
   return (
     <div className="grid gap-3 px-5 py-4 sm:grid-cols-[7rem_minmax(0,1fr)] sm:items-start">
@@ -156,5 +156,5 @@ export const CronFieldBuilder = ({
         <code className="ml-auto rounded bg-muted px-2 py-1 font-mono text-xs">{field.token}</code>
       </div>
     </div>
-  )
-}
+  );
+};

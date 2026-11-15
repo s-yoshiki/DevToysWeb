@@ -1,26 +1,26 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { useImageBatch } from '@/hooks/use-image-batch'
-import { useTranslate } from '@/hooks/use-translate'
+import { useState } from 'react';
+import { useImageBatch } from '@/hooks/use-image-batch';
+import { useTranslate } from '@/hooks/use-translate';
 import {
   encodeImage,
   type ImageFormat,
   maxImageFileSize,
   withImageExtension,
-} from '@/libs/domain/image'
+} from '@/libs/domain/image';
 
 /** Format-only conversion: several files at once, original dimensions kept. */
 export const useImageFormat = () => {
-  const t = useTranslate()
-  const [format, setFormat] = useState<ImageFormat>('image/webp')
-  const [quality, setQuality] = useState(85)
+  const t = useTranslate();
+  const [format, setFormat] = useState<ImageFormat>('image/webp');
+  const [quality, setQuality] = useState(85);
 
   const batch = useImageBatch((file) => {
-    if (!file.type.startsWith('image/')) return t('画像ではありません', 'Not an image file')
-    if (file.size > maxImageFileSize) return t('15MBを超えています', 'Larger than 15 MB')
-    return ''
-  })
+    if (!file.type.startsWith('image/')) return t('画像ではありません', 'Not an image file');
+    if (file.size > maxImageFileSize) return t('15MBを超えています', 'Larger than 15 MB');
+    return '';
+  });
 
   return {
     ...batch,
@@ -33,5 +33,5 @@ export const useImageFormat = () => {
         blob: (await encodeImage(file, { format, quality, maxWidth: 0 })).blob,
         name: withImageExtension(file.name, format),
       })),
-  }
-}
+  };
+};

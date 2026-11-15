@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -119,9 +119,9 @@
   --radius-3xl: 20px;
 
   --font-sans:
-    system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", Meiryo, sans-serif;
+    system-ui, -apple-system, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', Meiryo, sans-serif;
   --font-mono:
-    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
   --font-heading: var(--font-sans);
 }
 
@@ -142,7 +142,7 @@
     @apply min-h-screen bg-background text-foreground antialiased;
   }
   button:not(:disabled),
-  [role="button"]:not(:disabled) {
+  [role='button']:not(:disabled) {
     cursor: pointer;
   }
   /*
@@ -174,7 +174,7 @@
  * drops its reading-width cap so the extra space is actually usable.
  */
 html[data-maximized] [data-app-chrome] {
-  /* biome-ignore lint/complexity/noImportantStyles: overrides utility display. */
+  /* overrides utility display. */
   display: none !important;
 }
 html[data-maximized] [data-content-region] {
@@ -192,12 +192,12 @@ html[data-maximized] [data-workspace-shell] {
   *,
   *::before,
   *::after {
-    /* biome-ignore-start lint/complexity/noImportantStyles: durations are set by
+    /* durations are set by
        Tailwind utilities on the elements themselves, so only `!important` can
        override them from here. */
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    /* biome-ignore-end lint/complexity/noImportantStyles: see above */
+    /* see above */
   }
 }

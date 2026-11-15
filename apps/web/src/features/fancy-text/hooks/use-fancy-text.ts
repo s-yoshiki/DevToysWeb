@@ -1,19 +1,19 @@
-'use client'
+'use client';
 
-import { useMemo, useState } from 'react'
-import { renderFancyStyles } from '../functions/fancy-text'
+import { useMemo, useState } from 'react';
+import { renderFancyStyles } from '../functions/fancy-text';
 
-const PLACEHOLDER = 'DevToys 2026'
+const PLACEHOLDER = 'DevToys 2026';
 
 export const useFancyText = () => {
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState('');
 
   // Previewing a placeholder keeps every style legible before the user types.
-  const preview = input || PLACEHOLDER
-  const results = useMemo(() => renderFancyStyles(preview), [preview])
-  const allOutput = results.map((result) => result.output).join('\n')
+  const preview = input || PLACEHOLDER;
+  const results = useMemo(() => renderFancyStyles(preview), [preview]);
+  const allOutput = results.map((result) => result.output).join('\n');
 
-  const clear = () => setInput('')
+  const clear = () => setInput('');
 
   return {
     input,
@@ -23,5 +23,5 @@ export const useFancyText = () => {
     results,
     allOutput,
     clear,
-  }
-}
+  };
+};

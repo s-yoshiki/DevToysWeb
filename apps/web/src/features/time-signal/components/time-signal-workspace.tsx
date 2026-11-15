@@ -1,30 +1,30 @@
-'use client'
+'use client';
 
-import { BellRing, CircleAlert, Volume2 } from 'lucide-react'
-import { useId } from 'react'
-import { useLocale } from '@/components/locale-provider'
-import { SegmentedControl, ToggleRow } from '@/components/segmented-control'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import { formatClock } from '@/libs/domain/duration'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { formatWallClock, type SignalInterval, signalIntervals } from '../functions/time-signal'
-import { type SignalStyle, useTimeSignal } from '../hooks/use-time-signal'
+import { BellRing, CircleAlert, Volume2 } from 'lucide-react';
+import { useId } from 'react';
+import { useLocale } from '@/components/locale-provider';
+import { SegmentedControl, ToggleRow } from '@/components/segmented-control';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import { formatClock } from '@/libs/domain/duration';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { formatWallClock, type SignalInterval, signalIntervals } from '../functions/time-signal';
+import { type SignalStyle, useTimeSignal } from '../hooks/use-time-signal';
 
 export const TimeSignalWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const { locale } = useLocale()
-  const t = useTranslate()
-  const signal = useTimeSignal()
+  const fieldId = useId();
+  const { locale } = useLocale();
+  const t = useTranslate();
+  const signal = useTimeSignal();
 
   const intervalOptions = signalIntervals.map((value) => ({
     value: String(value) as `${SignalInterval}`,
     label: value === 60 ? t('毎正時', 'Hourly') : t(`${value}分`, `${value} min`),
-  }))
+  }));
 
   return (
     <WorkspaceShell tool={tool} onClear={signal.clear}>
@@ -151,5 +151,5 @@ export const TimeSignalWorkspace = ({ tool }: WorkspaceProps) => {
         </div>
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

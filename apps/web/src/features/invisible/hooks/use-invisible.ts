@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react';
 import {
   filterInvisibleCharacters,
   type InvisibleCategory,
@@ -8,32 +8,32 @@ import {
   invisibleCharacters,
   removeInvisibleCharacters,
   visualizeInvisibleText,
-} from '../functions/invisible'
+} from '../functions/invisible';
 
-const SAMPLE = 'user:\u200BDevToys\u00A0web\n\u2066https://example.com\u2069\uFEFF'
+const SAMPLE = 'user:\u200BDevToys\u00A0web\n\u2066https://example.com\u2069\uFEFF';
 
-export type InvisibleMode = 'inspect' | 'catalog'
+export type InvisibleMode = 'inspect' | 'catalog';
 
 export const useInvisible = () => {
-  const [mode, setMode] = useState<InvisibleMode>('inspect')
-  const [input, setInput] = useState(SAMPLE)
-  const [query, setQuery] = useState('')
-  const [category, setCategory] = useState<InvisibleCategory | 'all'>('all')
+  const [mode, setMode] = useState<InvisibleMode>('inspect');
+  const [input, setInput] = useState(SAMPLE);
+  const [query, setQuery] = useState('');
+  const [category, setCategory] = useState<InvisibleCategory | 'all'>('all');
 
-  const occurrences = useMemo(() => inspectInvisibleText(input), [input])
-  const visualized = useMemo(() => visualizeInvisibleText(input), [input])
-  const cleaned = useMemo(() => removeInvisibleCharacters(input), [input])
+  const occurrences = useMemo(() => inspectInvisibleText(input), [input]);
+  const visualized = useMemo(() => visualizeInvisibleText(input), [input]);
+  const cleaned = useMemo(() => removeInvisibleCharacters(input), [input]);
   const catalogResults = useMemo(
     () => filterInvisibleCharacters(query, category),
     [category, query],
-  )
+  );
 
   const clear = () => {
-    setMode('inspect')
-    setInput('')
-    setQuery('')
-    setCategory('all')
-  }
+    setMode('inspect');
+    setInput('');
+    setQuery('');
+    setCategory('all');
+  };
 
   return {
     mode,
@@ -52,5 +52,5 @@ export const useInvisible = () => {
     loadSample: () => setInput(SAMPLE),
     removeDetected: () => setInput(cleaned),
     clear,
-  }
-}
+  };
+};

@@ -1,71 +1,71 @@
-import type { ComponentType } from 'react'
-import { Base64ImageWorkspace } from '@/features/base64-image'
-import { BasicAuthWorkspace } from '@/features/basic-auth'
-import { CalculatorWorkspace, ScientificCalculatorWorkspace } from '@/features/calculator'
-import { CameraWorkspace } from '@/features/camera'
-import { CharWidthWorkspace } from '@/features/char-width'
-import { CidrWorkspace } from '@/features/cidr'
-import { ColorWorkspace } from '@/features/color'
-import { ConnectionInfoWorkspace } from '@/features/connection-info'
-import { ConverterWorkspace } from '@/features/converter'
-import { CronWorkspace } from '@/features/cron'
-import { CurlWorkspace } from '@/features/curl'
-import { DateCalcWorkspace } from '@/features/date-calc'
-import { DeviceInfoWorkspace } from '@/features/device-info'
-import { DrawingWorkspace } from '@/features/drawing'
-import { EmojiWorkspace } from '@/features/emoji'
-import { ExifWorkspace } from '@/features/exif'
-import { FancyTextWorkspace } from '@/features/fancy-text'
-import { GeolocationWorkspace } from '@/features/geolocation'
-import { GithubSearchWorkspace } from '@/features/github-search'
-import { GlobWorkspace } from '@/features/glob'
-import { GmailSearchWorkspace } from '@/features/gmail-search'
-import { GoogleSearchWorkspace } from '@/features/google-search'
-import { HeicConvertWorkspace } from '@/features/heic-convert'
-import { HmacWorkspace } from '@/features/hmac'
-import { HttpStatusWorkspace } from '@/features/http-status'
-import { ImageCompressWorkspace } from '@/features/image-compress'
-import { ImageConvertWorkspace } from '@/features/image-convert'
-import { ImageFormatWorkspace } from '@/features/image-format'
-import { InvisibleWorkspace } from '@/features/invisible'
-import { JsRunnerWorkspace } from '@/features/js-runner'
-import { JsonQueryWorkspace } from '@/features/json-query'
-import { JsonTypesWorkspace } from '@/features/json-types'
-import { JwtWorkspace } from '@/features/jwt'
-import { KaomojiWorkspace } from '@/features/kaomoji'
-import { ListUtilsWorkspace } from '@/features/list-utils'
-import { LoremWorkspace } from '@/features/lorem'
-import { MarkdownWorkspace } from '@/features/markdown'
-import { MermaidWorkspace } from '@/features/mermaid'
-import { MojibakeWorkspace } from '@/features/mojibake'
-import { NumberBaseWorkspace } from '@/features/number-base'
-import { OgpCheckWorkspace } from '@/features/ogp-check'
-import { PngTransparentWorkspace } from '@/features/png-transparent'
-import { QrCodeWorkspace } from '@/features/qr-code'
-import { QrScannerWorkspace } from '@/features/qr-scanner'
-import { RegexWorkspace } from '@/features/regex'
-import { SelectorWorkspace } from '@/features/selector'
-import { SeoCheckWorkspace } from '@/features/seo-check'
-import { SiteDiagnosticsWorkspace } from '@/features/site-diagnostics'
-import { StopwatchWorkspace } from '@/features/stopwatch'
-import { StringEscapeWorkspace } from '@/features/string-escape'
-import { SubnetWorkspace } from '@/features/subnet'
-import { SvgWorkspace } from '@/features/svg'
-import { TestDataWorkspace } from '@/features/test-data'
-import { TextAnalyzerWorkspace } from '@/features/text-analyzer'
-import { TextDiffWorkspace } from '@/features/text-diff'
-import { TimeSignalWorkspace } from '@/features/time-signal'
-import { TimerWorkspace } from '@/features/timer'
-import { TimezoneWorkspace } from '@/features/timezone'
-import { UnitConvertWorkspace } from '@/features/unit-convert'
-import { UnixTimeWorkspace } from '@/features/unix-time'
-import { UrlParserWorkspace } from '@/features/url-parser'
-import { UuidWorkspace } from '@/features/uuid'
-import { WhoisWorkspace } from '@/features/whois'
-import { WorldClockWorkspace } from '@/features/world-clock'
-import { XSearchWorkspace } from '@/features/x-search'
-import { BadgeWorkspace } from './badge/badge-workspace'
-import type { WorkspaceKey, WorkspaceProps } from './types'
+import type { ComponentType } from 'react';
+import { Base64ImageWorkspace } from '@/features/base64-image';
+import { BasicAuthWorkspace } from '@/features/basic-auth';
+import { CalculatorWorkspace, ScientificCalculatorWorkspace } from '@/features/calculator';
+import { CameraWorkspace } from '@/features/camera';
+import { CharWidthWorkspace } from '@/features/char-width';
+import { CidrWorkspace } from '@/features/cidr';
+import { ColorWorkspace } from '@/features/color';
+import { ConnectionInfoWorkspace } from '@/features/connection-info';
+import { ConverterWorkspace } from '@/features/converter';
+import { CronWorkspace } from '@/features/cron';
+import { CurlWorkspace } from '@/features/curl';
+import { DateCalcWorkspace } from '@/features/date-calc';
+import { DeviceInfoWorkspace } from '@/features/device-info';
+import { DrawingWorkspace } from '@/features/drawing';
+import { EmojiWorkspace } from '@/features/emoji';
+import { ExifWorkspace } from '@/features/exif';
+import { FancyTextWorkspace } from '@/features/fancy-text';
+import { GeolocationWorkspace } from '@/features/geolocation';
+import { GithubSearchWorkspace } from '@/features/github-search';
+import { GlobWorkspace } from '@/features/glob';
+import { GmailSearchWorkspace } from '@/features/gmail-search';
+import { GoogleSearchWorkspace } from '@/features/google-search';
+import { HeicConvertWorkspace } from '@/features/heic-convert';
+import { HmacWorkspace } from '@/features/hmac';
+import { HttpStatusWorkspace } from '@/features/http-status';
+import { ImageCompressWorkspace } from '@/features/image-compress';
+import { ImageConvertWorkspace } from '@/features/image-convert';
+import { ImageFormatWorkspace } from '@/features/image-format';
+import { InvisibleWorkspace } from '@/features/invisible';
+import { JsRunnerWorkspace } from '@/features/js-runner';
+import { JsonQueryWorkspace } from '@/features/json-query';
+import { JsonTypesWorkspace } from '@/features/json-types';
+import { JwtWorkspace } from '@/features/jwt';
+import { KaomojiWorkspace } from '@/features/kaomoji';
+import { ListUtilsWorkspace } from '@/features/list-utils';
+import { LoremWorkspace } from '@/features/lorem';
+import { MarkdownWorkspace } from '@/features/markdown';
+import { MermaidWorkspace } from '@/features/mermaid';
+import { MojibakeWorkspace } from '@/features/mojibake';
+import { NumberBaseWorkspace } from '@/features/number-base';
+import { OgpCheckWorkspace } from '@/features/ogp-check';
+import { PngTransparentWorkspace } from '@/features/png-transparent';
+import { QrCodeWorkspace } from '@/features/qr-code';
+import { QrScannerWorkspace } from '@/features/qr-scanner';
+import { RegexWorkspace } from '@/features/regex';
+import { SelectorWorkspace } from '@/features/selector';
+import { SeoCheckWorkspace } from '@/features/seo-check';
+import { SiteDiagnosticsWorkspace } from '@/features/site-diagnostics';
+import { StopwatchWorkspace } from '@/features/stopwatch';
+import { StringEscapeWorkspace } from '@/features/string-escape';
+import { SubnetWorkspace } from '@/features/subnet';
+import { SvgWorkspace } from '@/features/svg';
+import { TestDataWorkspace } from '@/features/test-data';
+import { TextAnalyzerWorkspace } from '@/features/text-analyzer';
+import { TextDiffWorkspace } from '@/features/text-diff';
+import { TimeSignalWorkspace } from '@/features/time-signal';
+import { TimerWorkspace } from '@/features/timer';
+import { TimezoneWorkspace } from '@/features/timezone';
+import { UnitConvertWorkspace } from '@/features/unit-convert';
+import { UnixTimeWorkspace } from '@/features/unix-time';
+import { UrlParserWorkspace } from '@/features/url-parser';
+import { UuidWorkspace } from '@/features/uuid';
+import { WhoisWorkspace } from '@/features/whois';
+import { WorldClockWorkspace } from '@/features/world-clock';
+import { XSearchWorkspace } from '@/features/x-search';
+import { BadgeWorkspace } from './badge/badge-workspace';
+import type { WorkspaceKey, WorkspaceProps } from './types';
 
 /**
  * Single lookup from a catalog entry's `workspace` discriminator to its
@@ -139,4 +139,4 @@ export const workspaces: Record<WorkspaceKey, ComponentType<WorkspaceProps>> = {
   whois: WhoisWorkspace,
   'world-clock': WorldClockWorkspace,
   'x-search': XSearchWorkspace,
-}
+};

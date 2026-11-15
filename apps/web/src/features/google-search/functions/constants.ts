@@ -1,5 +1,5 @@
-import type { Bilingual } from '@/components/search/types'
-import type { GoogleTimeRange } from '@/features/google-search/functions/google-search'
+import type { Bilingual } from '@/components/search/types';
+import type { GoogleTimeRange } from '@/features/google-search/functions/google-search';
 
 export const googleLanguages: { value: string; label: Bilingual }[] = [
   { value: '', label: { ja: '指定しない', en: 'Any language' } },
@@ -21,7 +21,7 @@ export const googleLanguages: { value: string; label: Bilingual }[] = [
   { value: 'tr', label: { ja: 'トルコ語', en: 'Turkish' } },
   { value: 'vi', label: { ja: 'ベトナム語', en: 'Vietnamese' } },
   { value: 'zh-CN', label: { ja: '中国語', en: 'Chinese' } },
-]
+];
 
 export const fileTypes: { value: string; label: Bilingual }[] = [
   { value: '', label: { ja: '指定しない', en: 'Any format' } },
@@ -36,7 +36,7 @@ export const fileTypes: { value: string; label: Bilingual }[] = [
   { value: 'txt', label: { ja: 'テキスト (.txt)', en: 'Text (.txt)' } },
   { value: 'rtf', label: { ja: 'リッチテキスト (.rtf)', en: 'Rich text (.rtf)' } },
   { value: 'xml', label: { ja: 'XML (.xml)', en: 'XML (.xml)' } },
-]
+];
 
 export const timeRanges: { value: GoogleTimeRange; label: Bilingual }[] = [
   { value: '', label: { ja: '全期間', en: 'Any time' } },
@@ -45,4 +45,4 @@ export const timeRanges: { value: GoogleTimeRange; label: Bilingual }[] = [
   { value: 'w', label: { ja: '1週間', en: 'Week' } },
   { value: 'm', label: { ja: '1か月', en: 'Month' } },
   { value: 'y', label: { ja: '1年', en: 'Year' } },
-]
+];

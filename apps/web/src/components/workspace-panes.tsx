@@ -1,26 +1,26 @@
-'use client'
+'use client';
 
-import { CircleAlert } from 'lucide-react'
-import { Textarea } from '@/components/ui/textarea'
-import { cn } from '@/libs/utils'
+import { CircleAlert } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/libs/utils';
 
 /** Two-up editor layout: source on the left, result on the right. */
 export const PaneGrid = ({
   className,
   children,
 }: {
-  className?: string
-  children: React.ReactNode
-}) => <div className={cn('grid min-h-[400px] lg:grid-cols-2', className)}>{children}</div>
+  className?: string;
+  children: React.ReactNode;
+}) => <div className={cn('grid min-h-[400px] lg:grid-cols-2', className)}>{children}</div>;
 
 export const Pane = ({
   variant = 'source',
   className,
   children,
 }: {
-  variant?: 'source' | 'result'
-  className?: string
-  children: React.ReactNode
+  variant?: 'source' | 'result';
+  className?: string;
+  children: React.ReactNode;
 }) => (
   <div
     className={cn(
@@ -31,14 +31,14 @@ export const Pane = ({
   >
     {children}
   </div>
-)
+);
 
 export const PaneHeader = ({
   title,
   actions,
 }: {
-  title: React.ReactNode
-  actions?: React.ReactNode
+  title: React.ReactNode;
+  actions?: React.ReactNode;
 }) => (
   <div className="flex h-11 items-center justify-between gap-3 border-b border-border px-5">
     <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
@@ -46,7 +46,7 @@ export const PaneHeader = ({
     </span>
     {actions}
   </div>
-)
+);
 
 /** Borderless monospace editor that fills the remaining height of a pane. */
 export const CodeArea = ({
@@ -60,7 +60,7 @@ export const CodeArea = ({
       className,
     )}
   />
-)
+);
 
 /** Inline failure notice used above or between panes. */
 export const ErrorBanner = ({ title, message }: { title?: string; message: string }) => (
@@ -74,4 +74,4 @@ export const ErrorBanner = ({ title, message }: { title?: string; message: strin
       <p className={cn('font-mono text-xs', title && 'mt-0.5')}>{message}</p>
     </div>
   </div>
-)
+);

@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
-import { Expand, Maximize2, Minimize2, RotateCcw, Shrink } from 'lucide-react'
-import { useLocale } from '@/components/locale-provider'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { WorkspaceGuide } from '@/components/workspace-guide'
-import { useFullscreen } from '@/hooks/use-fullscreen'
-import type { ToolDefinition } from '@/libs/domain/catalog'
-import { cn } from '@/libs/utils'
+import { Expand, Maximize2, Minimize2, RotateCcw, Shrink } from 'lucide-react';
+import { useLocale } from '@/components/locale-provider';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { WorkspaceGuide } from '@/components/workspace-guide';
+import { useFullscreen } from '@/hooks/use-fullscreen';
+import type { ToolDefinition } from '@/libs/domain/catalog';
+import { cn } from '@/libs/utils';
 
 /**
  * Page frame shared by every workspace: category badge, tool identity and the
@@ -18,13 +18,14 @@ export const WorkspaceShell = ({
   onClear,
   children,
 }: {
-  tool: ToolDefinition
-  onClear: () => void
-  children: React.ReactNode
+  tool: ToolDefinition;
+  onClear: () => void;
+  children: React.ReactNode;
 }) => {
-  const { locale, dictionary } = useLocale()
-  const { maximized, browserFullscreen, toggleMaximized, toggleBrowserFullscreen } = useFullscreen()
-  const Icon = tool.icon
+  const { locale, dictionary } = useLocale();
+  const { maximized, browserFullscreen, toggleMaximized, toggleBrowserFullscreen } =
+    useFullscreen();
+  const Icon = tool.icon;
   return (
     <div data-workspace-shell className="mx-auto max-w-6xl px-3 py-4 sm:px-4 lg:px-6">
       <header
@@ -104,5 +105,5 @@ export const WorkspaceShell = ({
       {children}
       {!maximized && <WorkspaceGuide tool={tool} />}
     </div>
-  )
-}
+  );
+};

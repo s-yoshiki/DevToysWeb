@@ -1,27 +1,27 @@
-'use client'
+'use client';
 
-import { RefreshCw } from 'lucide-react'
-import { useId } from 'react'
-import { CopyButton } from '@/components/copy-button'
-import { useLocale } from '@/components/locale-provider'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import { cn } from '@/libs/utils'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { FIELD_DEFS, type OutputFormat, type TestDataLocale } from '../functions/test-data'
-import { useTestData } from '../hooks/use-test-data'
+import { RefreshCw } from 'lucide-react';
+import { useId } from 'react';
+import { CopyButton } from '@/components/copy-button';
+import { useLocale } from '@/components/locale-provider';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import { cn } from '@/libs/utils';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { FIELD_DEFS, type OutputFormat, type TestDataLocale } from '../functions/test-data';
+import { useTestData } from '../hooks/use-test-data';
 
 export const TestDataWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const { locale, dictionary } = useLocale()
-  const t = useTranslate()
-  const data = useTestData()
+  const fieldId = useId();
+  const { locale, dictionary } = useLocale();
+  const t = useTranslate();
+  const data = useTestData();
 
   return (
     <WorkspaceShell tool={tool} onClear={data.clear}>
@@ -43,7 +43,7 @@ export const TestDataWorkspace = ({ tool }: WorkspaceProps) => {
               <Label className="mb-2 block">{t('フィールド', 'Fields')}</Label>
               <div className="flex flex-wrap gap-2">
                 {FIELD_DEFS.map((field) => {
-                  const active = data.selected.includes(field.key)
+                  const active = data.selected.includes(field.key);
                   return (
                     <button
                       type="button"
@@ -59,7 +59,7 @@ export const TestDataWorkspace = ({ tool }: WorkspaceProps) => {
                     >
                       {field.label[locale]}
                     </button>
-                  )
+                  );
                 })}
               </div>
             </div>
@@ -169,5 +169,5 @@ export const TestDataWorkspace = ({ tool }: WorkspaceProps) => {
         </Card>
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

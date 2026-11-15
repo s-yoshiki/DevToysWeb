@@ -1,22 +1,22 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
-import { SegmentedControl, ToggleRow } from '@/components/segmented-control'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { useTranslate } from '@/hooks/use-translate'
-import type { ListOptions } from '@/libs/domain/text-tools'
+import { SegmentedControl, ToggleRow } from '@/components/segmented-control';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useTranslate } from '@/hooks/use-translate';
+import type { ListOptions } from '@/libs/domain/text-tools';
 
 export const ListOptionsPanel = ({
   options,
   update,
 }: {
-  options: ListOptions
-  update: (patch: Partial<ListOptions>) => void
+  options: ListOptions;
+  update: (patch: Partial<ListOptions>) => void;
 }) => {
-  const fieldId = useId()
-  const t = useTranslate()
+  const fieldId = useId();
+  const t = useTranslate();
   return (
     <div className="grid gap-5 border-b bg-muted/20 p-5 sm:grid-cols-2 lg:grid-cols-3">
       <div className="space-y-2">
@@ -104,5 +104,5 @@ export const ListOptionsPanel = ({
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

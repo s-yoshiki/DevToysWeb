@@ -1,1 +1,1 @@
-export { StopwatchWorkspace } from './components/stopwatch-workspace'
+export { StopwatchWorkspace } from './components/stopwatch-workspace';

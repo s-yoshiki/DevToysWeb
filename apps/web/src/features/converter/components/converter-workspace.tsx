@@ -1,24 +1,24 @@
-'use client'
+'use client';
 
-import { useLocale } from '@/components/locale-provider'
-import { Card, CardContent } from '@/components/ui/card'
-import { ErrorBanner } from '@/components/workspace-panes'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useConverter } from '../hooks/use-converter'
-import { GeneratorOptions } from './converter-options'
-import { InputPane, OutputPane } from './converter-panes'
-import { ConverterToolbar } from './converter-toolbar'
+import { useLocale } from '@/components/locale-provider';
+import { Card, CardContent } from '@/components/ui/card';
+import { ErrorBanner } from '@/components/workspace-panes';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useConverter } from '../hooks/use-converter';
+import { GeneratorOptions } from './converter-options';
+import { InputPane, OutputPane } from './converter-panes';
+import { ConverterToolbar } from './converter-toolbar';
 
 /**
  * Default workspace: a single text input transformed into a single text output,
  * shared by every catalog entry without a bespoke interface.
  */
 export const ConverterWorkspace = ({ tool }: WorkspaceProps) => {
-  const { locale } = useLocale()
-  const t = useTranslate()
-  const converter = useConverter(tool)
+  const { locale } = useLocale();
+  const t = useTranslate();
+  const converter = useConverter(tool);
 
   return (
     <WorkspaceShell tool={tool} onClear={converter.clear}>
@@ -44,5 +44,5 @@ export const ConverterWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

@@ -1,24 +1,24 @@
-'use client'
+'use client';
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react';
 
 export type UrlParts = {
-  href: string
-  origin: string
-  protocol: string
-  username: string
-  password: string
-  hostname: string
-  port: string
-  pathname: string
-  search: string
-  hash: string
-  query: { key: string; name: string; value: string }[]
-  segments: { key: string; value: string }[]
-}
+  href: string;
+  origin: string;
+  protocol: string;
+  username: string;
+  password: string;
+  hostname: string;
+  port: string;
+  pathname: string;
+  search: string;
+  hash: string;
+  query: { key: string; name: string; value: string }[];
+  segments: { key: string; value: string }[];
+};
 
 const describeUrl = (value: string): UrlParts => {
-  const url = new URL(value)
+  const url = new URL(value);
   return {
     href: url.href,
     origin: url.origin,
@@ -39,22 +39,22 @@ const describeUrl = (value: string): UrlParts => {
       .split('/')
       .filter(Boolean)
       .map((value, index) => ({ key: `${index}-${value}`, value })),
-  }
-}
+  };
+};
 
 export const useUrlParser = () => {
   const [input, setInput] = useState(
     'https://user:pass@example.com:8080/path/to/page?q=devtoys&lang=ja#result',
-  )
+  );
 
   const result = useMemo(() => {
-    if (!input.trim()) return { parts: null, error: '' }
+    if (!input.trim()) return { parts: null, error: '' };
     try {
-      return { parts: describeUrl(input), error: '' }
+      return { parts: describeUrl(input), error: '' };
     } catch (reason) {
-      return { parts: null, error: reason instanceof Error ? reason.message : 'Invalid URL' }
+      return { parts: null, error: reason instanceof Error ? reason.message : 'Invalid URL' };
     }
-  }, [input])
+  }, [input]);
 
   return {
     input,
@@ -62,5 +62,5 @@ export const useUrlParser = () => {
     parts: result.parts,
     error: result.error,
     clear: () => setInput(''),
-  }
-}
+  };
+};

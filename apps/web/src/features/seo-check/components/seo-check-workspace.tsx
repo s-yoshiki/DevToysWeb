@@ -1,45 +1,45 @@
-'use client'
+'use client';
 
-import { Check, CircleAlert, LoaderCircle, Play, X } from 'lucide-react'
-import { useId } from 'react'
-import { useLocale } from '@/components/locale-provider'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { ErrorBanner } from '@/components/workspace-panes'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { usePageReport } from '@/hooks/use-page-report'
-import { useTranslate } from '@/hooks/use-translate'
-import { cn } from '@/libs/utils'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { auditSeo, type CheckLevel, countByLevel, scoreOf } from '../functions/seo-audit'
+import { Check, CircleAlert, LoaderCircle, Play, X } from 'lucide-react';
+import { useId } from 'react';
+import { useLocale } from '@/components/locale-provider';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { ErrorBanner } from '@/components/workspace-panes';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { usePageReport } from '@/hooks/use-page-report';
+import { useTranslate } from '@/hooks/use-translate';
+import { cn } from '@/libs/utils';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { auditSeo, type CheckLevel, countByLevel, scoreOf } from '../functions/seo-audit';
 
 const levelIcon: Record<CheckLevel, React.ReactNode> = {
   pass: <Check className="size-4 text-success" />,
   warn: <CircleAlert className="size-4 text-warning" />,
   fail: <X className="size-4 text-destructive" />,
-}
+};
 
-const groupOrder = ['basics', 'content', 'social', 'technical'] as const
+const groupOrder = ['basics', 'content', 'social', 'technical'] as const;
 
 export const SeoCheckWorkspace = ({ tool }: WorkspaceProps) => {
-  const fieldId = useId()
-  const t = useTranslate()
-  const { locale } = useLocale()
-  const page = usePageReport('SEO check failed')
+  const fieldId = useId();
+  const t = useTranslate();
+  const { locale } = useLocale();
+  const page = usePageReport('SEO check failed');
 
-  const checks = page.report ? auditSeo(page.report) : []
-  const totals = countByLevel(checks)
-  const score = scoreOf(checks)
+  const checks = page.report ? auditSeo(page.report) : [];
+  const totals = countByLevel(checks);
+  const score = scoreOf(checks);
 
   const groupLabels = {
     basics: t('基本', 'Basics'),
     content: t('コンテンツ', 'Content'),
     social: t('シェア', 'Social'),
     technical: t('技術', 'Technical'),
-  }
+  };
 
   return (
     <WorkspaceShell tool={tool} onClear={page.clear}>
@@ -54,7 +54,7 @@ export const SeoCheckWorkspace = ({ tool }: WorkspaceProps) => {
                 spellCheck={false}
                 onChange={(event) => page.setUrl(event.target.value)}
                 onKeyDown={(event) => {
-                  if (event.key === 'Enter') page.run()
+                  if (event.key === 'Enter') page.run();
                 }}
               />
               <Button onClick={page.run} disabled={page.loading || !page.url.trim()}>
@@ -119,7 +119,7 @@ export const SeoCheckWorkspace = ({ tool }: WorkspaceProps) => {
 
             <div className="grid gap-4 lg:grid-cols-2">
               {groupOrder.map((group) => {
-                const entries = checks.filter((item) => item.group === group)
+                const entries = checks.filter((item) => item.group === group);
                 return (
                   <Card key={group} className="overflow-hidden border-border/70">
                     <CardHeader className="border-b bg-muted/30 py-3">
@@ -141,12 +141,12 @@ export const SeoCheckWorkspace = ({ tool }: WorkspaceProps) => {
                       </ul>
                     </CardContent>
                   </Card>
-                )
+                );
               })}
             </div>
           </>
         )}
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

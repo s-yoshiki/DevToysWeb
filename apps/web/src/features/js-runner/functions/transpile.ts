@@ -8,7 +8,7 @@
 // `typescript` and remove the `typescript6` compatibility dependency if the
 // replacement runtime transpilation API is available.
 export const transpileTypeScript = async (code: string) => {
-  const ts = (await import('typescript6')).default
+  const ts = (await import('typescript6')).default;
   const result = ts.transpileModule(code, {
     compilerOptions: {
       target: ts.ScriptTarget.ES2021,
@@ -16,6 +16,6 @@ export const transpileTypeScript = async (code: string) => {
       esModuleInterop: true,
       isolatedModules: true,
     },
-  })
-  return result.outputText
-}
+  });
+  return result.outputText;
+};

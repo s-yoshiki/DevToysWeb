@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
-import { Crosshair, ExternalLink, MapPin } from 'lucide-react'
-import { CopyButton } from '@/components/copy-button'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { type Coords, useGeolocation } from '../hooks/use-geolocation'
+import { Crosshair, ExternalLink, MapPin } from 'lucide-react';
+import { CopyButton } from '@/components/copy-button';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { type Coords, useGeolocation } from '../hooks/use-geolocation';
 
 const errorMessages: Record<string, { ja: string; en: string }> = {
   'no-api': {
@@ -27,14 +27,14 @@ const errorMessages: Record<string, { ja: string; en: string }> = {
     en: 'The request to get your location timed out.',
   },
   unknown: { ja: '不明なエラーが発生しました。', en: 'An unknown error occurred.' },
-}
+};
 
 const formatValue = (value: number | null, digits: number, unit: string) =>
-  value === null ? '—' : `${value.toFixed(digits)}${unit}`
+  value === null ? '—' : `${value.toFixed(digits)}${unit}`;
 
 export const GeolocationWorkspace = ({ tool }: WorkspaceProps) => {
-  const t = useTranslate()
-  const geo = useGeolocation()
+  const t = useTranslate();
+  const geo = useGeolocation();
 
   const rows = (coords: Coords) => [
     { label: t('緯度', 'Latitude'), value: coords.latitude.toFixed(6) },
@@ -51,11 +51,11 @@ export const GeolocationWorkspace = ({ tool }: WorkspaceProps) => {
       label: t('取得時刻', 'Timestamp'),
       value: new Date(coords.timestamp).toLocaleString(),
     },
-  ]
+  ];
 
   const mapUrl = geo.coords
     ? `https://www.openstreetmap.org/?mlat=${geo.coords.latitude}&mlon=${geo.coords.longitude}#map=16/${geo.coords.latitude}/${geo.coords.longitude}`
-    : ''
+    : '';
 
   return (
     <WorkspaceShell tool={tool} onClear={geo.clear}>
@@ -117,5 +117,5 @@ export const GeolocationWorkspace = ({ tool }: WorkspaceProps) => {
         </CardContent>
       </Card>
     </WorkspaceShell>
-  )
-}
+  );
+};

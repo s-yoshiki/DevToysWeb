@@ -1,22 +1,22 @@
-'use client'
+'use client';
 
-import { CodeEditor } from '@/components/code-editor'
-import { languageForFormat } from '@/components/code-editor-language'
-import { CopyButton } from '@/components/copy-button'
-import { SegmentedControl } from '@/components/segmented-control'
-import { Card, CardContent } from '@/components/ui/card'
-import { Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes'
-import { WorkspaceShell } from '@/components/workspace-shell'
-import { type CurlTarget, curlTargets } from '@/features/curl/functions/curl'
-import { useTranslate } from '@/hooks/use-translate'
-import type { WorkspaceProps } from '@/workspaces/types'
-import { useCurlConverter } from '../hooks/use-curl-converter'
+import { CodeEditor } from '@/components/code-editor';
+import { languageForFormat } from '@/components/code-editor-language';
+import { CopyButton } from '@/components/copy-button';
+import { SegmentedControl } from '@/components/segmented-control';
+import { Card, CardContent } from '@/components/ui/card';
+import { Pane, PaneGrid, PaneHeader } from '@/components/workspace-panes';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { type CurlTarget, curlTargets } from '@/features/curl/functions/curl';
+import { useTranslate } from '@/hooks/use-translate';
+import type { WorkspaceProps } from '@/workspaces/types';
+import { useCurlConverter } from '../hooks/use-curl-converter';
 
-const targetOptions = curlTargets.map((value) => ({ value, label: value }))
+const targetOptions = curlTargets.map((value) => ({ value, label: value }));
 
 export const CurlWorkspace = ({ tool }: WorkspaceProps) => {
-  const t = useTranslate()
-  const curl = useCurlConverter()
+  const t = useTranslate();
+  const curl = useCurlConverter();
 
   return (
     <WorkspaceShell tool={tool} onClear={curl.clear}>
@@ -61,5 +61,5 @@ export const CurlWorkspace = ({ tool }: WorkspaceProps) => {
         </p>
       </div>
     </WorkspaceShell>
-  )
-}
+  );
+};

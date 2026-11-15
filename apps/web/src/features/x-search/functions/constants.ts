@@ -1,5 +1,5 @@
-import type { Bilingual } from '@/components/search/types'
-import type { XSearchFilterMode, XSearchResultTab } from '@/features/x-search/functions/x-search'
+import type { Bilingual } from '@/components/search/types';
+import type { XSearchFilterMode, XSearchResultTab } from '@/features/x-search/functions/x-search';
 
 export const xLanguages: { value: string; label: Bilingual }[] = [
   { value: '', label: { ja: '指定しない', en: 'Any language' } },
@@ -21,17 +21,17 @@ export const xLanguages: { value: string; label: Bilingual }[] = [
   { value: 'tr', label: { ja: 'トルコ語', en: 'Turkish' } },
   { value: 'vi', label: { ja: 'ベトナム語', en: 'Vietnamese' } },
   { value: 'zh', label: { ja: '中国語', en: 'Chinese' } },
-]
+];
 
 export const filterModes: { value: XSearchFilterMode; label: Bilingual }[] = [
   { value: 'any', label: { ja: 'すべて', en: 'Any' } },
   { value: 'exclude', label: { ja: '除外', en: 'Exclude' } },
   { value: 'only', label: { ja: 'のみ', en: 'Only' } },
-]
+];
 
 export const resultTabs: { value: XSearchResultTab; label: Bilingual }[] = [
   { value: 'top', label: { ja: '話題', en: 'Top' } },
   { value: 'live', label: { ja: '最新', en: 'Latest' } },
   { value: 'user', label: { ja: 'アカウント', en: 'People' } },
   { value: 'media', label: { ja: 'メディア', en: 'Media' } },
-]
+];

@@ -6,7 +6,7 @@ export const contentPageLinks = [
   { slug: 'privacy', key: 'privacy' },
   { slug: 'terms', key: 'terms' },
   { slug: 'contact', key: 'contact' },
-] as const
+] as const;
 
-export type ContentPageSlug = (typeof contentPageLinks)[number]['slug']
-export type ContentPageLinkKey = (typeof contentPageLinks)[number]['key']
+export type ContentPageSlug = (typeof contentPageLinks)[number]['slug'];
+export type ContentPageLinkKey = (typeof contentPageLinks)[number]['key'];

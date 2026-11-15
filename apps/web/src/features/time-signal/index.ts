@@ -1,1 +1,1 @@
-export { TimeSignalWorkspace } from './components/time-signal-workspace'
+export { TimeSignalWorkspace } from './components/time-signal-workspace';

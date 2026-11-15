@@ -1,10 +1,10 @@
-import type { Bilingual } from '@/components/search/types'
+import type { Bilingual } from '@/components/search/types';
 import type {
   GmailAgeUnit,
   GmailCategory,
   GmailLocation,
   GmailState,
-} from '@/features/gmail-search/functions/gmail-search'
+} from '@/features/gmail-search/functions/gmail-search';
 
 export const gmailCategories: { value: GmailCategory; label: Bilingual }[] = [
   { value: '', label: { ja: '指定しない', en: 'Any category' } },
@@ -15,7 +15,7 @@ export const gmailCategories: { value: GmailCategory; label: Bilingual }[] = [
   { value: 'forums', label: { ja: 'フォーラム', en: 'Forums' } },
   { value: 'reservations', label: { ja: '予約', en: 'Reservations' } },
   { value: 'purchases', label: { ja: '購入', en: 'Purchases' } },
-]
+];
 
 export const gmailLocations: { value: GmailLocation; label: Bilingual }[] = [
   { value: '', label: { ja: '指定しない', en: 'Default' } },
@@ -26,7 +26,7 @@ export const gmailLocations: { value: GmailLocation; label: Bilingual }[] = [
   { value: 'snoozed', label: { ja: 'スヌーズ中', en: 'Snoozed' } },
   { value: 'trash', label: { ja: 'ゴミ箱', en: 'Trash' } },
   { value: 'spam', label: { ja: '迷惑メール', en: 'Spam' } },
-]
+];
 
 export const gmailStates: { value: GmailState; label: Bilingual }[] = [
   { value: '', label: { ja: '指定しない', en: 'Any state' } },
@@ -35,10 +35,10 @@ export const gmailStates: { value: GmailState; label: Bilingual }[] = [
   { value: 'starred', label: { ja: 'スター付き', en: 'Starred' } },
   { value: 'important', label: { ja: '重要', en: 'Important' } },
   { value: 'muted', label: { ja: 'ミュート', en: 'Muted' } },
-]
+];
 
 export const gmailAgeUnits: { value: GmailAgeUnit; label: Bilingual }[] = [
   { value: 'd', label: { ja: '日', en: 'Days' } },
   { value: 'm', label: { ja: 'か月', en: 'Months' } },
   { value: 'y', label: { ja: '年', en: 'Years' } },
-]
+];

@@ -1,24 +1,24 @@
-'use client'
+'use client';
 
-import { ChevronDown, History, LayoutGrid, PanelLeftClose, PanelLeftOpen } from 'lucide-react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
-import { useLocale } from '@/components/locale-provider'
-import { Button } from '@/components/ui/button'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { useRecentTools } from '@/hooks/use-recent-tools'
+import { ChevronDown, History, LayoutGrid, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
+import { useLocale } from '@/components/locale-provider';
+import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { useRecentTools } from '@/hooks/use-recent-tools';
 import {
   categoryOrder as categories,
   type ToolCategory,
   type ToolDefinition,
   tools,
-} from '@/libs/domain/catalog'
-import { getToolPath, isSamePath } from '@/libs/domain/tool-path'
-import { cn } from '@/libs/utils'
+} from '@/libs/domain/catalog';
+import { getToolPath, isSamePath } from '@/libs/domain/tool-path';
+import { cn } from '@/libs/utils';
 
-const storageKey = 'devtoys:collapsed-categories'
-const railStorageKey = 'devtoys:sidebar-collapsed'
+const storageKey = 'devtoys:collapsed-categories';
+const railStorageKey = 'devtoys:sidebar-collapsed';
 
 /** Reads a saved preference after mount so the static markup stays identical for everyone. */
 const usePersistentState = <Value,>(
@@ -26,39 +26,39 @@ const usePersistentState = <Value,>(
   initial: Value,
   parse: (raw: unknown) => Value,
 ) => {
-  const [value, setValue] = useState<Value>(initial)
+  const [value, setValue] = useState<Value>(initial);
 
   useEffect(() => {
     try {
-      const raw = window.localStorage.getItem(key)
-      if (raw !== null) setValue(parse(JSON.parse(raw)))
+      const raw = window.localStorage.getItem(key);
+      if (raw !== null) setValue(parse(JSON.parse(raw)));
     } catch {
       // A corrupt entry just means we keep the default.
     }
-  }, [key, parse])
+  }, [key, parse]);
 
   const store = useCallback(
     (next: Value) => {
-      setValue(next)
+      setValue(next);
       try {
-        window.localStorage.setItem(key, JSON.stringify(next))
+        window.localStorage.setItem(key, JSON.stringify(next));
       } catch {
         // Preference persistence is best-effort.
       }
     },
     [key],
-  )
+  );
 
-  return [value, store] as const
-}
+  return [value, store] as const;
+};
 
 const parseCategories = (raw: unknown): ToolCategory[] =>
-  Array.isArray(raw) ? raw.filter((item): item is ToolCategory => categories.includes(item)) : []
+  Array.isArray(raw) ? raw.filter((item): item is ToolCategory => categories.includes(item)) : [];
 
-const parseBoolean = (raw: unknown) => raw === true
+const parseBoolean = (raw: unknown) => raw === true;
 
 const useCollapsedCategories = () => {
-  const [collapsed, store] = usePersistentState<ToolCategory[]>(storageKey, [], parseCategories)
+  const [collapsed, store] = usePersistentState<ToolCategory[]>(storageKey, [], parseCategories);
 
   const toggle = useCallback(
     (category: ToolCategory) =>
@@ -68,13 +68,13 @@ const useCollapsedCategories = () => {
           : [...collapsed, category],
       ),
     [collapsed, store],
-  )
+  );
 
-  return { collapsed, toggle }
-}
+  return { collapsed, toggle };
+};
 
 const ToolLink = ({ tool, active }: { tool: ToolDefinition; active: boolean }) => {
-  const { locale } = useLocale()
+  const { locale } = useLocale();
   return (
     <Link
       href={getToolPath(locale, tool)}
@@ -92,12 +92,12 @@ const ToolLink = ({ tool, active }: { tool: ToolDefinition; active: boolean }) =
       <span className="truncate">{tool.title[locale]}</span>
       {active && <span className="ml-auto size-1.5 rounded-full bg-primary" />}
     </Link>
-  )
-}
+  );
+};
 
 /** Icon-only entry for the collapsed rail; the name moves into a tooltip. */
 const RailLink = ({ tool, active }: { tool: ToolDefinition; active: boolean }) => {
-  const { locale } = useLocale()
+  const { locale } = useLocale();
   return (
     <Tooltip>
       <TooltipTrigger
@@ -117,18 +117,18 @@ const RailLink = ({ tool, active }: { tool: ToolDefinition; active: boolean }) =
       </TooltipTrigger>
       <TooltipContent side="right">{tool.title[locale]}</TooltipContent>
     </Tooltip>
-  )
-}
+  );
+};
 
 export const AppSidebar = () => {
-  const pathname = usePathname()
-  const { locale, dictionary } = useLocale()
-  const recent = useRecentTools()
-  const { collapsed, toggle } = useCollapsedCategories()
-  const [rail, setRail] = usePersistentState(railStorageKey, false, parseBoolean)
+  const pathname = usePathname();
+  const { locale, dictionary } = useLocale();
+  const recent = useRecentTools();
+  const { collapsed, toggle } = useCollapsedCategories();
+  const [rail, setRail] = usePersistentState(railStorageKey, false, parseBoolean);
 
-  const isActive = (tool: ToolDefinition) => isSamePath(pathname, getToolPath(locale, tool))
-  const toggleLabel = rail ? dictionary.expandSidebar : dictionary.collapseSidebar
+  const isActive = (tool: ToolDefinition) => isSamePath(pathname, getToolPath(locale, tool));
+  const toggleLabel = rail ? dictionary.expandSidebar : dictionary.collapseSidebar;
 
   return (
     <aside
@@ -228,8 +228,8 @@ export const AppSidebar = () => {
 
             <nav className="space-y-3" aria-label={dictionary.mainNavigation}>
               {categories.map((category) => {
-                const entries = tools.filter((tool) => tool.category === category)
-                const isCollapsed = collapsed.includes(category)
+                const entries = tools.filter((tool) => tool.category === category);
+                const isCollapsed = collapsed.includes(category);
                 return (
                   <section key={category}>
                     <button
@@ -253,12 +253,12 @@ export const AppSidebar = () => {
                       </div>
                     )}
                   </section>
-                )
+                );
               })}
             </nav>
           </>
         )}
       </div>
     </aside>
-  )
-}
+  );
+};

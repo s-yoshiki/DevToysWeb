@@ -1,24 +1,24 @@
-export type TestDataLocale = 'ja' | 'en'
-export type OutputFormat = 'json' | 'csv' | 'tsv' | 'sql' | 'markdown'
+export type TestDataLocale = 'ja' | 'en';
+export type OutputFormat = 'json' | 'csv' | 'tsv' | 'sql' | 'markdown';
 
 /** Deterministic PRNG (mulberry32) so a given seed reproduces the same dataset. */
 const createRng = (seed: number) => {
-  let a = seed >>> 0
+  let a = seed >>> 0;
   return () => {
-    a |= 0
-    a = (a + 0x6d2b79f5) | 0
-    let t = Math.imul(a ^ (a >>> 15), 1 | a)
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
-  }
-}
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+};
 
-type Rng = () => number
-const pick = <T>(rng: Rng, list: readonly T[]): T => list[Math.floor(rng() * list.length)]
-const int = (rng: Rng, min: number, max: number) => Math.floor(rng() * (max - min + 1)) + min
-const pad = (n: number, len: number) => String(n).padStart(len, '0')
+type Rng = () => number;
+const pick = <T>(rng: Rng, list: readonly T[]): T => list[Math.floor(rng() * list.length)];
+const int = (rng: Rng, min: number, max: number) => Math.floor(rng() * (max - min + 1)) + min;
+const pad = (n: number, len: number) => String(n).padStart(len, '0');
 
-type NameEntry = readonly [string, string, string]
+type NameEntry = readonly [string, string, string];
 
 const SURNAMES: readonly NameEntry[] = [
   ['佐藤', 'さとう', 'Sato'],
@@ -41,7 +41,7 @@ const SURNAMES: readonly NameEntry[] = [
   ['林', 'はやし', 'Hayashi'],
   ['清水', 'しみず', 'Shimizu'],
   ['森', 'もり', 'Mori'],
-] as const
+] as const;
 
 const GIVEN_MALE: readonly NameEntry[] = [
   ['大翔', 'ひろと', 'Hiroto'],
@@ -54,7 +54,7 @@ const GIVEN_MALE: readonly NameEntry[] = [
   ['翔', 'しょう', 'Sho'],
   ['健太', 'けんた', 'Kenta'],
   ['大和', 'やまと', 'Yamato'],
-] as const
+] as const;
 
 const GIVEN_FEMALE: readonly NameEntry[] = [
   ['陽菜', 'ひな', 'Hina'],
@@ -67,7 +67,7 @@ const GIVEN_FEMALE: readonly NameEntry[] = [
   ['楓', 'かえで', 'Kaede'],
   ['莉子', 'りこ', 'Riko'],
   ['優奈', 'ゆうな', 'Yuna'],
-] as const
+] as const;
 
 const GIVEN_EN_MALE = [
   'James',
@@ -78,7 +78,7 @@ const GIVEN_EN_MALE = [
   'William',
   'Richard',
   'Thomas',
-]
+];
 const GIVEN_EN_FEMALE = [
   'Mary',
   'Patricia',
@@ -88,8 +88,8 @@ const GIVEN_EN_FEMALE = [
   'Susan',
   'Emily',
   'Olivia',
-]
-const SURNAMES_EN = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis']
+];
+const SURNAMES_EN = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis'];
 
 const PREFECTURES = [
   '北海道',
@@ -104,7 +104,7 @@ const PREFECTURES = [
   '千葉県',
   '静岡県',
   '広島県',
-] as const
+] as const;
 
 const CITIES = [
   '中央区',
@@ -117,7 +117,7 @@ const CITIES = [
   '東区',
   '中区',
   '桜区',
-] as const
+] as const;
 const TOWNS = [
   '本町',
   '栄町',
@@ -129,7 +129,7 @@ const TOWNS = [
   '若葉',
   '朝日',
   '幸町',
-] as const
+] as const;
 
 const US_CITIES = [
   'New York',
@@ -140,8 +140,8 @@ const US_CITIES = [
   'Seattle',
   'Boston',
   'Denver',
-]
-const US_STATES = ['NY', 'CA', 'IL', 'TX', 'AZ', 'WA', 'MA', 'CO']
+];
+const US_STATES = ['NY', 'CA', 'IL', 'TX', 'AZ', 'WA', 'MA', 'CO'];
 const STREETS = [
   'Main St',
   'Oak Ave',
@@ -151,9 +151,9 @@ const STREETS = [
   'Cedar Ln',
   'Pine St',
   'Lake Dr',
-]
+];
 
-const COMPANY_PREFIX = ['株式会社', '有限会社', '合同会社'] as const
+const COMPANY_PREFIX = ['株式会社', '有限会社', '合同会社'] as const;
 const COMPANY_CORE = [
   'テクノ',
   'グローバル',
@@ -163,7 +163,7 @@ const COMPANY_CORE = [
   'アルファ',
   'つばさ',
   'ひかり',
-]
+];
 const COMPANY_SUFFIX = [
   'システムズ',
   'ソリューションズ',
@@ -172,9 +172,18 @@ const COMPANY_SUFFIX = [
   '製作所',
   'ラボ',
   'ワークス',
-]
-const COMPANY_EN = ['Acme', 'Globex', 'Initech', 'Umbrella', 'Hooli', 'Stark', 'Wayne', 'Cyberdyne']
-const COMPANY_EN_SUFFIX = ['Inc.', 'LLC', 'Corp.', 'Group', 'Systems', 'Labs']
+];
+const COMPANY_EN = [
+  'Acme',
+  'Globex',
+  'Initech',
+  'Umbrella',
+  'Hooli',
+  'Stark',
+  'Wayne',
+  'Cyberdyne',
+];
+const COMPANY_EN_SUFFIX = ['Inc.', 'LLC', 'Corp.', 'Group', 'Systems', 'Labs'];
 
 const JOBS_JA = [
   'エンジニア',
@@ -185,7 +194,7 @@ const JOBS_JA = [
   '企画',
   'マーケター',
   'コンサルタント',
-]
+];
 const JOBS_EN = [
   'Engineer',
   'Sales',
@@ -195,18 +204,25 @@ const JOBS_EN = [
   'Marketer',
   'Consultant',
   'Developer',
-]
-const DOMAINS = ['example.com', 'example.net', 'example.org', 'test.co.jp', 'sample.io', 'demo.dev']
+];
+const DOMAINS = [
+  'example.com',
+  'example.net',
+  'example.org',
+  'test.co.jp',
+  'sample.io',
+  'demo.dev',
+];
 
 const uuidFromRng = (rng: Rng): string => {
-  const bytes = Array.from({ length: 16 }, () => int(rng, 0, 255))
-  bytes[6] = (bytes[6] & 0x0f) | 0x40
-  bytes[8] = (bytes[8] & 0x3f) | 0x80
-  const hex = bytes.map((b) => b.toString(16).padStart(2, '0'))
+  const bytes = Array.from({ length: 16 }, () => int(rng, 0, 255));
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = bytes.map((b) => b.toString(16).padStart(2, '0'));
   return `${hex.slice(0, 4).join('')}-${hex.slice(4, 6).join('')}-${hex.slice(6, 8).join('')}-${hex
     .slice(8, 10)
-    .join('')}-${hex.slice(10, 16).join('')}`
-}
+    .join('')}-${hex.slice(10, 16).join('')}`;
+};
 
 export type FieldKey =
   | 'id'
@@ -231,20 +247,20 @@ export type FieldKey =
   | 'url'
   | 'ipv4'
   | 'price'
-  | 'color'
+  | 'color';
 
 export type FieldDef = {
-  key: FieldKey
-  label: { ja: string; en: string }
-  gen: (rng: Rng, index: number, locale: TestDataLocale) => string | number | boolean
-}
+  key: FieldKey;
+  label: { ja: string; en: string };
+  gen: (rng: Rng, index: number, locale: TestDataLocale) => string | number | boolean;
+};
 
 // A per-row identity, so name/kana/email stay consistent within a record.
 const buildPerson = (rng: Rng, locale: TestDataLocale) => {
-  const female = rng() < 0.5
+  const female = rng() < 0.5;
   if (locale === 'ja') {
-    const surname = pick(rng, SURNAMES)
-    const given = pick(rng, female ? GIVEN_FEMALE : GIVEN_MALE)
+    const surname = pick(rng, SURNAMES);
+    const given = pick(rng, female ? GIVEN_FEMALE : GIVEN_MALE);
     return {
       lastName: surname[0],
       firstName: given[0],
@@ -252,10 +268,10 @@ const buildPerson = (rng: Rng, locale: TestDataLocale) => {
       fullNameKana: `${surname[1]} ${given[1]}`,
       romaji: `${given[2]}.${surname[2]}`.toLowerCase(),
       gender: female ? '女性' : '男性',
-    }
+    };
   }
-  const surname = pick(rng, SURNAMES_EN)
-  const first = pick(rng, female ? GIVEN_EN_FEMALE : GIVEN_EN_MALE)
+  const surname = pick(rng, SURNAMES_EN);
+  const first = pick(rng, female ? GIVEN_EN_FEMALE : GIVEN_EN_MALE);
   return {
     lastName: surname,
     firstName: first,
@@ -263,8 +279,8 @@ const buildPerson = (rng: Rng, locale: TestDataLocale) => {
     fullNameKana: `${first} ${surname}`,
     romaji: `${first}.${surname}`.toLowerCase(),
     gender: female ? 'Female' : 'Male',
-  }
-}
+  };
+};
 
 export const FIELD_DEFS: FieldDef[] = [
   { key: 'id', label: { ja: 'ID', en: 'ID' }, gen: (_r, i) => i + 1 },
@@ -379,11 +395,11 @@ export const FIELD_DEFS: FieldDef[] = [
     label: { ja: 'カラー', en: 'Color' },
     gen: (r) => `#${int(r, 0, 0xffffff).toString(16).padStart(6, '0')}`,
   },
-]
+];
 
-const fieldByKey = new Map(FIELD_DEFS.map((f) => [f.key, f]))
+const fieldByKey = new Map(FIELD_DEFS.map((f) => [f.key, f]));
 
-export type Row = Record<string, string | number | boolean>
+export type Row = Record<string, string | number | boolean>;
 
 export const generateRows = (
   keys: FieldKey[],
@@ -391,61 +407,61 @@ export const generateRows = (
   locale: TestDataLocale,
   seed: number,
 ): Row[] => {
-  const rng = createRng(seed)
-  const rows: Row[] = []
-  const n = Math.max(1, Math.min(count, 1000))
+  const rng = createRng(seed);
+  const rows: Row[] = [];
+  const n = Math.max(1, Math.min(count, 1000));
   for (let i = 0; i < n; i++) {
-    const row: Row = {}
+    const row: Row = {};
     for (const key of keys) {
-      const def = fieldByKey.get(key)
-      if (def) row[key] = def.gen(rng, i, locale)
+      const def = fieldByKey.get(key);
+      if (def) row[key] = def.gen(rng, i, locale);
     }
-    rows.push(row)
+    rows.push(row);
   }
-  return rows
-}
+  return rows;
+};
 
 // ---- Formatters ----
 
 const csvCell = (value: string | number | boolean, delimiter: string) => {
-  const s = String(value)
+  const s = String(value);
   return s.includes(delimiter) || s.includes('"') || s.includes('\n')
     ? `"${s.replace(/"/g, '""')}"`
-    : s
-}
+    : s;
+};
 
 const sqlValue = (value: string | number | boolean) => {
-  if (typeof value === 'number') return String(value)
-  if (typeof value === 'boolean') return value ? 'TRUE' : 'FALSE'
-  return `'${String(value).replace(/'/g, "''")}'`
-}
+  if (typeof value === 'number') return String(value);
+  if (typeof value === 'boolean') return value ? 'TRUE' : 'FALSE';
+  return `'${String(value).replace(/'/g, "''")}'`;
+};
 
 export const formatRows = (rows: Row[], keys: FieldKey[], format: OutputFormat): string => {
-  if (rows.length === 0 || keys.length === 0) return ''
+  if (rows.length === 0 || keys.length === 0) return '';
   switch (format) {
     case 'json':
-      return JSON.stringify(rows, null, 2)
+      return JSON.stringify(rows, null, 2);
     case 'csv':
     case 'tsv': {
-      const d = format === 'csv' ? ',' : '\t'
-      const header = keys.join(d)
-      const body = rows.map((row) => keys.map((k) => csvCell(row[k], d)).join(d))
-      return [header, ...body].join('\n')
+      const d = format === 'csv' ? ',' : '\t';
+      const header = keys.join(d);
+      const body = rows.map((row) => keys.map((k) => csvCell(row[k], d)).join(d));
+      return [header, ...body].join('\n');
     }
     case 'sql': {
-      const cols = keys.map((k) => `\`${k}\``).join(', ')
+      const cols = keys.map((k) => `\`${k}\``).join(', ');
       return rows
         .map(
           (row) =>
             `INSERT INTO test_data (${cols}) VALUES (${keys.map((k) => sqlValue(row[k])).join(', ')});`,
         )
-        .join('\n')
+        .join('\n');
     }
     case 'markdown': {
-      const header = `| ${keys.join(' | ')} |`
-      const divider = `| ${keys.map(() => '---').join(' | ')} |`
-      const body = rows.map((row) => `| ${keys.map((k) => String(row[k])).join(' | ')} |`)
-      return [header, divider, ...body].join('\n')
+      const header = `| ${keys.join(' | ')} |`;
+      const divider = `| ${keys.map(() => '---').join(' | ')} |`;
+      const body = rows.map((row) => `| ${keys.map((k) => String(row[k])).join(' | ')} |`);
+      return [header, divider, ...body].join('\n');
     }
   }
-}
+};

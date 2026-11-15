@@ -1,14 +1,14 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
+import { useId } from 'react';
 
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import type { Converter } from '../hooks/use-converter'
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import type { Converter } from '../hooks/use-converter';
 
 const OptionsRow = ({ children }: { children: React.ReactNode }) => (
   <div className="grid gap-4 border-b bg-muted/20 p-5 sm:grid-cols-2">{children}</div>
-)
+);
 
 const NumberOption = ({
   id,
@@ -18,12 +18,12 @@ const NumberOption = ({
   value,
   onChange,
 }: {
-  id: string
-  label: string
-  min: number
-  max: number
-  value: number
-  onChange: (value: number) => void
+  id: string;
+  label: string;
+  min: number;
+  max: number;
+  value: number;
+  onChange: (value: number) => void;
 }) => (
   <div className="space-y-2">
     <Label htmlFor={id}>{label}</Label>
@@ -36,16 +36,16 @@ const NumberOption = ({
       onChange={(event) => onChange(Number(event.target.value))}
     />
   </div>
-)
+);
 
 export const GeneratorOptions = ({
   converter,
   withLength,
 }: {
-  converter: Converter
-  withLength: boolean
+  converter: Converter;
+  withLength: boolean;
 }) => {
-  const fieldId = useId()
+  const fieldId = useId();
 
   return (
     <OptionsRow>
@@ -68,5 +68,5 @@ export const GeneratorOptions = ({
         />
       )}
     </OptionsRow>
-  )
-}
+  );
+};
