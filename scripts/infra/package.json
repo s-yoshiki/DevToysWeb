@@ -19,8 +19,8 @@
     "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:",
     "aws-cdk": "catalog:",
-    "esbuild": "^0.25.8",
-    "tsx": "^4.20.3",
+    "esbuild": "^0.28.2",
+    "tsx": "^4.23.15",
     "typescript": "catalog:"
   },
   "engines": {

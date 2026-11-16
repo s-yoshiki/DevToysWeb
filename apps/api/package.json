@@ -14,7 +14,7 @@
     "@repo/typescript-config": "workspace:*",
     "@types/aws-lambda": "catalog:",
     "@types/node": "catalog:",
-    "tsx": "^4.20.3",
+    "tsx": "^4.23.15",
     "typescript": "catalog:"
   },
   "engines": {
