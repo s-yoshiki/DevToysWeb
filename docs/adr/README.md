@@ -12,5 +12,6 @@
 | -------------------------------------- | ------------------------------------------ | -------- |
 | [0001](0001-repository-conventions.md) | ex-foundry リポジトリ規約                  | Accepted |
 | [0003](0003-oxlint-oxfmt-toolchain.md) | Oxlint と Oxfmt を lint / formatter に使う | Accepted |
+| [0004](0004-verify-without-build.md)   | verify から独立した build 検証を除外する   | Accepted |
 
 テンプレート: [template.md](template.md)

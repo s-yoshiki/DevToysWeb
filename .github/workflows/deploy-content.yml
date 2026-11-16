@@ -42,6 +42,7 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm verify
+      - run: pnpm build
 
       - name: Validate AWS deployment configuration
         run: |
