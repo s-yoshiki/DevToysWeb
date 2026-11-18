@@ -51,7 +51,7 @@
     "@types/react-dom": "catalog:",
     "msw": "catalog:",
     "tailwindcss": "catalog:",
-    "tsx": "^4.23.1",
+    "tsx": "^4.23.15",
     "typescript": "catalog:",
     "typescript6": "npm:@typescript/typescript6@^6.0.2"
   },
