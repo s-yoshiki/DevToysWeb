@@ -44,7 +44,7 @@ catalog:
   'jsonpath-plus': '^10.4.0'
   'lucide-react': '^1.72.0'
   'marked': '^18.2.0'
-  'mermaid': '^11.16.0'
+  'mermaid': '^12.3.0'
   'monaco-editor': '^0.57.0'
   'msw': '^2.15.0'
   'next': '16.4.6'
