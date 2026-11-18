@@ -41,7 +41,7 @@ catalog:
   'heic-to': '^1.6.7'
   'hono': '^4.13.18'
   'js-yaml': '^5.5.0'
-  'jsonpath-plus': '^10.4.0'
+  'jsonpath-plus': '^11.3.0'
   'lucide-react': '^1.72.0'
   'marked': '^18.2.0'
   'mermaid': '^11.16.0'
